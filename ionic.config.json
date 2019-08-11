@@ -1,7 +1,5 @@
 {
   "name": "ELog",
-  "integrations": {
-    "cordova": {}
-  },
+  "integrations": {},
   "type": "angular"
 }
