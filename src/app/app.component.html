@@ -1,3 +1,20 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu side="start" contentId="Custom" class="custommenu">
+    <ion-header>
+        <ion-toolbar color="#05003B">
+          <ion-title>E-Log</ion-title>
+        </ion-toolbar>
+    </ion-header>
+  <ion-content>
+    <ion-list  color="warning">
+      <ion-item href="../home" style="background-color:#05003B; " >Home</ion-item>
+      <ion-item href="../uploadpage">Upload</ion-item>
+
+    </ion-list>
+   
+  </ion-content>  
+
+
+  </ion-menu>
+  <ion-router-outlet id="Custom" main></ion-router-outlet>
 </ion-app>
