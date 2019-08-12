@@ -7,6 +7,7 @@ const routes: Routes = [
   { path: 'notification', loadChildren: './notification/notification.module#NotificationPageModule' },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },  { path: 'uploadtask', loadChildren: './uploadtask/uploadtask.module#UploadtaskPageModule' },
+  { path: 'setting', loadChildren: './setting/setting.module#SettingPageModule' },
 
 
 ];
