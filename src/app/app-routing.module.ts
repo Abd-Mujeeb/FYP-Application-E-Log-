@@ -8,7 +8,8 @@ const routes: Routes = [
   { path: 'notification', loadChildren: './notification/notification.module#NotificationPageModule' },
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
   { path: 'uploadtask', loadChildren: './uploadtask/uploadtask.module#UploadtaskPageModule' },
-  { path: 'setting', loadChildren: './setting/setting.module#SettingPageModule' },
+  { path: 'setting', loadChildren: './setting/setting.module#SettingPageModule' },  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },
+
   
 
 ];
