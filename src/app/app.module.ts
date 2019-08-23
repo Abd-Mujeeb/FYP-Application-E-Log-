@@ -26,9 +26,9 @@ import { UserService } from './user.service';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule,
-    AngularFirestoreModule,
+    AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything
+    AngularFireAuthModule, // imports firebase/firestore, only needed for database features
+    AngularFirestoreModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule,
     HttpModule
   ],
