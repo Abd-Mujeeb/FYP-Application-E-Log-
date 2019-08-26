@@ -11,6 +11,14 @@ const routes: Routes = [
   { path: 'setting', loadChildren: './setting/setting.module#SettingPageModule' },
   { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },
   { path: 'attendance', loadChildren: './attendance/attendance.module#AttendancePageModule' },
+  { path: 'home-admin', loadChildren: './home-admin/home-admin.module#HomeAdminPageModule' },
+  { path: 'users-pbs', loadChildren: './users-pbs/users-pbs.module#UsersPbsPageModule' },
+  { path: 'users-cps', loadChildren: './users-cps/users-cps.module#UsersCpsPageModule' },
+  { path: 'users-gc', loadChildren: './users-gc/users-gc.module#UsersGcPageModule' },
+  { path: 'users-student', loadChildren: './users-student/users-student.module#UsersStudentPageModule' },
+  { path: 'attendance-report', loadChildren: './attendance-report/attendance-report.module#AttendanceReportPageModule' },
+  { path: 'users-admin', loadChildren: './users-admin/users-admin.module#UsersAdminPageModule' },
+  { path: 'dailytask', loadChildren: './dailytask/dailytask.module#DailytaskPageModule' },
 
   
 

@@ -5,8 +5,8 @@
   <!-- <ion-router-outlet></ion-router-outlet>
 
 </ion-app> -->
-
-  <ion-menu side="start" contentId="Custom" class="custommenu">
+<ion-split-pane>
+  <ion-menu type="overlay" side="start" contentId="Custom" class="custommenu">
     <ion-header>
         <ion-toolbar color="#05003B">
           <ion-title>E-Log</ion-title>
@@ -14,11 +14,21 @@
     </ion-header>
   <ion-content>
     <ion-list  color="warning">
-      <ion-item href="../home">Home</ion-item>
+      <!-- <ion-item href="../home">Home</ion-item>
       <ion-item href="../uploadtask">Upload</ion-item>
       <ion-item href="../notification">Notifications</ion-item>
       <ion-item href="../setting">Settings</ion-item>
-      <ion-item href="../profile">Profile</ion-item>
+      <ion-item href="../profile">Profile</ion-item> --> 
+
+      <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+        <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
+          <ion-icon slot="start" [name]="p.icon"></ion-icon>
+          <ion-label>
+            {{p.title}}
+          </ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      
     </ion-list>
    
   </ion-content>  
@@ -26,4 +36,45 @@
 
   </ion-menu>
   <ion-router-outlet id="Custom" main></ion-router-outlet>
+</ion-split-pane>
+
+ <!-- The core Firebase JS SDK is always required and must be listed first -->
+ <script src="https://www.gstatic.com/firebasejs/6.4.0/firebase-app.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/6.4.0/firebase-auth.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/6.4.0/firebase-firestore.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/6.4.0/firebase-functions.js"></script>
+ <!-- TODO: Add SDKs for Firebase products that you want to use
+      https://firebase.google.com/docs/web/setup#config-web-app -->
+ 
+ <script>
+   // Your web app's Firebase configuration
+   var firebaseConfig = {
+     apiKey: "AIzaSyDFNM5AsLEAoYQhtnZ7XYRfMZWrvbgdZ0Q",
+     authDomain: "e-log-eab02.firebaseapp.com",
+     databaseURL: "https://e-log-eab02.firebaseio.com",
+     projectId: "e-log-eab02",
+     storageBucket: "e-log-eab02.appspot.com",
+     messagingSenderId: "950153231955",
+     appId: "1:950153231955:web:3f1547f346a26aa3"
+   };
+   // Initialize Firebase
+   firebase.initializeApp(firebaseConfig);
+ 
+ 
+   // make auth and firestore references
+   const auth = firebase.auth();
+   const db = firebase.firestore();
+   const functions = firebase.functions();
+ 
+   //update firestore settings
+   //db.settings({ timestampsInSnapshots: true });
+ </script>
+ 
+   <!-- Compiled and minified JavaScript -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+   <script src="scripts/auth.js"></script>
+   <script src="scripts/index.js"></script>
+ 
+     
+ 
 </ion-app>
