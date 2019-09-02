@@ -6,16 +6,23 @@
          </ion-button> 
          
           <ion-title>Home</ion-title>
+
+          <ion-button fill="clear" slot="end" routerLink="/uploadtask" *ngIf="isStudent">
+            <ion-icon name="create"></ion-icon>
+           </ion-button>
          
-         <ion-button fill="clear" slot="end" routerLink="/uploadtask">
-         <ion-icon name="create"></ion-icon>
-        </ion-button>
+          <ion-button fill="clear" slot="end" routerLink="/register" *ngIf="isAdmin">
+            <ion-icon name="create"></ion-icon>
+           </ion-button>
   </ion-toolbar>
   <!-- https://ionicframework.com/docs/api/menu  -->
 </ion-header>
 
 <ion-content>
 
+    <ion-button *ngIf="isAdmin">
+        issa button for admin
+      </ion-button>
 
   <!-- <ion-button *ngif="isAdmin">cubahtah</ion-button> -->
 </ion-content>

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
 
 
 @Component({
@@ -9,10 +12,37 @@ import { Component, OnInit } from '@angular/core';
 export class HomePage implements OnInit {
 
 
+  public isAdmin = false;
+  public isStudent = false;
+  public isgc = false;
 
   constructor( ) {}
 
   ngOnInit() {
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        firebase
+          .firestore()
+          .doc(`users_admin/${user.uid}`)
+          .get()
+          .then(users_adminSnapshot => {
+            this.isAdmin = users_adminSnapshot.data().isAdmin;
+          });
+      }
+    });
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        firebase
+          .firestore()
+          .doc(`users/${user.uid}`)
+          .get()
+          .then(usersSnapshot => {
+            this.isStudent = usersSnapshot.data().isStudent;
+          });
+      }
+    });
   }
 
 }

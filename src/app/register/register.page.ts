@@ -96,7 +96,7 @@ export class RegisterPage implements OnInit {
 				intakeno,
 				schooldept,
 				email,
-				isStdudent: true
+				isStudent: true
 			})
 
 			this.user.setUser({

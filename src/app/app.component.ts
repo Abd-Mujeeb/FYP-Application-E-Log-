@@ -18,6 +18,7 @@ import { AdminService } from './admin.service';
 })
 export class AppComponent implements OnInit {
 
+
  
 
 
@@ -41,6 +42,8 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+
+   
   
   }
 }
