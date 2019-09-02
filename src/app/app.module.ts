@@ -15,6 +15,10 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 
+import firebaseConfig from './firebase'
+
+
+
 import { HttpModule } from '@angular/http'
 import { UserService } from './user.service';
 
@@ -26,7 +30,7 @@ import { UserService } from './user.service';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything
+    AngularFireModule.initializeApp(firebaseConfig), // imports firebase/app needed for everything
     AngularFireAuthModule, // imports firebase/firestore, only needed for database features
     AngularFirestoreModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule,
@@ -43,3 +47,4 @@ import { UserService } from './user.service';
   bootstrap: [AppComponent]
 })
 export class AppModule {}
+

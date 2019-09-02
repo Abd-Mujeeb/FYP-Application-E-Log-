@@ -5,12 +5,19 @@
 </ion-header>
   
 <ion-content padding>
-  <ion-list>
-  
-      
+
+    <!-- new admin register -->
+
+  <ion-button  fill="solid" color="danger" (click)="onButtonClick_admin()">Admin</ion-button>
+  <ion-list *ngIf="buttonClicked_admin">
+     <ion-item>
+          <ion-label position="floating">Name</ion-label>
+          <ion-input type="text" [(ngModel)]="name"></ion-input>
+      </ion-item>
+
     <ion-item>
-        <ion-label position="floating">Username</ion-label>
-        <ion-input type="text" [(ngModel)]="username"></ion-input>
+        <ion-label position="floating">E-mail</ion-label>
+        <ion-input type="text" [(ngModel)]="email"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -22,9 +29,160 @@
         <ion-label position="floating">Confirm Password</ion-label>
         <ion-input type="password" [(ngModel)]="cpassword"></ion-input>
      </ion-item>
-</ion-list>
 
-    <ion-button fill="solid" expand="block" color="dark" (click)="register()">Signup</ion-button>
-    <h3>Already have an account?<a href="./login">Login</a></h3>
+     <ion-button fill="solid" expand="block" color="dark" (click)="regforadmin()">Register</ion-button>
+
+  </ion-list>
+
+  <!-- pb supervisor register -->
+  <ion-button fill="solid" color="danger" (click)="onButtonClick_pbsupervisor()">PB Supervisor</ion-button>
+  <ion-list *ngIf="buttonClicked_pbsupervisor">
+
+      <ion-item>
+          <ion-label position="floating">Name</ion-label>
+          <ion-input type="text" [(ngModel)]="name"></ion-input>
+      </ion-item>
+
+    <ion-item>
+        <ion-label position="floating">E-mail</ion-label>
+        <ion-input type="text" [(ngModel)]="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" [(ngModel)]="password"></ion-input>
+     </ion-item>
+  
+     <ion-item>
+        <ion-label position="floating">Confirm Password</ion-label>
+        <ion-input type="password" [(ngModel)]="cpassword"></ion-input>
+     </ion-item>
+
+     <ion-button fill="solid" expand="block" color="dark" (click)="regforpbsupervisor()">Register</ion-button>
+
+  </ion-list>
+
+<!-- industrial supervisor -->
+  <ion-button fill="solid" color="danger" (click)="onButtonClick_companysupervisor()">Industrial Supervisor</ion-button>
+  <ion-list *ngIf="buttonClicked_companysupervisor">
+
+      <ion-item>
+          <ion-label position="floating">Name</ion-label>
+          <ion-input type="text" [(ngModel)]="name"></ion-input>
+      </ion-item>
+
+
+      <ion-item>
+          <ion-label position="floating">Company</ion-label>
+          <ion-input type="text" [(ngModel)]="company"></ion-input>
+      </ion-item>
+
+    <ion-item>
+        <ion-label position="floating">E-mail</ion-label>
+        <ion-input type="text" [(ngModel)]="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" [(ngModel)]="password"></ion-input>
+     </ion-item>
+  
+     <ion-item>
+        <ion-label position="floating">Confirm Password</ion-label>
+        <ion-input type="password" [(ngModel)]="cpassword"></ion-input>
+     </ion-item>
+
+     <ion-button fill="solid" expand="block" color="dark" (click)="regforcompanysupervisor()">Register</ion-button>
+
+  </ion-list>
+
+  <!-- group Coordinator -->
+  <ion-button fill="solid" color="danger" (click)="onButtonClick_gc()">Group Coordinator</ion-button>
+  <ion-list *ngIf="buttonClicked_gc">
+    
+
+        <ion-item>
+            <ion-label position="floating">Name</ion-label>
+            <ion-input type="text" [(ngModel)]="name"></ion-input>
+        </ion-item>
+  
+        <ion-item>
+            <ion-label position="floating">Group Code</ion-label>
+            <ion-input type="text" [(ngModel)]="groupcode"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="floating">School Department</ion-label>
+            <ion-input type="text" [(ngModel)]="schooldept"></ion-input>
+        </ion-item>
+
+        <ion-item>
+        <ion-label position="floating">E-mail</ion-label>
+        <ion-input type="text" [(ngModel)]="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" [(ngModel)]="password"></ion-input>
+     </ion-item>
+  
+     <ion-item>
+        <ion-label position="floating">Confirm Password</ion-label>
+        <ion-input type="password" [(ngModel)]="cpassword"></ion-input>
+     </ion-item>
+
+     <ion-button fill="solid" expand="block" color="dark" (click)="regforgc()">Register</ion-button>
+
+  </ion-list>
+
+
+  <!-- Student  -->
+
+  <ion-button  fill="solid" color="danger" (click)="onButtonClick()">Student</ion-button>
+  <ion-list *ngIf="buttonClicked">
+
+      <ion-item>
+          <ion-label position="floating">Name</ion-label>
+          <ion-input type="text" [(ngModel)]="name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label position="floating">Group Code</ion-label>
+          <ion-input type="text" [(ngModel)]="groupcode"></ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label position="floating">Intake number</ion-label>
+          <ion-input type="text" [(ngModel)]="intakeno"></ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label position="floating">School Department</ion-label>
+          <ion-input type="text" [(ngModel)]="schooldept"></ion-input>
+      </ion-item>
+
+    <ion-item>
+        <ion-label position="floating">E-mail</ion-label>
+        <ion-input type="text" [(ngModel)]="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" [(ngModel)]="password"></ion-input>
+     </ion-item>
+  
+     <ion-item>
+        <ion-label position="floating">Confirm Password</ion-label>
+        <ion-input type="password" [(ngModel)]="cpassword"></ion-input>
+     </ion-item>
+
+
+    <ion-button fill="solid" expand="block" color="dark" (click)="register()">Register</ion-button>
+  </ion-list>
+
+
+  
+  
+    <!-- <p></p>Already have an account?<a href="./login">Login</a><p> -->
 </ion-content>
 
