@@ -19,8 +19,6 @@ import { AdminService } from './admin.service';
 export class AppComponent implements OnInit {
 
  
-  
- 
 
 
   constructor(

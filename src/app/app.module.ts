@@ -21,6 +21,8 @@ import firebaseConfig from './firebase'
 
 import { HttpModule } from '@angular/http'
 import { UserService } from './user.service';
+import { ServiceWorkerModule } from '@angular/service-worker';
+
 
 
 @NgModule({
@@ -34,7 +36,8 @@ import { UserService } from './user.service';
     AngularFireAuthModule, // imports firebase/firestore, only needed for database features
     AngularFirestoreModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule,
-    HttpModule
+    HttpModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
 
   providers: [
