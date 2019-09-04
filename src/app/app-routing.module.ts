@@ -10,7 +10,10 @@ const routes: Routes = [
   { path: 'uploadtask', loadChildren: './uploadtask/uploadtask.module#UploadtaskPageModule' },
   { path: 'setting', loadChildren: './setting/setting.module#SettingPageModule' },
   { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },
-  { path: 'attendance', loadChildren: './attendance/attendance.module#AttendancePageModule' }
+  { path: 'attendance', loadChildren: './attendance/attendance.module#AttendancePageModule' },
+  { path: 'new-task', loadChildren: './new-task/new-task.module#NewTaskPageModule' },
+  { path: 'details/:id', loadChildren: './details/details.module#DetailsPageModule' }
+
 
 
   
@@ -18,8 +21,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
   ],
   exports: [RouterModule]
 })

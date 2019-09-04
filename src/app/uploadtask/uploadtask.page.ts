@@ -5,8 +5,8 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { UserService } from '../user.service';
 import { firestore } from 'firebase/app';
 import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
-
+import { Router, ActivatedRoute } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 
 export interface Image {
   id: string;
@@ -52,6 +52,10 @@ export class UploadtaskPage implements OnInit {
 
   @ViewChild('fileButton', { static: false }) fileButton
 
+
+  //djabif code
+  items: Array<any>;
+  
   constructor(
 
     // smartcode
@@ -63,11 +67,16 @@ export class UploadtaskPage implements OnInit {
     public afstore: AngularFirestore,
     public user: UserService,
     private alertController: AlertController,
-		private router: Router) { }
+    private router: Router,
+    private route: ActivatedRoute,
+    public loadingCtrl: LoadingController,) { }
 
 
   ngOnInit() {
+    if (this.route && this.route.data) {
+      this.getData();
   }
+}
 
   // smartcode
   uploadImage(event) {
@@ -177,4 +186,24 @@ export class UploadtaskPage implements OnInit {
 		})
 	}
 
+
+  //djabif
+
+  async getData(){
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait...'
+    });
+    this.presentLoading(loading);
+
+    this.route.data.subscribe(routeData => {
+      routeData['data'].subscribe(data => {
+        loading.dismiss();
+        this.items = data;
+      })
+    })
+  }
+
+  async presentLoading(loading) {
+    return await loading.present();
+  }
 }
