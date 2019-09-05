@@ -3,6 +3,11 @@
     <ion-button fill="clear" slot="start" routerLink="/home">
       <ion-icon name="arrow-back"></ion-icon>
      </ion-button>
+     <ion-buttons slot="end">
+        <ion-button [routerLink]="['/new-task']">
+          <ion-icon slot="icon-only" name="add"></ion-icon>
+        </ion-button>
+      </ion-buttons>
 
      <ion-title>Upload Task</ion-title>
 
@@ -12,7 +17,7 @@
 
   <ion-content padding>
   
-    <div class="box">
+    <!-- <div class="box">
       <div class="preview">
         <img [src]="url" alt="">
       </div>
@@ -21,11 +26,9 @@
           <input (change)="uploadImage($event)" type="file" class="image-upload" accept="image/*">
         </label>
       </div>
-    </div>
+    </div> -->
 
-
-   
-    <div class="center">
+    <!-- <div class="center">
       <div class="camera"></div>
     
       <input type="file" *ngIf="!imageURL" (change)="fileChanged($event)" class="filebtn" #fileButton />
@@ -40,7 +43,24 @@
             <ion-button shape="round" color="primary" (click)="createPost()">POST</ion-button>
       </ion-card-content>
       </ion-card>
+    </div> -->
+  
+    <div *ngIf="items" class="list-mini-content" padding>
+      <div *ngIf="items.length > 0" class="list-mini">
+        <ion-list>
+          <ion-item *ngFor="let item of items" [routerLink]="['/details', item.payload.doc.id]">
+            <ion-thumbnail slot="start">
+              <img [src]="item.payload.doc.data().image">
+            </ion-thumbnail>
+            <ion-label>{{item.payload.doc.data().title}}</ion-label>
+            <ion-button fill="clear" slot="end">Details</ion-button>
+          </ion-item>
+        </ion-list>
+      </div>
+      <div *ngIf="items.length == 0" class="empty-list">
+        Please create your first task.
+      </div>
     </div>
-    
+
     </ion-content>
     
