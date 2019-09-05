@@ -10,7 +10,12 @@ const routes: Routes = [
   { path: 'uploadtask', loadChildren: './uploadtask/uploadtask.module#UploadtaskPageModule' },
   { path: 'setting', loadChildren: './setting/setting.module#SettingPageModule' },
   { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },
-  { path: 'attendance', loadChildren: './attendance/attendance.module#AttendancePageModule' }
+  { path: 'attendance', loadChildren: './attendance/attendance.module#AttendancePageModule' },  { path: 'info-admin', loadChildren: './info-admin/info-admin.module#InfoAdminPageModule' },
+  { path: 'info-pbsupervisor', loadChildren: './info-pbsupervisor/info-pbsupervisor.module#InfoPbsupervisorPageModule' },
+  { path: 'info-companysupervisor', loadChildren: './info-companysupervisor/info-companysupervisor.module#InfoCompanysupervisorPageModule' },
+  { path: 'info-gc', loadChildren: './info-gc/info-gc.module#InfoGcPageModule' },
+  { path: 'info-students', loadChildren: './info-students/info-students.module#InfoStudentsPageModule' }
+
 
 
   

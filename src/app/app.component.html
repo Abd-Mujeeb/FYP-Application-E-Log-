@@ -11,8 +11,14 @@
     <ion-list  color="warning">
       <ion-item href="../home" icon="home">Home</ion-item>
       <ion-item href="../profile">Profile</ion-item>
-      <ion-item href="../register">Register</ion-item>
-      <ion-item href="../notification">Notifications</ion-item>
+      <ion-item href="../attendance" *ngIf="isStudent">Attendance</ion-item>
+      <ion-item (click)="onButtonClick()" *ngIf="isAdmin">Users</ion-item>
+      <ion-item *ngIf="buttonClicked" href="../info_admin">Admin</ion-item>
+      <ion-item *ngIf="buttonClicked" href="../info_pbsupervisor">PB Supervisor</ion-item>
+      <ion-item *ngIf="buttonClicked" href="../info_companysupervisor">Industrial Supervisor</ion-item>
+      <ion-item *ngIf="buttonClicked" href="../info_gc">Group Coordinator</ion-item>
+      <ion-item *ngIf="buttonClicked" href="../info_students">Students</ion-item>
+      <ion-item href="../notification" *ngIf="isStudent">Notifications</ion-item>
       <ion-item href="../setting">Settings</ion-item>
       <ion-item href="../login">Logout</ion-item>
     

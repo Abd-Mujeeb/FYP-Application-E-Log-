@@ -18,9 +18,16 @@ import { AdminService } from './admin.service';
 })
 export class AppComponent implements OnInit {
 
+  public buttonClicked: boolean = false; //Whatever you want to initialise it as
+	
+  public onButtonClick() {
+
+    this.buttonClicked = !this.buttonClicked;
+  }
 
  
-
+  public isStudent = false;
+  public isAdmin = false;
 
   constructor(
     private platform: Platform,
@@ -42,6 +49,30 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        firebase
+          .firestore()
+          .doc(`users/${user.uid}`)
+          .get()
+          .then(usersSnapshot => {
+            this.isStudent = usersSnapshot.data().isStudent;
+          });
+      }
+    });
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        firebase
+          .firestore()
+          .doc(`users_admin/${user.uid}`)
+          .get()
+          .then(users_adminSnapshot => {
+            this.isAdmin = users_adminSnapshot.data().isAdmin;
+          });
+      }
+    });
 
    
   

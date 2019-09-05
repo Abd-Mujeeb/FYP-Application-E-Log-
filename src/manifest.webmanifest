@@ -1,6 +1,6 @@
 {
-  "name": "FYPApp",
-  "short_name": "FYPApp",
+  "name": "elog",
+  "short_name": "elog",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
