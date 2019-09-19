@@ -4,7 +4,7 @@ import { auth } from 'firebase/app'
 
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { Platform, NavController } from '@ionic/angular';
+import { Platform, NavController, LoadingController } from '@ionic/angular';
 
 import { UserService } from '../user.service';
 import { AdminService } from '../admin.service';
@@ -37,7 +37,8 @@ export class LoginPage implements OnInit{
 	public gc: gcService,
     public router: Router,
     public splashScreen: SplashScreen,
-    public navCtrl: NavController
+	public navCtrl: NavController,
+	public loadingController: LoadingController
     ) { 
       
   }
@@ -47,6 +48,18 @@ export class LoginPage implements OnInit{
 
   }
   
+
+  async presentLoadingWithOptions() {
+    const loading = await this.loadingController.create({
+      message: 'Signing In...Please wait',
+      spinner: "bubbles",
+      duration: 2000,
+      
+  
+      // cssClass: 'custom-class custom-loading'
+    });
+      await loading.present();
+  }
 
   async login() {
 		const { email, password } = this
