@@ -25,6 +25,8 @@ import firebaseConfig from './firebase'
 import { HttpModule } from '@angular/http'
 import { UserService } from './user.service';
 
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 ;
 
 
@@ -36,6 +38,8 @@ import { UserService } from './user.service';
     IonicModule.forRoot(),
     AppRoutingModule,
     FormsModule,
+    Geolocation,
+    NativeGeocoder,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseConfig), // imports firebase/app needed for everything
     AngularFireAuthModule, // imports firebase/firestore, only needed for database features
