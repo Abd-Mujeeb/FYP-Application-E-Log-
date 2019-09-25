@@ -38,8 +38,6 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
     IonicModule.forRoot(),
     AppRoutingModule,
     FormsModule,
-    Geolocation,
-    NativeGeocoder,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseConfig), // imports firebase/app needed for everything
     AngularFireAuthModule, // imports firebase/firestore, only needed for database features
@@ -53,6 +51,8 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
     SplashScreen,
     ImagePicker,
     WebView,
+    Geolocation,
+    NativeGeocoder,
     { provide: FirestoreSettingsToken, useValue: {} },
     { provide: RouteReuseStrategy, useClass:
        IonicRouteStrategy },
