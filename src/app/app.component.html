@@ -9,8 +9,8 @@
     </ion-header>
   <ion-content>
     <ion-list  color="warning">
-      <ion-item href="../home" icon="home">Home</ion-item>
-      <ion-item href="../profile">Profile</ion-item>
+      <ion-item [routerLink]="['../home']" icon="home">Home</ion-item>
+      <ion-item [routerLink]="['../profile']">Profile</ion-item>
       <ion-item href="../attendance" *ngIf="isStudent">Attendance</ion-item>
       <ion-item (click)="onButtonClick()" *ngIf="isAdmin">Users</ion-item>
       <ion-item *ngIf="buttonClicked" href="../info_admin">Admin</ion-item>
@@ -18,12 +18,13 @@
       <ion-item *ngIf="buttonClicked" href="../info_companysupervisor">Industrial Supervisor</ion-item>
       <ion-item *ngIf="buttonClicked" href="../info_gc">Group Coordinator</ion-item>
       <ion-item *ngIf="buttonClicked" href="../info_students">Students</ion-item>
-      <ion-item href="../notification" *ngIf="isStudent">Notifications</ion-item>
-      <ion-item href="../setting">Settings</ion-item>
+      <ion-item [routerLink]="['../notification']" *ngIf="isStudent">Notifications</ion-item>
+      <ion-item [routerLink]="['../setting']">Settings</ion-item>
       <ion-item href="../login">Logout</ion-item>
     
     </ion-list>
-    
+   
+    <ion-toggle [(ngModel)]="status" (ionChange)="tstChange()"></ion-toggle> 
    
   </ion-content>  
 

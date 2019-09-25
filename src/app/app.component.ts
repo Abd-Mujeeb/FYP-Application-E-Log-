@@ -10,6 +10,7 @@ import 'firebase/firestore';
 
 import { UserService } from './user.service';
 import { AdminService } from './admin.service';
+import { ThemeService } from './services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -33,12 +34,31 @@ export class AppComponent implements OnInit {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
+    private theme: ThemeService,
     public user: UserService, 
   	public admin: AdminService,
 
   ) {
     this.initializeApp();
   }
+
+  status = false;
+
+  tstChange(){
+    if(this.status) {
+      this.enableDark();
+    } else {
+      this.enableLight();
+    }
+   }
+  
+   enableDark(){
+     this.theme.enableDark();
+   }
+
+   enableLight(){
+     this.theme.enableLight();
+   }
 
 
   initializeApp() {

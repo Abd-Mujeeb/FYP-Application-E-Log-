@@ -17,7 +17,8 @@ const routes: Routes = [
   { path: 'info-gc', loadChildren: './info-gc/info-gc.module#InfoGcPageModule' },
   { path: 'info-students', loadChildren: './info-students/info-students.module#InfoStudentsPageModule' },
   { path: 'new-task', loadChildren: './new-task/new-task.module#NewTaskPageModule' },
-  { path: 'details/:id', loadChildren: './details/details.module#DetailsPageModule' }
+  { path: 'details/:id', loadChildren: './details/details.module#DetailsPageModule' },  { path: 'themes-page', loadChildren: './themes-page/themes-page.module#ThemesPagePageModule' }
+
 
 
   
