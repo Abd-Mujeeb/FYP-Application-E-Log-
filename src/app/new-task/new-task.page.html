@@ -29,6 +29,7 @@
         <ion-label position="floating" color="primary">Description</ion-label>
         <ion-input type="text" formControlName="description"></ion-input>
       </ion-item>
+      <h1 [hidden]="validations_form.valid" class="insertbtn">Please Insert Title and Description</h1>
       <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!validations_form.valid">Create</ion-button>
     </form>
   </ion-content>
