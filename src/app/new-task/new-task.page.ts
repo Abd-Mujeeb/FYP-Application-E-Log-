@@ -77,7 +77,7 @@ export class NewTaskPage implements OnInit {
 
   async uploadImageToFirebase(image){
     const loading = await this.loadingCtrl.create({
-      message: 'Please wait...'
+      message: 'Uploading...'
     });
     const toast = await this.toastCtrl.create({
       message: 'Image was updated successfully',

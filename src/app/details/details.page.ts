@@ -63,6 +63,10 @@ export class DetailsPage implements OnInit {
   }
 
   async delete() {
+ 
+    const alertdeleted = await this.alertCtrl.create({
+      header: 'Deleted Successfully'
+    });
     const alert = await this.alertCtrl.create({
       header: 'Confirm',
       message: 'Do you want to delete ' + this.item.title + '?',
@@ -79,6 +83,7 @@ export class DetailsPage implements OnInit {
             this.firebaseService.deleteTask(this.item.id)
             .then(
               res => {
+                alertdeleted.present();
                 this.router.navigate(["/uploadtask"]);
               },
               err => console.log(err)
@@ -115,7 +120,7 @@ export class DetailsPage implements OnInit {
 
   async uploadImageToFirebase(image){
     const loading = await this.loadingCtrl.create({
-      message: 'Please wait...'
+      message: 'Uploading...'
     });
     const toast = await this.toastCtrl.create({
       message: 'Image was updated successfully',
