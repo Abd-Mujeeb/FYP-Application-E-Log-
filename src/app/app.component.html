@@ -1,7 +1,7 @@
 
 <ion-app>
 
-  <ion-menu side="start" contentId="Custom" class="custommenu">
+  <ion-menu side="start" id="myMenu" contentId="Custom" class="custommenu">
     <ion-header>
         <ion-toolbar color="#05003B">
           <ion-title>E-Log</ion-title>
@@ -20,7 +20,7 @@
       <ion-item *ngIf="buttonClicked" href="../info_students">Students</ion-item>
       <ion-item [routerLink]="['../notification']" *ngIf="isStudent">Notifications</ion-item>
       <ion-item [routerLink]="['../setting']">Settings</ion-item>
-      <ion-item href="../login">Logout</ion-item>
+      <ion-item button (click)="logout()">Logout</ion-item>
     
     </ion-list>
    

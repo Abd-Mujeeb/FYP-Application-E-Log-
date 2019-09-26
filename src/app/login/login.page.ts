@@ -4,7 +4,7 @@ import { auth } from 'firebase/app'
 
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { Platform, NavController, LoadingController } from '@ionic/angular';
+import { Platform, NavController, LoadingController, MenuController } from '@ionic/angular';
 
 import { UserService } from '../user.service';
 import { AdminService } from '../admin.service';
@@ -38,12 +38,29 @@ export class LoginPage implements OnInit{
     public router: Router,
     public splashScreen: SplashScreen,
 	public navCtrl: NavController,
-	public loadingController: LoadingController
+	public loadingController: LoadingController,
+	public menu: MenuController
     ) { 
-      
+		
   }
 
+  ionViewDidEnter() {
+	this.menu.swipeEnable(false);
+	this.menu.enable(false);
 
+    // If you have more than one side menu, use the id like below
+    // this.menu.swipeEnable(false, 'menu1');
+  }
+
+  ionViewWillLeave() {
+    // Don't forget to return the swipe to normal, otherwise 
+    // the rest of the pages won't be able to swipe to open menu
+	this.menu.swipeEnable(true);
+	this.menu.enable(true);
+
+    // If you have more than one side menu, use the id like below
+    // this.menu.swipeEnable(true, 'menu1');
+   }
   ngOnInit() {
 
   }

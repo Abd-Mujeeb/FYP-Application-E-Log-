@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
@@ -11,6 +11,8 @@ import 'firebase/firestore';
 import { UserService } from './user.service';
 import { AdminService } from './admin.service';
 import { ThemeService } from './services/theme.service';
+import { AuthenticationService } from './services/authentication.service';
+
 
 @Component({
   selector: 'app-root',
@@ -30,19 +32,24 @@ export class AppComponent implements OnInit {
   public isStudent = false;
   public isAdmin = false;
 
+  userEmail: string;
+  
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private theme: ThemeService,
     public user: UserService, 
-  	public admin: AdminService,
+    public admin: AdminService,
+    private navCtrl: NavController,
+    private authService: AuthenticationService,
 
   ) {
     this.initializeApp();
   }
 
   status = false;
+  
 
   tstChange(){
     if(this.status) {
@@ -95,6 +102,22 @@ export class AppComponent implements OnInit {
     });
 
    
+    if(this.authService.userDetails()){
+      this.userEmail = this.authService.userDetails().email;
+    }else{
+      this.navCtrl.navigateBack('');
+    }
+  }
   
+
+  logout(){
+    this.authService.logoutUser()
+    .then(res => {
+      console.log(res);
+      this.navCtrl.navigateBack('');
+    })
+    .catch(error => {
+      console.log(error);
+    })
   }
 }
