@@ -19,8 +19,9 @@ import { AngularFirestoreModule,  FirestoreSettingsToken} from '@angular/fire/fi
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import firebaseConfig from './firebase'
+import firebaseConfig from './firebase';
 
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { HttpModule } from '@angular/http'
 import { UserService } from './user.service';
@@ -39,11 +40,12 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    AngularFireModule.initializeApp(firebaseConfig), // imports firebase/app needed for everything
+    AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything
     AngularFireAuthModule, // imports firebase/firestore, only needed for database features
     AngularFirestoreModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule,
-    HttpModule
+    HttpModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }) 
   ],
 
   providers: [
