@@ -28,8 +28,8 @@ import { UserService } from './user.service';
 
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
-;
 
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -58,7 +58,8 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
     { provide: FirestoreSettingsToken, useValue: {} },
     { provide: RouteReuseStrategy, useClass:
        IonicRouteStrategy },
-       UserService
+       UserService,
+       LocalNotifications,
   ],
   bootstrap: [AppComponent]
 })

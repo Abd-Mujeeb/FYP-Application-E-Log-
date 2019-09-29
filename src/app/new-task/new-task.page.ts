@@ -5,7 +5,7 @@ import { LoadingController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
-
+import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 @Component({
   selector: 'app-new-task',
   templateUrl: './new-task.page.html',
@@ -23,7 +23,8 @@ export class NewTaskPage implements OnInit {
     public router: Router,
     private formBuilder: FormBuilder,
     private firebaseService: FirebaseService,
-    private webview: WebView
+    private webview: WebView,
+    private localNotifications: LocalNotifications
   ) { }
 
   ngOnInit() {
@@ -38,7 +39,11 @@ export class NewTaskPage implements OnInit {
     });
   }
 
-  onSubmit(value){
+  async onSubmit(value){
+    const toast = await this.toastCtrl.create({
+      message: 'Task created successfully',
+      duration: 3000
+    });
     let data = {
       title: value.title,
       description: value.description,
@@ -48,6 +53,7 @@ export class NewTaskPage implements OnInit {
     .then(
       res => {
         this.router.navigate(["/uploadtask"]);
+        toast.present();
       }
     )
   }
@@ -100,6 +106,41 @@ export class NewTaskPage implements OnInit {
 
   async presentLoading(loading) {
     return await loading.present();
+  }
+
+  
+  tasknotification(seconds: number){
+    this.localNotifications.schedule([{
+      id: 1,
+      title: `E-log`,
+      text: `Your task successfully uploaded`,
+      trigger: {
+        // at: new Date(new Date().getTime() + seconds)
+        in: seconds,
+        unit: ELocalNotificationTriggerUnit.SECOND},     
+    },{
+      id: 2,
+      title: `You haven't upload any task for today`,
+      text: `Please upload your Task`,
+      trigger:{ at: new Date(new Date().getTime() + 82800 * 1000),
+      },
+    }]);
+
+  }
+
+  testing(){
+    this.localNotifications.schedule([{
+      id: 1,
+      title: `E-log`,
+      text: `Your task successfully uploaded`,
+    },{
+      id: 2,
+      title: `You haven't upload any task for today`,
+      text: `Please upload your Task`,
+      trigger:{ at: new Date(new Date().getTime() + 82800 * 1000),
+ 
+    },
+    }]);
   }
 
 }

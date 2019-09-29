@@ -5,7 +5,7 @@ import { LoadingController, ToastController, AlertController } from '@ionic/angu
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 @Component({
   selector: 'app-details',
   templateUrl: './details.page.html',
@@ -27,7 +27,8 @@ export class DetailsPage implements OnInit {
     private webview: WebView,
     private alertCtrl: AlertController,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private localNotifications: LocalNotifications
   ) { }
 
   ngOnInit() {
@@ -48,7 +49,12 @@ export class DetailsPage implements OnInit {
     });
   }
 
-  onSubmit(value){
+  async onSubmit(value){
+    const toast = await this.toastCtrl.create({
+      message: 'Task updated successfully',
+      duration: 3000
+    });
+    
     let data = {
       title: value.title,
       description: value.description,
@@ -58,6 +64,7 @@ export class DetailsPage implements OnInit {
     .then(
       res => {
         this.router.navigate(["/uploadtask"]);
+        toast.present();
       }
     )
   }
@@ -65,7 +72,9 @@ export class DetailsPage implements OnInit {
   async delete() {
  
     const alertdeleted = await this.alertCtrl.create({
-      header: 'Deleted Successfully'
+      header: '',
+      message: 'Task Deleted Successfully',
+      buttons: ['OK']
     });
     const alert = await this.alertCtrl.create({
       header: 'Confirm',
@@ -144,6 +153,18 @@ export class DetailsPage implements OnInit {
 
   async presentLoading(loading) {
     return await loading.present();
+  }
+
+  tasknotification(seconds: number){
+    this.localNotifications.schedule([{
+      title: `E-log`,
+      text: `Task Updated Successfully`,
+      trigger: {
+        // at: new Date(new Date().getTime() + seconds)
+        in: seconds,
+        unit: ELocalNotificationTriggerUnit.SECOND},     
+    }]);
+
   }
 
 }
