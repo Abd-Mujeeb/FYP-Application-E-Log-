@@ -20,13 +20,17 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 import firebaseConfig from './firebase';
 import { HttpModule } from '@angular/http'
 
 
-;
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,12 +41,13 @@ import { HttpModule } from '@angular/http'
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    AngularFireModule.initializeApp(firebaseConfig), // imports firebase/app needed for everything
+    AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything
     AngularFireAuthModule, // imports firebase/firestore, only needed for database features
     AngularFirestoreModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
-    HttpModule
+    HttpModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }) 
   ],
 
   providers: [
@@ -50,9 +55,12 @@ import { HttpModule } from '@angular/http'
     SplashScreen,
     ImagePicker,
     WebView,
+    Geolocation,
+    NativeGeocoder,
     { provide: FirestoreSettingsToken, useValue: {} },
     { provide: RouteReuseStrategy, useClass:
-       IonicRouteStrategy }
+       IonicRouteStrategy },
+       LocalNotifications,
   ],
   bootstrap: [AppComponent]
 })

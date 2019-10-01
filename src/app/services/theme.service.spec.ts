@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { gcService } from './gc.service';
+import { ThemeService } from './theme.service';
 
-describe('GcService', () => {
+describe('ThemeService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: gcService = TestBed.get(gcService);
+    const service: ThemeService = TestBed.get(ThemeService);
     expect(service).toBeTruthy();
   });
 });

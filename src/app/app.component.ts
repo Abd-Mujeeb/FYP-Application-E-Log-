@@ -3,13 +3,16 @@ import { Component, OnInit } from '@angular/core';
 
 // const { SplashScreen, StatusBar } = Plugins;
 
-import { Platform } from '@ionic/angular';
+import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+
+import { ThemeService } from './services/theme.service';
+import { AuthenticationService } from './services/authentication.service';
 
 
 @Component({
@@ -22,14 +25,38 @@ export class AppComponent implements OnInit {
 
 
 
+  userEmail: string;
+  
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
+    private theme: ThemeService,
+    private navCtrl: NavController,
+    private authService: AuthenticationService,
 
   ) {
     this.initializeApp();
   }
+
+  status = false;
+  
+
+  tstChange(){
+    if(this.status) {
+      this.enableDark();
+    } else {
+      this.enableLight();
+    }
+   }
+  
+   enableDark(){
+     this.theme.enableDark();
+   }
+
+   enableLight(){
+     this.theme.enableLight();
+   }
 
 
   initializeApp() {
@@ -49,6 +76,23 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+   
+    if(this.authService.userDetails()){
+      this.userEmail = this.authService.userDetails().email;
+    }else{
+      this.navCtrl.navigateBack('');
+    }
+  }
   
+
+  logout(){
+    this.authService.logoutUser()
+    .then(res => {
+      console.log(res);
+      this.navCtrl.navigateBack('');
+    })
+    .catch(error => {
+      console.log(error);
+    })
   }
 }

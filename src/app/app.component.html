@@ -1,6 +1,7 @@
 
 <ion-app>
-  <ion-menu side="start" contentId="Custom" class="custommenu" *ngIf="student">
+
+  <ion-menu side="start" id="myMenu" contentId="Custom" class="custommenu">
     <ion-header>
         <ion-toolbar color="#05003B">
           <ion-title>E-Log</ion-title>
@@ -8,13 +9,17 @@
     </ion-header>
   <ion-content>
     <ion-list  color="warning">
-      <ion-item href="../home" icon="home">Home</ion-item>
-      <ion-item href="../profile">Profile</ion-item>
+      <ion-item [routerLink]="['../home']" icon="home">Home</ion-item>
+      <ion-item [routerLink]="['../profile']">Profile</ion-item>
       <ion-item href="../attendance">Attendance</ion-item>
-      <ion-item href="../notification">Notifications</ion-item>
-      <ion-item href="../setting">Settings</ion-item>
-      <ion-item href="../login">Logout</ion-item>
+      <ion-item [routerLink]="['../notification']">Notifications</ion-item>
+      <ion-item [routerLink]="['../setting']">Settings</ion-item>
+      <ion-item button (click)="logout()">Logout</ion-item>
+    
     </ion-list>
+   
+    <ion-toggle [(ngModel)]="status" (ionChange)="tstChange()"></ion-toggle> 
+   
   </ion-content>  
   </ion-menu>
   <ion-router-outlet id="Custom" main></ion-router-outlet>

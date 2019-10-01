@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase/app';
+import { NavController } from '@ionic/angular';
 import 'firebase/auth';
 import 'firebase/firestore';
-import { AdminService } from '../admin.service';
-
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-home',
@@ -17,8 +17,12 @@ export class HomePage implements OnInit {
   public isStudent = false;
   public isgc = false;
 
+  userEmail: string;
 
-  constructor(private admin: AdminService ) {}
+  constructor( 
+    private navCtrl: NavController,
+    private authService: AuthenticationService,
+  ) {}
 
   ngOnInit() {
 
@@ -45,9 +49,25 @@ export class HomePage implements OnInit {
           });
       }
     });
+  
+    
+    if(this.authService.userDetails()){
+      this.userEmail = this.authService.userDetails().email;
+    }else{
+      this.navCtrl.navigateBack('');
+    }
 
-   
-   
+  }
+
+  logout(){
+    this.authService.logoutUser()
+    .then(res => {
+      console.log(res);
+      this.navCtrl.navigateBack('');
+    })
+    .catch(error => {
+      console.log(error);
+    })
   }
 
 }

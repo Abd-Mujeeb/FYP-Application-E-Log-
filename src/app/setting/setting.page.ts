@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ThemeService } from '../services/theme.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-setting',
@@ -7,7 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingPage implements OnInit {
 
-  constructor() { }
+  constructor(private theme: ThemeService, private sanitizer: DomSanitizer) { }
+
+  status = false;
+
+  tstChange(){
+    if(this.status) {
+      this.enableDark();
+    } else {
+      this.enableLight();
+    }
+   }
+  
+   enableDark(){
+     this.theme.enableDark();
+   }
+
+   enableLight(){
+     this.theme.enableLight();
+   }
+
 
   ngOnInit() {
   }

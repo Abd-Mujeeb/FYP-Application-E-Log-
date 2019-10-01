@@ -13,6 +13,7 @@ const routes: Routes = [
   // { path: 'attendance', loadChildren: './attendance/attendance.module#AttendancePageModule' },
   // { path: 'new-task', loadChildren: './new-task/new-task.module#NewTaskPageModule' },
   // { path: 'details/:id', loadChildren: './details/details.module#DetailsPageModule' },
+  // { path: 'themes-page', loadChildren: './themes-page/themes-page.module#ThemesPagePageModule' }
   
   {
     path: 'home',
@@ -45,6 +46,7 @@ const routes: Routes = [
   { path: 'signup', loadChildren: './pages/signup/signup.module#SignupPageModule' },
   { path: 'registration', loadChildren: './pages/registration/registration.module#RegistrationPageModule' },
   { path: 'reg-admin', loadChildren: './pages/reg-admin/reg-admin.module#RegAdminPageModule' },
+
 
   { path: 'info-admin', 
     loadChildren: './pages/info-admin/info-admin.module#InfoAdminPageModule', 
