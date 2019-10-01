@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import { AdminService } from '../admin.service';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class HomePage implements OnInit {
   public isStudent = false;
   public isgc = false;
 
-  constructor( ) {}
+
+  constructor(private admin: AdminService ) {}
 
   ngOnInit() {
 
@@ -43,6 +45,9 @@ export class HomePage implements OnInit {
           });
       }
     });
+
+   
+   
   }
 
 }

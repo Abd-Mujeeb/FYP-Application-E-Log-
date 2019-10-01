@@ -8,11 +8,11 @@ import {UserService} from '../user.service';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  userPosts
+  username
 
   constructor(private afs: AngularFirestore, private user: UserService) { 
-    const posts = afs.doc(`users/${user.getUID()}`)
-    this.userPosts = posts.valueChanges()
+    const name = afs.doc(`users/${user.getUID()}`)
+    this.username = name.valueChanges()
   }
 
     

@@ -1,7 +1,6 @@
 
 <ion-app>
-
-  <ion-menu side="start" contentId="Custom" class="custommenu">
+  <ion-menu side="start" contentId="Custom" class="custommenu" *ngIf="student">
     <ion-header>
         <ion-toolbar color="#05003B">
           <ion-title>E-Log</ion-title>
@@ -11,23 +10,12 @@
     <ion-list  color="warning">
       <ion-item href="../home" icon="home">Home</ion-item>
       <ion-item href="../profile">Profile</ion-item>
-      <ion-item href="../attendance" *ngIf="isStudent">Attendance</ion-item>
-      <ion-item (click)="onButtonClick()" *ngIf="isAdmin">Users</ion-item>
-      <ion-item *ngIf="buttonClicked" href="../info_admin">Admin</ion-item>
-      <ion-item *ngIf="buttonClicked" href="../info_pbsupervisor">PB Supervisor</ion-item>
-      <ion-item *ngIf="buttonClicked" href="../info_companysupervisor">Industrial Supervisor</ion-item>
-      <ion-item *ngIf="buttonClicked" href="../info_gc">Group Coordinator</ion-item>
-      <ion-item *ngIf="buttonClicked" href="../info_students">Students</ion-item>
-      <ion-item href="../notification" *ngIf="isStudent">Notifications</ion-item>
+      <ion-item href="../attendance">Attendance</ion-item>
+      <ion-item href="../notification">Notifications</ion-item>
       <ion-item href="../setting">Settings</ion-item>
       <ion-item href="../login">Logout</ion-item>
-    
     </ion-list>
-    
-   
   </ion-content>  
-
-
   </ion-menu>
   <ion-router-outlet id="Custom" main></ion-router-outlet>
 </ion-app>

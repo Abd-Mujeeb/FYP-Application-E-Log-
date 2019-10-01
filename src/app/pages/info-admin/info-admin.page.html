@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/home"></ion-back-button>
+        </ion-buttons>
+    <ion-title>Admin Details</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/profile">
+        <ion-icon slot="icon-only" name="person"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding> 
+
+    <ion-list>
+        <ion-list-header> <ion-label>Authentication</ion-label> </ion-list-header>
+        <ion-item
+          tappable
+          *ngFor="let item of userProfile"
+        >
+        <ion-label>
+        <h2>{{item?.firstName}} {{item?.lastName}}</h2>
+            <p>email: {{item?.email}} </p>
+
+          </ion-label>
+        </ion-item>
+      </ion-list>
+
+</ion-content>
