@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseService } from '../../services/firebase.service';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { LoadingController, ToastController, AlertController } from '@ionic/angular';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
-
+import { FirebaseService } from 'src/app/services/firebase.service';
 @Component({
   selector: 'app-details',
   templateUrl: './details.page.html',

@@ -1,16 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
 import { UploadtaskPage } from './uploadtask.page';
 
+import { UploadtaskResolver } from './uploadtask.resolver';
 const routes: Routes = [
   {
     path: '',
-    component: UploadtaskPage
+    component: UploadtaskPage,
+    resolve: {
+      data: UploadtaskResolver
+    }
   }
 ];
 
@@ -18,9 +22,13 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [UploadtaskPage]
+  declarations: [UploadtaskPage],
+  providers: [
+    UploadtaskResolver
+  ]
 })
 export class UploadtaskPageModule {}

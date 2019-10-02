@@ -13,6 +13,7 @@ import 'firebase/firestore';
 
 import { ThemeService } from './services/theme.service';
 import { AuthenticationService } from './services/authentication.service';
+import { UploadtaskService } from './services/user/uploadtask.service';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class AppComponent implements OnInit {
     private statusBar: StatusBar,
     private theme: ThemeService,
     private navCtrl: NavController,
+    private user: UploadtaskService,
     private authService: AuthenticationService,
 
   ) {

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
-import { FirebaseService } from '../../services/firebase.service';
+import { FirebaseService } from 'src/app/services/firebase.service';
+
 
 @Injectable()
 export class UploadtaskResolver implements Resolve<any> {
