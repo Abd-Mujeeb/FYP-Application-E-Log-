@@ -31,6 +31,8 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { environment } from 'src/environments/environment';
+import * as firebase from 'firebase';
+import { StudentService } from './services/user/student.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -60,6 +62,7 @@ import { environment } from 'src/environments/environment';
     { provide: FirestoreSettingsToken, useValue: {} },
     { provide: RouteReuseStrategy, useClass:
        IonicRouteStrategy },
+       StudentService,
        LocalNotifications,
   ],
   bootstrap: [AppComponent]

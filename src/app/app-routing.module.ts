@@ -15,37 +15,17 @@ const routes: Routes = [
   // { path: 'details/:id', loadChildren: './details/details.module#DetailsPageModule' },
   // { path: 'themes-page', loadChildren: './themes-page/themes-page.module#ThemesPagePageModule' }
   
+  { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
+  
   {
     path: 'home',
     loadChildren: './pages/home/home.module#HomePageModule',
     canActivate: [AuthGuard],
   },
-  { 
-    path: 'event-create', 
-    loadChildren: 
-    './pages/event-create/event-create.module#EventCreatePageModule',
-    canActivate: [AuthGuard],
-  },
-
-  { path: 'event-detail', 
-    loadChildren: 
-    './pages/event-detail/event-detail.module#EventDetailPageModule' },
-  { path: 'event-detail/:id', 
-    loadChildren: 
-    './pages/event-detail/event-detail.module#EventDetailPageModule', 
-    canActivate: [AuthGuard],
-  },
-
-  { path: 'event-list', 
-  loadChildren: './pages/event-list/event-list.module#EventListPageModule' },
-
-  { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
 
   { path: 'profile', loadChildren: './pages/profile/profile.module#ProfilePageModule',},
   { path: 'reset-password', loadChildren: './pages/reset-password/reset-password.module#ResetPasswordPageModule' },
   { path: 'signup', loadChildren: './pages/signup/signup.module#SignupPageModule' },
-  { path: 'registration', loadChildren: './pages/registration/registration.module#RegistrationPageModule' },
-  { path: 'reg-admin', loadChildren: './pages/reg-admin/reg-admin.module#RegAdminPageModule' },
 
 
   { path: 'info-admin', 
@@ -131,6 +111,59 @@ const routes: Routes = [
   data: {
     role: 'admin'
   } },
+
+  { path: 'attendance', 
+  loadChildren: './pages/attendance/attendance.module#AttendancePageModule',
+  data: {
+  role: 'student'
+  }  },
+
+  { path: 'dailytask', 
+  loadChildren: './pages/dailytask/dailytask.module#DailytaskPageModule',
+  data: {
+  role: 'student'
+  }  },
+
+  { path: 'details', 
+  loadChildren: './pages/details/details.module#DetailsPageModule',
+  data: {
+  role: 'student'
+  }  },
+
+  { path: 'details/:id', 
+  loadChildren: './pages/details/details.module#DetailsPageModule',
+  data: {
+  role: 'student'
+  }  },
+  
+  { path: 'new-task', 
+  loadChildren: './pages/new-task/new-task.module#NewTaskPageModule',
+  data: {
+    role: 'student'
+    } },
+
+  { path: 'setting', loadChildren: './pages/setting/setting.module#SettingPageModule',
+  data: {
+    role: 'student'
+    } },
+
+  { path: 'themes-page', 
+  loadChildren: './pages/themes-page/themes-page.module#ThemesPagePageModule',
+  data: {
+    role: 'student'
+    }  },
+
+  { path: 'uploadtask', 
+  loadChildren: './pages/uploadtask/uploadtask.module#UploadtaskPageModule',
+  data: {
+    role: 'student'
+    }  },
+
+  { path: 'notification', 
+  loadChildren: './pages/notification/notification.module#NotificationPageModule',
+  data: {
+    role: 'student'
+    }  },
   
 
 ];

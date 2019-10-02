@@ -54,22 +54,22 @@ export class AuthService {
     )
   }
 
-  // signupUser(firstName: string, lastName: string, email: string, password: string): Promise<any> {
-  //   return firebase
-  //     .auth()
-  //     .createUserWithEmailAndPassword(email, password)
-  //     .then((newUserCredential: firebase.auth.UserCredential) => {
-  //       firebase
-  //         .firestore()
-  //         .doc(`/userProfile/${newUserCredential.user.uid}`)
-  //         .set({ firstName, lastName, email, admin:true });
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //       throw new Error(error);
-  //     });
+  signupUser(firstName: string, lastName: string, email: string, password: string): Promise<any> {
+    return firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((newUserCredential: firebase.auth.UserCredential) => {
+        firebase
+          .firestore()
+          .doc(`/userProfile/${newUserCredential.user.uid}`)
+          .set({ firstName, lastName, email, admin:true });
+      })
+      .catch(error => {
+        console.error(error);
+        throw new Error(error);
+      });
   
-  //   }
+    }
 
 
 
