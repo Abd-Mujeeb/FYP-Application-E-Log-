@@ -8,6 +8,7 @@ import { take, switchMap, tap } from 'rxjs/operators';
 import { from, Observable, of, BehaviorSubject } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { FirebaseService } from '../firebase.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class AuthService {
   currentUser = new BehaviorSubject(null);
  
 
-  constructor(private afAuth: AngularFireAuth, private firestore: AngularFirestore, private router: Router) {
+  constructor(private afAuth: AngularFireAuth,
+    private firebaseService: FirebaseService, private firestore: AngularFirestore, private router: Router) {
     this.user = this.afAuth.authState.pipe(
       switchMap(user => {
         if (user) {
@@ -92,6 +94,18 @@ export class AuthService {
     return true;
   }
 
+  doLogout(){
+    return new Promise((resolve, reject) => {
+      this.afAuth.auth.signOut()
+      .then(() => {
+        this.firebaseService.unsubscribeOnLogOut();
+        resolve();
+      }).catch((error) => {
+        console.log(error);
+        reject();
+      });
+    })
+  }
 
   
 }
