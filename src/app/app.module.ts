@@ -33,7 +33,6 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { environment } from 'src/environments/environment';
 import * as firebase from 'firebase';
 import { StudentService } from './services/user/student.service';
-import { UploadtaskService } from './services/user/uploadtask.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -64,7 +63,6 @@ import { UploadtaskService } from './services/user/uploadtask.service';
     { provide: RouteReuseStrategy, useClass:
        IonicRouteStrategy },
        StudentService,
-       UploadtaskService,
        LocalNotifications,
   ],
   bootstrap: [AppComponent]
