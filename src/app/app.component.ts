@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-// import { Plugins } from '@capacitor/core';
-
-// const { SplashScreen, StatusBar } = Plugins;
 
 import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
