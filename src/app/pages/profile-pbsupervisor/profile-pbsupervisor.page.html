@@ -38,6 +38,24 @@
             </ion-grid>
           </ion-label>
         </ion-item>
+
+        <ion-item>
+            <ion-label>
+              <ion-grid>
+                <ion-row>
+                  <ion-col class="text-left" size="5"> School Department </ion-col>
+                  <ion-col
+                    class="text-center"
+                    size="7"
+                    *ngIf="userProfile?.school_dept"
+                  >
+                    {{userProfile?.school_dept}}
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-label>
+          </ion-item>
+
     
         <ion-item (click)="updateEmail()">
           <ion-label>
