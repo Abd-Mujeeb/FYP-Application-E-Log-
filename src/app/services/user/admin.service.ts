@@ -11,27 +11,27 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class AdminService {
 
-  public users_admin: firebase.firestore.DocumentReference;
+  public userProfile: firebase.firestore.DocumentReference;
   public currentUser: firebase.User;
   
   constructor(private authService: AuthService,
     private firestore: AngularFirestore) { 
     firebase.auth().onAuthStateChanged(user => { if (user) 
-      { this.currentUser = user; this.users_admin = firebase.firestore().doc(`/users/${user.uid}`);}}); 
+      { this.currentUser = user; this.userProfile = firebase.firestore().doc(`users/${user.uid}`);}}); 
       this.currentUser = firebase.auth().currentUser; 
-      this.users_admin = firebase.firestore().doc(`/users/${this.currentUser.uid}`);
+      this.userProfile = firebase.firestore().doc(`users/${this.currentUser.uid}`);
   }
 
   getUserProfile(): firebase.firestore.DocumentReference {
-    return this.users_admin;
+    return this.userProfile;
   }
 
   getUserProfileAdmin(): firebase.firestore.DocumentReference {
-    return this.users_admin;
+    return this.userProfile;
   }
 
-  updateName(firstName: string, lastName: string): Promise<any> {
-    return this.users_admin.update({ firstName, lastName })
+  updateName(name: string): Promise<any> {
+    return this.userProfile.update({ name })
   }
 
   // updateDOB(birthDate: string): Promise<any> {
@@ -48,7 +48,7 @@ export class AdminService {
       .reauthenticateWithCredential(credential)
       .then(() => {
         this.currentUser.updateEmail(newEmail).then(() => {
-          this.users_admin.update({ email: newEmail });
+          this.userProfile.update({ email: newEmail });
         });
       })
       .catch(error => {

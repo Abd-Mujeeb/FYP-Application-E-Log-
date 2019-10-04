@@ -12,8 +12,6 @@ import * as firebase from 'firebase/app';
 })
 export class LoginPage implements OnInit {
 
-  public admin = false;
-  public gc = false;
   public loginForm: FormGroup;
   public loading: HTMLIonLoadingElement;
 

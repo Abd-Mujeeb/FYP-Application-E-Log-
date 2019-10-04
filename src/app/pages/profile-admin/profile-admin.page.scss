@@ -9,6 +9,11 @@ ion-list-header {
   .text-left {
     text-align: left;
   }
+
+  .text-right {
+    text-align: right;
+
+  }
   
   .placeholder-profile {
     color: #cccccc;
@@ -18,4 +23,12 @@ ion-list-header {
     color: #000000;
     padding: 10px;
     max-width: 50%;
+  }
+
+  .edit {
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+    width: 50px;
+    border: 1px solid;
   }

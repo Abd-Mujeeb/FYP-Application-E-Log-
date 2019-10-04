@@ -31,20 +31,20 @@ export class ProfilePbsupervisorPage implements OnInit {
       this.userProfile = userProfilePbsupervisorSnapshot.data();
     });
 
-    this.pbsupervisorService.read_pbsupervisor().subscribe(data => {
+    // this.pbsupervisorService.read_pbsupervisor().subscribe(data => {
  
-      this.userProfile = data.map(e => {
-        return {
-          id: e.payload.doc.id,
-          isEdit: false,
-          firstName: e.payload.doc.data()['firstName'],
-          lastName: e.payload.doc.data()['lastName'],
-          email: e.payload.doc.data()['email'],
-        };
-      })
-      console.log(this.userProfile);
+    //   this.userProfile = data.map(e => {
+    //     return {
+    //       id: e.payload.doc.id,
+    //       isEdit: false,
+    //       firstName: e.payload.doc.data()['firstName'],
+    //       lastName: e.payload.doc.data()['lastName'],
+    //       email: e.payload.doc.data()['email'],
+    //     };
+    //   })
+    //   console.log(this.userProfile);
  
-    });
+    // });
   }
 
   logOut(): void {
@@ -56,27 +56,22 @@ export class ProfilePbsupervisorPage implements OnInit {
 
   async updateName(): Promise<void> {
     const alert = await this.alertCtrl.create({
-      subHeader: 'Your first name & last name',
+      subHeader: 'Name:',
       inputs: [
         {
           type: 'text',
-          name: 'firstName',
-          placeholder: 'Your first name',
-          value: this.userProfile.firstName,
-        },
-        {
-          type: 'text',
-          name: 'lastName',
-          placeholder: 'Your last name',
-          value: this.userProfile.lastName,
-        },
+          name: 'name',
+          placeholder: 'Your full name',
+          value: this.userProfile.name,
+        }
       ],
       buttons: [
         { text: 'Cancel' },
         {
           text: 'Save',
           handler: data => {
-            this.pbsupervisorService.updateName(data.firstName, data.lastName);
+            this.pbsupervisorService.updateName(data.name);
+            this.ngOnInit();
           },
         },
       ],

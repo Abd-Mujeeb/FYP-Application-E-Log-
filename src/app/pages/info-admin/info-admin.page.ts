@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../services/user/profile.service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { AuthService } from 'src/app/services/user/auth.service';
+import { AdminService } from 'src/app/services/user/admin.service';
 
 @Component({
   selector: 'app-info-admin',
@@ -15,20 +15,19 @@ export class InfoAdminPage implements OnInit {
 
   constructor(
     private alertCtrl: AlertController,
-    private authService: AuthService,
+    private adminService: AdminService,
     private profileService: ProfileService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.profileService.read_Admin().subscribe(data => {
+     this.adminService.read_Admin().subscribe(data => {
  
       this.userProfile = data.map(e => {
         return {
           id: e.payload.doc.id,
           isEdit: false,
-          firstName: e.payload.doc.data()['firstName'],
-          lastName: e.payload.doc.data()['lastName'],
+          name: e.payload.doc.data()['name'],
           email: e.payload.doc.data()['email'],
         };
       })

@@ -24,8 +24,8 @@ export class GcService {
     return this.users_gc;
   }
 
-  updateName(firstName: string, lastName: string): Promise<any> {
-    return this.users_gc.update({ firstName, lastName })
+  updateName(name: string): Promise<any> {
+    return this.users_gc.update({ name })
   }
 
   // updateDOB(birthDate: string): Promise<any> {
