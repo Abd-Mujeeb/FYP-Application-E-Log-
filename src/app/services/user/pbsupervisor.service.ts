@@ -25,8 +25,8 @@ export class PbsupervisorService {
     return this.users_pbsupervisor;
   }
 
-  updateName(firstName: string, lastName: string): Promise<any> {
-    return this.users_pbsupervisor.update({ firstName, lastName })
+  updateName(name: string): Promise<any> {
+    return this.users_pbsupervisor.update({ name })
   }
 
   // updateDOB(birthDate: string): Promise<any> {

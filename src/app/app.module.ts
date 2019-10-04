@@ -35,7 +35,6 @@ import * as firebase from 'firebase';
 import { StudentService } from './services/user/student.service';
 
 firebase.initializeApp(environment.firebase);
-
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],

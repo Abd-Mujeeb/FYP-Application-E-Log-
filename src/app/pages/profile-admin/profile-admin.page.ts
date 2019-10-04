@@ -30,20 +30,19 @@ export class ProfileAdminPage implements OnInit {
       this.userProfile = userProfileAdminSnapshot.data();
     });
 
-    this.adminService.read_Admin().subscribe(data => {
+    // this.adminService.getUserProfileAdmin().subscribe(data => {
  
-      this.userProfile = data.map(e => {
-        return {
-          id: e.payload.doc.id,
-          isEdit: false,
-          firstName: e.payload.doc.data()['firstName'],
-          lastName: e.payload.doc.data()['lastName'],
-          email: e.payload.doc.data()['email'],
-        };
-      })
-      console.log(this.userProfile);
+    //   this.userProfile = data.map(e => {
+    //     return {
+    //       id: e.payload.doc.id,
+    //       isEdit: false,
+    //       name: e.payload.doc.data()['name'],
+    //       email: e.payload.doc.data()['email'],
+    //     };
+    //   })
+    //   console.log(this.userProfile);
  
-    });
+    // });
   }
 
   logOut(): void {
@@ -55,28 +54,23 @@ export class ProfileAdminPage implements OnInit {
 
   async updateName(): Promise<void> {
     const alert = await this.alertCtrl.create({
-      subHeader: 'Your first name & last name',
+      subHeader: 'Your name',
       inputs: [
         {
           type: 'text',
-          name: 'firstName',
-          placeholder: 'Your first name',
-          value: this.userProfile.firstName,
-        },
-        {
-          type: 'text',
-          name: 'lastName',
-          placeholder: 'Your last name',
-          value: this.userProfile.lastName,
-        },
+          name: 'name',
+          placeholder: 'Your name',
+          value: this.userProfile.name,
+        }
       ],
       buttons: [
         { text: 'Cancel' },
         {
           text: 'Save',
           handler: data => {
-            this.adminService.updateName(data.firstName, data.lastName);
-          },
+            this.adminService.updateName(data.name);
+            return this.ngOnInit();
+          }
         },
       ],
     });

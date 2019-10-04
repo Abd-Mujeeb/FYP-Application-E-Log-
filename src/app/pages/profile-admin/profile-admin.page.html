@@ -1,8 +1,8 @@
 <ion-header>
     <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref="/home"></ion-back-button>
-      </ion-buttons>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/home"></ion-back-button>
+          </ion-buttons>
       <ion-title>Profile Page</ion-title>
       <ion-buttons slot="end">
         <ion-button (click)="logOut()">
@@ -23,30 +23,20 @@
               <ion-col
                 class="text-center"
                 size="7"
-                *ngIf="userProfile?.firstName || userProfile?.lastName"
+                *ngIf="userProfile?.name"
               >
-                {{userProfile?.firstName}} {{userProfile?.lastName}}
+                {{userProfile?.name}}
               </ion-col>
               <ion-col
                 size="7"
                 class="placeholder-profile text-center"
-                *ngIf="!userProfile?.firstName"
+                *ngIf="!userProfile?.name"
               >
                 <span> Tap here to edit. </span>
               </ion-col>
             </ion-row>
           </ion-grid>
         </ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label class="dob-label">Date of Birth</ion-label>
-        <ion-datetime
-          displayFormat="MMM D, YYYY"
-          pickerFormat="D MMM YYYY"
-          [(ngModel)]="birthDate"
-          (ionChange)="updateDOB(birthDate)"
-        >
-        </ion-datetime>
       </ion-item>
   
       <ion-item (click)="updateEmail()">
@@ -70,16 +60,17 @@
       </ion-item>
       
       <ion-item (click)="updatePassword()">
+        <ion-button>
         <ion-label>
           <ion-grid>
-            <ion-row>
-              <ion-col class="text-left" size="5"> Password </ion-col>
-              <ion-col class="text-center" size="7" class="placeholder-profile">
-                <span> Tap here to edit. </span>
-              </ion-col>
+            <ion-row class="text-center" size="7" class="placeholder-profile">
+              
+                <span> Change Password</span>
+              
             </ion-row>
           </ion-grid>
         </ion-label>
+      </ion-button>
       </ion-item>
   
       

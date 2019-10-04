@@ -30,20 +30,19 @@ export class ProfileGcPage implements OnInit {
       this.userProfile = userProfileGcSnapshot.data();
     });
 
-    this.gcService.read_gc().subscribe(data => {
+    // this.gcService.read_gc().subscribe(data => {
  
-      this.userProfile = data.map(e => {
-        return {
-          id: e.payload.doc.id,
-          isEdit: false,
-          firstName: e.payload.doc.data()['firstName'],
-          lastName: e.payload.doc.data()['lastName'],
-          email: e.payload.doc.data()['email'],
-        };
-      })
-      console.log(this.userProfile);
+    //   this.userProfile = data.map(e => {
+    //     return {
+    //       id: e.payload.doc.id,
+    //       isEdit: false,
+    //       name: e.payload.doc.data()['name'],
+    //       email: e.payload.doc.data()['email'],
+    //     };
+    //   })
+    //   console.log(this.userProfile);
  
-    });
+    // });
   }
 
   logOut(): void {
@@ -55,27 +54,22 @@ export class ProfileGcPage implements OnInit {
 
   async updateName(): Promise<void> {
     const alert = await this.alertCtrl.create({
-      subHeader: 'Your first name & last name',
+      subHeader: 'change ur name',
       inputs: [
         {
           type: 'text',
-          name: 'firstName',
-          placeholder: 'Your first name',
-          value: this.userProfile.firstName,
-        },
-        {
-          type: 'text',
-          name: 'lastName',
-          placeholder: 'Your last name',
-          value: this.userProfile.lastName,
-        },
+          name: 'name',
+          placeholder: 'Your fullame',
+          value: this.userProfile.name,
+        }
       ],
       buttons: [
         { text: 'Cancel' },
         {
           text: 'Save',
           handler: data => {
-            this.gcService.updateName(data.firstName, data.lastName);
+            this.gcService.updateName(data.name);
+            return this.ngOnInit();
           },
         },
       ],
@@ -83,12 +77,6 @@ export class ProfileGcPage implements OnInit {
     await alert.present();
   }
 
-  // updateDOB(birthDate: string): void {
-  //   if (birthDate === undefined) {
-  //     return;
-  //   }
-  //   this.gcService.updateDOB(birthDate);
-  // }
 
   async updateEmail(): Promise<void> {
     const alert = await this.alertCtrl.create({

@@ -34,8 +34,8 @@ export class StudentService {
     return this.users_student;
   }
 
-  updateName(firstName: string, lastName: string): Promise<any> {
-    return this.users_student.update({ firstName, lastName })
+  updateName(name: string): Promise<any> {
+    return this.users_student.update({ name })
   }
 
   // updateDOB(birthDate: string): Promise<any> {
