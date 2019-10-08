@@ -77,5 +77,9 @@ export class PbsupervisorService {
     return this.firestore.collection('users',  ref => ref.where('role', '==', 'pbsupervisor')).snapshotChanges();
   }
 
+  delete_pbsupervisor(record_id) {
+    this.firestore.doc('users/' + record_id).delete();
+  }
+
 
 }

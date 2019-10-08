@@ -29,4 +29,22 @@ export class InfoPbsupervisorPage implements OnInit {
     });
   }
 
+  EditRecord(record) {
+    record.isEdit = true;
+    record.Editname = record.name;
+    record.Editemail = record.email;
+  }
+ 
+  UpdateRecord(recordRow) {
+    let record = {};
+    record['name'] = recordRow.Editname;
+    record['email'] = recordRow.Editemail;
+    this.pbsupervisorService.update_pbsupervisor(recordRow.id, record);
+    recordRow.isEdit = false;
+  }
+
+  RemoveRecord(rowID) {
+    this.pbsupervisorService.delete_pbsupervisor(rowID);
+  }
+
 }

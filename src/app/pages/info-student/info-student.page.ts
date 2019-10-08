@@ -29,4 +29,23 @@ export class InfoStudentPage implements OnInit {
     });
   }
 
+  EditRecord(record) {
+    record.isEdit = true;
+    record.Editname = record.name;
+    record.Editemail = record.email;
+  }
+ 
+  UpdateRecord(recordRow) {
+    let record = {};
+    record['name'] = recordRow.Editname;
+    record['email'] = recordRow.Editemail;
+    this.studentService.update_student(recordRow.id, record);
+    recordRow.isEdit = false;
+  }
+
+  RemoveRecord(rowID) {
+    this.studentService.delete_student(rowID);
+  }
+
+
 }

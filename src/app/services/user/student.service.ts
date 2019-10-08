@@ -112,5 +112,9 @@ export class StudentService {
     }
 }
 
+delete_student(record_id) {
+  this.firestore.doc('users/' + record_id).delete();
+}
+
 
 }

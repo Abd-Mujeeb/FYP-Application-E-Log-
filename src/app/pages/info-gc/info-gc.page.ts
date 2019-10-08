@@ -29,5 +29,22 @@ export class InfoGcPage implements OnInit {
     });
   }
 
+  EditRecord(record) {
+    record.isEdit = true;
+    record.Editname = record.name;
+    record.Editemail = record.email;
+  }
+ 
+  UpdateRecord(recordRow) {
+    let record = {};
+    record['name'] = recordRow.Editname;
+    record['email'] = recordRow.Editemail;
+    this.gcService.update_gc(recordRow.id, record);
+    recordRow.isEdit = false;
+  }
+
+  RemoveRecord(rowID) {
+    this.gcService.delete_gc(rowID);
+  }
 
 }

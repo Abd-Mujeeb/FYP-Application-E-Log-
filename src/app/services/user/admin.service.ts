@@ -82,5 +82,9 @@ export class AdminService {
     return this.firestore.collection('users',  ref => ref.where('role', '==', 'admin')).snapshotChanges();
   }
 
+  delete_admin(record_id) {
+    this.firestore.doc('users/' + record_id).delete();
+  }
+
 
 }
