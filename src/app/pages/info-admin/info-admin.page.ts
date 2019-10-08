@@ -3,6 +3,7 @@ import { ProfileService } from '../../services/user/profile.service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AdminService } from 'src/app/services/user/admin.service';
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-info-admin',
@@ -24,7 +25,7 @@ export class InfoAdminPage implements OnInit {
      this.adminService.read_Admin().subscribe(data => {
  
       this.userProfile = data.map(e => {
-        return {
+           return {
           id: e.payload.doc.id,
           isEdit: false,
           name: e.payload.doc.data()['name'],
@@ -34,7 +35,10 @@ export class InfoAdminPage implements OnInit {
       console.log(this.userProfile);
  
     });
+    
   }
+
+
 
   EditRecord(record) {
     record.isEdit = true;
@@ -51,6 +55,9 @@ export class InfoAdminPage implements OnInit {
     this.profileService.update_Admin(recordRow.id, record);
     recordRow.isEdit = false;
   }
+
+
+  
 
 
 

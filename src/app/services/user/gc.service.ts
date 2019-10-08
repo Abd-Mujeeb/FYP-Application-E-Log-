@@ -73,7 +73,7 @@ export class GcService {
   }
 
   read_gc() {
-    return this.firestore.collection('users').snapshotChanges();
+    return this.firestore.collection('users',  ref => ref.where('role', '==', 'gc')).snapshotChanges();
   }
 
 

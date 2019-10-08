@@ -83,7 +83,7 @@ export class StudentService {
   }
 
   read_student() {
-    return this.firestore.collection('users').snapshotChanges();
+    return this.firestore.collection('users',  ref => ref.where('role', '==', 'student')).snapshotChanges();
   }
 
   

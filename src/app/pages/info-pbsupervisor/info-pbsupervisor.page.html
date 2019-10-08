@@ -1,9 +1,29 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>info-pbsupervisor</ion-title>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/home-admin"></ion-back-button>
+        </ion-buttons>
+    <ion-title>PB Supervisor Details</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/profile-admin">
+        <ion-icon slot="icon-only" name="person"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-list>
+    <ion-list-header> <ion-label>Authentication</ion-label> </ion-list-header>
+    <ion-item
+      tappable
+      *ngFor="let item of userProfile"
+    >
+    <ion-label>
+    <h2>{{item?.name}}</h2>
+        <p>Email: {{item?.email}} </p>
 
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
