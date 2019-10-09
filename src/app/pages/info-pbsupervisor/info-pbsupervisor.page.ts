@@ -23,6 +23,7 @@ export class InfoPbsupervisorPage implements OnInit {
           isEdit: false,
           name: e.payload.doc.data()['name'],
           email: e.payload.doc.data()['email'],
+          school_dept: e.payload.doc.data()['school_dept'],
         };
       })
       console.log(this.userProfile);
@@ -59,12 +60,14 @@ export class InfoPbsupervisorPage implements OnInit {
     record.isEdit = true;
     record.Editname = record.name;
     record.Editemail = record.email;
+    record.Editschool_dept = record.school_dept;
   }
  
   UpdateRecord(recordRow) {
     let record = {};
     record['name'] = recordRow.Editname;
     record['email'] = recordRow.Editemail;
+    record['school_dept'] = recordRow.Editschool_dept;
     this.pbsupervisorService.update_pbsupervisor(recordRow.id, record);
     recordRow.isEdit = false;
   }

@@ -23,6 +23,8 @@ export class InfoGcPage implements OnInit {
           isEdit: false,
           name: e.payload.doc.data()['name'],
           email: e.payload.doc.data()['email'],
+          school_dept: e.payload.doc.data()['school_dept'],
+          group_code: e.payload.doc.data()['group_code'],
         };
       })
       console.log(this.userProfile);
@@ -59,12 +61,16 @@ export class InfoGcPage implements OnInit {
     record.isEdit = true;
     record.Editname = record.name;
     record.Editemail = record.email;
+    record.Editschool_dept = record.school_dept;
+    record.Editgroup_code = record.group_code;
   }
  
   UpdateRecord(recordRow) {
     let record = {};
     record['name'] = recordRow.Editname;
     record['email'] = recordRow.Editemail;
+    record['school_dept'] = recordRow.Editschool_dept;
+    record['group_code'] = recordRow.Editgroup_code;
     this.gcService.update_gc(recordRow.id, record);
     recordRow.isEdit = false;
   }
