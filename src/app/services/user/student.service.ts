@@ -83,7 +83,7 @@ export class StudentService {
   }
 
   read_student() {
-    return this.firestore.collection('users').snapshotChanges();
+    return this.firestore.collection('users',  ref => ref.where('role', '==', 'student')).snapshotChanges();
   }
 
   
@@ -110,6 +110,10 @@ export class StudentService {
     } else {
         return this.user.uid
     }
+}
+
+delete_student(record_id) {
+  this.firestore.doc('users/' + record_id).delete();
 }
 
 

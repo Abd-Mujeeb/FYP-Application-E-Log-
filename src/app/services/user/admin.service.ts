@@ -79,7 +79,11 @@ export class AdminService {
   }
 
   read_Admin() {
-    return this.firestore.collection('users').snapshotChanges();
+    return this.firestore.collection('users',  ref => ref.where('role', '==', 'admin')).snapshotChanges();
+  }
+
+  delete_admin(record_id) {
+    this.firestore.doc('users/' + record_id).delete();
   }
 
 

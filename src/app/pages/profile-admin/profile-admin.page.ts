@@ -113,8 +113,9 @@ export class ProfileAdminPage implements OnInit {
   async updatePassword(): Promise<void> {
     const alert = await this.alertCtrl.create({
       inputs: [
+        { name: 'currentPassword', placeholder: 'Current Password', type: 'password' },
         { name: 'newPassword', placeholder: 'New password', type: 'password' },
-        { name: 'oldPassword', placeholder: 'Old password', type: 'password' },
+        { name: 'confirmPassword', placeholder: 'Confirm Password', type: 'password' },
       ],
       buttons: [
         { text: 'Cancel' },
@@ -123,7 +124,7 @@ export class ProfileAdminPage implements OnInit {
           handler: data => {
             this.adminService.updatePassword(
               data.newPassword,
-              data.oldPassword
+              data.currentPassword
             );
           },
         },
