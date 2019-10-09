@@ -6,6 +6,7 @@ import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import * as firebase from 'firebase';
 @Component({
   selector: 'app-details',
   templateUrl: './details.page.html',
@@ -18,6 +19,8 @@ export class DetailsPage implements OnInit {
   item: any;
   load: boolean = false;
 
+
+
   constructor(
     private imagePicker: ImagePicker,
     public toastCtrl: ToastController,
@@ -28,7 +31,7 @@ export class DetailsPage implements OnInit {
     private alertCtrl: AlertController,
     private route: ActivatedRoute,
     private router: Router,
-    private localNotifications: LocalNotifications
+    private localNotifications: LocalNotifications,
   ) { }
 
   ngOnInit() {
@@ -45,7 +48,9 @@ export class DetailsPage implements OnInit {
     })
     this.validations_form = this.formBuilder.group({
       title: new FormControl(this.item.title, Validators.required),
-      description: new FormControl(this.item.description, Validators.required)
+      description: new FormControl(this.item.description, Validators.required),
+      created: this.item.created.toDate()
+      
     });
   }
 
@@ -58,7 +63,8 @@ export class DetailsPage implements OnInit {
     let data = {
       title: value.title,
       description: value.description,
-      image: this.image
+      image: this.image,
+      created: this.item.created
     }
     this.firebaseService.updateTask(this.item.id,data)
     .then(
@@ -113,7 +119,7 @@ export class DetailsPage implements OnInit {
       }
       else if(result == true){
         this.imagePicker.getPictures({
-          maximumImagesCount: 1
+          maximumImagesCount: 5
         }).then(
           (results) => {
             for (var i = 0; i < results.length; i++) {

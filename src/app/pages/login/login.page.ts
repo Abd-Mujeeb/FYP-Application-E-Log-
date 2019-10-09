@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController, MenuController } from '@ionic/angular';
 import { AuthService } from '../../services/user/auth.service';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase/app';
@@ -20,7 +20,8 @@ export class LoginPage implements OnInit {
     public alertCtrl: AlertController,
     private authService: AuthService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public menu: MenuController
   ) {
   
    }
@@ -73,4 +74,20 @@ export class LoginPage implements OnInit {
     }
   }
 
+  ionViewDidEnter() {
+    this.menu.swipeEnable(false);
+    this.menu.enable(false);
+
+
+}
+
+ionViewWillLeave() {
+  // Don't forget to return the swipe to normal, otherwise 
+  // the rest of the pages won't be able to swipe to open menu
+this.menu.swipeEnable(true);
+this.menu.enable(true);
+
+  // If you have more than one side menu, use the id like below
+  // this.menu.swipeEnable(true, 'menu1');
+ }
 }
