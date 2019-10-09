@@ -14,7 +14,7 @@
 
 <ion-content padding>
  
- 
+    <ion-searchbar showCancelButton (ionInput)="filterList($event)"> </ion-searchbar>
   <ion-card *ngFor="let item of userProfile">
     <span *ngIf="!item.isEdit; else elseBlock">
       <ion-card-header>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentService } from 'src/app/services/user/student.service';
+import { AngularFirestore } from '@angular/fire/firestore';
+
 
 @Component({
   selector: 'app-info-student',
@@ -7,10 +9,12 @@ import { StudentService } from 'src/app/services/user/student.service';
   styleUrls: ['./info-student.page.scss'],
 })
 export class InfoStudentPage implements OnInit {
-  userProfile: any;
+  public userProfile: any[];
+  public loadeduserProfile: any [];
 
   constructor(
     private studentService: StudentService,
+    private firestore: AngularFirestore
   ) { }
 
   ngOnInit() {
@@ -25,7 +29,33 @@ export class InfoStudentPage implements OnInit {
         };
       })
       console.log(this.userProfile);
+   this.loadeduserProfile = this.userProfile;
   
+    });
+
+
+  }
+
+  initializeItems(): void {
+    this.userProfile = this.loadeduserProfile;
+  }
+
+  filterList(evt){
+    this.initializeItems();
+    const searchTerm = evt.srcElement.value;
+
+    if (!searchTerm){
+      return;
+    }
+
+    this.userProfile = this.userProfile.filter(currentlist => {
+      if (currentlist.name, currentlist.email && searchTerm){
+        if (currentlist.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+        currentlist.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1){
+          return true;
+        }
+        return false;
+      }
     });
   }
 

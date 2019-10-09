@@ -8,6 +8,7 @@ import { PbsupervisorService } from 'src/app/services/user/pbsupervisor.service'
 })
 export class InfoPbsupervisorPage implements OnInit {
   userProfile: any;
+  public loadeduserProfile: any [];
 
   constructor(
     private pbsupervisorService: PbsupervisorService,
@@ -25,9 +26,34 @@ export class InfoPbsupervisorPage implements OnInit {
         };
       })
       console.log(this.userProfile);
+      this.loadeduserProfile = this.userProfile;
   
     });
   }
+
+  initializeItems(): void {
+    this.userProfile = this.loadeduserProfile;
+  }
+
+  filterList(evt){
+    this.initializeItems();
+    const searchTerm = evt.srcElement.value;
+
+    if (!searchTerm){
+      return;
+    }
+
+    this.userProfile = this.userProfile.filter(currentlist => {
+      if (currentlist.name, currentlist.email && searchTerm){
+        if (currentlist.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+        currentlist.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1){
+          return true;
+        }
+        return false;
+      }
+    });
+  }
+
 
   EditRecord(record) {
     record.isEdit = true;
