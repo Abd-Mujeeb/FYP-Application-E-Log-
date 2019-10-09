@@ -163,7 +163,8 @@ const routes: Routes = [
   loadChildren: './pages/notification/notification.module#NotificationPageModule',
   data: {
     role: 'student'
-    }  },
+    }  },  { path: 'first-login-password', loadChildren: './first-login-password/first-login-password.module#FirstLoginPasswordPageModule' },
+
   
 
 ];
