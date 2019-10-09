@@ -58,6 +58,8 @@ export class LoginPage implements OnInit {
           this.router.navigateByUrl('/home-gc');
         } else if (role == 'student') {
           this.router.navigateByUrl('/home-student');
+        } else if (role == 'isupervisor') {
+          this.router.navigateByUrl('/home-isupervisor');
         } 
       },
         async error => {

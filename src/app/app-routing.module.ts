@@ -114,56 +114,87 @@ const routes: Routes = [
 
   { path: 'attendance', 
   loadChildren: './pages/attendance/attendance.module#AttendancePageModule',
+  canActivate: [AuthGuard],
   data: {
   role: 'student'
   }  },
 
   { path: 'dailytask', 
   loadChildren: './pages/dailytask/dailytask.module#DailytaskPageModule',
+  canActivate: [AuthGuard],
   data: {
   role: 'student'
   }  },
 
   { path: 'details', 
   loadChildren: './pages/details/details.module#DetailsPageModule',
+  canActivate: [AuthGuard],
   data: {
   role: 'student'
   }  },
 
   { path: 'details/:id', 
   loadChildren: './pages/details/details.module#DetailsPageModule',
+  canActivate: [AuthGuard],
   data: {
   role: 'student'
   }  },
   
   { path: 'new-task', 
   loadChildren: './pages/new-task/new-task.module#NewTaskPageModule',
+  canActivate: [AuthGuard],
   data: {
     role: 'student'
     } },
 
   { path: 'setting', loadChildren: './pages/setting/setting.module#SettingPageModule',
+  canActivate: [AuthGuard],
   data: {
     role: 'student'
     } },
 
   { path: 'themes-page', 
   loadChildren: './pages/themes-page/themes-page.module#ThemesPagePageModule',
+  canActivate: [AuthGuard],
   data: {
     role: 'student'
     }  },
 
   { path: 'uploadtask', 
   loadChildren: './pages/uploadtask/uploadtask.module#UploadtaskPageModule',
+  canActivate: [AuthGuard],
   data: {
     role: 'student'
     }  },
 
   { path: 'notification', 
   loadChildren: './pages/notification/notification.module#NotificationPageModule',
+  canActivate: [AuthGuard],
   data: {
     role: 'student'
     }  },
+
+  { path: 'info-isupervisor', 
+  loadChildren: './pages/info-isupervisor/info-isupervisor.module#InfoIsupervisorPageModule',
+  canActivate: [AuthGuard],
+  data: {
+    role: 'admin'
+    }  
+},
+
+  { path: 'profile-isupervisor', 
+  loadChildren: './pages/profile-isupervisor/profile-isupervisor.module#ProfileIsupervisorPageModule',
+  canActivate: [AuthGuard],
+  data: {
+    role: 'isupervisor'
+    }   },
+
+  { path: 'home-isupervisor', 
+  loadChildren: './pages/home-isupervisor/home-isupervisor.module#HomeIsupervisorPageModule',
+  canActivate: [AuthGuard],
+  data: {
+    role: 'isupervisor'
+    }   },
   
 
 ];
