@@ -25,7 +25,10 @@
               <img [src]="item.payload.doc.data().image">
             </ion-thumbnail>
             <ion-label>{{item.payload.doc.data().title}}</ion-label>
-            <ion-button fill="clear" slot="end">Details</ion-button>
+            <ion-label>{{item.payload.doc.data().created.toDate() }}</ion-label>
+
+       
+            <ion-button fill="clear" slot="end">See Details</ion-button>
           </ion-item>
         </ion-list>
       </div>

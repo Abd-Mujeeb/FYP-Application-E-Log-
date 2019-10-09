@@ -75,7 +75,9 @@ export class FirebaseService {
       this.afs.collection('users').doc(currentUser.uid).collection('tasks').add({
         title: value.title,
         description: value.description,
-        image: value.image
+        image: value.image,
+        created: firebase.firestore.FieldValue.serverTimestamp()
+
       })
       .then(
         res => resolve(res),

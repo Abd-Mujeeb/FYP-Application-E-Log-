@@ -6,7 +6,7 @@
            
             <ion-title>Home</ion-title>
   
-            <ion-button fill="clear" slot="end" routerLink="/uploadtask" >
+            <ion-button fill="clear" slot="end" [routerLink]="['/uploadtask']" >
               <ion-icon name="create" slot="icon-only"></ion-icon>
              </ion-button>
     </ion-toolbar>
@@ -14,5 +14,8 @@
   </ion-header>
 
 <ion-content>
+<ion-searchbar>Search Task by Date</ion-searchbar> 
+<br>
+  <ion-button [routerLink]="['/uploadtask']">List all Daily Task</ion-button>
 
 </ion-content>

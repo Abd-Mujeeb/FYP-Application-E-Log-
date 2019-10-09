@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
-
+import * as firebase from 'firebase';
 @Component({
   selector: 'app-new-task',
   templateUrl: './new-task.page.html',
@@ -48,7 +48,8 @@ export class NewTaskPage implements OnInit {
     let data = {
       title: value.title,
       description: value.description,
-      image: this.image
+      image: this.image,
+      created: firebase.firestore.FieldValue.serverTimestamp()
     }
     this.firebaseService.createTask(data)
     .then(
@@ -68,7 +69,7 @@ export class NewTaskPage implements OnInit {
       }
       else if(result == true){
         this.imagePicker.getPictures({
-          maximumImagesCount: 1
+          maximumImagesCount: 5
         }).then(
           (results) => {
             for (var i = 0; i < results.length; i++) {
