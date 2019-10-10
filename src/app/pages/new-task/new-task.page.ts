@@ -130,19 +130,18 @@ export class NewTaskPage implements OnInit {
 
   }
 
-  testing(){
-    this.localNotifications.schedule([{
-      id: 1,
-      title: `E-log`,
-      text: `Your task successfully uploaded`,
-    },{
-      id: 2,
-      title: `You haven't upload any task for today`,
-      text: `Please upload your Task`,
-      trigger:{ at: new Date(new Date().getTime() + 82800 * 1000),
- 
-    },
-    }]);
-  }
+  // testing(){
+  //   this.localNotifications.schedule([{
+  //     id: 1,
+  //     title: `E-log`,
+  //     text: `Your task successfully uploaded`,
+  //   },{
+  //     id: 2,
+  //     title: `You haven't upload any task for today`,
+  //     text: `Please upload your Task`,
+  //     trigger:{ at: new Date(new Date().getTime() + 82800 * 1000),
+  //   },
+  //   }]);
+  // }
 
 }
