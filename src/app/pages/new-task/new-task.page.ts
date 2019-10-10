@@ -54,7 +54,7 @@ export class NewTaskPage implements OnInit {
     this.firebaseService.createTask(data)
     .then(
       res => {
-        this.router.navigate(["/uploadtask"]);
+        this.router.navigate(["/home-student"]);
         toast.present();
       }
     )

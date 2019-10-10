@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { UploadtaskPage } from './uploadtask.page';
 
 import { UploadtaskResolver } from './uploadtask.resolver';
+
 const routes: Routes = [
   {
     path: '',

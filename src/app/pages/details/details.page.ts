@@ -69,7 +69,7 @@ export class DetailsPage implements OnInit {
     this.firebaseService.updateTask(this.item.id,data)
     .then(
       res => {
-        this.router.navigate(["/uploadtask"]);
+        this.router.navigate(["/home-student"]);
         toast.present();
       }
     )

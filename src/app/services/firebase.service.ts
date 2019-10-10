@@ -95,7 +95,7 @@ export class FirebaseService {
       c.width = aux.width;
       c.height = aux.height;
       ctx.drawImage(img, 0, 0);
-      var dataURL = c.toDataURL("image/jpeg");
+      var dataURL = c.toDataURL("image/jpg");
       callback(dataURL);
     };
     img.src = imageUri;
@@ -104,7 +104,7 @@ export class FirebaseService {
   uploadImage(imageURI, randomId){
     return new Promise<any>((resolve, reject) => {
       let storageRef = firebase.storage().ref();
-      let imageRef = storageRef.child('image').child(randomId);
+      let imageRef = storageRef.child('image').child('taskimage');
       this.encodeImageUri(imageURI, function(image64){
         imageRef.putString(image64, 'data_url')
         .then(snapshot => {
