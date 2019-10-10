@@ -15,7 +15,30 @@
 
 <ion-content>
     <ion-searchbar showCancelButton (ionInput)="filterList($event)"> </ion-searchbar>
-  <div *ngIf="items" class="list-mini-content" padding>
+
+
+    <ion-item *ngFor="let item of itemslist" >
+          
+        <ion-thumbnail slot="start">
+            <ion-img src={{item.image}}></ion-img>
+          </ion-thumbnail>
+    <ion-card-title>{{ item.title }}</ion-card-title>
+          <span>  </span>
+     <ion-card-subtitle>{{ item.created.toDate() | date: 'MMM dd, yyyy.  h:mm a' }}</ion-card-subtitle>
+     
+
+          <ion-button shape="round" color="secondary" slot="end"   size="small" [routerLink]="['/details', item.id]">   
+            See Details
+        </ion-button>
+       
+    
+
+  </ion-item>
+
+
+
+
+  <!-- <div *ngIf="items" class="list-mini-content" padding>
     <div *ngIf="items.length > 0" class="list-mini">
       <ion-list>
         <ion-item *ngFor="let item of items" [routerLink]="['/details', item.payload.doc.id]">
@@ -33,5 +56,5 @@
     <div *ngIf="items.length == 0" class="empty-list">
       Please create your first task.
     </div>
-  </div>
+  </div> -->
 </ion-content>

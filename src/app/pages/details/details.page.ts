@@ -18,7 +18,7 @@ export class DetailsPage implements OnInit {
   image: any;
   item: any;
   load: boolean = false;
-
+  
 
 
   constructor(

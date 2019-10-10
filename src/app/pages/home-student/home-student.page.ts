@@ -4,11 +4,12 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { StudentService } from 'src/app/services/user/student.service';
-
-export interface Image {
-  id: string;
-  image: string;
-}
+import * as firebase from 'firebase/app';
+import { FirebaseService } from 'src/app/services/firebase.service';
+// export interface Image {
+//   id: string;
+//   image: string;
+// }
 @Component({
   selector: 'app-home-student',
   templateUrl: './home-student.page.html',
@@ -16,47 +17,70 @@ export interface Image {
 })
 export class HomeStudentPage implements OnInit {
 
-  items: Array<any>;
-  loaded: any[];
+  // items: Array<any>;
+  public itemslist: any[];
+  public loadeditems: any[];
  
 
   constructor(   
-   private afs: AngularFirestore,
    public http: Http,
    public afstore: AngularFirestore,
    public studentService: StudentService,
    private route: ActivatedRoute,
+   private firebaseService: FirebaseService,
    public loadingCtrl: LoadingController,) { }
 
   ngOnInit() {
-    if (this.route && this.route.data) {
-      this.getData();
+    // if (this.route && this.route.data) {
+    //   this.getData();
+    
+
+
+    this.firebaseService.read_task().subscribe(data => {
+      this.itemslist = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          isEdit: false,
+          title: e.payload.doc.data()['title'],
+          created: e.payload.doc.data()['created'],
+          image: e.payload.doc.data()['image'],
+          decription: e.payload.doc.data()['decription'],
+        };
+      })
+      console.log(this.itemslist);
+      this.loadeditems = this.itemslist;
+    });
+   
   }
 
-}
 
-async getData(){
-  const loading = await this.loadingCtrl.create({
-    message: 'Please wait...'
-  });
-  this.presentLoading(loading);
 
-  this.route.data.subscribe(routeData => {
-    routeData['data'].subscribe(data => {
+// async getData(){
+//   const loading = await this.loadingCtrl.create({
+//     message: 'Please wait...'
+//   });
+//   this.presentLoading(loading);
 
-      loading.dismiss();
-      this.items = data;
-      this.loaded = this.items;
-    })
-  })
-}
+//   this.route.data.subscribe(routeData => {
+//     routeData['data'].subscribe(data => {
+
+//       this.items = data;
+//       this.loaded = data;
+//       loading.dismiss();
+//       // this.items = data;
+      
+//     })
+//   })
+// }
+
+
 
 async presentLoading(loading) {
   return await loading.present();
 }
 
 initializeItems(): void {
-  this.items = this.loaded;
+  this.itemslist = this.loadeditems;
 }
 
 filterList(evt){
@@ -67,10 +91,9 @@ filterList(evt){
     return;
   }
 
-  this.items = this.items.filter(currentlist => {
-    if (currentlist.created, currentlist.title, currentlist.description  && searchTerm){
-      if (currentlist.created.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
-      currentlist.title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1){
+  this.itemslist = this.itemslist.filter(currentitems => {
+    if (currentitems.title  && searchTerm) {
+      if (currentitems.title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1){
         return true;
       }
       return false;

@@ -42,6 +42,11 @@ export class FirebaseService {
     });
   }
 
+  read_task(){
+    let currentUser = firebase.auth().currentUser;
+    return this.afs.collection('users').doc(currentUser.uid).collection('tasks').snapshotChanges();
+  }
+
   unsubscribeOnLogOut(){
     //remember to unsubscribe from the snapshotChanges
     this.snapshotChangesSubscription.unsubscribe();
