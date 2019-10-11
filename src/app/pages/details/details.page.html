@@ -34,7 +34,7 @@
         <ion-input readonly formControlName="created"></ion-input>
       </ion-item>
     <h1 [hidden]="validations_form.valid" class="insertbtn">Please Insert Title and Description</h1>
-    <ion-button (click)="tasknotification(0)" class="submit-button" expand="block" type="submit" [disabled]="!validations_form.valid">Save</ion-button>
+    <ion-button (click)="tasknotification(3)" class="submit-button" expand="block" type="submit" [disabled]="!validations_form.valid">Save</ion-button>
   </form>
   <ion-button  class="delete-button" expand="block" color="danger" (click)="delete()">Delete</ion-button>
 

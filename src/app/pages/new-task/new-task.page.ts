@@ -69,7 +69,10 @@ export class NewTaskPage implements OnInit {
       }
       else if(result == true){
         this.imagePicker.getPictures({
-          maximumImagesCount: 5
+          height: 400,
+          width: 400,
+          maximumImagesCount: 5,
+         
         }).then(
           (results) => {
             for (var i = 0; i < results.length; i++) {

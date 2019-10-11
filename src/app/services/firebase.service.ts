@@ -109,7 +109,7 @@ export class FirebaseService {
   uploadImage(imageURI, randomId){
     return new Promise<any>((resolve, reject) => {
       let storageRef = firebase.storage().ref();
-      let imageRef = storageRef.child('image').child('taskimage');
+      let imageRef = storageRef.child('image').child(randomId);
       this.encodeImageUri(imageURI, function(image64){
         imageRef.putString(image64, 'data_url')
         .then(snapshot => {
