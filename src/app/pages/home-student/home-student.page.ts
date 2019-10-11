@@ -44,7 +44,7 @@ export class HomeStudentPage implements OnInit {
           title: e.payload.doc.data()['title'],
           created: e.payload.doc.data()['created'],
           image: e.payload.doc.data()['image'],
-          decription: e.payload.doc.data()['decription'],
+          description: e.payload.doc.data()['description'],
         };
       })
       console.log(this.itemslist);

@@ -31,6 +31,7 @@
         </ion-item>
         <h1 [hidden]="validations_form.valid" class="insertbtn">Please Insert Title and Description</h1>
         <ion-button (click)="tasknotification(3)" class="submit-btn" expand="block" type="submit" [disabled]="!validations_form.valid">Create</ion-button>
+        <ion-button color="danger" expand="block"  [hidden]="!validations_form.valid" [routerLink]="['/home-student']">Cancel</ion-button>
         <!-- <ion-button (click)="testing()"></ion-button> -->
       </form>
     </ion-content>
