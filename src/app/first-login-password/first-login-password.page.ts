@@ -8,7 +8,13 @@ import { NavParams } from '@ionic/angular';
 })
 export class FirstLoginPasswordPage implements OnInit {
 
+  overlayHidden: boolean = false;
+
   constructor() { }
+
+  public hideOverlay(){
+    this.overlayHidden = true;  
+  }
 
   ngOnInit() {
   }
