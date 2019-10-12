@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { FirstLoginPasswordPage } from '../../first-login-password/first-login-password.page';
 import * as firebase from 'firebase/app';
 
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -16,7 +18,8 @@ export class LoginPage implements OnInit {
   public loginForm: FormGroup;
   public loading: HTMLIonLoadingElement;
   alertController: any;
-
+ 
+  
   constructor(
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
@@ -29,6 +32,8 @@ export class LoginPage implements OnInit {
   ) {
   
    }
+
+
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
