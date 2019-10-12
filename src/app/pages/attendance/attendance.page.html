@@ -1,4 +1,7 @@
 <ion-header>
+    <ion-buttons slot="left">
+        <ion-back-button defaultHref="attendance-details"></ion-back-button>
+      </ion-buttons>
     <ion-row>
       <ion-col text-start padding-top>
         <ion-title>Google Map</ion-title>
@@ -21,6 +24,20 @@
     </div>
     <div id="address">
       <span>{{address}}</span>
+      <br>
+      <div>{{timestamp}}</div>
+      <br>
+      <div>
+        
+        <ion-datetime displayFormat="D MMM YYYY h:mm a" min="2018"  max="2022" value="2005-06-17T11:06Z" placeholder="select date and time" [(ngModel)]="datepicker" ></ion-datetime>
+      </div>
+        
+      
+      <div>
+        <ion-button  (click)="submitattendance()">
+          click
+        </ion-button>
+      </div>
     </div>
    
    

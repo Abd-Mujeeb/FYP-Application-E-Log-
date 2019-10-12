@@ -91,6 +91,27 @@ export class FirebaseService {
     })
   }
 
+  createAttendance(value){
+    return new Promise<any>((resolve, reject) => {
+      let currentUser = firebase.auth().currentUser;
+      this.afs.collection('users').doc(currentUser.uid).collection('attendance').add({
+        address: value.address,
+        datepicker: value.datepicker,
+        timestamp: value.timestamp,
+      })
+      .then(
+        res => resolve(res),
+        err => reject(err)
+      )
+    })
+  
+  }
+
+  readAttendance(){
+    let currentUser = firebase.auth().currentUser;
+    return this.afs.collection('users').doc(currentUser.uid).collection('attendance').snapshotChanges();
+  }
+
   encodeImageUri(imageUri, callback) {
     var c = document.createElement('canvas');
     var ctx = c.getContext("2d");
