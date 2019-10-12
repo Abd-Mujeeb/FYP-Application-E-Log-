@@ -9,15 +9,15 @@
     </ion-header>
   <ion-content>
     <ion-list  color="warning">
-      <ion-item [routerLink]="['../../home-student']" icon="home">Home</ion-item>
-      <ion-item [routerLink]="['../../profile-student']">Profile</ion-item>
-      <ion-item [routerLink]="['../../attendance-details']">Attendance</ion-item>
-      <ion-item [routerLink]="['../../setting']">Settings</ion-item>
-      <ion-item button (click)="logout()">Logout</ion-item>
+      <ion-item  [routerLink]="['../../home-student']" ><ion-icon slot="start" name="home" color="primary"></ion-icon>Home</ion-item>
+      <ion-item [routerLink]="['../../profile-student']"><ion-icon slot="start" name="contact" color="dark"></ion-icon>Profile</ion-item>
+      <ion-item [routerLink]="['../../attendance-details']"><ion-icon slot="start" name="pin" color="danger"></ion-icon>Attendance</ion-item>
+      <ion-item [routerLink]="['../../setting']"><ion-icon slot="start" name="settings"color="medium"></ion-icon>Settings</ion-item>
+      <ion-item button (click)="logout()"><ion-icon slot="start" name="exit" color="dark"></ion-icon>Logout</ion-item>
     
     </ion-list>
    
-    <ion-toggle [(ngModel)]="status" (ionChange)="tstChange()"></ion-toggle> 
+    
    
   </ion-content>  
   </ion-menu>
