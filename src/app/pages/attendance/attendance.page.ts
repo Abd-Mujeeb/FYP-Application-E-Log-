@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
+import * as firebase from 'firebase/app';
 
 declare var google;
 @Component({
@@ -14,11 +18,17 @@ export class AttendancePage implements OnInit {
   @ViewChild('map', {static:true}) mapElement: ElementRef;
   map: any;
   address:string;
+  timeinpicker: any;
+  timeoutpicker: any;
+
 
 
   constructor(
     private geolocation: Geolocation,
-    private nativeGeocoder: NativeGeocoder
+    private nativeGeocoder: NativeGeocoder,
+    private firebaseService: FirebaseService,
+    public router: Router,
+    public toastCtrl: ToastController,
   ) { }
 
   ngOnInit() {
@@ -57,6 +67,7 @@ export class AttendancePage implements OnInit {
     this.nativeGeocoder.reverseGeocode(lattitude, longitude, options)
       .then((result: NativeGeocoderReverseResult[]) => {
         this.address = "";
+        
         let responseAddress = [];
         for (let [key, value] of Object.entries(result[0])) {
           if(value.length>0)
@@ -66,14 +77,35 @@ export class AttendancePage implements OnInit {
         responseAddress.reverse();
         for (let value of responseAddress) {
           this.address += value+", ";
+          
+          
         }
         this.address = this.address.slice(0, -2);
       })
       .catch((error: any) =>{ 
         this.address = "Address Not Available!";
+        
       });
 
   }
 
 
+  async submitattendance(){
+    const toast = await this.toastCtrl.create({
+      message: 'Attendance Updated Successfully',
+      duration: 3000
+    });
+    let dateattendance = {
+      address: this.address,
+      timeinpicker: this.timeinpicker,
+      timeoutpicker: this.timeoutpicker,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    }
+    this.firebaseService.createAttendance(dateattendance).then(
+      res => {
+        this.router.navigate(["/attendance-details"]);
+        toast.present();
+      }
+    )
+  }
 }
