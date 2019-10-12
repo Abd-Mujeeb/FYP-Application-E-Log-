@@ -25,15 +25,19 @@ export class AttendanceDetailsPage implements OnInit {
         return {
           id: e.payload.doc.id,
           address: e.payload.doc.data()['address'],
-          datepicker: e.payload.doc.data()['datepicker'],
+          timeinpicker: e.payload.doc.data()['timeinpicker'],
+          timeoutpicker: e.payload.doc.data()['timeoutpicker'],
           timestamp: e.payload.doc.data()['timestamp'],
-          
+         
         };
       })
       console.log(this.attendancelist);
       
     });
    
+  }
+  deleteattendance(rowID) {
+    this.firebaseService.deleteAttendance(rowID);
   }
   
 }

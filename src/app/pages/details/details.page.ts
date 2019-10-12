@@ -49,7 +49,7 @@ export class DetailsPage implements OnInit {
     this.validations_form = this.formBuilder.group({
       title: new FormControl(this.item.title, Validators.required),
       description: new FormControl(this.item.description, Validators.required),
-      created: this.item.created.toDate()
+      pickdate: new FormControl(this.item.pickdate, Validators.required),
       
     });
   }
@@ -63,6 +63,7 @@ export class DetailsPage implements OnInit {
     let data = {
       title: value.title,
       description: value.description,
+      pickdate: value.pickdate,
       image: this.image,
       created: this.item.created
     }

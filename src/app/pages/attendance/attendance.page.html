@@ -24,12 +24,14 @@
     </div>
     <div id="address">
       <span>{{address}}</span>
-      <br>
-      <div>{{timestamp}}</div>
-      <br>
+
       <div>
-        
-        <ion-datetime displayFormat="D MMM YYYY h:mm a" min="2018"  max="2022" value="2005-06-17T11:06Z" placeholder="select date and time" [(ngModel)]="datepicker" ></ion-datetime>
+        <label>TIME IN</label>
+        <ion-datetime displayFormat="D MMM YYYY h:mm a" min="2018"  max="2022" value="2005-06-17T11:06Z" placeholder="select date and time" [(ngModel)]="timeinpicker" >Time IN</ion-datetime>
+      </div>
+      <div>
+        <label>TIME OUT</label>
+        <ion-datetime displayFormat="D MMM YYYY h:mm a" min="2018"  max="2022" value="2005-06-17T11:06Z" placeholder="select date and time" [(ngModel)]="timeoutpicker" >Time OUT</ion-datetime>
       </div>
         
       

@@ -18,7 +18,9 @@ export class AttendancePage implements OnInit {
   @ViewChild('map', {static:true}) mapElement: ElementRef;
   map: any;
   address:string;
-  datepicker: any;
+  timeinpicker: any;
+  timeoutpicker: any;
+
 
 
   constructor(
@@ -93,12 +95,13 @@ export class AttendancePage implements OnInit {
       message: 'Attendance Updated Successfully',
       duration: 3000
     });
-    let dataattendance = {
+    let dateattendance = {
       address: this.address,
-      datepicker: this.datepicker,
+      timeinpicker: this.timeinpicker,
+      timeoutpicker: this.timeoutpicker,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     }
-    this.firebaseService.createAttendance(dataattendance).then(
+    this.firebaseService.createAttendance(dateattendance).then(
       res => {
         this.router.navigate(["/attendance-details"]);
         toast.present();

@@ -42,7 +42,7 @@ export class HomeStudentPage implements OnInit {
           id: e.payload.doc.id,
           isEdit: false,
           title: e.payload.doc.data()['title'],
-          created: e.payload.doc.data()['created'],
+          pickdate: e.payload.doc.data()['pickdate'],
           image: e.payload.doc.data()['image'],
           description: e.payload.doc.data()['description'],
         };
@@ -92,8 +92,9 @@ filterList(evt){
   }
 
   this.itemslist = this.itemslist.filter(currentitems => {
-    if (currentitems.title  && searchTerm) {
-      if (currentitems.title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1){
+    if (currentitems.title, currentitems.description  && searchTerm) {
+      if (currentitems.title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+      currentitems.description.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1){
         return true;
       }
       return false;

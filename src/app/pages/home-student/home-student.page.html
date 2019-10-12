@@ -15,11 +15,12 @@
 
 <ion-content>
   
-    <ion-searchbar showCancelButton (ionInput)="filterList($event)"> </ion-searchbar>
-  
+    <ion-searchbar showCancelButton (ionInput)="filterList($event)" placeholder="Search title or description"> </ion-searchbar>
+
 <div *ngIf="itemslist" class="list-mini-content" padding>
   <div *ngIf="itemslist.length > 0" class="list-mini">
     <ion-list>
+        <ion-card>
       <ion-item *ngFor="let item of itemslist" [routerLink]="['/details', item.id]">
         
         <ion-thumbnail slot="start">
@@ -28,15 +29,17 @@
         <ion-label>
         <h1> {{  item.title  }} </h1> 
         <p> {{  item.description  }} </p>
-        <p> {{  item.created.toDate() | date: 'MMM dd, yyyy.  h:mm a' }}
+        <p> {{  item.pickdate | date: 'dd MMMM yyyy.  h:mm a' }}
         </p>
       </ion-label>
         <ion-button fill="clear" slot="end"> Edit </ion-button>
+      
       </ion-item>
+    </ion-card>
     </ion-list>
   </div>
   <div *ngIf="itemslist.length == 0" class="empty-list">
-      Please create your first task.
+      Please create your daily task.
     </div>
 </div>
 

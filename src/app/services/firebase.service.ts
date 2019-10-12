@@ -81,6 +81,7 @@ export class FirebaseService {
         title: value.title,
         description: value.description,
         image: value.image,
+        pickdate: value.pickdate,
         created: firebase.firestore.FieldValue.serverTimestamp()
 
       })
@@ -96,8 +97,9 @@ export class FirebaseService {
       let currentUser = firebase.auth().currentUser;
       this.afs.collection('users').doc(currentUser.uid).collection('attendance').add({
         address: value.address,
-        datepicker: value.datepicker,
-        timestamp: value.timestamp,
+      timeinpicker: value.timeinpicker,
+      timeoutpicker: value.timeoutpicker,
+      timestamp: value.timestamp,
       })
       .then(
         res => resolve(res),
@@ -106,11 +108,16 @@ export class FirebaseService {
     })
   
   }
+  deleteAttendance(attendance_id) {
+    this.afs.doc('users/users.uid/attendance' + attendance_id).delete();
+  }
+  
 
   readAttendance(){
     let currentUser = firebase.auth().currentUser;
     return this.afs.collection('users').doc(currentUser.uid).collection('attendance').snapshotChanges();
   }
+
 
   encodeImageUri(imageUri, callback) {
     var c = document.createElement('canvas');
