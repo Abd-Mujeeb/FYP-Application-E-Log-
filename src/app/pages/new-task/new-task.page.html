@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button defaultHref="home"></ion-back-button>
+            <ion-back-button defaultHref="home-student"></ion-back-button>
           </ion-buttons>
       <ion-title>new-task</ion-title>
     </ion-toolbar>
@@ -29,8 +29,13 @@
           <ion-label position="floating" color="primary">Description</ion-label>
           <ion-input type="text" formControlName="description"></ion-input>
         </ion-item>
-        <h1 [hidden]="validations_form.valid" class="insertbtn">Please Insert Title and Description</h1>
-        <ion-button (click)="tasknotification(0)" class="submit-btn" expand="block" type="submit" [disabled]="!validations_form.valid">Create</ion-button>
+        <ion-item>
+          <ion-label position="floating" color="primary" >Date & Time</ion-label>
+          <ion-datetime display-format="DDDD, DD MMMM YYYY, h:mm A" min="2019" max="2023" formControlName="pickdate"></ion-datetime>
+      </ion-item>
+        <h1 [hidden]="validations_form.valid" class="insertbtn">Please Insert Title, Description and Time & Date</h1>
+        <ion-button (click)="tasknotification(3)" class="submit-btn" expand="block" type="submit" [disabled]="!validations_form.valid">Create</ion-button>
+        <ion-button color="danger" expand="block"  [hidden]="!validations_form.valid" [routerLink]="['/home-student']">Cancel</ion-button>
         <!-- <ion-button (click)="testing()"></ion-button> -->
       </form>
     </ion-content>

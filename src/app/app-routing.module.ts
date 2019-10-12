@@ -195,6 +195,15 @@ const routes: Routes = [
   data: {
     role: 'isupervisor'
     }   },
+  { path: 'attendance-details', loadChildren: './pages/attendance-details/attendance-details.module#AttendanceDetailsPageModule',
+  canActivate: [AuthGuard],
+  data: {
+    role: 'student'
+    } 
+ },
+
+
+
   
 
 ];

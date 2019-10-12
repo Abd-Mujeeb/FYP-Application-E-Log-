@@ -1,16 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
 import { HomeStudentPage } from './home-student.page';
+import { HomestudentResolver } from './home-student.resolver';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeStudentPage
+    component: HomeStudentPage,
+    resolve: {
+      data: HomestudentResolver
+    }
   }
 ];
 
@@ -18,9 +22,13 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [HomeStudentPage]
+  declarations: [HomeStudentPage],
+  providers: [
+    HomestudentResolver
+  ]
 })
 export class HomeStudentPageModule {}

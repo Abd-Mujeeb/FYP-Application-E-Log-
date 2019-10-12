@@ -42,6 +42,11 @@ export class FirebaseService {
     });
   }
 
+  read_task(){
+    let currentUser = firebase.auth().currentUser;
+    return this.afs.collection('users').doc(currentUser.uid).collection('tasks').snapshotChanges();
+  }
+
   unsubscribeOnLogOut(){
     //remember to unsubscribe from the snapshotChanges
     this.snapshotChangesSubscription.unsubscribe();
@@ -76,6 +81,7 @@ export class FirebaseService {
         title: value.title,
         description: value.description,
         image: value.image,
+        pickdate: value.pickdate,
         created: firebase.firestore.FieldValue.serverTimestamp()
 
       })
@@ -86,6 +92,33 @@ export class FirebaseService {
     })
   }
 
+  createAttendance(value){
+    return new Promise<any>((resolve, reject) => {
+      let currentUser = firebase.auth().currentUser;
+      this.afs.collection('users').doc(currentUser.uid).collection('attendance').add({
+        address: value.address,
+      timeinpicker: value.timeinpicker,
+      timeoutpicker: value.timeoutpicker,
+      timestamp: value.timestamp,
+      })
+      .then(
+        res => resolve(res),
+        err => reject(err)
+      )
+    })
+  
+  }
+  deleteAttendance(attendance_id) {
+    this.afs.doc('users/users.uid/attendance' + attendance_id).delete();
+  }
+  
+
+  readAttendance(){
+    let currentUser = firebase.auth().currentUser;
+    return this.afs.collection('users').doc(currentUser.uid).collection('attendance').snapshotChanges();
+  }
+
+
   encodeImageUri(imageUri, callback) {
     var c = document.createElement('canvas');
     var ctx = c.getContext("2d");
@@ -95,7 +128,7 @@ export class FirebaseService {
       c.width = aux.width;
       c.height = aux.height;
       ctx.drawImage(img, 0, 0);
-      var dataURL = c.toDataURL("image/jpeg");
+      var dataURL = c.toDataURL("image/jpg");
       callback(dataURL);
     };
     img.src = imageUri;

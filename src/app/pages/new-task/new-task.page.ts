@@ -36,7 +36,8 @@ export class NewTaskPage implements OnInit {
    this.image = "./assets/imgs/default_image.jpg";
     this.validations_form = this.formBuilder.group({
       title: new FormControl('', Validators.required),
-      description: new FormControl('', Validators.required)
+      description: new FormControl('', Validators.required),
+      pickdate: new FormControl('',Validators.required),
     });
   }
 
@@ -49,12 +50,13 @@ export class NewTaskPage implements OnInit {
       title: value.title,
       description: value.description,
       image: this.image,
+      pickdate: value.pickdate,
       created: firebase.firestore.FieldValue.serverTimestamp()
     }
     this.firebaseService.createTask(data)
     .then(
       res => {
-        this.router.navigate(["/uploadtask"]);
+        this.router.navigate(["/home-student"]);
         toast.present();
       }
     )
@@ -69,7 +71,10 @@ export class NewTaskPage implements OnInit {
       }
       else if(result == true){
         this.imagePicker.getPictures({
-          maximumImagesCount: 5
+          height: 400,
+          width: 400,
+          maximumImagesCount: 5,
+         
         }).then(
           (results) => {
             for (var i = 0; i < results.length; i++) {

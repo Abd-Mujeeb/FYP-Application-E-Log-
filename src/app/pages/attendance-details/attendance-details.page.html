@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar> 
+      <ion-button class="menubutton" fill="clear" slot="start">
+          <ion-menu-button autoHide="false"></ion-menu-button>
+        </ion-button> 
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/attendance']">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>attendance-details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+
+
+      <ion-card *ngFor="let item of attendancelist" >
+ 
+       
+     
+ <span>
+    <ion-card-header>
+        <ion-card-title>{{  item.address  }}</ion-card-title>
+        <ion-card-subtitle>Student Time in:  {{  item.timeinpicker  | date: 'MMM dd, yyyy.  h:mm a' }}</ion-card-subtitle>
+        <ion-card-subtitle>Student Time out: {{  item.timeoutpicker | date: 'MMM dd, yyyy.  h:mm a' }}</ion-card-subtitle>
+        <!-- <ion-card-subtitle>Server Time: {{  item.timestamp.toDate() | date: 'MMM dd, yyyy.  h:mm a' }}</ion-card-subtitle> -->
+        
+       
+        
+      </ion-card-header>
+      <ion-button   slot="end" (click)="deleteattendance()"></ion-button>
+    </span>
+    </ion-card>
+</ion-content>
