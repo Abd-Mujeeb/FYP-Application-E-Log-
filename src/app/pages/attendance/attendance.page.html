@@ -1,46 +1,49 @@
 <ion-header>
-    <ion-buttons slot="left">
-        <ion-back-button defaultHref="attendance-details"></ion-back-button>
-      </ion-buttons>
-    <ion-row>
-      <ion-col text-start padding-top>
-        <ion-title>Google Map</ion-title>
-      </ion-col>
-      <ion-col text-end>
-        <ion-button (click)="loadMap()" shape="round" fill="outline">
-          <ion-icon slot="start" name="locate"></ion-icon>
-          Where I Am
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-header>
-  <ion-content>
-   
-    <div class="map-wrapper">
-      <div id="map_center">
-        <img src="../../../assets/icon/download.png" />
-      </div>
-      <div #map id="map"></div>
-    </div>
-    <div id="address">
-      <span>{{address}}</span>
+  <ion-buttons slot="left">
+    <ion-back-button defaultHref="attendance-details"></ion-back-button>
+  </ion-buttons>
+  <ion-row>
+    <ion-col text-start padding-top>
+      <ion-title>Google Map</ion-title>
+    </ion-col>
+    <ion-col text-end>
+      <ion-button (click)="loadMap()" shape="round" fill="outline">
+        <ion-icon slot="start" name="locate"></ion-icon>
+        Where I Am
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-header>
+<ion-content>
 
-      <div>
-        <label>TIME IN</label>
-        <ion-datetime displayFormat="D MMM YYYY h:mm a" min="2018"  max="2022" value="2005-06-17T11:06Z" placeholder="select date and time" [(ngModel)]="timeinpicker" >Time IN</ion-datetime>
-      </div>
-      <div>
-        <label>TIME OUT</label>
-        <ion-datetime displayFormat="D MMM YYYY h:mm a" min="2018"  max="2022" value="2005-06-17T11:06Z" placeholder="select date and time" [(ngModel)]="timeoutpicker" >Time OUT</ion-datetime>
-      </div>
-        
-      
-      <div>
-        <ion-button  (click)="submitattendance()">
-          click
-        </ion-button>
-      </div>
+  <div class="map-wrapper">
+    <div id="map_center">
+      <img src="../../../assets/icon/download.png" />
     </div>
-   
-   
-  </ion-content>
+    <div #map id="map"></div>
+  </div>
+
+  <form [formGroup]="validations_form" (ngSubmit)="onSubmit(validations_form.value)">
+    <ion-item>
+      <ion-label position="floating" color="primary" id="address">
+       Address
+      </ion-label >
+      <ion-input type="text" value="{{address}}" formControlName="address"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" color="primary">Time In</ion-label>
+      <ion-datetime display-format="DDDD, DD MMMM YYYY, h:mm A" min="2019" max="2023" formControlName="timeinpicker">
+      </ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" color="primary">Time In</ion-label>
+      <ion-datetime display-format="DDDD, DD MMMM YYYY, h:mm A" min="2019" max="2023" formControlName="timeoutpicker">
+      </ion-datetime>
+    </ion-item>
+
+    <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!validations_form.valid">Submit</ion-button>
+    <ion-button color="danger" expand="block" [hidden]="!validations_form.valid" [routerLink]="['/home-student']">Cancel
+    </ion-button>
+    <!-- <ion-button (click)="testing()"></ion-button> -->
+  </form>
+</ion-content>

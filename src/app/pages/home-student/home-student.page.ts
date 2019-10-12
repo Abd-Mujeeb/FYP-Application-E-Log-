@@ -33,9 +33,6 @@ export class HomeStudentPage implements OnInit {
   ngOnInit() {
     // if (this.route && this.route.data) {
     //   this.getData();
-    
-
-
     this.firebaseService.read_task().subscribe(data => {
       this.itemslist = data.map(e => {
         return {
@@ -50,6 +47,10 @@ export class HomeStudentPage implements OnInit {
       console.log(this.itemslist);
       this.loadeditems = this.itemslist;
     });
+    
+
+
+
    
   }
 

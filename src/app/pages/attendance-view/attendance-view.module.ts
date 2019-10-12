@@ -5,15 +5,15 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AttendanceDetailsPage } from './attendance-details.page';
-import { AttendancedetailsResolver } from './attendance-details.resolver';
+import { AttendanceViewPage } from './attendance-view.page';
+import { AttendanceResolver } from './attendance-view.resolver';
 
 const routes: Routes = [
   {
     path: '',
-    component: AttendanceDetailsPage,
+    component: AttendanceViewPage,
     resolve: {
-      data: AttendancedetailsResolver
+      data: AttendanceResolver
     }
   }
 ];
@@ -22,13 +22,11 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
     IonicModule,
+    ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [AttendanceDetailsPage],
-  providers: [
-    AttendancedetailsResolver
-  ]
+  declarations: [AttendanceViewPage],
+  providers:[AttendanceResolver]
 })
-export class AttendanceDetailsPageModule {}
+export class AttendanceViewPageModule {}

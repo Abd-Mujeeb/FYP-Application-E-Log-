@@ -201,6 +201,19 @@ const routes: Routes = [
     role: 'student'
     } 
  },
+  { path: 'attendance-view', loadChildren: './pages/attendance-view/attendance-view.module#AttendanceViewPageModule',
+  canActivate: [AuthGuard],
+  data: {
+    role: 'student'
+    } 
+   },
+   { path: 'attendance-view/:id', loadChildren: './pages/attendance-view/attendance-view.module#AttendanceViewPageModule',
+   canActivate: [AuthGuard],
+   data: {
+     role: 'student'
+     } 
+    },
+
 
 
 

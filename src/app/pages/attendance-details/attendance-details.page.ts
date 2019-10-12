@@ -11,7 +11,7 @@ import { Http } from '@angular/http';
 })
 export class AttendanceDetailsPage implements OnInit {
   public attendancelist: any[];
-  public loadedattendance: any[];
+  public loadeditems: any[];
  
   constructor(  public http: Http,
     public afstore: AngularFirestore,
@@ -32,14 +32,37 @@ export class AttendanceDetailsPage implements OnInit {
         };
       })
       console.log(this.attendancelist);
+      this.loadeditems = this.attendancelist;
       
     });
    
   }
-  deleteattendance(rowID) {
-    this.firebaseService.deleteAttendance(rowID);
+
+  async presentLoading(loading) {
+    return await loading.present();
   }
   
-}
+  initializeItems(): void {
+    this.attendancelist = this.loadeditems;
+  }
   
-    
+  filterList(evt){
+    this.initializeItems();
+    const searchTerm = evt.srcElement.value;
+  
+    if (!searchTerm){
+      return;
+    }
+  
+    this.attendancelist = this.attendancelist.filter(currentitems => {
+      if (currentitems.address  && searchTerm) {
+        if (currentitems.address.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ){
+          return true;
+        }
+        return false;
+      }
+    });
+  }
+  
+  }
+  

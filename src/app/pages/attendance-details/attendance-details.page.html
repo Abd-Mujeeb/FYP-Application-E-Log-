@@ -1,8 +1,8 @@
 <ion-header>
-  <ion-toolbar> 
-      <ion-button class="menubutton" fill="clear" slot="start">
-          <ion-menu-button autoHide="false"></ion-menu-button>
-        </ion-button> 
+  <ion-toolbar>
+    <ion-button class="menubutton" fill="clear" slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-button>
     <ion-buttons slot="end">
       <ion-button [routerLink]="['/attendance']">
         <ion-icon slot="icon-only" name="add"></ion-icon>
@@ -13,24 +13,46 @@
 </ion-header>
 
 <ion-content>
-  
 
 
-      <ion-card *ngFor="let item of attendancelist" >
- 
-       
-     
- <span>
-    <ion-card-header>
+  <ion-searchbar showCancelButton (ionInput)="filterList($event)" placeholder="Search title or description">
+  </ion-searchbar>
+
+  <!-- <ion-card *ngFor="let item of attendancelist" [routerLink]="['/attendance-view', item.id]">
+    <span>
+      <ion-card-header>
         <ion-card-title>{{  item.address  }}</ion-card-title>
-        <ion-card-subtitle>Student Time in:  {{  item.timeinpicker  | date: 'MMM dd, yyyy.  h:mm a' }}</ion-card-subtitle>
-        <ion-card-subtitle>Student Time out: {{  item.timeoutpicker | date: 'MMM dd, yyyy.  h:mm a' }}</ion-card-subtitle>
-        <!-- <ion-card-subtitle>Server Time: {{  item.timestamp.toDate() | date: 'MMM dd, yyyy.  h:mm a' }}</ion-card-subtitle> -->
-        
-       
-        
+        <ion-card-subtitle>Student Time in: {{  item.timeinpicker  | date: 'MMM dd, yyyy.  h:mm a' }}
+        </ion-card-subtitle>
+        <ion-card-subtitle>Student Time out: {{  item.timeoutpicker | date: 'MMM dd, yyyy.  h:mm a' }}
+        </ion-card-subtitle>
+        <ion-card-subtitle>Server Time: {{  item.timestamp.toDate() | date: 'MMM dd, yyyy.  h:mm a' }}</ion-card-subtitle>
+        <ion-button fill="clear" slot="end"> View </ion-button>
       </ion-card-header>
-      <ion-button   slot="end" (click)="deleteattendance()"></ion-button>
     </span>
-    </ion-card>
+  </ion-card> -->
+
+  <div *ngIf="attendancelist" class="list-mini-content" padding>
+    <div *ngIf="attendancelist.length > 0" class="list-mini">
+      <ion-list>
+        <ion-card>
+          <ion-item *ngFor="let item of attendancelist" [routerLink]="['/attendance-view', item.id]">
+
+            <ion-label>
+              <ion-card-title>{{  item.address  }}</ion-card-title>
+              <ion-card-subtitle>Student Time in: {{  item.timeinpicker  | date: 'MMM dd, yyyy.  h:mm a' }}
+              </ion-card-subtitle>
+              <ion-card-subtitle>Student Time out: {{  item.timeoutpicker | date: 'MMM dd, yyyy.  h:mm a' }}
+              </ion-card-subtitle>
+            </ion-label>
+            <ion-button fill="clear" slot="end"> Edit </ion-button>
+
+          </ion-item>
+        </ion-card>
+      </ion-list>
+    </div>
+    <div *ngIf="attendancelist.length == 0" class="empty-list">
+      Please create your daily task.
+    </div>
+  </div>
 </ion-content>
