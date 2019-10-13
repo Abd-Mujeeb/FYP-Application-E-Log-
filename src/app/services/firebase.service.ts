@@ -10,12 +10,31 @@ import { AngularFireAuth } from '@angular/fire/auth';
 export class FirebaseService {
 
   private snapshotChangesSubscription: any;
-
+  public currentUser: firebase.User;
   constructor(
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth
   ){}
 
+  //DailyTask
+  createTask(value){
+    return new Promise<any>((resolve, reject) => {
+      let currentUser = firebase.auth().currentUser;
+      this.afs.collection('users').doc(currentUser.uid).collection('tasks').add({
+        title: value.title,
+        description: value.description,
+        image: value.image,
+        pickdate: value.pickdate,
+        created: firebase.firestore.FieldValue.serverTimestamp()
+
+      })
+      .then(
+        res => resolve(res),
+        err => reject(err)
+      )
+    })
+  }
+  
   getTasks(){
     return new Promise<any>((resolve, reject) => {
       this.afAuth.user.subscribe(currentUser => {
@@ -74,24 +93,9 @@ export class FirebaseService {
     })
   }
 
-  createTask(value){
-    return new Promise<any>((resolve, reject) => {
-      let currentUser = firebase.auth().currentUser;
-      this.afs.collection('users').doc(currentUser.uid).collection('tasks').add({
-        title: value.title,
-        description: value.description,
-        image: value.image,
-        pickdate: value.pickdate,
-        created: firebase.firestore.FieldValue.serverTimestamp()
 
-      })
-      .then(
-        res => resolve(res),
-        err => reject(err)
-      )
-    })
-  }
 
+  //Attendance
   createAttendance(value){
     return new Promise<any>((resolve, reject) => {
       let currentUser = firebase.auth().currentUser;
@@ -108,16 +112,73 @@ export class FirebaseService {
     })
   
   }
-  deleteAttendance(attendance_id) {
-    this.afs.doc('users/users.uid/attendance' + attendance_id).delete();
-  }
   
+  getAttendances(){
+    return new Promise<any>((resolve, reject) => {
+      this.afAuth.user.subscribe(currentUser => {
+        if(currentUser){
+          this.snapshotChangesSubscription = this.afs.collection('users').doc(currentUser.uid).collection('attendance').snapshotChanges();
+          resolve(this.snapshotChangesSubscription);
+        }
+      })
+    })
+  }
+
+  getAttendance(AttendanceId){
+    return new Promise<any>((resolve, reject) => {
+      this.afAuth.user.subscribe(currentUser => {
+        if(currentUser){
+          this.snapshotChangesSubscription = this.afs.doc<any>('users/' + currentUser.uid + '/attendance/' + AttendanceId).valueChanges()
+          .subscribe(snapshots => {
+            resolve(snapshots);
+          }, err => {
+            reject(err)
+          })
+        }
+      })
+    });
+  }
+
+
+
 
   readAttendance(){
     let currentUser = firebase.auth().currentUser;
     return this.afs.collection('users').doc(currentUser.uid).collection('attendance').snapshotChanges();
   }
 
+
+  updateAttendance(attendanceKey, value){
+    return new Promise<any>((resolve, reject) => {
+      let currentUser = firebase.auth().currentUser;
+      this.afs.collection('users').doc(currentUser.uid).collection('attendance').doc(attendanceKey).set(value)
+      .then(
+        res => resolve(res),
+        err => reject(err)
+      )
+    })
+  }
+  
+  
+  deleteattendance(attendance_id) {
+    let currentUser = firebase.auth().currentUser;
+    this.afs.doc(`/users/${this.currentUser.uid}/attendance` + attendance_id).delete();
+  }
+
+  deleteAttendance(attendanceKey){
+    return new Promise<any>((resolve, reject) => {
+      let currentUser = firebase.auth().currentUser;
+      this.afs.collection('users').doc(currentUser.uid).collection('attendance').doc(attendanceKey).delete()
+      .then(
+        res => resolve(res),
+        err => reject(err)
+      )
+    })
+  }
+  
+
+
+//images
 
   encodeImageUri(imageUri, callback) {
     var c = document.createElement('canvas');

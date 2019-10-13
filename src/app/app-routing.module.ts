@@ -200,7 +200,8 @@ const routes: Routes = [
   data: {
     role: 'student'
     } 
- },  { path: 'course', loadChildren: './pages/course/course.module#CoursePageModule' },
+ },
+  { path: 'course', loadChildren: './pages/course/course.module#CoursePageModule' },
   { path: 'group-code', loadChildren: './pages/group-code/group-code.module#GroupCodePageModule' },
 
 
