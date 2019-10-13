@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Query } from '@angular/core';
 import { PbsupervisorService } from 'src/app/services/user/pbsupervisor.service';
+import { Router } from '@angular/router';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
+import { pipe } from 'rxjs';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-info-pbsupervisor',
@@ -9,9 +14,22 @@ import { PbsupervisorService } from 'src/app/services/user/pbsupervisor.service'
 export class InfoPbsupervisorPage implements OnInit {
   userProfile: any;
   public loadeduserProfile: any [];
+  student: any;
+
+  public buttonClicked: boolean = false; //Whatever you want to initialise it as
+  gc: any;
+  studentId: any;
+  user: any;
+ public onButtonClick() {
+
+    this.buttonClicked = !this.buttonClicked;
+    this.firestore.collection('users/{userId}/student').valueChanges();
+}
 
   constructor(
     private pbsupervisorService: PbsupervisorService,
+    private firestore: AngularFirestore,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -24,6 +42,7 @@ export class InfoPbsupervisorPage implements OnInit {
           name: e.payload.doc.data()['name'],
           email: e.payload.doc.data()['email'],
           school_dept: e.payload.doc.data()['school_dept'],
+          student: e.payload.doc.data()['student'],
         };
       })
       console.log(this.userProfile);
@@ -55,6 +74,7 @@ export class InfoPbsupervisorPage implements OnInit {
     });
   }
 
+  
 
   EditRecord(record) {
     record.isEdit = true;
@@ -76,4 +96,17 @@ export class InfoPbsupervisorPage implements OnInit {
     this.pbsupervisorService.delete_pbsupervisor(rowID);
   }
 
+
+  button(){
+
+   
+  
+}
+
+
+  
+ 
+
+  
+   
 }
