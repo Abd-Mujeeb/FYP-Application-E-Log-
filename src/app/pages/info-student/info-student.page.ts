@@ -11,6 +11,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class InfoStudentPage implements OnInit {
   public userProfile: any[];
   public loadeduserProfile: any [];
+  public tasklist : any [];
 
   constructor(
     private studentService: StudentService,
@@ -87,5 +88,18 @@ export class InfoStudentPage implements OnInit {
     this.studentService.delete_student(rowID);
   }
 
+  // readtask(){
+  //   this.studentService.read_task().subscribe(data => {
+  //     this.tasklist = data.map(e => {
+  //       return { 
+  //         id: e.payload.doc.id,
+  //         title: e.payload.doc.data()['title'],
+  //         description: e.payload.doc.data()['description'],
+  //         image: e.payload.doc.data()['image'],
+  //         pickdate: e.payload.doc.data()['pickdate'],
+  //       };
+  //     })
+  //   });
+  // }
 
 }
