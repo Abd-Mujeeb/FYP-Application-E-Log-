@@ -100,7 +100,7 @@ export class DetailsPage implements OnInit {
             .then(
               res => {
                 alertdeleted.present();
-                this.router.navigate(["/uploadtask"]);
+                this.router.navigate(["/home-student"]);
               },
               err => console.log(err)
             )
