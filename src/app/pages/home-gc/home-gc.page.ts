@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentService } from 'src/app/services/user/student.service';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import * as firebase from 'firebase/app';
+import { GcService } from 'src/app/services/user/gc.service';
 
 @Component({
   selector: 'app-home-gc',
@@ -10,11 +13,29 @@ export class HomeGcPage implements OnInit {
 
   public userProfile: any[];
   public loadeduserProfile: any [];
+  public change = false;
+  public  changepwForm: FormGroup;
 
   constructor(
-    private studentService: StudentService){}
+    private studentService: StudentService,
+    private gcService: GcService,
+    private formBuilder: FormBuilder){}
 
   ngOnInit() {
+
+    
+    this.changepwForm = this.formBuilder.group({
+      password: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(6)]),
+      ],
+      newpassword: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(6)]),
+      ],
+    });
+
+
     this.studentService.read_student().subscribe(data => {
  
       this.userProfile = data.map(e => {
@@ -34,6 +55,30 @@ export class HomeGcPage implements OnInit {
   
     });
 
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        firebase
+          .firestore()
+          .doc(`/users/${user.uid}`)
+          .get()
+          .then(userProfileSnapshot => {
+            this.change = userProfileSnapshot.data().change;
+
+          });
+      }
+    });
+
+
+  }
+
+  async updatePassword(): Promise<void> {
+    const newPassword = this.changepwForm.value.password;
+    const oldPassword = this.changepwForm.value.newpassword;
+    this.gcService.updatePassword(oldPassword, newPassword)
+    return this.ngOnInit();
+      
+
+  
   }
 
   initializeItems(): void {

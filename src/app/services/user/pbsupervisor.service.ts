@@ -65,8 +65,12 @@ export class PbsupervisorService {
       .then(() => {
         this.currentUser.updatePassword(newPassword).then(() => {
           console.log('Password Changed');
+
+          this.users_pbsupervisor.update({ change:false })
+
         });
       })
+      
       .catch(error => {
         console.error(error);
       });

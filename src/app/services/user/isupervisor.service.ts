@@ -62,8 +62,12 @@ export class IsupervisorService {
       .then(() => {
         this.currentUser.updatePassword(newPassword).then(() => {
           console.log('Password Changed');
+
+          this.users_isupervisor.update({ change:false })
+
         });
       })
+      
       .catch(error => {
         console.error(error);
       });

@@ -30,19 +30,6 @@ export class ProfileAdminPage implements OnInit {
       this.userProfile = userProfileAdminSnapshot.data();
     });
 
-    // this.adminService.getUserProfileAdmin().subscribe(data => {
- 
-    //   this.userProfile = data.map(e => {
-    //     return {
-    //       id: e.payload.doc.id,
-    //       isEdit: false,
-    //       name: e.payload.doc.data()['name'],
-    //       email: e.payload.doc.data()['email'],
-    //     };
-    //   })
-    //   console.log(this.userProfile);
- 
-    // });
   }
 
   logOut(): void {
@@ -77,12 +64,6 @@ export class ProfileAdminPage implements OnInit {
     await alert.present();
   }
 
-  // updateDOB(birthDate: string): void {
-  //   if (birthDate === undefined) {
-  //     return;
-  //   }
-  //   this.adminService.updateDOB(birthDate);
-  // }
 
   async updateEmail(): Promise<void> {
     const alert = await this.alertCtrl.create({
@@ -113,9 +94,8 @@ export class ProfileAdminPage implements OnInit {
   async updatePassword(): Promise<void> {
     const alert = await this.alertCtrl.create({
       inputs: [
-        { name: 'currentPassword', placeholder: 'Current Password', type: 'password' },
+        { name: 'oldPassword', placeholder: 'Old password', type: 'password' },
         { name: 'newPassword', placeholder: 'New password', type: 'password' },
-        { name: 'confirmPassword', placeholder: 'Confirm Password', type: 'password' },
       ],
       buttons: [
         { text: 'Cancel' },
@@ -123,8 +103,8 @@ export class ProfileAdminPage implements OnInit {
           text: 'Save',
           handler: data => {
             this.adminService.updatePassword(
-              data.newPassword,
-              data.currentPassword
+              data.oldPassword,
+              data.newPassword
             );
           },
         },

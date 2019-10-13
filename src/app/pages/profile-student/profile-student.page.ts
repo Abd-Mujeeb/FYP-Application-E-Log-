@@ -87,8 +87,8 @@ export class ProfileStudentPage implements OnInit {
   async updatePassword(): Promise<void> {
     const alert = await this.alertCtrl.create({
       inputs: [
-        { name: 'newPassword', placeholder: 'New password', type: 'password' },
         { name: 'oldPassword', placeholder: 'Old password', type: 'password' },
+        { name: 'newPassword', placeholder: 'New password', type: 'password' },
       ],
       buttons: [
         { text: 'Cancel' },
@@ -96,8 +96,8 @@ export class ProfileStudentPage implements OnInit {
           text: 'Save',
           handler: data => {
             this.studentService.updatePassword(
-              data.newPassword,
-              data.oldPassword
+              data.oldPassword,
+              data.newPassword
             );
           },
         },

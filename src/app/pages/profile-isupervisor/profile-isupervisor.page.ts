@@ -31,21 +31,6 @@ export class ProfileIsupervisorPage implements OnInit {
     .then( userProfileisupervisorSnapshot => {
       this.userProfile = userProfileisupervisorSnapshot.data();
     });
-
-    // this.isupervisorService.read_pbsupervisor().subscribe(data => {
- 
-    //   this.userProfile = data.map(e => {
-    //     return {
-    //       id: e.payload.doc.id,
-    //       isEdit: false,
-    //       firstName: e.payload.doc.data()['firstName'],
-    //       lastName: e.payload.doc.data()['lastName'],
-    //       email: e.payload.doc.data()['email'],
-    //     };
-    //   })
-    //   console.log(this.userProfile);
- 
-    // });
   }
 
   logOut(): void {
@@ -80,13 +65,6 @@ export class ProfileIsupervisorPage implements OnInit {
     await alert.present();
   }
 
-  // updateDOB(birthDate: string): void {
-  //   if (birthDate === undefined) {
-  //     return;
-  //   }
-  //   this.isupervisorService.updateDOB(birthDate);
-  // }
-
   async updateEmail(): Promise<void> {
     const alert = await this.alertCtrl.create({
       inputs: [
@@ -116,8 +94,8 @@ export class ProfileIsupervisorPage implements OnInit {
   async updatePassword(): Promise<void> {
     const alert = await this.alertCtrl.create({
       inputs: [
-        { name: 'newPassword', placeholder: 'New password', type: 'password' },
         { name: 'oldPassword', placeholder: 'Old password', type: 'password' },
+        { name: 'newPassword', placeholder: 'New password', type: 'password' },
       ],
       buttons: [
         { text: 'Cancel' },
@@ -125,8 +103,8 @@ export class ProfileIsupervisorPage implements OnInit {
           text: 'Save',
           handler: data => {
             this.isupervisorService.updatePassword(
-              data.newPassword,
-              data.oldPassword
+              data.oldPassword,
+              data.newPassword
             );
           },
         },

@@ -1,3 +1,46 @@
+<div id="overlay" *ngIf="change">
+    <form [formGroup]="changepwForm" id="form"> 
+  
+        <ion-item>
+            <ion-label position="stacked">Password:</ion-label>
+            <ion-input
+              formControlName="password"
+              type="password"
+              placeholder="Your password"
+              [class.invalid]="!changepwForm.controls['password'].valid&& changepwForm.controls['password'].touched"
+            >
+            </ion-input>
+          </ion-item>
+          <ion-item
+            class="error-message"
+            *ngIf="!changepwForm.controls['password'].valid
+              && changepwForm.controls['password'].touched"
+          >
+            <ion-label>Your password needs more than 6 characters.</ion-label>
+          </ion-item>
+    
+        <ion-item>
+          <ion-label position="stacked">Confirm Password:</ion-label>
+          <ion-input type="password"
+          formControlName="newpassword"
+              type="password"
+              placeholder="Your password"
+              [class.invalid]="!changepwForm.controls['newpassword'].valid&& changepwForm.controls['newpassword'].touched"></ion-input>
+        </ion-item>
+
+        <ion-item
+            class="error-message"
+            *ngIf="!changepwForm.controls['newpassword'].valid
+              && changepwForm.controls['newpassword'].touched"
+          >
+            <ion-label>Your password needs more than 6 characters.</ion-label>
+          </ion-item>
+    
+      <ion-button expand="block" (click)="updatePassword()">Confirm</ion-button>
+    </form>
+
+</div>
+
 <ion-header>
   <ion-toolbar>
     <ion-button class="menubutton" fill="clear" slot="start">
@@ -12,6 +55,9 @@
   </ion-toolbar>
 
 </ion-header>
+
+
+
 
 <ion-content>
   

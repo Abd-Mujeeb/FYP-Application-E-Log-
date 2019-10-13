@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, AlertController } from '@ionic/angular';
 import { StudentService } from 'src/app/services/user/student.service';
 import * as firebase from 'firebase/app';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // export interface Image {
 //   id: string;
 //   image: string;
@@ -20,7 +21,11 @@ export class HomeStudentPage implements OnInit {
   // items: Array<any>;
   public itemslist: any[];
   public loadeditems: any[];
- 
+  public change = false;
+  public  changepwForm: FormGroup;
+  splash = true;
+  userProfile: firebase.firestore.DocumentData;
+  
 
   constructor(   
    public http: Http,
@@ -28,9 +33,23 @@ export class HomeStudentPage implements OnInit {
    public studentService: StudentService,
    private route: ActivatedRoute,
    private firebaseService: FirebaseService,
-   public loadingCtrl: LoadingController,) { }
+   public loadingCtrl: LoadingController,
+   private alertCtrl: AlertController,
+   private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+
+    this.changepwForm = this.formBuilder.group({
+      password: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(6)]),
+      ],
+      newpassword: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(6)]),
+      ],
+    });
+
     // if (this.route && this.route.data) {
     //   this.getData();
     this.firebaseService.read_task().subscribe(data => {
@@ -47,12 +66,38 @@ export class HomeStudentPage implements OnInit {
       console.log(this.itemslist);
       this.loadeditems = this.itemslist;
     });
+
+    this.studentService
+    .getUserProfileStudent()
+    .get()
+    .then( userProfileStudentSnapshot => {
+      this.userProfile = userProfileStudentSnapshot.data();
+    });
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        firebase
+          .firestore()
+          .doc(`/users/${user.uid}`)
+          .get()
+          .then(userProfileSnapshot => {
+            this.change = userProfileSnapshot.data().change;
+
+          });
+      }
+    });
+
+  
+}
+
+async updatePassword(): Promise<void> {
+  const newPassword = this.changepwForm.value.password;
+  const oldPassword = this.changepwForm.value.newpassword;
+  this.studentService.updatePassword(oldPassword, newPassword)
+  return this.ngOnInit();
     
+}
 
-
-
-   
-  }
 
 
 

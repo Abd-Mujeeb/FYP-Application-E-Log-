@@ -6,3 +6,16 @@
     color: var(--ion-color-medium);
   }
 
+  #overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100000;
+    width:100%;
+    background-color:rgba(192,192,192,0.3);
+  }
+
+
+  

@@ -67,8 +67,12 @@ export class AdminService {
       .then(() => {
         this.currentUser.updatePassword(newPassword).then(() => {
           console.log('Password Changed');
+
+          this.userProfile.update({ change:false })
+
         });
       })
+      
       .catch(error => {
         console.error(error);
       });

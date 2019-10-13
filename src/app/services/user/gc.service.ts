@@ -61,8 +61,12 @@ export class GcService {
       .then(() => {
         this.currentUser.updatePassword(newPassword).then(() => {
           console.log('Password Changed');
+
+          this.users_gc.update({ change:false })
+
         });
       })
+      
       .catch(error => {
         console.error(error);
       });
