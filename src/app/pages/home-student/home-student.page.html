@@ -5,16 +5,17 @@
     </ion-button>
     <ion-buttons slot="end">
       <ion-button [routerLink]="['/new-task']">
-        <ion-icon slot="icon-only" name="add" color="primary"></ion-icon>
+        <ion-icon slot="icon-only" name="add"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">Home</ion-title>
+
+
   </ion-toolbar>
 
 </ion-header>
 
 <ion-content>
-  
+
     <ion-searchbar showCancelButton (ionInput)="filterList($event)" placeholder="Search title or description"> </ion-searchbar>
 
 <div *ngIf="itemslist" class="list-mini-content" padding>
@@ -42,5 +43,23 @@
       Please create your daily task.
     </div>
 </div>
-
+<ion-fab horizontal="end" vertical="bottom" slot="fixed">
+  <ion-fab-button color="light">
+    <ion-icon name="arrow-dropleft"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="start">
+    <ion-fab-button color="light" (click)="logout()">
+      <ion-icon ios="ios-log-out" md="md-log-out"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button color="light" [routerLink]="['/attendance-details']">
+      <ion-icon  name="pin"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button color="light" [routerLink]="['/setting']">
+      <ion-icon name="settings" ios="ios-settings" md="md-settings" ></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button color="light" [routerLink]="['/profile-student']">
+      <ion-icon  ios="ios-contact" md="md-contact"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>
 </ion-content>
