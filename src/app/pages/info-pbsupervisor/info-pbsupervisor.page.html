@@ -6,7 +6,7 @@
     <ion-title>PB Supervisor Details</ion-title>
     <ion-buttons slot="end">
       <ion-button routerLink="/profile-admin">
-        <ion-icon slot="icon-only" name="person"></ion-icon>
+        <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -41,7 +41,7 @@
                 Edit
               </ion-col>
               <ion-col>
-                <ion-button fill="clear" color="medium" size="small" (click)="item.isEdit = false">
+                <ion-button fill="clear" color="medium" size="small" color="danger" (click)="item.isEdit = false">
                   Cancel
                 </ion-button>
               </ion-col>
@@ -56,11 +56,11 @@
       </ion-card-header>
       <ion-card-content>
         <ion-item>
-          <ion-label><strong>Name</strong></ion-label>
+          <ion-label><strong>Name:</strong></ion-label>
           <ion-input type="text" [(ngModel)]="item.Editname"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label><strong>Email</strong></ion-label>
+          <ion-label><strong>Email:</strong></ion-label>
           <ion-input type="text" [(ngModel)]="item.Editemail"></ion-input>
         </ion-item>
       </ion-card-content>

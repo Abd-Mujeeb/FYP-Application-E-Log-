@@ -6,7 +6,7 @@
       <ion-title>Profile Page</ion-title>
       <ion-buttons slot="end">
         <ion-button (click)="logOut()">
-          <ion-icon slot="icon-only" name="log-out"></ion-icon>
+          <ion-icon slot="icon-only" name="log-out" color="danger"></ion-icon>
         </ion-button>
       </ion-buttons>
     </ion-toolbar>
@@ -110,7 +110,7 @@
         </ion-label>
       </ion-item>
       
-      <ion-button (click)="updatePassword()">Change Password</ion-button>
+      <ion-button float-right (click)="updatePassword()">Change Password</ion-button>
       
     </ion-list>
   
