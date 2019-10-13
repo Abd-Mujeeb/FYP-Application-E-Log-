@@ -19,6 +19,9 @@
       <ion-card-header>
         <ion-card-title>{{item.name}}</ion-card-title>
         <ion-card-subtitle>Email: {{item.email}}</ion-card-subtitle>
+        <ion-card-subtitle>School Department: {{item.school_dept}}</ion-card-subtitle>
+        <ion-card-subtitle>Group Code: {{item.group_code}}</ion-card-subtitle>
+        <ion-card-subtitle>Student ID: {{item.student_id}}</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
  
@@ -63,6 +66,18 @@
           <ion-label><strong>Email:</strong></ion-label>
           <ion-input type="text" [(ngModel)]="item.Editemail"></ion-input>
         </ion-item>
+        <ion-item>
+            <ion-label><strong>School Department</strong></ion-label>
+            <ion-input type="text" [(ngModel)]="item.Editschool_dept"></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-label><strong>Group Code</strong></ion-label>
+              <ion-input type="text" [(ngModel)]="item.Editgroup_code"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label><strong>Student ID</strong></ion-label>
+                <ion-input type="text" [(ngModel)]="item.Editstudent_id"></ion-input>
+              </ion-item>
       </ion-card-content>
     </ng-template>
   </ion-card>

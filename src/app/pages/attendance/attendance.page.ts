@@ -3,8 +3,9 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { ToastController, LoadingController } from '@ionic/angular';
 import * as firebase from 'firebase/app';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 declare var google;
 @Component({
@@ -22,18 +23,53 @@ export class AttendancePage implements OnInit {
   timeoutpicker: any;
 
 
-
+  validations_form: FormGroup;
+  
   constructor(
     private geolocation: Geolocation,
     private nativeGeocoder: NativeGeocoder,
     private firebaseService: FirebaseService,
     public router: Router,
     public toastCtrl: ToastController,
+    public loadingCtrl: LoadingController,
+    private formBuilder: FormBuilder,
+
   ) { }
 
   ngOnInit() {
     this.loadMap();
+    this.resetFields();
   }
+
+  resetFields(){
+     this.validations_form = this.formBuilder.group({
+       address: new FormControl('', Validators.required),
+       timeinpicker: new FormControl('', Validators.required),
+       timeoutpicker: new FormControl('',Validators.required),
+     });
+   }
+
+   
+  async onSubmit(value){
+    const toast = await this.toastCtrl.create({
+      message: 'Attendance created successfully',
+      duration: 3000
+    });
+    let data = {
+      address: value.address,
+      timeinpicker: value.timeinpicker,
+      timeoutpicker: value.timeoutpicker,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    }
+    this.firebaseService.createAttendance(data)
+    .then(
+      res => {
+        this.router.navigate(["/attendance-details"]);
+        toast.present();
+      }
+    )
+  }
+
   loadMap() {
     this.geolocation.getCurrentPosition().then((resp) => {
       let latLng = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
@@ -90,22 +126,4 @@ export class AttendancePage implements OnInit {
   }
 
 
-  async submitattendance(){
-    const toast = await this.toastCtrl.create({
-      message: 'Attendance Updated Successfully',
-      duration: 3000
-    });
-    let dateattendance = {
-      address: this.address,
-      timeinpicker: this.timeinpicker,
-      timeoutpicker: this.timeoutpicker,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    }
-    this.firebaseService.createAttendance(dateattendance).then(
-      res => {
-        this.router.navigate(["/attendance-details"]);
-        toast.present();
-      }
-    )
-  }
 }

@@ -21,6 +21,8 @@ export class InfoIsupervisorPage implements OnInit {
           isEdit: false,
           name: e.payload.doc.data()['name'],
           email: e.payload.doc.data()['email'],
+          company: e.payload.doc.data()['company'],
+          position: e.payload.doc.data()['position'],
         };
       })
       console.log(this.userProfile);
@@ -57,12 +59,16 @@ export class InfoIsupervisorPage implements OnInit {
     record.isEdit = true;
     record.Editname = record.name;
     record.Editemail = record.email;
+    record.Editcompany = record.company;
+    record.Editposition = record.position;
   }
  
   UpdateRecord(recordRow) {
     let record = {};
     record['name'] = recordRow.Editname;
     record['email'] = recordRow.Editemail;
+    record['company'] = recordRow.Editcompany;
+    record['position'] = recordRow.Editposition;
     this.isupervisorService.update_isupervisor(recordRow.id, record);
     recordRow.isEdit = false;
   }

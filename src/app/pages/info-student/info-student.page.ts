@@ -26,6 +26,10 @@ export class InfoStudentPage implements OnInit {
           isEdit: false,
           name: e.payload.doc.data()['name'],
           email: e.payload.doc.data()['email'],
+          school_dept: e.payload.doc.data()['school_dept'],
+          group_code: e.payload.doc.data()['group_code'],
+          student_id: e.payload.doc.data()['student_id']
+
         };
       })
       console.log(this.userProfile);
@@ -63,12 +67,18 @@ export class InfoStudentPage implements OnInit {
     record.isEdit = true;
     record.Editname = record.name;
     record.Editemail = record.email;
+    record.Editschool_dept = record.school_dept;
+    record.Editgroup_code = record.group_code;
+    record.Editstudent_id = record.student_id;
   }
  
   UpdateRecord(recordRow) {
     let record = {};
     record['name'] = recordRow.Editname;
     record['email'] = recordRow.Editemail;
+    record['school_dept'] = recordRow.Editschool_dept;
+    record['group_code'] = recordRow.Editgroup_code;
+    record['student_id'] = recordRow.Editstudent_id;
     this.studentService.update_student(recordRow.id, record);
     recordRow.isEdit = false;
   }

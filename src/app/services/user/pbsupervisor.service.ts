@@ -12,6 +12,9 @@ export class PbsupervisorService {
 
   public users_pbsupervisor: firebase.firestore.DocumentReference;
   public currentUser: firebase.User;
+  public value1: any[];
+  public value2: any[];
+  public eventListRef: firebase.firestore.CollectionReference;
 
   constructor(private firestore: AngularFirestore) { 
     firebase.auth().onAuthStateChanged(user => { if (user) 
@@ -76,10 +79,13 @@ export class PbsupervisorService {
   read_pbsupervisor() {
     return this.firestore.collection('users',  ref => ref.where('role', '==', 'pbsupervisor')).snapshotChanges();
   }
+  
 
   delete_pbsupervisor(record_id) {
     this.firestore.doc('users/' + record_id).delete();
   }
+
+
 
 
 }
