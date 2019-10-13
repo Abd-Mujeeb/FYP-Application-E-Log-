@@ -20,7 +20,7 @@ export class StudentService {
 
   public users_student: firebase.firestore.DocumentReference;
   public currentUser: firebase.User;
-
+  
   constructor(private firestore: AngularFirestore,
     private afAuth: AngularFireAuth) { 
     firebase.auth().onAuthStateChanged(user => { if (user) 
@@ -88,6 +88,7 @@ export class StudentService {
 
   read_student() {
     return this.firestore.collection('users',  ref => ref.where('role', '==', 'student')).snapshotChanges();
+    
   }
 
   
@@ -119,6 +120,11 @@ export class StudentService {
 delete_student(record_id) {
   this.firestore.doc('users/' + record_id).delete();
 }
+
+// read_task(){
+  
+//   return this.firestore.collection('users').doc('').collection('tasks').snapshotChanges();
+// }
 
 
 }

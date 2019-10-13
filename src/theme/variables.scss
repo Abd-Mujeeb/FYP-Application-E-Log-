@@ -85,22 +85,37 @@
   // --ion-color-primary-tint: #ed5d69;
 
   ion-content {
-      --background: #2c4b84;
-      --color: #fff;
+      // --background: #10151f;
+      --background: linear-gradient(25deg, rgb(0, 0, 0) 20%, rgb(54, 54, 54) 13.5%, rgb(48, 47, 47) 33.33%, rgba(0,0,0,1) 100%) !important;
+      ;
+      // --color: #fff;
   }
 
   ion-toolbar {
-    --background: #15294e;
-    --color: #fff;
+    --background: #2c2e33;
   }
 
   ion-label {
     --background: #15294e;
+    color: white;
 
   }
 
   ion-item {
-    --background: #095dac;
+    --background: #10151f;
+    color: white;
+  }
+
+  ion-title {
+    color: white;
+  }
+
+  ion-toolbar{
+    background: #10151f;
+  }
+
+  ion-list{
+    background: #10151f;
   }
 }
 

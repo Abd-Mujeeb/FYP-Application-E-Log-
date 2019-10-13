@@ -201,6 +201,18 @@ const routes: Routes = [
     role: 'student'
     } 
  },
+ { path: 'attendance-view', loadChildren: './pages/attendance-view/attendance-view.module#AttendanceViewPageModule',
+ canActivate: [AuthGuard],
+ data: {
+   role: 'student'
+   } 
+},
+{ path: 'attendance-view/:id', loadChildren: './pages/attendance-view/attendance-view.module#AttendanceViewPageModule',
+canActivate: [AuthGuard],
+data: {
+  role: 'student'
+  } 
+},
   { path: 'course', loadChildren: './pages/course/course.module#CoursePageModule' },
   { path: 'group-code', loadChildren: './pages/group-code/group-code.module#GroupCodePageModule' },
 
