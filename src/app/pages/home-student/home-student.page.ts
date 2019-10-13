@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, AlertController } from '@ionic/angular';
 import { StudentService } from 'src/app/services/user/student.service';
 import * as firebase from 'firebase/app';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { AuthService } from 'src/app/services/user/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // export interface Image {
 //   id: string;
 //   image: string;
@@ -35,12 +36,8 @@ export class HomeStudentPage implements OnInit {
    private route: ActivatedRoute,
    private firebaseService: FirebaseService,
    public loadingCtrl: LoadingController,
-<<<<<<< HEAD
    private alertCtrl: AlertController,
    private formBuilder: FormBuilder) { }
-=======
-   private router: Router) { }
->>>>>>> 0dc8c300fb16cdedfb9472fccd41d685f3e69b6b
 
   ngOnInit() {
 
@@ -153,9 +150,9 @@ filterList(evt){
   });
 }
 
-logout(){
-  this.authservice.logoutUser().then( () => {
-    this.router.navigateByUrl('login');
-  });
-}
+// logout(){
+//   this.authservice.logoutUser().then( () => {
+//     this.router.navigateByUrl('login');
+//   });
+// }
 }
