@@ -55,10 +55,13 @@ export class AttendancePage implements OnInit {
       message: 'Attendance created successfully',
       duration: 3000
     });
+    let currentUser = firebase.auth().currentUser;
     let data = {
       address: value.address,
       timeinpicker: value.timeinpicker,
       timeoutpicker: value.timeoutpicker,
+      name: currentUser.uid,
+      email: currentUser.email,
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
     }
     this.firebaseService.createAttendance(data)

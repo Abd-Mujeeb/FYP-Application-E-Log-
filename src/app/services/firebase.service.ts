@@ -108,6 +108,8 @@ export class FirebaseService {
       timeinpicker: value.timeinpicker,
       timeoutpicker: value.timeoutpicker,
       timestamp: value.timestamp,
+      name: currentUser.uid,
+      email: currentUser.email,
       })
       .then(
         res => resolve(res),

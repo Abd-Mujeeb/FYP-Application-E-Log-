@@ -122,8 +122,12 @@ delete_student(record_id) {
   this.firestore.doc('users/' + record_id).delete();
 }
 
-read_task(){
+read_student_task(){
   return this.firestore.collectionGroup('tasks').snapshotChanges();
+}
+
+read_student_attendance(){
+  return this.firestore.collectionGroup('attendance').snapshotChanges();
 }
 
 // return this.firestore.collection('users').doc('').collection('tasks').snapshotChanges();

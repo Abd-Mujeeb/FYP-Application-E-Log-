@@ -219,7 +219,8 @@ data: {
   canActivate: [AuthGuard],
   data: {
     role: 'admin'
-    }  },
+    }  },  { path: 'student-attendance', loadChildren: './pages/student-attendance/student-attendance.module#StudentAttendancePageModule' },
+
 
 
 

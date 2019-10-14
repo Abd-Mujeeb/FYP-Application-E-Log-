@@ -1,0 +1,41 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="/home-admin"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Student Attendance</ion-title>
+        <ion-buttons slot="end">
+          <ion-button routerLink="/profile-admin">
+            <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-searchbar animated showCancelButton (ionInput)="filterList($event)" placeholder="Search Student Name or Email">
+      </ion-searchbar>
+    
+    
+      <ion-card *ngFor="let item of attendancelist">
+        <ion-grid>
+          <ion-row>
+  
+   
+    
+    
+              <ion-card-content>
+            
+                <p>Name: {{item.name}}</p>
+                <p>Email: {{item.email}}</p>
+                <p>Address: {{item.address}}</p>
+                <p>Time-In: {{item.timeinpicker | date: 'dd MMMM yyyy.  h:mm a'}}</p>
+                <p>Time-Out: {{item.timeoutpicker | date: 'dd MMMM yyyy.  h:mm a'}}</p>
+                <p>Server Time-In: {{item.timestamp.toDate() | date: 'dd MMMM yyyy.  h:mm a'}}</p>
+            
+              </ion-card-content>
+          </ion-row>
+        </ion-grid>
+    
+      </ion-card>
+</ion-content>
