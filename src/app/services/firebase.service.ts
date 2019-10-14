@@ -8,6 +8,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
   providedIn: 'root'
 })
 export class FirebaseService {
+ 
+  name : any;
 
   private snapshotChangesSubscription: any;
   public currentUser: firebase.User;
@@ -25,6 +27,8 @@ export class FirebaseService {
         description: value.description,
         image: value.image,
         pickdate: value.pickdate,
+        name: currentUser.uid,
+        email: currentUser.email,
         created: firebase.firestore.FieldValue.serverTimestamp()
 
       })

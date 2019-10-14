@@ -46,11 +46,14 @@ export class NewTaskPage implements OnInit {
       message: 'Task created successfully',
       duration: 3000
     });
+    let currentUser = firebase.auth().currentUser;
     let data = {
       title: value.title,
       description: value.description,
       image: this.image,
       pickdate: value.pickdate,
+      name: currentUser.uid,
+      email: currentUser.email,
       created: firebase.firestore.FieldValue.serverTimestamp()
     }
     this.firebaseService.createTask(data)

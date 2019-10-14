@@ -5,6 +5,7 @@ import 'firebase/firestore';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 
+
 interface user {
   name: string,
   email: string,
@@ -121,10 +122,11 @@ delete_student(record_id) {
   this.firestore.doc('users/' + record_id).delete();
 }
 
-// read_task(){
-  
-//   return this.firestore.collection('users').doc('').collection('tasks').snapshotChanges();
-// }
+read_task(){
+  return this.firestore.collectionGroup('tasks').snapshotChanges();
+}
+
+// return this.firestore.collection('users').doc('').collection('tasks').snapshotChanges();
 
 
 }

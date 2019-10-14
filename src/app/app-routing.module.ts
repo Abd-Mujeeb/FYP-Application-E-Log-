@@ -215,6 +215,12 @@ data: {
 },
   { path: 'course', loadChildren: './pages/course/course.module#CoursePageModule' },
   { path: 'group-code', loadChildren: './pages/group-code/group-code.module#GroupCodePageModule' },
+  { path: 'student-task', loadChildren: './pages/student-task/student-task.module#StudentTaskPageModule',
+  canActivate: [AuthGuard],
+  data: {
+    role: 'admin'
+    }  },
+
 
 
 
