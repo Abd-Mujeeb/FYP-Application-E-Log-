@@ -15,10 +15,18 @@ declare var google;
 })
 export class AttendancePage implements OnInit {
 
-  
+
   @ViewChild('map', {static:true}) mapElement: ElementRef;
+
+  geoLatitude: number;
+  geoLongitude: number;
+
+ 
+
+
   map: any;
   address:string;
+
   timeinpicker: any;
   timeoutpicker: any;
 
@@ -44,6 +52,8 @@ export class AttendancePage implements OnInit {
   resetFields(){
      this.validations_form = this.formBuilder.group({
        address: new FormControl('', Validators.required),
+       geoLatitude: new FormControl('', Validators.required),
+       geoLongitude: new FormControl('', Validators.required),
        timeinpicker: new FormControl('', Validators.required),
        timeoutpicker: new FormControl('',Validators.required),
      });
@@ -60,6 +70,8 @@ export class AttendancePage implements OnInit {
       address: value.address,
       timeinpicker: value.timeinpicker,
       timeoutpicker: value.timeoutpicker,
+      geoLatitude: value.geoLatitude,
+      geoLongitude: value.geoLongitude,
       name: currentUser.uid,
       email: currentUser.email,
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
@@ -76,6 +88,8 @@ export class AttendancePage implements OnInit {
   loadMap() {
     this.geolocation.getCurrentPosition().then((resp) => {
       let latLng = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
+      this.geoLatitude = resp.coords.latitude;
+      this.geoLongitude = resp.coords.longitude;
       let mapOptions = {
         center: latLng,
         zoom: 15,
@@ -89,6 +103,8 @@ export class AttendancePage implements OnInit {
       this.map.addListener('tilesloaded', () => {
         console.log('accuracy',this.map);
         this.getAddressFromCoords(this.map.center.lat(), this.map.center.lng())
+
+     
       });
 
     }).catch((error) => {

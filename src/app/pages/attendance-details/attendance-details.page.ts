@@ -12,6 +12,7 @@ import { Http } from '@angular/http';
 export class AttendanceDetailsPage implements OnInit {
   public attendancelist: any[];
   public loadeditems: any[];
+  descending: any;
  
   constructor(  public http: Http,
     public afstore: AngularFirestore,
@@ -25,6 +26,8 @@ export class AttendanceDetailsPage implements OnInit {
         return {
           id: e.payload.doc.id,
           address: e.payload.doc.data()['address'],
+          geoLatitude: e.payload.doc.data()['geoLatitude'],
+          geoLongitude: e.payload.doc.data()['geoLongitude'],
           timeinpicker: e.payload.doc.data()['timeinpicker'],
           timeoutpicker: e.payload.doc.data()['timeoutpicker'],
           timestamp: e.payload.doc.data()['timestamp'],
@@ -37,6 +40,7 @@ export class AttendanceDetailsPage implements OnInit {
     });
    
   }
+
 
   async presentLoading(loading) {
     return await loading.present();
@@ -55,8 +59,9 @@ export class AttendanceDetailsPage implements OnInit {
     }
   
     this.attendancelist = this.attendancelist.filter(currentitems => {
-      if (currentitems.address  && searchTerm) {
-        if (currentitems.address.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ){
+      if (currentitems.address, currentitems.timeinpicker  && searchTerm) {
+        if (currentitems.address.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+        currentitems.timeinpicker.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ){
           return true;
         }
         return false;

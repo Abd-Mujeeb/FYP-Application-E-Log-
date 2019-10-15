@@ -42,6 +42,8 @@ export class AttendanceViewPage implements OnInit {
     })
     this.validations_form = this.formBuilder.group({
       address: new FormControl(this.item.address, Validators.required),
+      geoLatitude: new FormControl(this.item.geoLatitude, Validators.required),
+      geoLongitude: new FormControl(this.item.geoLongitude, Validators.required),
       timeinpicker: new FormControl(this.item.timeinpicker, Validators.required),
       timeoutpicker: new FormControl(this.item.timeoutpicker, Validators.required),
 

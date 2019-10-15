@@ -107,6 +107,8 @@ export class FirebaseService {
         address: value.address,
       timeinpicker: value.timeinpicker,
       timeoutpicker: value.timeoutpicker,
+      geoLatitude: value.geoLatitude,
+      geoLongitude: value.geoLongitude,
       timestamp: value.timestamp,
       name: currentUser.uid,
       email: currentUser.email,
