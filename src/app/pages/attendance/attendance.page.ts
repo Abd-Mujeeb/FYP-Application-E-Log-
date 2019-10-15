@@ -72,7 +72,7 @@ export class AttendancePage implements OnInit {
       timeoutpicker: value.timeoutpicker,
       geoLatitude: value.geoLatitude,
       geoLongitude: value.geoLongitude,
-      name: currentUser.uid,
+      name: currentUser.displayName,
       email: currentUser.email,
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
     }

@@ -52,7 +52,7 @@ export class NewTaskPage implements OnInit {
       description: value.description,
       image: this.image,
       pickdate: value.pickdate,
-      name: currentUser.uid,
+      name: currentUser.displayName,
       email: currentUser.email,
       created: firebase.firestore.FieldValue.serverTimestamp()
     }

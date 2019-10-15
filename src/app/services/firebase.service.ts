@@ -27,7 +27,7 @@ export class FirebaseService {
         description: value.description,
         image: value.image,
         pickdate: value.pickdate,
-        name: currentUser.uid,
+        name: currentUser.displayName,
         email: currentUser.email,
         created: firebase.firestore.FieldValue.serverTimestamp()
 
@@ -110,7 +110,7 @@ export class FirebaseService {
       geoLatitude: value.geoLatitude,
       geoLongitude: value.geoLongitude,
       timestamp: value.timestamp,
-      name: currentUser.uid,
+      name: currentUser.displayName,
       email: currentUser.email,
       })
       .then(
