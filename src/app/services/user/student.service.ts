@@ -35,8 +35,8 @@ export class StudentService {
     return this.users_student;
   }
 
-  updateName(name: string): Promise<any> {
-    return this.users_student.update({ name })
+  updateName(displayName: string): Promise<any> {
+    return this.users_student.update({ displayName })
   }
 
   // updateDOB(birthDate: string): Promise<any> {
@@ -91,6 +91,10 @@ export class StudentService {
     return this.firestore.collection('users',  ref => ref.where('role', '==', 'student')).snapshotChanges();
     
   }
+  read_gcstudent() {
+    return this.firestore.collection('users',  ref => ref.where('role', '==', 'student').where('group_code', '==', 'DiICT(NWS)0317/06')).snapshotChanges();
+    
+  }
 
   
   //uploadtask
@@ -127,6 +131,10 @@ read_student_task(){
 }
 
 read_student_attendance(){
+  return this.firestore.collectionGroup('attendance').snapshotChanges();
+}
+
+read_gcstudent_attendance(){
   return this.firestore.collectionGroup('attendance').snapshotChanges();
 }
 

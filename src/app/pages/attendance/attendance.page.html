@@ -42,7 +42,7 @@
       </ion-label >
       <ion-input readonly type="text" value="{{geoLongitude}}" formControlName="geoLongitude"></ion-input>
     </ion-item>
-    <ion-item>
+    <!-- <ion-item>
       <ion-label position="floating" color="primary">Time In</ion-label>
       <ion-datetime display-format="DDDD, DD MMMM YYYY, h:mm A" min="2019" max="2023" formControlName="timeinpicker">
       </ion-datetime>
@@ -51,9 +51,9 @@
       <ion-label position="floating" color="primary">Time Out</ion-label>
       <ion-datetime display-format="DDDD, DD MMMM YYYY, h:mm A" min="2019" max="2023" formControlName="timeoutpicker">
       </ion-datetime>
-    </ion-item>
+    </ion-item> -->
 
-    <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!validations_form.valid">Submit</ion-button>
+    <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!validations_form.valid">Time In</ion-button>
     <ion-button color="danger" expand="block" [hidden]="!validations_form.valid" [routerLink]="['/home-student']">Cancel
     </ion-button>
     <!-- <ion-button (click)="testing()"></ion-button> -->

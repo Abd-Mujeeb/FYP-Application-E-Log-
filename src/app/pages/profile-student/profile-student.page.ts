@@ -59,9 +59,9 @@ export class ProfileStudentPage implements OnInit {
       inputs: [
         {
           type: 'text',
-          name: 'name',
+          name: 'displayName',
           placeholder: 'Your full name',
-          value: this.userProfile.name,
+          value: this.userProfile.displayName,
         },
       ],
       buttons: [
@@ -69,7 +69,7 @@ export class ProfileStudentPage implements OnInit {
         {
           text: 'Save',
           handler: data => {
-            this.studentService.updateName(data.name);
+            this.studentService.updateName(data.displayName);
           },
         },
       ],

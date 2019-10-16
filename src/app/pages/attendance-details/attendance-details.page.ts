@@ -28,9 +28,10 @@ export class AttendanceDetailsPage implements OnInit {
           address: e.payload.doc.data()['address'],
           geoLatitude: e.payload.doc.data()['geoLatitude'],
           geoLongitude: e.payload.doc.data()['geoLongitude'],
-          timeinpicker: e.payload.doc.data()['timeinpicker'],
-          timeoutpicker: e.payload.doc.data()['timeoutpicker'],
-          timestamp: e.payload.doc.data()['timestamp'],
+          // timeinpicker: e.payload.doc.data()['timeinpicker'],
+          // timeoutpicker: e.payload.doc.data()['timeoutpicker'],
+          timeinstamp: e.payload.doc.data()['timeinstamp'],
+          timeoutstamp: e.payload.doc.data()['timeoutstamp'],
          
         };
       })
@@ -59,9 +60,8 @@ export class AttendanceDetailsPage implements OnInit {
     }
   
     this.attendancelist = this.attendancelist.filter(currentitems => {
-      if (currentitems.address, currentitems.timeinpicker  && searchTerm) {
-        if (currentitems.address.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
-        currentitems.timeinpicker.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ){
+      if (currentitems.address && searchTerm) {
+        if (currentitems.address.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ){
           return true;
         }
         return false;

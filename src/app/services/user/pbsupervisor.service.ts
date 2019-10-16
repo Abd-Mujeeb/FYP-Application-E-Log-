@@ -28,8 +28,8 @@ export class PbsupervisorService {
     return this.users_pbsupervisor;
   }
 
-  updateName(name: string): Promise<any> {
-    return this.users_pbsupervisor.update({ name })
+  updateName(displayName: string): Promise<any> {
+    return this.users_pbsupervisor.update({ displayName })
   }
 
   // updateDOB(birthDate: string): Promise<any> {
@@ -84,6 +84,9 @@ export class PbsupervisorService {
     return this.firestore.collection('users',  ref => ref.where('role', '==', 'pbsupervisor')).snapshotChanges();
   }
   
+  read_pbsupervisor_mujib(){
+    return this.firestore.collection('users', ref => ref.where('pbsupervisor', '==', 'Abdul Mujib  Bin Irfan')).snapshotChanges();
+  }
 
   delete_pbsupervisor(record_id) {
     this.firestore.doc('users/' + record_id).delete();

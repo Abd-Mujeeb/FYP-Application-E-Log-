@@ -1,39 +1,52 @@
 <ion-header>
   <ion-toolbar color="primary">
-      <ion-buttons slot="start">
-          <ion-back-button defaultHref="attendance-details"></ion-back-button>
-        </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="attendance-details"></ion-back-button>
+    </ion-buttons>
     <ion-title>Attendance Details</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
 
-    <form [formGroup]="validations_form" (ngSubmit)="onSubmit(validations_form.value)">
-      <ion-item>
-        <ion-label position="floating" color="primary">Address</ion-label>
-        <ion-input readOnly type="text" formControlName="address"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating" color="primary">Latitude</ion-label>
-        <ion-input readOnly type="text" formControlName="geoLatitude"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating" color="primary">Longitude</ion-label>
-        <ion-input readOnly type="text" formControlName="geoLongitude"></ion-input>
-      </ion-item>
-      <ion-item>
-          <ion-label position="floating" color="primary">Time In</ion-label>
-          <ion-datetime readOnly display-format="DDDD, DD MMMM YYYY, h:mm A" min="2019" max="2023" formControlName="timeinpicker">
-          </ion-datetime>
-        </ion-item>
-        <ion-item>
-            <ion-label position="floating" color="primary">Time Out</ion-label>
-            <ion-datetime readOnly display-format="DDDD, DD MMMM YYYY, h:mm A" min="2019" max="2023" formControlName="timeoutpicker">
-            </ion-datetime>
+  <form [formGroup]="validations_form" (ngSubmit)="onSubmit(validations_form.value)">
+    <ion-item>
+      <ion-label position="floating" color="primary">Address</ion-label>
+      <ion-input readOnly type="text" formControlName="address"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" color="primary">Latitude</ion-label>
+      <ion-input readOnly type="text" formControlName="geoLatitude"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" color="primary">Longitude</ion-label>
+      <ion-input readOnly type="text" formControlName="geoLongitude"></ion-input>
+    </ion-item>
+    <!-- <ion-item>
+      <ion-label position="floating" color="primary">Time In</ion-label>
+      <ion-datetime readOnly display-format="DDDD, DD MMMM YYYY, h:mm A" min="2019" max="2023"
+        formControlName="timeinpicker">
+      </ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" color="primary">Time Out</ion-label>
+      <ion-datetime  display-format="DDDD, DD MMMM YYYY, h:mm A" min="2019" max="2023"
+        formControlName="timeoutpicker">
+      </ion-datetime>
+    </ion-item> -->
+    <!-- <ion-item>
+            <ion-label position="floating" color="primary">Server Time In</ion-label>
+            <ion-input readOnly type="text" formControlName="timeinstamp"></ion-input>
           </ion-item>
-    </form>
-    <ion-button class="delete-button" expand="block" color="danger" (click)="delete()">Delete</ion-button>
-    <ion-button class="cancel-button" expand="block" color="primary" [routerLink]="['/attendance-details']" >Cancel</ion-button>
-  
-  </ion-content>
+          <ion-item>
+            <ion-label position="floating" color="primary">Server Time Out</ion-label>
+            <ion-input readOnly type="text" formControlName="timeinoutstamp"></ion-input>
+          </ion-item> -->
+
+    <ion-button class="submit-button" expand="block" type="submit">Time Out</ion-button>
+  </form>
+  <ion-button class="delete-button" expand="block" color="danger" (click)="delete()">Delete</ion-button>
+  <ion-button class="cancel-button" expand="block" color="primary" [routerLink]="['/attendance-details']">Cancel
+  </ion-button>
+
+</ion-content>

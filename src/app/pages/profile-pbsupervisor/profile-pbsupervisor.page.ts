@@ -60,9 +60,9 @@ export class ProfilePbsupervisorPage implements OnInit {
       inputs: [
         {
           type: 'text',
-          name: 'name',
+          name: 'displayName',
           placeholder: 'Your full name',
-          value: this.userProfile.name,
+          value: this.userProfile.displayName,
         }
       ],
       buttons: [
@@ -70,7 +70,7 @@ export class ProfilePbsupervisorPage implements OnInit {
         {
           text: 'Save',
           handler: data => {
-            this.pbsupervisorService.updateName(data.name);
+            this.pbsupervisorService.updateName(data.displayName);
             this.ngOnInit();
           },
         },

@@ -30,8 +30,8 @@ export class AdminService {
     return this.userProfile;
   }
 
-  updateName(name: string): Promise<any> {
-    return this.userProfile.update({ name })
+  updateName(displayName: string): Promise<any> {
+    return this.userProfile.update({ displayName })
   }
 
   // updateDOB(birthDate: string): Promise<any> {

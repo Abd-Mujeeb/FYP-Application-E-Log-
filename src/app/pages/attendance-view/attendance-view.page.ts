@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import * as firebase from 'firebase/app';
 @Component({
   selector: 'app-attendance-view',
   templateUrl: './attendance-view.page.html',
@@ -42,14 +42,41 @@ export class AttendanceViewPage implements OnInit {
     })
     this.validations_form = this.formBuilder.group({
       address: new FormControl(this.item.address, Validators.required),
-      geoLatitude: new FormControl(this.item.geoLatitude, Validators.required),
-      geoLongitude: new FormControl(this.item.geoLongitude, Validators.required),
-      timeinpicker: new FormControl(this.item.timeinpicker, Validators.required),
-      timeoutpicker: new FormControl(this.item.timeoutpicker, Validators.required),
+      geoLatitude: new FormControl(this.item.geoLatitude),
+      geoLongitude: new FormControl(this.item.geoLongitude),
+      // timeinpicker: new FormControl(this.item.timeinpicker, Validators.required),
+      // timeoutpicker: new FormControl(this.item.timeoutpicker, Validators.required),
 
       
     });
   }
+  async onSubmit(value){
+    const toast = await this.toastCtrl.create({
+      message: 'Timeout successfully',
+      duration: 3000
+    });
+
+    // let data = {
+    //   address: value.address,
+    //   geoLatitude: value.geoLatitude,
+    //   geoLongitude: value.geoLongitude,
+    //   name: value.name,
+    //   email: value.email,
+    //   timeinpicker: value.timeinpicker,
+    //   timeoutpicker: value.timeoutpicker, 
+    //   timeinstamp: value.timeinstamp,
+     
+    // }
+    this.firebaseService.updateAttendance(this.item.id, value)
+    .then(
+      res => {
+        this.router.navigate(["/attendance-details"]);
+        toast.present();
+      }
+    )
+  }
+
+
 
 
 

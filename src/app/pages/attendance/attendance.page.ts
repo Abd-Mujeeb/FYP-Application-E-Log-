@@ -54,8 +54,10 @@ export class AttendancePage implements OnInit {
        address: new FormControl('', Validators.required),
        geoLatitude: new FormControl('', Validators.required),
        geoLongitude: new FormControl('', Validators.required),
-       timeinpicker: new FormControl('', Validators.required),
-       timeoutpicker: new FormControl('',Validators.required),
+      //  timeinpicker: new FormControl('', Validators.required),
+      //  timeoutpicker: new FormControl('',Validators.required),
+
+
      });
    }
 
@@ -68,13 +70,16 @@ export class AttendancePage implements OnInit {
     let currentUser = firebase.auth().currentUser;
     let data = {
       address: value.address,
-      timeinpicker: value.timeinpicker,
-      timeoutpicker: value.timeoutpicker,
       geoLatitude: value.geoLatitude,
       geoLongitude: value.geoLongitude,
       name: currentUser.displayName,
       email: currentUser.email,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      // timeinpicker: value.timeinpicker,
+      // timeoutpicker: value.timeoutpicker,
+
+      timeinstamp: firebase.firestore.FieldValue.serverTimestamp(),
+  
+     
     }
     this.firebaseService.createAttendance(data)
     .then(

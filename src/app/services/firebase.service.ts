@@ -105,11 +105,11 @@ export class FirebaseService {
       let currentUser = firebase.auth().currentUser;
       this.afs.collection('users').doc(currentUser.uid).collection('attendance').add({
         address: value.address,
-      timeinpicker: value.timeinpicker,
-      timeoutpicker: value.timeoutpicker,
+      // timeinpicker: value.timeinpicker,
+      // timeoutpicker: value.timeoutpicker,
       geoLatitude: value.geoLatitude,
       geoLongitude: value.geoLongitude,
-      timestamp: value.timestamp,
+      timeinstamp: value.timeinstamp,
       name: currentUser.displayName,
       email: currentUser.email,
       })
@@ -156,10 +156,12 @@ export class FirebaseService {
   }
 
 
-  updateAttendance(attendanceKey, value){
+  updateAttendance(attendanceID, value){
     return new Promise<any>((resolve, reject) => {
       let currentUser = firebase.auth().currentUser;
-      this.afs.collection('users').doc(currentUser.uid).collection('attendance').doc(attendanceKey).set(value)
+      this.afs.collection('users').doc(currentUser.uid).collection('attendance').doc(attendanceID).update({
+        timeoutstamp: firebase.firestore.FieldValue.serverTimestamp()
+      })
       .then(
         res => resolve(res),
         err => reject(err)

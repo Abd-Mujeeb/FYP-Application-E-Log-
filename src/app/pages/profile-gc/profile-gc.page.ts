@@ -58,9 +58,9 @@ export class ProfileGcPage implements OnInit {
       inputs: [
         {
           type: 'text',
-          name: 'name',
+          name: 'displayName',
           placeholder: 'Your fullame',
-          value: this.userProfile.name,
+          value: this.userProfile.displayName,
         }
       ],
       buttons: [
@@ -68,7 +68,7 @@ export class ProfileGcPage implements OnInit {
         {
           text: 'Save',
           handler: data => {
-            this.gcService.updateName(data.name);
+            this.gcService.updateName(data.displayName);
             return this.ngOnInit();
           },
         },

@@ -45,7 +45,7 @@ export class ProfileAdminPage implements OnInit {
       inputs: [
         {
           type: 'text',
-          name: 'name',
+          name: 'displayName',
           placeholder: 'Your name',
           value: this.userProfile.name,
         }

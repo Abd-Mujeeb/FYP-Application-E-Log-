@@ -219,7 +219,31 @@ data: {
   canActivate: [AuthGuard],
   data: {
     role: 'admin'
-    }  },  { path: 'student-attendance', loadChildren: './pages/student-attendance/student-attendance.module#StudentAttendancePageModule' },
+    }  },
+  { path: 'student-attendance', loadChildren: './pages/student-attendance/student-attendance.module#StudentAttendancePageModule' },
+  { path: 'pb-mujib', loadChildren: './pages/pb-mujib/pb-mujib.module#PbMujibPageModule',
+  canActivate: [AuthGuard],
+  data: {
+    role: 'pbsupervisor'
+    }  
+  },   
+    
+  { path: 'i-student-list', loadChildren: './pages/i-student-list/i-student-list.module#IStudentListPageModule',
+  canActivate: [AuthGuard],
+  data: {
+    role: 'isupervisor'
+    }
+},
+  { path: 'info-gcstudent', loadChildren: './pages/info-gcstudent/info-gcstudent.module#InfoGcstudentPageModule',
+  canActivate: [AuthGuard],
+  data: {
+    role: 'gc'
+    } 
+},
+  { path: 'attendance-gcstudent', loadChildren: './pages/attendance-gcstudent/attendance-gcstudent.module#AttendanceGcstudentPageModule' },
+
+
+
 
 
 
