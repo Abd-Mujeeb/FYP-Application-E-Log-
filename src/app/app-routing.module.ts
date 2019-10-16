@@ -22,8 +22,6 @@ const routes: Routes = [
     loadChildren: './pages/home/home.module#HomePageModule',
     canActivate: [AuthGuard],
   },
-
-  { path: 'profile', loadChildren: './pages/profile/profile.module#ProfilePageModule',},
   { path: 'reset-password', loadChildren: './pages/reset-password/reset-password.module#ResetPasswordPageModule' },
   { path: 'signup', loadChildren: './pages/signup/signup.module#SignupPageModule' },
   { path: 'first-login-password', loadChildren: '././first-login-password/first-login-password.module#FirstLoginPasswordPageModule' },
