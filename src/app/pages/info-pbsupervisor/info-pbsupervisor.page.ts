@@ -39,7 +39,7 @@ export class InfoPbsupervisorPage implements OnInit {
            return {
           id: e.payload.doc.id,
           isEdit: false,
-          name: e.payload.doc.data()['name'],
+          name: e.payload.doc.data()['displayName'],
           email: e.payload.doc.data()['email'],
           school_dept: e.payload.doc.data()['school_dept'],
           student: e.payload.doc.data()['student'],

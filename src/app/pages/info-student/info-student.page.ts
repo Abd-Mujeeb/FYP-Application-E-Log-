@@ -25,7 +25,7 @@ export class InfoStudentPage implements OnInit {
            return {
           id: e.payload.doc.id,
           isEdit: false,
-          name: e.payload.doc.data()['name'],
+          name: e.payload.doc.data()['displayName'],
           email: e.payload.doc.data()['email'],
           school_dept: e.payload.doc.data()['school_dept'],
           group_code: e.payload.doc.data()['group_code'],
