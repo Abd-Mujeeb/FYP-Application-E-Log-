@@ -20,12 +20,11 @@ export class StudentAttendancePage implements OnInit {
       this.attendancelist = data.map(e => {
         return {
           id: e.payload.doc.id,
-          name: e.payload.doc.data()['name'],
+          name: e.payload.doc.data()['displayName'],
           email: e.payload.doc.data()['email'],
           address: e.payload.doc.data()['address'],
-          timeinstamp: e.payload.doc.data()['timeinstamp'],
+          timeinstamp: e.payload.doc.data()['timeintimestamp'],
           timeoutstamp: e.payload.doc.data()['timeoutstamp'],
-        
          
         };
       })

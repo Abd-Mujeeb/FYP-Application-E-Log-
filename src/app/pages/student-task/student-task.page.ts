@@ -21,7 +21,7 @@ export class StudentTaskPage implements OnInit {
       this.tasklist = data.map(e => {
         return {
           id: e.payload.doc.id,
-          name: e.payload.doc.data()['name'],
+          name: e.payload.doc.data()['displayName'],
           email: e.payload.doc.data()['email'],
           title: e.payload.doc.data()['title'],
           description: e.payload.doc.data()['description'],

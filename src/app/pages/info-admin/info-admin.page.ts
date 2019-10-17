@@ -28,7 +28,7 @@ export class InfoAdminPage implements OnInit {
            return {
           id: e.payload.doc.id,
           isEdit: false,
-          name: e.payload.doc.data()['name'],
+          displayName: e.payload.doc.data()['displayName'],
           email: e.payload.doc.data()['email'],
         };
       })
@@ -52,8 +52,8 @@ export class InfoAdminPage implements OnInit {
     }
 
     this.userProfile = this.userProfile.filter(currentlist => {
-      if (currentlist.name, currentlist.email && searchTerm){
-        if (currentlist.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+      if (currentlist.displayName, currentlist.email && searchTerm){
+        if (currentlist.displayName.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
         currentlist.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1){
           return true;
         }
@@ -66,13 +66,13 @@ export class InfoAdminPage implements OnInit {
 
   EditRecord(record) {
     record.isEdit = true;
-    record.Editname = record.name;
+    record.EditdisplayName = record.displayName;
     record.Editemail = record.email;
   }
  
   UpdateRecord(recordRow) {
     let record = {};
-    record['name'] = recordRow.Editname;
+    record['displayName'] = recordRow.EditdisplayName;
     record['email'] = recordRow.Editemail;
     this.adminService.update_Admin(recordRow.id, record);
     recordRow.isEdit = false;
