@@ -23,9 +23,9 @@ export class StudentAttendancePage implements OnInit {
           name: e.payload.doc.data()['name'],
           email: e.payload.doc.data()['email'],
           address: e.payload.doc.data()['address'],
-          timeinpicker: e.payload.doc.data()['timeinpicker'],
-          timeoutpicker: e.payload.doc.data()['timeoutpicker'],
-          timestamp: e.payload.doc.data()['timestamp'],
+          timeinstamp: e.payload.doc.data()['timeinstamp'],
+          timeoutstamp: e.payload.doc.data()['timeoutstamp'],
+        
          
         };
       })

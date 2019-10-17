@@ -19,7 +19,7 @@ export class InfoIsupervisorPage implements OnInit {
            return {
           id: e.payload.doc.id,
           isEdit: false,
-          name: e.payload.doc.data()['name'],
+          name: e.payload.doc.data()['displayName'],
           email: e.payload.doc.data()['email'],
           company: e.payload.doc.data()['company'],
           position: e.payload.doc.data()['position'],
