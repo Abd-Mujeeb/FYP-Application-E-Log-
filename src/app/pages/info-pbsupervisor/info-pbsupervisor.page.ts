@@ -5,6 +5,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { pipe } from 'rxjs';
 import * as firebase from 'firebase';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-info-pbsupervisor',
@@ -30,6 +31,7 @@ export class InfoPbsupervisorPage implements OnInit {
     private pbsupervisorService: PbsupervisorService,
     private firestore: AngularFirestore,
     private router: Router,
+    private alertCtrl: AlertController
   ) { }
 
   ngOnInit() {
@@ -96,11 +98,30 @@ export class InfoPbsupervisorPage implements OnInit {
   }
 
 
-  button(){
+  async presentAlertConfirm(rowID) {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirm!',
+      message: 'Message <strong>Are you sure to remove user? </br>click "confirm" to permanantly delete user</strong>',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Confirm',
+          handler: () => {
+            console.log('Confirm');
+            this.pbsupervisorService.delete_pbsupervisor(rowID);
+          }
+        }
+      ]
+    });
 
-   
-  
-}
+    await alert.present();
+  }
 
 
   

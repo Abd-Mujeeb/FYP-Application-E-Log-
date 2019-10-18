@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentService } from 'src/app/services/user/student.service';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -15,7 +16,8 @@ export class InfoStudentPage implements OnInit {
 
   constructor(
     private studentService: StudentService,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private alertCtrl: AlertController
   ) { }
 
   ngOnInit() {
@@ -86,6 +88,31 @@ export class InfoStudentPage implements OnInit {
 
   RemoveRecord(rowID) {
     this.studentService.delete_student(rowID);
+  }
+
+  async presentAlertConfirm(rowID) {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirm!',
+      message: 'Message <strong>Are you sure to remove user? </br>click "confirm" to permanantly delete user</strong>',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Confirm',
+          handler: () => {
+            console.log('Confirm');
+            this.studentService.delete_student(rowID);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
 
