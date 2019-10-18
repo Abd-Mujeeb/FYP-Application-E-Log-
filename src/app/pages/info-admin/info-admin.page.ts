@@ -83,6 +83,32 @@ export class InfoAdminPage implements OnInit {
   }
 
 
+  async presentAlertConfirm(rowID) {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirm!',
+      message: 'Message <strong>Are you sure to remove user? </br>click "confirm" to permanantly delete user</strong>',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Confirm',
+          handler: () => {
+            console.log('Confirm');
+            this.adminService.delete_admin(rowID);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+
   
 
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GcService } from 'src/app/services/user/gc.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-info-gc',
@@ -12,6 +13,7 @@ export class InfoGcPage implements OnInit {
 
   constructor(
     private gcService: GcService,
+    private alertCtrl: AlertController
   ) { }
 
   ngOnInit() {
@@ -77,6 +79,31 @@ export class InfoGcPage implements OnInit {
 
   RemoveRecord(rowID) {
     this.gcService.delete_gc(rowID);
+  }
+
+  async presentAlertConfirm(rowID) {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirm!',
+      message: 'Message <strong>Are you sure to remove user? </br>click "confirm" to permanantly delete user</strong>',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Confirm',
+          handler: () => {
+            console.log('Confirm');
+            this.gcService.delete_gc(rowID);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
 }
