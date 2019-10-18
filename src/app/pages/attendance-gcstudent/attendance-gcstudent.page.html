@@ -30,8 +30,8 @@
                 <p>Email: {{item.email}}</p>
                 <p>Address: {{item.address}}</p>
                 <p>Date: {{item.timeinstamp.toDate() | date: 'dd MMMM yyyy'}}</p>
-                <p>Time-In: {{item.timeinstamp.toDate() | date: 'h:mm a'}} , (coordinates: {{item.geoLatitude}},{{item.geoLongitude}})</p>
-                <p>Time-Out: {{item.timeoutstamp?.toDate() | date: 'h:mm a'}} , (coordinates: {{item.timeoutLatitude}},{{item.timeoutLongitude}})</p>
+                <p>Time-In: {{item.timeinstamp.toDate() | date: 'h:mm a'}} , (coordinates: Latitude {{item.geoLatitude}}, Longitude {{item.geoLongitude}})</p>
+                <p>Time-Out: {{item.timeoutstamp?.toDate() | date: 'h:mm a'}} , (coordinates: Latitude {{item.geoLatitude}}, Longitude {{item.geoLongitude}})</p>
 
             
               </ion-card-content>
