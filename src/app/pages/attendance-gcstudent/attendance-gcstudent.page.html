@@ -29,9 +29,10 @@
                 <p>Name: {{item.name}}</p>
                 <p>Email: {{item.email}}</p>
                 <p>Address: {{item.address}}</p>
-                <p>Time-In: {{item.timeinpicker | date: 'dd MMMM yyyy.  h:mm a'}}</p>
-                <p>Time-Out: {{item.timeoutpicker | date: 'dd MMMM yyyy.  h:mm a'}}</p>
-                <p>Server Time-In: {{item.timestamp.toDate() | date: 'dd MMMM yyyy.  h:mm a'}}</p>
+                <p>Date: {{item.timeinstamp.toDate() | date: 'dd MMMM yyyy'}}</p>
+                <p>Time-In: {{item.timeinstamp.toDate() | date: 'h:mm a'}} , (coordinates: {{item.geoLatitude}},{{item.geoLongitude}})</p>
+                <p>Time-Out: {{item.timeoutstamp?.toDate() | date: 'h:mm a'}} , (coordinates: {{item.timeoutLatitude}},{{item.timeoutLongitude}})</p>
+
             
               </ion-card-content>
           </ion-row>
