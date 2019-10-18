@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ErrorHandler } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { LoadingController } from '@ionic/angular';
@@ -22,26 +22,41 @@ export class AttendanceDetailsPage implements OnInit {
 
   ngOnInit() {
     this.firebaseService.readAttendance().subscribe(data => {
+      
       this.attendancelist = data.map(e => {
+       
+       
         return {
           id: e.payload.doc.id,
+
+          //timein
           address: e.payload.doc.data()['address'],
           geoLatitude: e.payload.doc.data()['geoLatitude'],
           geoLongitude: e.payload.doc.data()['geoLongitude'],
           // timeinpicker: e.payload.doc.data()['timeinpicker'],
           // timeoutpicker: e.payload.doc.data()['timeoutpicker'],
           timeinstamp: e.payload.doc.data()['timeinstamp'],
+
+
+          //timeout
+          timeoutaddress: e.payload.doc.data()['timeoutaddress'],
+          timeoutLatitude: e.payload.doc.data()['timeoutLatitude'],
+          timeoutLongitude: e.payload.doc.data()['timeoutLongitude'],
           timeoutstamp: e.payload.doc.data()['timeoutstamp'],
+        
+         
+        
+
          
         };
       })
-      console.log(this.attendancelist);
+      
+      console.log(this.attendancelist,);
       this.loadeditems = this.attendancelist;
       
     });
    
   }
-
 
   async presentLoading(loading) {
     return await loading.present();

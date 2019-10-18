@@ -1,0 +1,53 @@
+<ion-header>
+<ion-buttons slot="left">
+  <ion-back-button defaultHref="attendance-details"></ion-back-button>
+</ion-buttons>
+<ion-row>
+  <ion-col text-start padding-top>
+    <ion-title>Find Location</ion-title>
+  </ion-col>
+  <ion-col text-end>
+    <ion-button (click)="loadMap()" shape="round" fill="outline">
+      <ion-icon slot="start" name="locate"></ion-icon>
+      Locate Me
+    </ion-button>
+  </ion-col>
+</ion-row>
+</ion-header>
+<ion-content>
+
+  
+  <div hidden class="map-wrapper">
+    <div id="map_center">
+      <img src="../../../assets/icon/download.png" />
+    </div>
+    <div #map id="map"></div>
+  </div>
+
+  <form  [formGroup]="validations_form" (ngSubmit)="onSubmit(validations_form.value)">
+    <ion-item>
+      <ion-label position="floating" color="primary" id="address">
+       Address
+      </ion-label >
+      <ion-input readonly type="text" value="{{address}}" formControlName="address"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" color="primary" id="address">
+       Latitude
+      </ion-label >
+      <ion-input readonly type="text" value="{{timeoutLatitude}}" formControlName="timeoutLatitude"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" color="primary" id="address">
+       Longitude
+      </ion-label >
+      <ion-input readonly type="text" value="{{timeoutLongitude}}" formControlName="timeoutLongitude"></ion-input>
+    </ion-item>
+
+    <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!validations_form.valid">Time Out</ion-button>
+  </form>
+  <ion-button class="delete-button" expand="block" color="danger" (click)="delete()">Delete</ion-button>
+  <ion-button class="cancel-button" expand="block" color="primary" [routerLink]="['/attendance-details']">Cancel
+  </ion-button>
+
+</ion-content>

@@ -64,6 +64,8 @@ export class DetailsPage implements OnInit {
       title: value.title,
       description: value.description,
       pickdate: value.pickdate,
+      name: this.item.name,
+      email: this.item.email,
       image: this.image,
       created: this.item.created
     }

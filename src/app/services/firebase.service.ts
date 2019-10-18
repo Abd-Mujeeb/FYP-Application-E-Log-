@@ -160,7 +160,10 @@ export class FirebaseService {
     return new Promise<any>((resolve, reject) => {
       let currentUser = firebase.auth().currentUser;
       this.afs.collection('users').doc(currentUser.uid).collection('attendance').doc(attendanceID).update({
-        timeoutstamp: firebase.firestore.FieldValue.serverTimestamp()
+        timeoutstamp: firebase.firestore.FieldValue.serverTimestamp(),
+        timeoutaddress: value.address,
+        timeoutLatitude: value.timeoutLatitude,
+        timeoutLongitude: value.timeoutLongitude,
       })
       .then(
         res => resolve(res),
