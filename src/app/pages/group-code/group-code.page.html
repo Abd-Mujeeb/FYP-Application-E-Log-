@@ -14,6 +14,38 @@
 
 <ion-content>
 
+
+  <ng-template #loading>Loading&hellip;</ng-template>
+  <div class="center">
+    <h4>Filter by group_code</h4>
+    <button class="codebutton" (click)="filterBygroup_code('DiICT(NWS)0317/06')">NWS06</button>
+    <button class="codebutton" (click)="filterBygroup_code('DiICT(NWS)0317/07')">NWS07</button>
+    <button class="codebutton" (click)="filterBygroup_code('DiICT(WBD)0317/03')">WBD</button>
+    <button class="codebutton" (click)="filterBygroup_code('DiICT(INS)0317/03')">INS</button>
+    <button class="codebutton" (click)="filterBygroup_code(null)" *ngIf="this.group_codeFilter$.getValue()">
+      <em>clear filter</em>
+    </button>
+  </div>
+
+  <div *ngIf="items$ | async; let items; else loading">
+    
+      <ion-card *ngFor="let item of items; let i=index;">
+        <ion-card-header >
+        <ion-card-title>  {{i + 1}}. {{item.displayName}}</ion-card-title>
+        <ion-card-subtitle>Email: {{item.email}}</ion-card-subtitle>
+        <ion-card-subtitle>School Department: {{item.school_dept}}</ion-card-subtitle>
+        <ion-card-subtitle>Group Code: {{item.group_code}}</ion-card-subtitle>
+        <ion-card-subtitle>Student ID: {{item.student_id}}</ion-card-subtitle>
+      </ion-card-header>
+      </ion-card>
+  
+    <div *ngIf="items.length === 0" class="center"> No results found, try clearing filters</div>
+  </div>
+
+
+
+
+<!-- 
   <ion-button expand="block" fill="solid" color="dark" routerLink="/info-student">
     NWS06
   </ion-button>
@@ -29,7 +61,7 @@
  
   <ion-button expand="block" fill="solid" color="dark" routerLink="/">
     DME
-  </ion-button>
+  </ion-button> -->
 
 
 
