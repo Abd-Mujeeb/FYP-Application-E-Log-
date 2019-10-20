@@ -1,0 +1,29 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Select Student</ion-title>
+    
+        <ion-buttons slot="end">
+          <ion-button routerLink="/profile-pbsupervisor">
+            <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    
+      </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card *ngFor="let item of userProfile">
+    
+        <ion-card-header>
+          <ion-card-title>{{item.name}}</ion-card-title>
+          <ion-card-subtitle>Email: {{item.email}}</ion-card-subtitle>
+          <ion-card-subtitle>Department: {{item.school_dept}}</ion-card-subtitle>
+          <ion-card-subtitle>Group Code: {{item.group_code}}</ion-card-subtitle>
+          <ion-card-subtitle>Industrial Supervisor Name: {{item.isupervisor}}</ion-card-subtitle>
+          <ion-card-subtitle>Industrial Supervisor Name: {{item.company}}</ion-card-subtitle>
+          <!-- <ion-card-subtitle>PB Supervisor Name: {{item.pbsupervisor}}</ion-card-subtitle> -->
+        </ion-card-header>
+        
+  
+    </ion-card>
+</ion-content>

@@ -134,6 +134,14 @@ const routes: Routes = [
   },
 
   {
+    path: 'info-student/:id', loadChildren: './pages/info-student/info-student.module#InfoStudentPageModule',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'admin'
+    }
+  },
+
+  {
     path: 'attendance',
     loadChildren: './pages/attendance/attendance.module#AttendancePageModule',
     canActivate: [AuthGuard],
@@ -261,7 +269,12 @@ const routes: Routes = [
     }
   },
   { path: 'course', loadChildren: './pages/course/course.module#CoursePageModule' },
-  { path: 'group-code', loadChildren: './pages/group-code/group-code.module#GroupCodePageModule' },
+  { path: 'group-code', loadChildren: './pages/group-code/group-code.module#GroupCodePageModule',
+  canActivate: [AuthGuard],
+  data: {
+    role: 'admin'
+  } },
+
   {
     path: 'student-task', loadChildren: './pages/student-task/student-task.module#StudentTaskPageModule',
     canActivate: [AuthGuard],
@@ -300,6 +313,8 @@ const routes: Routes = [
     }
   },
   { path: 'pbsupervisor-attendance', loadChildren: './pages/pbsupervisor-attendance/pbsupervisor-attendance.module#PbsupervisorAttendancePageModule' },
+  { path: 'pbsupervisor-choose', loadChildren: './pages/pbsupervisor-choose/pbsupervisor-choose.module#PbsupervisorChoosePageModule' },
+
 
 
 

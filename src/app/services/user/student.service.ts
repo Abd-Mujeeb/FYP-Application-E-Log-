@@ -91,6 +91,13 @@ export class StudentService {
     return this.firestore.collection('users',  ref => ref.where('role', '==', 'student')).snapshotChanges();
     
   }
+  
+
+
+  show_student(){
+    return this.firestore.collection('users',  ref => ref.where('role', '==', 'student'));
+  }
+  
   read_gcstudent() {
     return this.firestore.collection('users',  ref => ref.where('role', '==', 'student').where('group_code', '==', 'DiICT(NWS)0317/06')).snapshotChanges();
     
