@@ -82,7 +82,7 @@ export class IsupervisorService {
   }
 
   read_isupervisor_student() {
-    return this.firestore.collection('users',  ref => ref.where('isupervisor', '==', 'Abdul Najib Akmal Bin Haji Mohd. Jamaluddin Shukri')).snapshotChanges();
+    return this.firestore.collection('users',  ref => ref.where('isupervisor', '==', this.currentUser.displayName)).snapshotChanges();
   }
 
   delete_isupervisor(record_id) {

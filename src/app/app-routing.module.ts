@@ -270,13 +270,7 @@ const routes: Routes = [
     }
   },
   { path: 'student-attendance', loadChildren: './pages/student-attendance/student-attendance.module#StudentAttendancePageModule' },
-  {
-    path: 'pb-mujib', loadChildren: './pages/pb-mujib/pb-mujib.module#PbMujibPageModule',
-    canActivate: [AuthGuard],
-    data: {
-      role: 'pbsupervisor'
-    }
-  },
+ ,
 
   {
     path: 'i-student-list', loadChildren: './pages/i-student-list/i-student-list.module#IStudentListPageModule',
@@ -306,6 +300,8 @@ const routes: Routes = [
       role: 'student'
     }
   },
+  { path: 'pbsupervisor-attendance', loadChildren: './pages/pbsupervisor-attendance/pbsupervisor-attendance.module#PbsupervisorAttendancePageModule' },
+
 
 
 
