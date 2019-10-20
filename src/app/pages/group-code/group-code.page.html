@@ -18,10 +18,10 @@
   <ng-template #loading>Loading&hellip;</ng-template>
   <div class="center">
     <h4>Filter by group_code</h4>
-    <button class="codebutton" (click)="filterBygroup_code('DiICT(NWS)0317/06')">NWS06</button>
-    <button class="codebutton" (click)="filterBygroup_code('DiICT(NWS)0317/07')">NWS07</button>
-    <button class="codebutton" (click)="filterBygroup_code('DiICT(WBD)0317/03')">WBD</button>
-    <button class="codebutton" (click)="filterBygroup_code('DiICT(INS)0317/03')">INS</button>
+    <button class="codebutton" (click)="filterBygroup_code('NWS06')">NWS06</button>
+    <button class="codebutton" (click)="filterBygroup_code('NWS07')">NWS07</button>
+    <button class="codebutton" (click)="filterBygroup_code('WBD')">WBD</button>
+    <button class="codebutton" (click)="filterBygroup_code('DME')">DME</button>
     <button class="codebutton" (click)="filterBygroup_code(null)" *ngIf="this.group_codeFilter$.getValue()">
       <em>clear filter</em>
     </button>
