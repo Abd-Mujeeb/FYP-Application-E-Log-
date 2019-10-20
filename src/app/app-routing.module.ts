@@ -270,7 +270,6 @@ const routes: Routes = [
     }
   },
   { path: 'student-attendance', loadChildren: './pages/student-attendance/student-attendance.module#StudentAttendancePageModule' },
- ,
 
   {
     path: 'i-student-list', loadChildren: './pages/i-student-list/i-student-list.module#IStudentListPageModule',
