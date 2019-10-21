@@ -31,8 +31,8 @@
                 <p>Address: {{item.address}}</p>
                 <p>Date: {{item.timeinstamp.toDate() | date: 'dd MMMM yyyy'}}</p>
                 <p>Time-In: {{item.timeinstamp.toDate() | date: 'h:mm a'}} , (coordinates: Latitude {{item.geoLatitude}}, Longitude {{item.geoLongitude}})</p>
-                <p>Date: {{item.timeoutstamp.toDate() | date: 'dd MMMM yyyy'}}</p>
-                <p>Time-Out: {{item.timeoutstamp?.toDate() | date: 'h:mm a'}} , (coordinates: Latitude {{item.geoLatitude}}, Longitude {{item.geoLongitude}})</p>
+                <p>Date: {{item.timeoutstamp?.toDate() | date: 'dd MMMM yyyy'}}</p>
+                <p>Time-Out: {{item.timeoutstamp?.toDate() | date: 'h:mm a'}} , (coordinates: Latitude {{item.timeoutLatitude}}, Longitude {{item.timeoutLongitude}})</p>
 
               </ion-card-content>
           </ion-row>

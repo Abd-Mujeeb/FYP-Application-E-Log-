@@ -9,6 +9,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import { AuthService } from 'src/app/services/user/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { LocalNotifications, ILocalNotificationActionType } from '@ionic-native/local-notifications/ngx';
 // export interface Image {
 //   id: string;
 //   image: string;
@@ -24,23 +25,24 @@ export class HomeStudentPage implements OnInit {
   public itemslist: any[];
   public loadeditems: any[];
   public change = false;
-  public  changepwForm: FormGroup;
+  public changepwForm: FormGroup;
   splash = true;
   userProfile: firebase.firestore.DocumentData;
-  
 
-  constructor(   
-   public http: Http,
-   public afstore: AngularFirestore,
-   public studentService: StudentService,
-   public authservice: AuthService,
-   private route: ActivatedRoute,
-   private firebaseService: FirebaseService,
-   public loadingCtrl: LoadingController,
-   private alertCtrl: AlertController,
-   private formBuilder: FormBuilder,
-   private authService: AuthenticationService,
-   private navCtrl: NavController,) { }
+
+  constructor(
+    private localNotifications: LocalNotifications,
+    public http: Http,
+    public afstore: AngularFirestore,
+    public studentService: StudentService,
+    public authservice: AuthService,
+    private route: ActivatedRoute,
+    private firebaseService: FirebaseService,
+    public loadingCtrl: LoadingController,
+    private alertCtrl: AlertController,
+    private formBuilder: FormBuilder,
+    private authService: AuthenticationService,
+    private navCtrl: NavController, ) { }
 
   ngOnInit() {
 
@@ -78,11 +80,11 @@ export class HomeStudentPage implements OnInit {
     });
 
     this.studentService
-    .getUserProfileStudent()
-    .get()
-    .then( userProfileStudentSnapshot => {
-      this.userProfile = userProfileStudentSnapshot.data();
-    });
+      .getUserProfileStudent()
+      .get()
+      .then(userProfileStudentSnapshot => {
+        this.userProfile = userProfileStudentSnapshot.data();
+      });
 
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
@@ -97,8 +99,21 @@ export class HomeStudentPage implements OnInit {
       }
     });
 
-  
-}
+    this.localNotifications.schedule([{
+      id: 1,
+      title: `You haven't upload any task for today, Please upload your task.`,
+      text: `Ignore this if you already upload your daily task.`,
+      trigger: {
+        every: { hour: 20, minute: 0 }
+
+      },
+      actions: [
+        { id: 'yes', title: 'Yes' },
+        { id: 'no', title: 'No' }
+      ]
+    },
+    ]);
+  }
 
 async updatePassword(): Promise<void> {
   const oldPassword = this.changepwForm.value.password;
@@ -137,62 +152,66 @@ async alert() {
 }
 
 
-
-// async getData(){
-//   const loading = await this.loadingCtrl.create({
-//     message: 'Please wait...'
-//   });
-//   this.presentLoading(loading);
-
-//   this.route.data.subscribe(routeData => {
-//     routeData['data'].subscribe(data => {
-
-//       this.items = data;
-//       this.loaded = data;
-//       loading.dismiss();
-//       // this.items = data;
-      
-//     })
-//   })
-// }
+  
 
 
 
-async presentLoading(loading) {
-  return await loading.present();
-}
 
-initializeItems(): void {
-  this.itemslist = this.loadeditems;
-}
+  // async getData(){
+  //   const loading = await this.loadingCtrl.create({
+  //     message: 'Please wait...'
+  //   });
+  //   this.presentLoading(loading);
 
-filterList(evt){
-  this.initializeItems();
-  const searchTerm = evt.srcElement.value;
+  //   this.route.data.subscribe(routeData => {
+  //     routeData['data'].subscribe(data => {
 
-  if (!searchTerm){
-    return;
+  //       this.items = data;
+  //       this.loaded = data;
+  //       loading.dismiss();
+  //       // this.items = data;
+
+  //     })
+  //   })
+  // }
+
+
+
+  async presentLoading(loading) {
+    return await loading.present();
   }
 
-  this.itemslist = this.itemslist.filter(currentitems => {
-    if (currentitems.title, currentitems.description  && searchTerm) {
-      if (currentitems.title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
-      currentitems.description.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1){
-        return true;
-      }
-      return false;
-    }
-  });
-}
+  initializeItems(): void {
+    this.itemslist = this.loadeditems;
+  }
 
-Studentlogout(){
-  this.authService.logoutUser()
-  .then(res => {
-    console.log(res);
-    this.navCtrl.navigateBack('');
-  })
-  .catch(error => {
-    console.log(error);
-  })
-}
+  filterList(evt) {
+    this.initializeItems();
+    const searchTerm = evt.srcElement.value;
+
+    if (!searchTerm) {
+      return;
+    }
+
+    this.itemslist = this.itemslist.filter(currentitems => {
+      if (currentitems.title, currentitems.description && searchTerm) {
+        if (currentitems.title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+          currentitems.description.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
+          return true;
+        }
+        return false;
+      }
+    });
+  }
+
+  Studentlogout() {
+    this.authService.logoutUser()
+      .then(res => {
+        console.log(res);
+        this.navCtrl.navigateBack('');
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }
 }

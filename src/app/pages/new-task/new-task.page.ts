@@ -64,6 +64,11 @@ export class NewTaskPage implements OnInit {
       }
     )
   }
+  sliderOpts = {
+    zoom: {
+      maxRatio: 3
+    }
+  };
 
   openImagePicker(){
     this.imagePicker.hasReadPermission()
@@ -74,9 +79,7 @@ export class NewTaskPage implements OnInit {
       }
       else if(result == true){
         this.imagePicker.getPictures({
-          height: 400,
-          width: 400,
-          maximumImagesCount: 5,
+           maximumImagesCount: 5,
          
         }).then(
           (results) => {

@@ -54,6 +54,11 @@ export class DetailsPage implements OnInit {
     });
   }
 
+  sliderOpts = {
+    zoom: {
+      maxRatio: 3
+    }
+  };
   async onSubmit(value){
     const toast = await this.toastCtrl.create({
       message: 'Task updated successfully',

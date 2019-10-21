@@ -11,7 +11,13 @@
   <div>
     <ion-row>
       <ion-col size="6" offset="3">
-        <img [src]="image" alt="this is the image" />
+        <ion-slides [options]="sliderOpts" #slider>
+          <ion-slide>
+            <div class="swiper-zoom-container">
+              <img [src]="image" alt="this is the image" />
+            </div>
+          </ion-slide>
+        </ion-slides>
       </ion-col>
     </ion-row>
     <ion-row>

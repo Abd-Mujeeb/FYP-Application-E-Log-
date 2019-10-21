@@ -59,6 +59,10 @@ export class StudentTaskPage implements OnInit {
       }
     });
   }
-  
+  sliderOpts = {
+    zoom: {
+      maxRatio: 3
+    }
+  };
   }
   
