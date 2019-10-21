@@ -60,9 +60,9 @@ export class ProfilePbsupervisorPage implements OnInit {
       inputs: [
         {
           type: 'text',
-          name: 'displayName',
+          name: 'name',
           placeholder: 'Your full name',
-          value: this.userProfile.displayName,
+          value: this.userProfile.name,
         }
       ],
       buttons: [
@@ -70,7 +70,7 @@ export class ProfilePbsupervisorPage implements OnInit {
         {
           text: 'Save',
           handler: data => {
-            this.pbsupervisorService.updateName(data.displayName);
+            this.pbsupervisorService.updateName(data.name);
             this.ngOnInit();
           },
         },
@@ -79,12 +79,7 @@ export class ProfilePbsupervisorPage implements OnInit {
     await alert.present();
   }
 
-  // updateDOB(birthDate: string): void {
-  //   if (birthDate === undefined) {
-  //     return;
-  //   }
-  //   this.pbsupervisorService.updateDOB(birthDate);
-  // }
+
 
   async updateEmail(): Promise<void> {
     const alert = await this.alertCtrl.create({

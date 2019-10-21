@@ -29,20 +29,6 @@ export class ProfileGcPage implements OnInit {
     .then( userProfileGcSnapshot => {
       this.userProfile = userProfileGcSnapshot.data();
     });
-
-    // this.gcService.read_gc().subscribe(data => {
- 
-    //   this.userProfile = data.map(e => {
-    //     return {
-    //       id: e.payload.doc.id,
-    //       isEdit: false,
-    //       name: e.payload.doc.data()['name'],
-    //       email: e.payload.doc.data()['email'],
-    //     };
-    //   })
-    //   console.log(this.userProfile);
- 
-    // });
   }
 
   logOut(): void {
@@ -58,9 +44,9 @@ export class ProfileGcPage implements OnInit {
       inputs: [
         {
           type: 'text',
-          name: 'displayName',
+          name: 'name',
           placeholder: 'Your fullame',
-          value: this.userProfile.displayName,
+          value: this.userProfile.name,
         }
       ],
       buttons: [
@@ -68,7 +54,7 @@ export class ProfileGcPage implements OnInit {
         {
           text: 'Save',
           handler: data => {
-            this.gcService.updateName(data.displayName);
+            this.gcService.updateName(data.name);
             return this.ngOnInit();
           },
         },

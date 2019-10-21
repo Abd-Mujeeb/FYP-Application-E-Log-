@@ -46,9 +46,9 @@ export class ProfileIsupervisorPage implements OnInit {
       inputs: [
         {
           type: 'text',
-          name: 'displayName',
+          name: 'name',
           placeholder: 'Your full name',
-          value: this.userProfile.displayName,
+          value: this.userProfile.name,
         }
       ],
       buttons: [
@@ -56,7 +56,7 @@ export class ProfileIsupervisorPage implements OnInit {
         {
           text: 'Save',
           handler: data => {
-            this.isupervisorService.updateName(data.displayName);
+            this.isupervisorService.updateName(data.name);
             this.ngOnInit();
           },
         },
