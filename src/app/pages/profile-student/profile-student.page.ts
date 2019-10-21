@@ -70,6 +70,7 @@ export class ProfileStudentPage implements OnInit {
           text: 'Save',
           handler: data => {
             this.studentService.updateName(data.displayName);
+            return this.ngOnInit();
           },
         },
       ],

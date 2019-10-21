@@ -12,6 +12,11 @@ form {
     button {
       margin-top: 20px !important;
     }
+
+
+    margin: 0 auto;
+
+    margin-top: 20%;
   }
   
   p {
@@ -51,5 +56,9 @@ form {
     left: 0;
     z-index: 100000;
     width:100%;
-    background-color:rgba(192,192,192,0.3);
+    background-color:rgba(0, 0, 0, 0.644);
+  }
+
+  h2{
+    color: white;
   }

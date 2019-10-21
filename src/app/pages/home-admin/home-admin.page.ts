@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as firebase from 'firebase/app';
 import { AdminService } from 'src/app/services/user/admin.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home-admin',
@@ -13,7 +14,8 @@ export class HomeAdminPage implements OnInit {
   public  changepwForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-    private adminService: AdminService) { }
+    private adminService: AdminService,
+    private alertCtrl: AlertController) { }
 
   ngOnInit() {
 
@@ -24,6 +26,10 @@ export class HomeAdminPage implements OnInit {
         Validators.compose([Validators.required, Validators.minLength(6)]),
       ],
       newpassword: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(6)]),
+      ],
+      confirmpw: [
         '',
         Validators.compose([Validators.required, Validators.minLength(6)]),
       ],
@@ -46,13 +52,38 @@ export class HomeAdminPage implements OnInit {
   async updatePassword(): Promise<void> {
     const oldPassword = this.changepwForm.value.password;
     const newPassword = this.changepwForm.value.newpassword;
-    this.adminService.updatePassword(oldPassword, newPassword)
-    return this.ngOnInit();
-      
+    const confirmpw = this.changepwForm.value.confirmpw;
 
+    if(newPassword == confirmpw){
+      this.adminService.updatePassword(oldPassword, newPassword)
+      return this.ngOnInit();
+    }else{
+      return this.alert();
+    }
   
+    
   }
 
+
+  async alert() {
+    const alert = await this.alertCtrl.create({
+      header: 'Error',
+      message: 'New password and confirm password does not match',
+      buttons: [
+        {
+          text: 'Okay',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('go back to change password');
+
+          }
+        },
+      ]
+    });
+
+    await alert.present();
+  }
 
 
 }

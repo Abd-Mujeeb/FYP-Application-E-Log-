@@ -333,7 +333,12 @@ const routes: Routes = [
   data: {
     role: 'isupervisor'
   }
-},
+},  { path: 'changepw-admin', loadChildren: './pages/changepw-admin/changepw-admin.module#ChangepwAdminPageModule' },
+  { path: 'changepw-pb', loadChildren: './pages/changepw-pb/changepw-pb.module#ChangepwPbPageModule' },
+  { path: 'changepw-i', loadChildren: './pages/changepw-i/changepw-i.module#ChangepwIPageModule' },
+  { path: 'changepw-gc', loadChildren: './pages/changepw-gc/changepw-gc.module#ChangepwGcPageModule' },
+  { path: 'changepw-student', loadChildren: './pages/changepw-student/changepw-student.module#ChangepwStudentPageModule' },
+
 
 
 

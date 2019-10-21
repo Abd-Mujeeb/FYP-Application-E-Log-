@@ -55,7 +55,12 @@ export class HomeStudentPage implements OnInit {
         '',
         Validators.compose([Validators.required, Validators.minLength(6)]),
       ],
+      confirmpw: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(6)]),
+      ],
     });
+
 
     // if (this.route && this.route.data) {
     //   this.getData();
@@ -110,13 +115,42 @@ export class HomeStudentPage implements OnInit {
     ]);
   }
 
+async updatePassword(): Promise<void> {
+  const oldPassword = this.changepwForm.value.password;
+  const newPassword = this.changepwForm.value.newpassword;
+  const confirmpw = this.changepwForm.value.confirmpw;
 
-
-  async updatePassword(): Promise<void> {
-    const oldPassword = this.changepwForm.value.password;
-    const newPassword = this.changepwForm.value.newpassword;
+  if(newPassword == confirmpw){
     this.studentService.updatePassword(oldPassword, newPassword)
     return this.ngOnInit();
+  }else{
+    return this.alert();
+  }
+
+  
+}
+
+
+async alert() {
+  const alert = await this.alertCtrl.create({
+    header: 'Error',
+    message: 'New password and confirm password does not match',
+    buttons: [
+      {
+        text: 'Okay',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: (blah) => {
+          console.log('go back to change password');
+
+        }
+      },
+    ]
+  });
+
+  await alert.present();
+}
+
 
   }
 
