@@ -17,7 +17,7 @@
       </ion-searchbar>
     
     
-      <ion-card *ngFor="let item of attendancelist">
+      <ion-card *ngFor="let item of attendancelist; let i = index">
         <ion-grid>
           <ion-row>
   
@@ -26,12 +26,13 @@
     
               <ion-card-content>
             
-                <p>Name: {{item.name}}</p>
+                <p> {{i+1}}. Name: {{item.name}}</p>
                 <p>Email: {{item.email}}</p>
                 <p>Address: {{item.address}}</p>
-                <p>Time-In: {{item.timeinstamp.toDate() | date: 'dd MMMM yyyy.  h:mm a'}}</p>
-                <p>Time-Out: {{item.timeoutstamp.toDate() | date: 'dd MMMM yyyy.  h:mm a'}}</p>
-                <p></p>
+                <p>Date: {{item.timeinstamp.toDate() | date: 'dd MMMM yyyy'}}</p>
+                <p>Time-In: {{item.timeinstamp.toDate() | date: 'h:mm a'}} , (coordinates: Latitude {{item.geoLatitude}}, Longitude {{item.geoLongitude}})</p>
+                <p>Time-Out: {{item.timeoutstamp?.toDate() | date: 'h:mm a'}} , (coordinates: Latitude {{item.geoLatitude}}, Longitude {{item.geoLongitude}})</p>
+
               </ion-card-content>
           </ion-row>
         </ion-grid>

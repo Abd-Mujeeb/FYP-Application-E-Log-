@@ -18,10 +18,10 @@
   </ion-searchbar>
 
 
-  <ion-card *ngFor="let item of tasklist">
+  <ion-card *ngFor="let item of tasklist; let i = index">
     <ion-grid>
-      <ion-row>
-        <ion-col>
+      <ion-row >
+        <ion-col class="images">
           <img src={{item.image}}>
 
         </ion-col>
@@ -30,7 +30,7 @@
 
           <ion-card-content>
         
-            <p>Name: {{item.name}}</p>
+            <p>{{i+1}}. Name: {{item.name}}</p>
             <p>Email: {{item.email}}</p>
             <p>Date: {{item.pickdate | date: 'dd MMMM yyyy.  h:mm a'}}</p>
             <p>Title: {{item.title}}</p>

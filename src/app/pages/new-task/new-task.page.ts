@@ -131,10 +131,15 @@ export class NewTaskPage implements OnInit {
     },{
       id: 2,
       title: `You haven't upload any task for today`,
-      text: `Please upload your Task`,
-      trigger:{ at: new Date(new Date().getTime() + 82800 * 1000),
+      text: `Please upload your Task. Do you want to upload now?`,
+      trigger:{ at: new Date(new Date().getTime() + 86400 * 1000),
       },
-    }]);
+      actions: [
+        {id: 'yes', title: 'Yes'},
+        {id: 'no', title: 'No'}
+    ]
+    },
+  ]);
 
   }
 

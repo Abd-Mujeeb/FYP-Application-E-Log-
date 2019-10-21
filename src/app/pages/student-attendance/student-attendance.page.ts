@@ -25,6 +25,10 @@ export class StudentAttendancePage implements OnInit {
           address: e.payload.doc.data()['address'],
           timeinstamp: e.payload.doc.data()['timeinstamp'],
           timeoutstamp: e.payload.doc.data()['timeoutstamp'],
+          geoLatitude: e.payload.doc.data()['geoLatitude'],
+          geoLongitude: e.payload.doc.data()['geoLongitude'],
+          timeoutLatitude: e.payload.doc.data()['timeoutLatitude'],
+          timeoutLongitude: e.payload.doc.data()['timeoutLongitude'],
          
         };
       })

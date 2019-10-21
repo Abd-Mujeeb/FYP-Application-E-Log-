@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentService } from 'src/app/services/user/student.service';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -15,11 +16,12 @@ export class InfoStudentPage implements OnInit {
 
   constructor(
     private studentService: StudentService,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private alertCtrl: AlertController
   ) { }
 
   ngOnInit() {
-    this.studentService.read_student().subscribe(data => {
+    this.studentService.read_student_nws6().subscribe(data => {
  
       this.userProfile = data.map(e => {
            return {
@@ -29,7 +31,8 @@ export class InfoStudentPage implements OnInit {
           email: e.payload.doc.data()['email'],
           school_dept: e.payload.doc.data()['school_dept'],
           group_code: e.payload.doc.data()['group_code'],
-          student_id: e.payload.doc.data()['student_id']
+          student_id: e.payload.doc.data()['student_id'],
+          company: e.payload.doc.data()['company']
 
         };
       })
@@ -71,6 +74,7 @@ export class InfoStudentPage implements OnInit {
     record.Editschool_dept = record.school_dept;
     record.Editgroup_code = record.group_code;
     record.Editstudent_id = record.student_id;
+    record.Editcompany = record.company;
   }
  
   UpdateRecord(recordRow) {
@@ -80,12 +84,38 @@ export class InfoStudentPage implements OnInit {
     record['school_dept'] = recordRow.Editschool_dept;
     record['group_code'] = recordRow.Editgroup_code;
     record['student_id'] = recordRow.Editstudent_id;
+    record['company'] = recordRow.Editcompany;
     this.studentService.update_student(recordRow.id, record);
     recordRow.isEdit = false;
   }
 
   RemoveRecord(rowID) {
     this.studentService.delete_student(rowID);
+  }
+
+  async presentAlertConfirm(rowID) {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirm!',
+      message: 'Message <strong>Are you sure to remove user? </br>click "confirm" to permanantly delete user</strong>',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Confirm',
+          handler: () => {
+            console.log('Confirm');
+            this.studentService.delete_student(rowID);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
 

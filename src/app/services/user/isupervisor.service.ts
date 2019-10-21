@@ -25,8 +25,8 @@ export class IsupervisorService {
     return this.users_isupervisor;
   }
 
-  updateName(displayName: string): Promise<any> {
-    return this.users_isupervisor.update({ displayName })
+  updateName(name: string): Promise<any> {
+    return this.users_isupervisor.update({ name })
   }
 
   // updateDOB(birthDate: string): Promise<any> {
@@ -82,7 +82,11 @@ export class IsupervisorService {
   }
 
   read_isupervisor_student() {
-    return this.firestore.collection('users',  ref => ref.where('isupervisor', '==', 'Abdul Najib Akmal Bin Haji Mohd. Jamaluddin Shukri')).snapshotChanges();
+    return this.firestore.collection('users',  ref => ref.where('isupervisor', '==', this.currentUser.displayName)).snapshotChanges();
+  }
+
+  read_isupervisor_attendance(){
+    return this.firestore.collectionGroup('attendance').snapshotChanges();
   }
 
   delete_isupervisor(record_id) {

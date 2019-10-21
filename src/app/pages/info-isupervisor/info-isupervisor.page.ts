@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IsupervisorService } from 'src/app/services/user/isupervisor.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-info-isupervisor',
@@ -10,7 +11,8 @@ export class InfoIsupervisorPage implements OnInit {
   userProfile: any;
   public loadeduserProfile: any [];
 
-  constructor( private isupervisorService: IsupervisorService) { }
+  constructor( private isupervisorService: IsupervisorService,
+    private alertCtrl: AlertController) { }
 
   ngOnInit() {
     this.isupervisorService.read_isupervisor().subscribe(data => {
@@ -75,6 +77,31 @@ export class InfoIsupervisorPage implements OnInit {
 
   RemoveRecord(rowID) {
     this.isupervisorService.delete_isupervisor(rowID);
+  }
+
+  async presentAlertConfirm(rowID) {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirm!',
+      message: 'Message <strong>Are you sure to remove user? </br>click "confirm" to permanantly delete user</strong>',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Confirm',
+          handler: () => {
+            console.log('Confirm');
+            this.isupervisorService.delete_isupervisor(rowID);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
 }

@@ -20,17 +20,8 @@ export class AttendancePage implements OnInit {
 
   geoLatitude: number;
   geoLongitude: number;
-
- 
-
-
   map: any;
   address:string;
-
-  timeinpicker: any;
-  timeoutpicker: any;
-
-
   validations_form: FormGroup;
   
   constructor(
@@ -54,6 +45,7 @@ export class AttendancePage implements OnInit {
        address: new FormControl('', Validators.required),
        geoLatitude: new FormControl('', Validators.required),
        geoLongitude: new FormControl('', Validators.required),
+       
       //  timeinpicker: new FormControl('', Validators.required),
       //  timeoutpicker: new FormControl('',Validators.required),
 
@@ -64,7 +56,7 @@ export class AttendancePage implements OnInit {
    
   async onSubmit(value){
     const toast = await this.toastCtrl.create({
-      message: 'Attendance created successfully',
+      message: 'Time In successfully',
       duration: 3000
     });
     let currentUser = firebase.auth().currentUser;
@@ -78,7 +70,7 @@ export class AttendancePage implements OnInit {
       // timeoutpicker: value.timeoutpicker,
 
       timeinstamp: firebase.firestore.FieldValue.serverTimestamp(),
-  
+   
      
     }
     this.firebaseService.createAttendance(data)

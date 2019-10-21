@@ -64,8 +64,11 @@ export class DetailsPage implements OnInit {
       title: value.title,
       description: value.description,
       pickdate: value.pickdate,
+      name: this.item.name,
+      email: this.item.email,
       image: this.image,
-      created: this.item.created
+      created: this.item.created,
+    
     }
     this.firebaseService.updateTask(this.item.id,data)
     .then(

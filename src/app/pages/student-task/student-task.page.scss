@@ -6,4 +6,15 @@ ion-card{
     --background: white;
 }
 
+.images{
+    height: 400px;
+    width: 400px;
+}
 
+img{
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

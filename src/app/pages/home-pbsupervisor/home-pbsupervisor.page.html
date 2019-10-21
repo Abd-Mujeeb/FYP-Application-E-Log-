@@ -54,16 +54,25 @@
 </ion-header>
 
 <ion-content>
+  <ion-searchbar showCancelButton (ionInput)="filterList($event)"> </ion-searchbar>
+  <ion-button routerLink="/pbsupervisor-attendance">Atttendance Report</ion-button>
+  <ion-button routerLink="/pbsupervisor-choose">Choose Student</ion-button>
+  <ion-card *ngFor="let item of userProfile; let i = index">
+    
+      <ion-card-header>
+        <ion-card-title>{{i+1}}. {{item.name}}</ion-card-title>
+        <ion-card-subtitle>Email: {{item.email}}</ion-card-subtitle>
+        <ion-card-subtitle>Department: {{item.school_dept}}</ion-card-subtitle>
+        <ion-card-subtitle>Group Code: {{item.group_code}}</ion-card-subtitle>
+        <ion-card-subtitle>Industrial Supervisor Name: {{item.isupervisor}}</ion-card-subtitle>
+        <ion-card-subtitle>PB Supervisor Name: {{item.pbsupervisor}}</ion-card-subtitle>
 
-  <ion-grid>
-    <ion-row>
-      <ion-col text-center>
-          <ion-button fill="solid" color="dark"  routerLink="/pb-mujib">
-            Student Details
-          </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+
+        
+      </ion-card-header>
+      
+
+  </ion-card>
 
 
 

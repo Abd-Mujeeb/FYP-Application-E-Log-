@@ -24,13 +24,10 @@ export class GcService {
     return this.users_gc;
   }
 
-  updateName(displayName: string): Promise<any> {
-    return this.users_gc.update({ displayName })
+  updateName(name: string): Promise<any> {
+    return this.users_gc.update({ name })
   }
 
-  // updateDOB(birthDate: string): Promise<any> {
-  //   return this.userProfile.update({ birthDate });
-  // }
 
   updateEmail(newEmail: string, password: string): Promise<any> {
     const credential: firebase.auth.AuthCredential = firebase.auth.EmailAuthProvider.credential(
@@ -82,6 +79,11 @@ export class GcService {
 
   delete_gc(record_id) {
     this.firestore.doc('users/' + record_id).delete();
+  }
+
+  read_gcstudent() {
+    return this.firestore.collection('users',  ref => ref.where('gc', '==', this.currentUser.displayName)).snapshotChanges();
+    
   }
 
 

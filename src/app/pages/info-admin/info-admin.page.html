@@ -15,10 +15,10 @@
 <ion-content padding>
  
     <ion-searchbar showCancelButton (ionInput)="filterList($event)"> </ion-searchbar>
-  <ion-card *ngFor="let item of userProfile">
+  <ion-card *ngFor="let item of userProfile; let i = index">
     <span *ngIf="!item.isEdit; else elseBlock">
       <ion-card-header>
-        <ion-card-title>{{item.displayName}}</ion-card-title>
+        <ion-card-title>{{i+1}}. {{item.displayName}}</ion-card-title>
         <ion-card-subtitle>Email: {{item.email}}</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
@@ -27,8 +27,9 @@
           <ion-icon size="small" slot="icon-only" name="create"></ion-icon>
  
         </ion-button>
-        <ion-button shape="round" color="danger" size="small" (click)="RemoveRecord(item.id)">
+        <ion-button shape="round" color="danger" size="small" (click)="presentAlertConfirm(item.id)">
           <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
+
  
         </ion-button>
       </ion-card-content>

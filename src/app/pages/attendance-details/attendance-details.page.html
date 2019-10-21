@@ -36,22 +36,26 @@
     <div *ngIf="attendancelist.length > 0" class="list-mini">
       <ion-list>
         <ion-card>
-          <ion-item *ngFor="let item of attendancelist" [routerLink]="['/attendance-view', item.id]">
+          <ion-item *ngFor="let item of attendancelist" [routerLink]="['/attendance-timeout', item.id]">
 
             <ion-label>
-              <ion-card-title>Address: {{  item.address  }}</ion-card-title>
-              <ion-card-subtitle>Latitude: {{  item.geoLatitude  }}</ion-card-subtitle>
-              <ion-card-subtitle>Longitude: {{  item.geoLongitude  }}</ion-card-subtitle>
               <!-- <ion-card-subtitle>Student Time in: {{  item.timeinpicker  | date: 'MMM dd, yyyy.  h:mm a' }}
               </ion-card-subtitle>
               <ion-card-subtitle>Student Time out: {{  item.timeoutpicker | date: 'MMM dd, yyyy.  h:mm a' }}
               </ion-card-subtitle> -->
-              <ion-card-subtitle>Time in: {{  item.timeinstamp.toDate() | date: 'MMM dd, yyyy.  h:mm a' }}
-              </ion-card-subtitle>
-              <ion-card-subtitle>Time out: {{  item.timeoutstamp.toDate() | date: 'MMM dd, yyyy.  h:mm a' }}
-              </ion-card-subtitle>
+              
+              <!-- time in -->
+              <ion-card-title>{{  item.timeinstamp.toDate() | date: 'MMM dd, yyyy' }}</ion-card-title>
+              <ion-card-subtitle>Time in: {{  item.timeinstamp.toDate() | date: 'h:mm a' }}</ion-card-subtitle>
+              <ion-card-subtitle>Address: {{  item.address  }}</ion-card-subtitle>
+              <ion-card-subtitle>(coordinates: {{item.geoLatitude}},{{item.geoLongitude}})</ion-card-subtitle>
+
+              <!-- time out -->
+              <ion-card-subtitle >Time out: {{  item.timeoutstamp?.toDate() | date: 'h:mm a' }}</ion-card-subtitle>
+              <ion-card-subtitle>Address: {{  item.timeoutaddress }}</ion-card-subtitle>
+              <ion-card-subtitle>(coordinates: {{item.timeoutLatitude}},{{item.timeoutLongitude}})</ion-card-subtitle>
             </ion-label>
-            <ion-button fill="clear" slot="end"> Edit </ion-button>
+            <ion-button fill="clear" slot="end"> Time Out </ion-button>
 
           </ion-item>
         </ion-card>

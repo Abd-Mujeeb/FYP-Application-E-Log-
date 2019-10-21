@@ -14,9 +14,9 @@ const routes: Routes = [
   // { path: 'new-task', loadChildren: './new-task/new-task.module#NewTaskPageModule' },
   // { path: 'details/:id', loadChildren: './details/details.module#DetailsPageModule' },
   // { path: 'themes-page', loadChildren: './themes-page/themes-page.module#ThemesPagePageModule' }
-  
+
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
-  
+
   {
     path: 'home',
     loadChildren: './pages/home/home.module#HomePageModule',
@@ -26,219 +26,314 @@ const routes: Routes = [
   { path: 'signup', loadChildren: './pages/signup/signup.module#SignupPageModule' },
   { path: 'first-login-password', loadChildren: '././first-login-password/first-login-password.module#FirstLoginPasswordPageModule' },
 
-  { path: 'info-admin', 
-    loadChildren: './pages/info-admin/info-admin.module#InfoAdminPageModule', 
+  {
+    path: 'info-admin',
+    loadChildren: './pages/info-admin/info-admin.module#InfoAdminPageModule',
     canActivate: [AuthGuard],
     data: {
       role: 'admin'
-    }},
+    }
+  },
 
-  { path: 'profile-pbsupervisor', 
+  {
+    path: 'profile-pbsupervisor',
     loadChildren: './pages/profile-pbsupervisor/profile-pbsupervisor.module#ProfilePbsupervisorPageModule',
     canActivate: [AuthGuard],
     data: {
       role: 'pbsupervisor'
-    } },
+    }
+  },
 
-  { path: 'profile-admin', 
+  {
+    path: 'profile-admin',
     loadChildren: './pages/profile-admin/profile-admin.module#ProfileAdminPageModule',
     canActivate: [AuthGuard],
     data: {
-    role: 'admin'
-  } },
+      role: 'admin'
+    }
+  },
 
-  { path: 'profile-gc', 
+  {
+    path: 'profile-gc',
     loadChildren: './pages/profile-gc/profile-gc.module#ProfileGcPageModule',
     canActivate: [AuthGuard],
     data: {
-    role: 'gc'
-  } },
+      role: 'gc'
+    }
+  },
 
-  { path: 'profile-student', 
+  {
+    path: 'profile-student',
     loadChildren: './pages/profile-student/profile-student.module#ProfileStudentPageModule',
     canActivate: [AuthGuard],
     data: {
       role: 'student'
-    } },
- 
-  { path: 'home-admin', 
+    }
+  },
+
+  {
+    path: 'home-admin',
     loadChildren: './pages/home-admin/home-admin.module#HomeAdminPageModule',
     canActivate: [AuthGuard],
     data: {
-    role: 'admin'
-    }},
+      role: 'admin'
+    }
+  },
 
-  { path: 'home-gc', 
+  {
+    path: 'home-gc',
     loadChildren: './pages/home-gc/home-gc.module#HomeGcPageModule',
     canActivate: [AuthGuard],
     data: {
       role: 'gc'
-    } },
+    }
+  },
 
-  { path: 'home-student', 
+  {
+    path: 'home-student',
     loadChildren: './pages/home-student/home-student.module#HomeStudentPageModule',
     canActivate: [AuthGuard],
     data: {
       role: 'student'
-    } },
+    }
+  },
 
-  { path: 'home-pbsupervisor', 
+  {
+    path: 'home-pbsupervisor',
     loadChildren: './pages/home-pbsupervisor/home-pbsupervisor.module#HomePbsupervisorPageModule',
     canActivate: [AuthGuard],
     data: {
       role: 'pbsupervisor'
-    } },
+    }
+  },
 
-  { path: 'info-gc', 
+  {
+    path: 'info-gc',
     loadChildren: './pages/info-gc/info-gc.module#InfoGcPageModule',
     canActivate: [AuthGuard],
     data: {
       role: 'admin'
     }
- },
+  },
 
-  { path: 'info-pbsupervisor', 
-  loadChildren: './pages/info-pbsupervisor/info-pbsupervisor.module#InfoPbsupervisorPageModule',
-  canActivate: [AuthGuard],
-  data: {
-    role: 'admin'
-  } },
+  {
+    path: 'info-pbsupervisor',
+    loadChildren: './pages/info-pbsupervisor/info-pbsupervisor.module#InfoPbsupervisorPageModule',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'admin'
+    }
+  },
 
-  { path: 'info-student', loadChildren: './pages/info-student/info-student.module#InfoStudentPageModule',
-  canActivate: [AuthGuard],
-  data: {
-    role: 'admin'
-  } },
+  {
+    path: 'info-student', loadChildren: './pages/info-student/info-student.module#InfoStudentPageModule',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'admin'
+    }
+  },
 
-  { path: 'attendance', 
-  loadChildren: './pages/attendance/attendance.module#AttendancePageModule',
-  canActivate: [AuthGuard],
-  data: {
-  role: 'student'
-  }  },
+  {
+    path: 'info-student/:id', loadChildren: './pages/info-student/info-student.module#InfoStudentPageModule',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'admin'
+    }
+  },
 
-  { path: 'dailytask', 
-  loadChildren: './pages/dailytask/dailytask.module#DailytaskPageModule',
-  canActivate: [AuthGuard],
-  data: {
-  role: 'student'
-  }  },
+  {
+    path: 'attendance',
+    loadChildren: './pages/attendance/attendance.module#AttendancePageModule',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'student'
+    }
+  },
 
-  { path: 'details', 
-  loadChildren: './pages/details/details.module#DetailsPageModule',
-  canActivate: [AuthGuard],
-  data: {
-  role: 'student'
-  }  },
+  {
+    path: 'dailytask',
+    loadChildren: './pages/dailytask/dailytask.module#DailytaskPageModule',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'student'
+    }
+  },
 
-  { path: 'details/:id', 
-  loadChildren: './pages/details/details.module#DetailsPageModule',
-  canActivate: [AuthGuard],
-  data: {
-  role: 'student'
-  }  },
-  
-  { path: 'new-task', 
-  loadChildren: './pages/new-task/new-task.module#NewTaskPageModule',
-  canActivate: [AuthGuard],
-  data: {
-    role: 'student'
-    } },
+  {
+    path: 'details',
+    loadChildren: './pages/details/details.module#DetailsPageModule',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'student'
+    }
+  },
 
-  { path: 'setting', loadChildren: './pages/setting/setting.module#SettingPageModule',
-  canActivate: [AuthGuard],
-  data: {
-    role: 'student'
-    } },
+  {
+    path: 'details/:id',
+    loadChildren: './pages/details/details.module#DetailsPageModule',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'student'
+    }
+  },
 
-  { path: 'themes-page', 
-  loadChildren: './pages/themes-page/themes-page.module#ThemesPagePageModule',
-  canActivate: [AuthGuard],
-  data: {
-    role: 'student'
-    }  },
+  {
+    path: 'new-task',
+    loadChildren: './pages/new-task/new-task.module#NewTaskPageModule',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'student'
+    }
+  },
 
-  { path: 'uploadtask', 
-  loadChildren: './pages/uploadtask/uploadtask.module#UploadtaskPageModule',
-  canActivate: [AuthGuard],
-  data: {
-    role: 'student'
-    }  },
+  {
+    path: 'setting', loadChildren: './pages/setting/setting.module#SettingPageModule',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'student'
+    }
+  },
 
-  { path: 'notification', 
-  loadChildren: './pages/notification/notification.module#NotificationPageModule',
-  canActivate: [AuthGuard],
-  data: {
-    role: 'student'
-    }  },
+  {
+    path: 'themes-page',
+    loadChildren: './pages/themes-page/themes-page.module#ThemesPagePageModule',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'student'
+    }
+  },
 
-  { path: 'info-isupervisor', 
-  loadChildren: './pages/info-isupervisor/info-isupervisor.module#InfoIsupervisorPageModule',
-  canActivate: [AuthGuard],
-  data: {
-    role: 'admin'
-    }  
-},
+  {
+    path: 'uploadtask',
+    loadChildren: './pages/uploadtask/uploadtask.module#UploadtaskPageModule',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'student'
+    }
+  },
 
-  { path: 'profile-isupervisor', 
-  loadChildren: './pages/profile-isupervisor/profile-isupervisor.module#ProfileIsupervisorPageModule',
-  canActivate: [AuthGuard],
-  data: {
-    role: 'isupervisor'
-    }   },
+  {
+    path: 'notification',
+    loadChildren: './pages/notification/notification.module#NotificationPageModule',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'student'
+    }
+  },
 
-  { path: 'home-isupervisor', 
-  loadChildren: './pages/home-isupervisor/home-isupervisor.module#HomeIsupervisorPageModule',
-  canActivate: [AuthGuard],
-  data: {
-    role: 'isupervisor'
-    }   },
-  { path: 'attendance-details', loadChildren: './pages/attendance-details/attendance-details.module#AttendanceDetailsPageModule',
-  canActivate: [AuthGuard],
-  data: {
-    role: 'student'
-    } 
- },
- { path: 'attendance-view', loadChildren: './pages/attendance-view/attendance-view.module#AttendanceViewPageModule',
- canActivate: [AuthGuard],
- data: {
-   role: 'student'
-   } 
-},
-{ path: 'attendance-view/:id', loadChildren: './pages/attendance-view/attendance-view.module#AttendanceViewPageModule',
-canActivate: [AuthGuard],
-data: {
-  role: 'student'
-  } 
-},
+  {
+    path: 'info-isupervisor',
+    loadChildren: './pages/info-isupervisor/info-isupervisor.module#InfoIsupervisorPageModule',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'admin'
+    }
+  },
+
+  {
+    path: 'profile-isupervisor',
+    loadChildren: './pages/profile-isupervisor/profile-isupervisor.module#ProfileIsupervisorPageModule',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'isupervisor'
+    }
+  },
+
+  {
+    path: 'home-isupervisor',
+    loadChildren: './pages/home-isupervisor/home-isupervisor.module#HomeIsupervisorPageModule',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'isupervisor'
+    }
+  },
+  {
+    path: 'attendance-details', loadChildren: './pages/attendance-details/attendance-details.module#AttendanceDetailsPageModule',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'student'
+    }
+  },
+  {
+    path: 'attendance-view', loadChildren: './pages/attendance-view/attendance-view.module#AttendanceViewPageModule',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'student'
+    }
+  },
+  {
+    path: 'attendance-view/:id', loadChildren: './pages/attendance-view/attendance-view.module#AttendanceViewPageModule',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'student'
+    }
+  },
   { path: 'course', loadChildren: './pages/course/course.module#CoursePageModule' },
-  { path: 'group-code', loadChildren: './pages/group-code/group-code.module#GroupCodePageModule' },
-  { path: 'student-task', loadChildren: './pages/student-task/student-task.module#StudentTaskPageModule',
+  { path: 'group-code', loadChildren: './pages/group-code/group-code.module#GroupCodePageModule',
   canActivate: [AuthGuard],
   data: {
     role: 'admin'
-    }  },
+  } },
+
+  {
+    path: 'student-task', loadChildren: './pages/student-task/student-task.module#StudentTaskPageModule',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'admin'
+    }
+  },
   { path: 'student-attendance', loadChildren: './pages/student-attendance/student-attendance.module#StudentAttendancePageModule' },
-  { path: 'pb-mujib', loadChildren: './pages/pb-mujib/pb-mujib.module#PbMujibPageModule',
+
+  {
+    path: 'i-student-list', loadChildren: './pages/i-student-list/i-student-list.module#IStudentListPageModule',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'isupervisor'
+    }
+  },
+  {
+    path: 'info-gcstudent', loadChildren: './pages/info-gcstudent/info-gcstudent.module#InfoGcstudentPageModule',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'gc'
+    }
+  },
+  {
+    path: 'attendance-gcstudent', loadChildren: './pages/attendance-gcstudent/attendance-gcstudent.module#AttendanceGcstudentPageModule',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'gc'
+    }
+  },
+  {
+    path: 'attendance-timeout/:id', loadChildren: './pages/attendance-timeout/attendance-timeout.module#AttendanceTimeoutPageModule',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'student'
+    }
+  },
+  { path: 'pbsupervisor-attendance', loadChildren: './pages/pbsupervisor-attendance/pbsupervisor-attendance.module#PbsupervisorAttendancePageModule',
   canActivate: [AuthGuard],
   data: {
     role: 'pbsupervisor'
-    }  
-  },   
-    
-  { path: 'i-student-list', loadChildren: './pages/i-student-list/i-student-list.module#IStudentListPageModule',
+  }
+ },
+
+  { path: 'pbsupervisor-choose', loadChildren: './pages/pbsupervisor-choose/pbsupervisor-choose.module#PbsupervisorChoosePageModule',
+  canActivate: [AuthGuard],
+  data: {
+    role: 'pbsupervisor'
+  }
+ },
+  { path: 'info-student1', loadChildren: './pages/info-student1/info-student1.module#InfoStudent1PageModule' },
+  { path: 'info-student2', loadChildren: './pages/info-student2/info-student2.module#InfoStudent2PageModule' },
+  { path: 'info-student3', loadChildren: './pages/info-student3/info-student3.module#InfoStudent3PageModule' },
+  { path: 'i-student-attendance', loadChildren: './pages/i-student-attendance/i-student-attendance.module#IStudentAttendancePageModule',
   canActivate: [AuthGuard],
   data: {
     role: 'isupervisor'
-    }
+  }
 },
-  { path: 'info-gcstudent', loadChildren: './pages/info-gcstudent/info-gcstudent.module#InfoGcstudentPageModule',
-  canActivate: [AuthGuard],
-  data: {
-    role: 'gc'
-    } 
-},
-  { path: 'attendance-gcstudent', loadChildren: './pages/attendance-gcstudent/attendance-gcstudent.module#AttendanceGcstudentPageModule' },
 
 
 
@@ -248,7 +343,12 @@ data: {
 
 
 
-  
+
+
+
+
+
+
 
 ];
 

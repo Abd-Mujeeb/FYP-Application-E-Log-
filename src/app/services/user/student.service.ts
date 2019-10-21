@@ -91,10 +91,35 @@ export class StudentService {
     return this.firestore.collection('users',  ref => ref.where('role', '==', 'student')).snapshotChanges();
     
   }
-  read_gcstudent() {
-    return this.firestore.collection('users',  ref => ref.where('role', '==', 'student').where('group_code', '==', 'DiICT(NWS)0317/06')).snapshotChanges();
+
+  
+  read_student_nws6() {
+    return this.firestore.collection('users',  ref => ref.where('role', '==', 'student').where('group_code', '==', 'NWS06')).snapshotChanges();
     
   }
+
+  read_student_nws7() {
+    return this.firestore.collection('users',  ref => ref.where('role', '==', 'student').where('group_code', '==', 'NWS07')).snapshotChanges();
+    
+  }
+
+  read_student_wbd() {
+    return this.firestore.collection('users',  ref => ref.where('role', '==', 'student').where('group_code', '==', 'WBD')).snapshotChanges();
+    
+  }
+
+  read_student_dme() {
+    return this.firestore.collection('users',  ref => ref.where('role', '==', 'student').where('group_code', '==', 'DME')).snapshotChanges();
+    
+  }
+  
+
+
+  show_student(){
+    return this.firestore.collection('users',  ref => ref.where('role', '==', 'student'));
+  }
+  
+ 
 
   
   //uploadtask
