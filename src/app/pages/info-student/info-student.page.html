@@ -22,6 +22,7 @@
           <ion-card-subtitle>School Department: {{item.school_dept}}</ion-card-subtitle>
           <ion-card-subtitle>Group Code: {{item.group_code}}</ion-card-subtitle>
           <ion-card-subtitle>Student ID: {{item.student_id}}</ion-card-subtitle>
+          <ion-card-subtitle>Company: {{item.company}}</ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
    
@@ -78,6 +79,11 @@
               <ion-item>
                   <ion-label><strong>Student ID</strong></ion-label>
                   <ion-input type="text" [(ngModel)]="item.Editstudent_id"></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label><strong>company</strong></ion-label>
+                  <ion-input type="text" [(ngModel)]="item.Editcompany"></ion-input>
                 </ion-item>
         </ion-card-content>
       </ng-template>
