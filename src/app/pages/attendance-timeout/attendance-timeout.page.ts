@@ -85,7 +85,7 @@ export class AttendanceTimeoutPage implements OnInit {
     });
     const alert = await this.alertCtrl.create({
       header: 'Confirm',
-      message: 'Do you want to delete ' + this.item.address + '?',
+      message: 'Do you want to delete this attendance?',
       buttons: [
         {
           text: 'No',
