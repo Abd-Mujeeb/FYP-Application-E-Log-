@@ -57,13 +57,13 @@ export class PbsupervisorService {
   updatePassword(newPassword: string, oldPassword: string): Promise<any> {
     const credential: firebase.auth.AuthCredential = firebase.auth.EmailAuthProvider.credential(
       this.currentUser.email,
-      oldPassword
+      newPassword
     );
   
     return this.currentUser
       .reauthenticateWithCredential(credential)
       .then(() => {
-        this.currentUser.updatePassword(newPassword).then(() => {
+        this.currentUser.updatePassword(oldPassword).then(() => {
           console.log('Password Changed');
 
           this.users_pbsupervisor.update({ change:false })

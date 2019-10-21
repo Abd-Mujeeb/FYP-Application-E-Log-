@@ -45,8 +45,8 @@ export class HomeIsupervisorPage implements OnInit {
   }
 
   async updatePassword(): Promise<void> {
-    const newPassword = this.changepwForm.value.password;
-    const oldPassword = this.changepwForm.value.newpassword;
+    const oldPassword = this.changepwForm.value.password;
+    const newPassword = this.changepwForm.value.newpassword;
     this.isupervisorService.updatePassword(oldPassword, newPassword)
     return this.ngOnInit();
       

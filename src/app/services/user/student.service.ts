@@ -64,13 +64,13 @@ export class StudentService {
   updatePassword(newPassword: string, oldPassword: string): Promise<any> {
     const credential: firebase.auth.AuthCredential = firebase.auth.EmailAuthProvider.credential(
       this.currentUser.email,
-      oldPassword
+      newPassword
     );
   
     return this.currentUser
       .reauthenticateWithCredential(credential)
       .then(() => {
-        this.currentUser.updatePassword(newPassword).then(() => {
+        this.currentUser.updatePassword(oldPassword).then(() => {
           console.log('Password Changed');
 
           this.users_student.update({ change:false })
@@ -91,6 +91,8 @@ export class StudentService {
     return this.firestore.collection('users',  ref => ref.where('role', '==', 'student')).snapshotChanges();
     
   }
+
+ 
 
   
   read_student_nws6() {
