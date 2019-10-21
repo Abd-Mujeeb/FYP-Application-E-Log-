@@ -26,7 +26,7 @@ export class InfoGcPage implements OnInit {
           displayName: e.payload.doc.data()['displayName'],
           email: e.payload.doc.data()['email'],
           school_dept: e.payload.doc.data()['school_dept'],
-          group_code: e.payload.doc.data()['gcgroup_code'],
+          group_code: e.payload.doc.data()['group_code'],
         };
       })
       console.log(this.userProfile);
