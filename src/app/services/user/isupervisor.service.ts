@@ -25,8 +25,8 @@ export class IsupervisorService {
     return this.users_isupervisor;
   }
 
-  updateName(displayName: string): Promise<any> {
-    return this.users_isupervisor.update({ displayName })
+  updateName(name: string): Promise<any> {
+    return this.users_isupervisor.update({ name })
   }
 
   // updateDOB(birthDate: string): Promise<any> {

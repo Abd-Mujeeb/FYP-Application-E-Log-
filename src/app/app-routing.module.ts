@@ -313,7 +313,10 @@ const routes: Routes = [
     }
   },
   { path: 'pbsupervisor-attendance', loadChildren: './pages/pbsupervisor-attendance/pbsupervisor-attendance.module#PbsupervisorAttendancePageModule' },
-  { path: 'pbsupervisor-choose', loadChildren: './pages/pbsupervisor-choose/pbsupervisor-choose.module#PbsupervisorChoosePageModule' },
+  { path: 'pbsupervisor-choose', loadChildren: './pages/pbsupervisor-choose/pbsupervisor-choose.module#PbsupervisorChoosePageModule' },  { path: 'info-student1', loadChildren: './pages/info-student1/info-student1.module#InfoStudent1PageModule' },
+  { path: 'info-student2', loadChildren: './pages/info-student2/info-student2.module#InfoStudent2PageModule' },
+  { path: 'info-student3', loadChildren: './pages/info-student3/info-student3.module#InfoStudent3PageModule' },
+
 
 
 

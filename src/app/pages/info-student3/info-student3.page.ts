@@ -3,13 +3,12 @@ import { StudentService } from 'src/app/services/user/student.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AlertController } from '@ionic/angular';
 
-
 @Component({
-  selector: 'app-info-student',
-  templateUrl: './info-student.page.html',
-  styleUrls: ['./info-student.page.scss'],
+  selector: 'app-info-student3',
+  templateUrl: './info-student3.page.html',
+  styleUrls: ['./info-student3.page.scss'],
 })
-export class InfoStudentPage implements OnInit {
+export class InfoStudent3Page implements OnInit {
   public userProfile: any[];
   public loadeduserProfile: any [];
 
@@ -21,7 +20,7 @@ export class InfoStudentPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.studentService.read_student_nws6().subscribe(data => {
+    this.studentService.read_student_dme().subscribe(data => {
  
       this.userProfile = data.map(e => {
            return {

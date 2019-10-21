@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentService } from 'src/app/services/user/student.service';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { GcService } from 'src/app/services/user/gc.service';
 
 @Component({
   selector: 'app-info-gcstudent',
@@ -13,12 +14,12 @@ export class InfoGcstudentPage implements OnInit {
 
 
   constructor(
-    private studentService: StudentService,
+    private gcService: GcService,
     private firestore: AngularFirestore
   ) { }
 
   ngOnInit() {
-    this.studentService.read_gcstudent().subscribe(data => {
+    this.gcService.read_gcstudent().subscribe(data => {
  
       this.userProfile = data.map(e => {
            return {
@@ -63,30 +64,6 @@ export class InfoGcstudentPage implements OnInit {
     });
   }
 
-  EditRecord(record) {
-    record.isEdit = true;
-    record.Editname = record.name;
-    record.Editemail = record.email;
-    record.Editschool_dept = record.school_dept;
-    record.Editgroup_code = record.group_code;
-    record.Editstudent_id = record.student_id;
-  }
- 
-  UpdateRecord(recordRow) {
-    let record = {};
-    record['name'] = recordRow.Editname;
-    record['email'] = recordRow.Editemail;
-    record['school_dept'] = recordRow.Editschool_dept;
-    record['group_code'] = recordRow.Editgroup_code;
-    record['student_id'] = recordRow.Editstudent_id;
-    this.studentService.update_student(recordRow.id, record);
-    recordRow.isEdit = false;
-  }
-
-  RemoveRecord(rowID) {
-    this.studentService.delete_student(rowID);
-  }
-
-
+  
 
 }

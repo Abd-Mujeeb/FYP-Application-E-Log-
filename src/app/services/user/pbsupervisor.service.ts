@@ -28,8 +28,8 @@ export class PbsupervisorService {
     return this.users_pbsupervisor;
   }
 
-  updateName(displayName: string): Promise<any> {
-    return this.users_pbsupervisor.update({ displayName })
+  updateName(name: string): Promise<any> {
+    return this.users_pbsupervisor.update({ name })
   }
 
   // updateDOB(birthDate: string): Promise<any> {
