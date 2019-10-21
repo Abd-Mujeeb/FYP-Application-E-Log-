@@ -51,7 +51,7 @@
               <ion-card-subtitle>(coordinates: {{item.geoLatitude}},{{item.geoLongitude}})</ion-card-subtitle>
 
               <!-- time out -->
-              <ion-card-subtitle>{{  item.timeoutstamp.toDate() | date: 'MMM dd, yyyy' }}</ion-card-subtitle>
+              <ion-card-subtitle>{{  item.timeoutstamp?.toDate() | date: 'MMM dd, yyyy' }}</ion-card-subtitle>
               <ion-card-subtitle >Time out: {{  item.timeoutstamp?.toDate() | date: 'h:mm a' }}</ion-card-subtitle>
               <ion-card-subtitle>Address: {{  item.timeoutaddress }}</ion-card-subtitle>
               <ion-card-subtitle>(coordinates: {{item.timeoutLatitude}},{{item.timeoutLongitude}})</ion-card-subtitle>
