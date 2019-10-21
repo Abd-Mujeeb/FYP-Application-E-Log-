@@ -22,8 +22,13 @@
     <ion-grid>
       <ion-row >
         <ion-col class="images">
-          <img src={{item.image}}>
-
+          <ion-slides [options]="sliderOpts" #slider>
+              <ion-slide>
+                <div class="swiper-zoom-container">
+                  <img src={{item.image}} alt="this is the image" />
+                </div>
+              </ion-slide>
+            </ion-slides>
         </ion-col>
         <ion-col>
 
