@@ -85,6 +85,10 @@ export class IsupervisorService {
     return this.firestore.collection('users',  ref => ref.where('isupervisor', '==', this.currentUser.displayName)).snapshotChanges();
   }
 
+  read_isupervisor_attendance(){
+    return this.firestore.collectionGroup('attendance').snapshotChanges();
+  }
+
   delete_isupervisor(record_id) {
     this.firestore.doc('users/' + record_id).delete();
   }

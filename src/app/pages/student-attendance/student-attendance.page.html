@@ -17,7 +17,7 @@
       </ion-searchbar>
     
     
-      <ion-card *ngFor="let item of attendancelist">
+      <ion-card *ngFor="let item of attendancelist; let i = index">
         <ion-grid>
           <ion-row>
   
@@ -26,7 +26,7 @@
     
               <ion-card-content>
             
-                <p>Name: {{item.name}}</p>
+                <p> {{i+1}}. Name: {{item.name}}</p>
                 <p>Email: {{item.email}}</p>
                 <p>Address: {{item.address}}</p>
                 <p>Date: {{item.timeinstamp.toDate() | date: 'dd MMMM yyyy'}}</p>

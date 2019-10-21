@@ -312,10 +312,29 @@ const routes: Routes = [
       role: 'student'
     }
   },
-  { path: 'pbsupervisor-attendance', loadChildren: './pages/pbsupervisor-attendance/pbsupervisor-attendance.module#PbsupervisorAttendancePageModule' },
-  { path: 'pbsupervisor-choose', loadChildren: './pages/pbsupervisor-choose/pbsupervisor-choose.module#PbsupervisorChoosePageModule' },  { path: 'info-student1', loadChildren: './pages/info-student1/info-student1.module#InfoStudent1PageModule' },
+  { path: 'pbsupervisor-attendance', loadChildren: './pages/pbsupervisor-attendance/pbsupervisor-attendance.module#PbsupervisorAttendancePageModule',
+  canActivate: [AuthGuard],
+  data: {
+    role: 'pbsupervisor'
+  }
+ },
+
+  { path: 'pbsupervisor-choose', loadChildren: './pages/pbsupervisor-choose/pbsupervisor-choose.module#PbsupervisorChoosePageModule',
+  canActivate: [AuthGuard],
+  data: {
+    role: 'pbsupervisor'
+  }
+ },
+  { path: 'info-student1', loadChildren: './pages/info-student1/info-student1.module#InfoStudent1PageModule' },
   { path: 'info-student2', loadChildren: './pages/info-student2/info-student2.module#InfoStudent2PageModule' },
   { path: 'info-student3', loadChildren: './pages/info-student3/info-student3.module#InfoStudent3PageModule' },
+  { path: 'i-student-attendance', loadChildren: './pages/i-student-attendance/i-student-attendance.module#IStudentAttendancePageModule',
+  canActivate: [AuthGuard],
+  data: {
+    role: 'isupervisor'
+  }
+},
+
 
 
 
