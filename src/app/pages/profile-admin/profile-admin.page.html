@@ -23,14 +23,14 @@
               <ion-col
                 class="text-center"
                 size="7"
-                *ngIf="userProfile?.displayName"
+                *ngIf="userProfile?.name"
               >
-                {{userProfile?.displayName}}
+                {{userProfile?.name}}
               </ion-col>
               <ion-col
                 size="7"
                 class="placeholder-profile text-center"
-                *ngIf="!userProfile?.displayName"
+                *ngIf="!userProfile?.name"
               >
                 <span> Tap here to edit. </span>
               </ion-col>

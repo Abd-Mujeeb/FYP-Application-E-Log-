@@ -40,7 +40,7 @@ export class ProfileGcPage implements OnInit {
 
   async updateName(): Promise<void> {
     const alert = await this.alertCtrl.create({
-      subHeader: 'change ur name',
+      subHeader: 'Name:',
       inputs: [
         {
           type: 'text',
