@@ -36,7 +36,6 @@ export class IStudentListPage implements OnInit {
       this.userProfile = data.map(e => {
            return {
           id: e.payload.doc.id,
-          isEdit: false,
           name: e.payload.doc.data()['displayName'],
           email: e.payload.doc.data()['email'],
           school_dept: e.payload.doc.data()['school_dept'],
@@ -77,32 +76,7 @@ export class IStudentListPage implements OnInit {
 
   
 
-  EditRecord(record) {
-    record.isEdit = true;
-    record.Editname = record.name;
-    record.Editemail = record.email;
-    record.Editschool_dept = record.school_dept;
-  }
- 
-  UpdateRecord(recordRow) {
-    let record = {};
-    record['name'] = recordRow.Editname;
-    record['email'] = recordRow.Editemail;
-    record['school_dept'] = recordRow.Editschool_dept;
-    this.isupervisorService.update_isupervisor(recordRow.id, record);
-    recordRow.isEdit = false;
-  }
 
-  RemoveRecord(rowID) {
-    this.isupervisorService.delete_isupervisor(rowID);
-  }
-
-
-  button(){
-
-   
-  
-}
 
 
   

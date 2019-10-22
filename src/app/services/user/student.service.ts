@@ -41,6 +41,10 @@ export class StudentService {
     return this.users_student;
   }
 
+
+
+  
+
   updateName(displayName: string): Promise<any> {
     return this.users_student.update({ displayName })
   }
@@ -105,6 +109,11 @@ export class StudentService {
 
   read_student() {
     return this.firestore.collection('users',  ref => ref.where('role', '==', 'student')).snapshotChanges();
+    
+  }
+
+  student() {
+    return this.firestore.collection('users',  ref => ref.where('displayName', '==', this.currentUser.displayName)).snapshotChanges();
     
   }
 

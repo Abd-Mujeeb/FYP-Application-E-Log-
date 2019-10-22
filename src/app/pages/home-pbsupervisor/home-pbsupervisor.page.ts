@@ -62,6 +62,7 @@ export class HomePbsupervisorPage implements OnInit {
           group_code: e.payload.doc.data()['group_code'],
           isupervisor: e.payload.doc.data()['isupervisor'],
           pbsupervisor: e.payload.doc.data()['pbsupervisor'],
+          company: e.payload.doc.data()['company'],
         };
       })
       console.log(this.userProfile);

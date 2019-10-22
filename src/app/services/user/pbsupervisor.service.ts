@@ -106,6 +106,8 @@ export class PbsupervisorService {
     this.firestore.doc('users/' + record_id).delete();
   }
 
+ 
+
 
 
 

@@ -1,9 +1,42 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>pbsupervisor_attendance</ion-title>
-  </ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/home-admin"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Student Attendance</ion-title>
+      <ion-buttons slot="end">
+        <ion-button routerLink="/profile-admin">
+          <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-searchbar animated showCancelButton (ionInput)="filterList($event)" placeholder="Search Student Name or Email">
+    </ion-searchbar>
+  
+  
+    <ion-card *ngFor="let item of attendancelist; let i = index">
+      <ion-grid>
+        <ion-row>
 
+ 
+  
+  
+            <ion-card-content>
+          
+              <p> {{i+1}}. Name: {{item.name}}</p>
+              <p>Email: {{item.email}}</p>
+              <p>Address: {{item.address}}</p>
+              <p>Date: {{item.timeinstamp.toDate() | date: 'dd MMMM yyyy'}}</p>
+              <p>Time-In: {{item.timeinstamp.toDate() | date: 'h:mm a'}} , (coordinates: Latitude {{item.geoLatitude}}, Longitude {{item.geoLongitude}})</p>
+              <p>Date: {{item.timeoutstamp?.toDate() | date: 'dd MMMM yyyy'}}</p>
+              <p>Time-Out: {{item.timeoutstamp?.toDate() | date: 'h:mm a'}} , (coordinates: Latitude {{item.timeoutLatitude}}, Longitude {{item.timeoutLongitude}})</p>
+
+            </ion-card-content>
+        </ion-row>
+      </ion-grid>
+  
+    </ion-card>
 </ion-content>
