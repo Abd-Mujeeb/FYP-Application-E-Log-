@@ -99,20 +99,7 @@ export class HomeStudentPage implements OnInit {
       }
     });
 
-    this.localNotifications.schedule([{
-      id: 1,
-      title: `You haven't upload any task for today, Please upload your task.`,
-      text: `Ignore this if you already upload your daily task.`,
-      trigger: {
-        every: { hour: 20, minute: 0 }
 
-      },
-      actions: [
-        { id: 'yes', title: 'Yes' },
-        { id: 'no', title: 'No' }
-      ]
-    },
-    ]);
   }
 
 async updatePassword(): Promise<void> {

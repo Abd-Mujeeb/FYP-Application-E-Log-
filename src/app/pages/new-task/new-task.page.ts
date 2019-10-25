@@ -61,6 +61,7 @@ export class NewTaskPage implements OnInit {
       res => {
         this.router.navigate(["/home-student"]);
         toast.present();
+        this.tasknotification();
       }
     )
   }
@@ -122,15 +123,11 @@ export class NewTaskPage implements OnInit {
   }
 
   
-  tasknotification(seconds: number){
+  tasknotification(){
     this.localNotifications.schedule([{
       id: 1,
       title: `E-log`,
-      text: `Your task successfully uploaded`,
-      trigger: {
-        // at: new Date(new Date().getTime() + seconds)
-        in: seconds,
-        unit: ELocalNotificationTriggerUnit.SECOND},     
+      text: `Your task successfully uploaded`,     
     },{
       id: 2,
       title: `You haven't upload any task for today`,

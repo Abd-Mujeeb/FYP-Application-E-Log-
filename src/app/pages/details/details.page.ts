@@ -80,6 +80,7 @@ export class DetailsPage implements OnInit {
       res => {
         this.router.navigate(["/home-student"]);
         toast.present();
+        this.tasknotification();
       }
     )
   }
@@ -172,14 +173,11 @@ export class DetailsPage implements OnInit {
     return await loading.present();
   }
 
-  tasknotification(seconds: number){
+  tasknotification(){
     this.localNotifications.schedule([{
       title: `E-log`,
       text: `Task Updated Successfully`,
-      trigger: {
-        // at: new Date(new Date().getTime() + seconds)
-        in: seconds,
-        unit: ELocalNotificationTriggerUnit.SECOND},     
+    
     }]);
 
   }

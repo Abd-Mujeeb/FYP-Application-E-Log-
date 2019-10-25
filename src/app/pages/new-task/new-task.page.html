@@ -14,7 +14,7 @@
       <ion-col size="6" offset="3">
         <ion-slides [options]="sliderOpts" #slider>
           <ion-slide>
-            <div class="swiper-zoom-container">
+            <div>
               <img [src]="image" alt="this is the image" />
             </div>
           </ion-slide>
@@ -42,7 +42,7 @@
       </ion-datetime>
     </ion-item>
     <h1 [hidden]="validations_form.valid" class="insertbtn">Please Insert Title, Description and Time & Date</h1>
-    <ion-button (click)="tasknotification(3)" class="submit-btn" expand="block" type="submit"
+    <ion-button  class="submit-btn" expand="block" type="submit"
       [disabled]="!validations_form.valid">Create</ion-button>
     <ion-button color="danger" expand="block" [hidden]="!validations_form.valid" [routerLink]="['/home-student']">Cancel
     </ion-button>
