@@ -13,8 +13,7 @@ export class FirebaseService {
 
   private snapshotChangesSubscription: any;
   public currentUser: firebase.User;
-  userProfile: any;
-  gc: any;
+  sgc: any;
   pbs: any;
   is: any;
   constructor(
@@ -110,14 +109,12 @@ export class FirebaseService {
       this.afs.collection('users',  ref => ref.where('displayName', '==', currentUser.displayName)).snapshotChanges()
       .subscribe(data => {
  
-        this.gc = data.map(e => {
+        this.sgc = data.map(e => {
              return {
             gc: e.payload.doc.data()['gc'],
-            pbsupervisor: e.payload.doc.data()['pbsupervisor'],
-            isupervisor: e.payload.doc.data()['isupervisor'],
           };
         })
-        console.log(this.gc);
+        console.log(this.sgc);
     
       });
 
@@ -154,7 +151,7 @@ export class FirebaseService {
       timeinstamp: value.timeinstamp,
       name: currentUser.displayName,
       email: currentUser.email,
-      gc: this.gc,
+      gc: this.sgc,
       is: this.is,
       pbs: this.pbs,
       })
