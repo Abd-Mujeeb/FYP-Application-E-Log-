@@ -102,6 +102,11 @@ export class GcService {
     
   }
 
+  read_gcstudent_attendance(){
+    return this.firestore.collectionGroup('attendance', ref=> ref.where('gc', 'array-contains', {gc: this.currentUser.displayName})).snapshotChanges();
+  }
+  
+
 
 }
 

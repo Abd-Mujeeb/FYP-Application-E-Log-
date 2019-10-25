@@ -102,6 +102,10 @@ export class PbsupervisorService {
     return this.firestore.collection('users', ref => ref.where('pbsupervisor', '==', this.currentUser.displayName)).snapshotChanges();
   }
 
+  read_pbsupervisor_attendance(){
+    return this.firestore.collectionGroup('attendance', ref=> ref.where('pbs', 'array-contains', {pbs: this.currentUser.displayName})).snapshotChanges();
+  }
+
   delete_pbsupervisor(record_id) {
     this.firestore.doc('users/' + record_id).delete();
   }
