@@ -13,6 +13,10 @@ export class FirebaseService {
 
   private snapshotChangesSubscription: any;
   public currentUser: firebase.User;
+  userProfile: any;
+  gc: any;
+  pbs: any;
+  is: any;
   constructor(
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth
@@ -103,6 +107,44 @@ export class FirebaseService {
   createAttendance(value){
     return new Promise<any>((resolve, reject) => {
       let currentUser = firebase.auth().currentUser;
+      this.afs.collection('users',  ref => ref.where('displayName', '==', currentUser.displayName)).snapshotChanges()
+      .subscribe(data => {
+ 
+        this.gc = data.map(e => {
+             return {
+            gc: e.payload.doc.data()['gc'],
+            pbsupervisor: e.payload.doc.data()['pbsupervisor'],
+            isupervisor: e.payload.doc.data()['isupervisor'],
+          };
+        })
+        console.log(this.gc);
+    
+      });
+
+      this.afs.collection('users',  ref => ref.where('displayName', '==', currentUser.displayName)).snapshotChanges()
+      .subscribe(data => {
+ 
+        this.pbs = data.map(e => {
+             return {
+            pbsupervisor: e.payload.doc.data()['pbsupervisor'],
+          };
+        })
+        console.log(this.pbs);
+    
+      });
+      
+      this.afs.collection('users',  ref => ref.where('displayName', '==', currentUser.displayName)).snapshotChanges()
+      .subscribe(data => {
+ 
+        this.is = data.map(e => {
+             return {
+            isupervisor: e.payload.doc.data()['isupervisor'],
+          };
+        })
+        console.log(this.is);
+    
+      });
+
       this.afs.collection('users').doc(currentUser.uid).collection('attendance').add({
         address: value.address,
       // timeinpicker: value.timeinpicker,
@@ -112,6 +154,9 @@ export class FirebaseService {
       timeinstamp: value.timeinstamp,
       name: currentUser.displayName,
       email: currentUser.email,
+      gc: this.gc,
+      is: this.is,
+      pbs: this.pbs,
       })
       .then(
         res => resolve(res),

@@ -102,7 +102,7 @@ export class IsupervisorService {
   }
 
   read_isupervisor_attendance(){
-    return this.firestore.collectionGroup('attendance').snapshotChanges();
+    return this.firestore.collectionGroup('attendance', ref=> ref.where('is', 'array-contains', {is: this.currentUser.displayName})).snapshotChanges();
   }
 
   delete_isupervisor(record_id) {

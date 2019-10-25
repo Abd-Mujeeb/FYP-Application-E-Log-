@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StudentService } from 'src/app/services/user/student.service';
+import { GcService } from 'src/app/services/user/gc.service';
 
 @Component({
   selector: 'app-attendance-gcstudent',
@@ -11,11 +11,11 @@ export class AttendanceGcstudentPage implements OnInit {
   public loadeditems: any[];
 
   constructor(  
-    private studentService: StudentService,
+    private gcService: GcService,
     ) { }
 
   ngOnInit() {
-    this.studentService.read_gcstudent_attendance().subscribe(data => {
+    this.gcService.read_gcstudent_attendance().subscribe(data => {
 
       this.attendancelist = data.map(e => {
         return {
