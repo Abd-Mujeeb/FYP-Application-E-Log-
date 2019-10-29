@@ -13,11 +13,24 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar animated showCancelButton (ionInput)="filterList($event)" placeholder="Search Student Name or Email">
-    </ion-searchbar>
+  <!-- <ion-searchbar animated showCancelButton (ionInput)="filterList($event)" placeholder="Search Student Name or Email"> -->
   
+    <!-- </ion-searchbar> -->
+    <calendar [eventSource]="eventSource"
+    [calendarMode]="calendar.mode"
+    [currentDate]="calendar.currentDate"
+    (onCurrentDateChanged)="onCurrentDateChanged($event)"
+    (onRangeChanged)="reloadSource(startTime, endTime)"
+    (onEventSelected)="onEventSelected($event)"
+    (onTitleChanged)="onViewTitleChanged($event)"
+    (onTimeSelected)="onTimeSelected($event)"
+    step="30">
+
+    <p *ngIf="title">no event sis</p>
+    
+</calendar>
   
-    <ion-card *ngFor="let item of attendancelist; let i = index">
+    <!-- <ion-card *ngFor="let item of attendancelist; let i = index">
       <ion-grid>
         <ion-row>
 
@@ -38,5 +51,5 @@
         </ion-row>
       </ion-grid>
   
-    </ion-card>
+    </ion-card> -->
 </ion-content>

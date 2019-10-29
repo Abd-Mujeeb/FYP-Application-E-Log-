@@ -34,6 +34,9 @@ import { environment } from 'src/environments/environment';
 import * as firebase from 'firebase';
 import { StudentService } from './services/user/student.service';
 
+import { NgCalendarModule } from 'ionic2-calendar';
+
+
 firebase.initializeApp(environment.firebase);
 @NgModule({
   declarations: [AppComponent],
@@ -49,6 +52,7 @@ firebase.initializeApp(environment.firebase);
     AngularFirestoreModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
+    NgCalendarModule,
     HttpModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }) 
   ],
