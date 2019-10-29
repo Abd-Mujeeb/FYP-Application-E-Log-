@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { LoadingController, ToastController, AlertController } from '@ionic/angular';
+import { LoadingController, ToastController, AlertController, ModalController } from '@ionic/angular';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import * as firebase from 'firebase';
+import { ImageModalPage } from '../image-modal/image-modal.page';
 @Component({
   selector: 'app-details',
   templateUrl: './details.page.html',
@@ -19,7 +20,12 @@ export class DetailsPage implements OnInit {
   item: any;
   load: boolean = false;
   
-
+  sliderOpts = {
+    zoom: false,
+    sliderPerView: 1.5,
+    centeredSlides: true,
+    spaceBetween: 20
+  };
 
   constructor(
     private imagePicker: ImagePicker,
@@ -32,6 +38,7 @@ export class DetailsPage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private localNotifications: LocalNotifications,
+    private modalController: ModalController
   ) { }
 
   ngOnInit() {
@@ -54,11 +61,17 @@ export class DetailsPage implements OnInit {
     });
   }
 
-  sliderOpts = {
-    zoom: {
-      maxRatio: 3
-    }
-  };
+  
+  openPreview(image){
+    this.modalController.create({
+      component: ImageModalPage,
+      componentProps: {
+        image: this.image
+      }
+    }).then(modal => modal.present());
+ 
+  }
+
   async onSubmit(value){
     const toast = await this.toastCtrl.create({
       message: 'Task updated successfully',
