@@ -33,6 +33,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { environment } from 'src/environments/environment';
 import * as firebase from 'firebase';
 import { StudentService } from './services/user/student.service';
+import { ImageModalPageModule } from './pages/image-modal/image-modal.module';
 
 firebase.initializeApp(environment.firebase);
 @NgModule({
@@ -42,6 +43,7 @@ firebase.initializeApp(environment.firebase);
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
+    ImageModalPageModule,
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything
