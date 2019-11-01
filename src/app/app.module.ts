@@ -36,6 +36,7 @@ import { StudentService } from './services/user/student.service';
 
 import { NgCalendarModule } from 'ionic2-calendar';
 
+import { PapaParseModule } from 'ngx-papaparse';
 
 firebase.initializeApp(environment.firebase);
 @NgModule({
@@ -46,6 +47,7 @@ firebase.initializeApp(environment.firebase);
     IonicModule.forRoot(),
     AppRoutingModule,
     FormsModule,
+    PapaParseModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything
     AngularFireAuthModule, // imports firebase/firestore, only needed for database features

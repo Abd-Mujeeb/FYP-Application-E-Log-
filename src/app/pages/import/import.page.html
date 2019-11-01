@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>import</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-item>
+        <ion-label id="csv" color="primary" stacked>csv import</ion-label>
+        <ion-input type="file" accept=".csv" (change)="changeListener($event.target.files)"></ion-input>
+
+      </ion-item>
+
+      <input type='file' (onchange)='convertFile(event)' id='fileInput'>
+      <ion-button (click)="savecsv_click()">takan</ion-button>
+
+</ion-content>

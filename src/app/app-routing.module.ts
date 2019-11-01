@@ -338,6 +338,7 @@ const routes: Routes = [
   { path: 'changepw-i', loadChildren: './pages/changepw-i/changepw-i.module#ChangepwIPageModule' },
   { path: 'changepw-gc', loadChildren: './pages/changepw-gc/changepw-gc.module#ChangepwGcPageModule' },
   { path: 'changepw-student', loadChildren: './pages/changepw-student/changepw-student.module#ChangepwStudentPageModule' },
+  { path: 'import', loadChildren: './pages/import/import.module#ImportPageModule' },
 
 
 
