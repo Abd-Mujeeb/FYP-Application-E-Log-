@@ -33,6 +33,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { environment } from 'src/environments/environment';
 import * as firebase from 'firebase';
 import { StudentService } from './services/user/student.service';
+import { ImageModalPageModule } from './pages/image-modal/image-modal.module';
 
 import { NgCalendarModule } from 'ionic2-calendar';
 
@@ -46,6 +47,7 @@ firebase.initializeApp(environment.firebase);
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
+    ImageModalPageModule,
     FormsModule,
     PapaParseModule,
     ReactiveFormsModule,

@@ -8,14 +8,13 @@
 </ion-header>
 
 <ion-content padding>
-  <br><br><br><br>
   <div>
     <ion-row no-padding>
       <ion-col size="6" offset="3">
         <ion-slides [options]="sliderOpts" #slider>
           <ion-slide>
             <div>
-              <img [src]="image" alt="this is the image" />
+              <img [src]="image" alt="this is the image" tappable (click)="openPreview(img)"/>
             </div>
           </ion-slide>
         </ion-slides>

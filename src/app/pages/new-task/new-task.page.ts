@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../../services/firebase.service';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController, ToastController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 import * as firebase from 'firebase';
+import { ImageModalPage } from '../image-modal/image-modal.page';
 @Component({
   selector: 'app-new-task',
   templateUrl: './new-task.page.html',
@@ -17,6 +18,15 @@ export class NewTaskPage implements OnInit {
   validations_form: FormGroup;
   image: any;
 
+  
+  sliderOpts = {
+    zoom: false,
+    sliderPerView: 1.5,
+    centeredSlides: true,
+    spaceBetween: 20
+  };
+
+
   constructor(
     private imagePicker: ImagePicker,
     public toastCtrl: ToastController,
@@ -25,7 +35,9 @@ export class NewTaskPage implements OnInit {
     private formBuilder: FormBuilder,
     private firebaseService: FirebaseService,
     private webview: WebView,
-    private localNotifications: LocalNotifications
+    private localNotifications: LocalNotifications,
+    private modalController: ModalController
+
   ) { }
 
   ngOnInit() {
@@ -41,6 +53,17 @@ export class NewTaskPage implements OnInit {
     });
   }
 
+  openPreview(image){
+    this.modalController.create({
+      component: ImageModalPage,
+      componentProps: {
+        image: this.image
+      }
+    }).then(modal => modal.present());
+ 
+  }
+
+  
   async onSubmit(value){
     const toast = await this.toastCtrl.create({
       message: 'Task created successfully',
@@ -65,11 +88,7 @@ export class NewTaskPage implements OnInit {
       }
     )
   }
-  sliderOpts = {
-    zoom: {
-      maxRatio: 3
-    }
-  };
+
 
   openImagePicker(){
     this.imagePicker.hasReadPermission()
@@ -80,7 +99,7 @@ export class NewTaskPage implements OnInit {
       }
       else if(result == true){
         this.imagePicker.getPictures({
-           maximumImagesCount: 5,
+           maximumImagesCount: 1,
          
         }).then(
           (results) => {
