@@ -91,10 +91,12 @@ id: any[];
       company: result.data[a].company
     }
     console.log(this.json)
-    this.dataRef.add(this.json).then( _ => alert(this.successMsg));
+    this.dataRef.add(this.json)
     c++
   }catch{
     console.log('no more data');
+    // alert(this.successMsg);
+    alert(i + " student details has succesfully saved");
   }
  
 
