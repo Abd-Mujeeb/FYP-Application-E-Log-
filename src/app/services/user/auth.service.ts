@@ -119,6 +119,10 @@ export class AuthService {
     return true;
   }
 
+  userDetails(){
+    return firebase.auth().currentUser;
+  }
+
   doLogout(){
     return new Promise((resolve, reject) => {
       this.afAuth.auth.signOut()

@@ -4,7 +4,7 @@
           <ion-back-button defaultHref="/home-admin"></ion-back-button>
         </ion-buttons>
     <ion-title>PB Supervisor Details</ion-title>
-    <ion-buttons slot="end">
+    <ion-buttons slot="end">Log in as Admin: {{name}}
       <ion-button routerLink="/profile-admin">
         <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
       </ion-button>
@@ -13,7 +13,14 @@
 </ion-header>
 
 <ion-content>
+  <ion-col>
+<label>Find PB Supervisor
   <ion-searchbar showCancelButton (ionInput)="filterList($event)"> </ion-searchbar>
+</label>
+  <ion-button fill="solid" color="dark"  routerLink="/signup">
+    Register
+  </ion-button>
+</ion-col>
   <ion-card *ngFor="let item of userProfile; let i = index">
     <span *ngIf="!item.isEdit; else elseBlock">
       <ion-card-header>
