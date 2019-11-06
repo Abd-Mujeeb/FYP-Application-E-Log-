@@ -23,10 +23,12 @@ export class InfoGcPage implements OnInit {
            return {
           id: e.payload.doc.id,
           isEdit: false,
-          displayName: e.payload.doc.data()['displayName'],
+          name: e.payload.doc.data()['displayName'],
           email: e.payload.doc.data()['email'],
           school_dept: e.payload.doc.data()['school_dept'],
-          group_code: e.payload.doc.data()['gcgroup_code'],
+          group_code: e.payload.doc.data()['group_code'],
+          contact_no: e.payload.doc.data()['contact_no'],
+
         };
       })
       console.log(this.userProfile);
