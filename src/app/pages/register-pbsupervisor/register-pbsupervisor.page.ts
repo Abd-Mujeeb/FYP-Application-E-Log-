@@ -14,6 +14,7 @@ export class RegisterPbsupervisorPage implements OnInit {
   public signupForm: FormGroup;
   public loading: any;
   
+  schoolkeys: any;
 
   constructor(
     private authService: AuthService,
@@ -39,16 +40,26 @@ export class RegisterPbsupervisorPage implements OnInit {
         '',
         Validators.compose([Validators.minLength(5), Validators.required]),
       ],
-  
-    
-      school_department: ['',Validators.required,],
-     
+
+
+      school_department: ['', Validators.required,],
+
 
 
     });
+
+
+    
+    this.schoolkeys = [
+      'SICT',
+      'SBS',
+      'SHS',
+      'SSE',
+    ]
+
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   async signupUser(signupForm: FormGroup): Promise<void> {
     if (!signupForm.valid) {
@@ -63,10 +74,10 @@ export class RegisterPbsupervisorPage implements OnInit {
       const school_department: string = signupForm.value.school_department;
       const password: string = signupForm.value.password;
 
-   
-      
-  
-      this.authService.register_pbsupervisor( displayName, name, email, password, school_department, contact_no ).then(
+
+
+
+      this.authService.register_pbsupervisor(displayName, name, email, password, school_department, contact_no).then(
         () => {
           this.loading.dismiss().then(async () => {
 

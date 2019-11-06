@@ -15,7 +15,7 @@
           <ion-input
             formControlName="name"
             type="text"
-            placeholder="name"
+            placeholder="Full Name"
             [class.invalid]="!signupForm.controls['name'].valid && signupForm.controls['name'].touched"
             
           >
@@ -30,22 +30,18 @@
         </ion-item>
 
         <ion-item >
-          <ion-label position="stacked">School Department</ion-label>
-          <ion-select placeholder="Select One" interface="popover" formControlName="school_department">
-              <ion-select-option value='SICT'>School of ICT</ion-select-option>
-              <ion-select-option value='SBS'>School of Business</ion-select-option>
-              <ion-select-option value='SHS'>School of Health & Science</ion-select-option>
-              <ion-select-option value='SSE'>School of Science & Engineering</ion-select-option>
-            </ion-select>
-        </ion-item>
-
+            <ion-label position="stacked">School Department</ion-label>
+            <ion-select placeholder="Select One" interface="popover" formControlName="school_department" >
+                <ion-select-option *ngFor="let school of schoolkeys">{{school}}</ion-select-option>
+              </ion-select>
+          </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Email</ion-label>
       <ion-input
         formControlName="email"
         type="email"
-        placeholder="Your email address"
+        placeholder="Email Address"
         [class.invalid]="!signupForm.controls['email'].valid && signupForm.controls['email'].touched"
       >
       </ion-input>
@@ -63,7 +59,7 @@
       <ion-input
         formControlName="contact_no"
         type="number"
-        placeholder="Your Contact Number"
+        placeholder="Contact Number"
         [class.invalid]="!signupForm.controls['contact_no'].valid && signupForm.controls['contact_no'].touched"
       >
       </ion-input>
@@ -81,7 +77,7 @@
       <ion-input
         formControlName="password"
         type="password"
-        placeholder="Your password"
+        placeholder="Password"
         [class.invalid]="!signupForm.controls['password'].valid && signupForm.controls['password'].touched"
       >
       </ion-input>
