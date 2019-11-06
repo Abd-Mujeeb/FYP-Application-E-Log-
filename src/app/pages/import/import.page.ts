@@ -1,9 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection  } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Papa, PapaParseConfig} from "ngx-papaparse";
+import * as firebase from 'firebase/app';
+import { Papa} from "ngx-papaparse";
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as admin from 'firebase-admin';
 
-interface json{
+var config = {
+  apiKey: "AIzaSyDFNM5AsLEAoYQhtnZ7XYRfMZWrvbgdZ0Q",
+  authDomain: "e-log-eab02.firebaseapp.com",
+  databaseURL: "https://e-log-eab02.firebaseio.com",
+};
+var secondaryApp = firebase.initializeApp(config, "Secondary");
+
+
+interface auth{
   album: string;
   year: string;
   US_peak_chart_post: string;
@@ -20,7 +31,12 @@ interface data{
   role: string,
   change: boolean,
   gc: string,
-  company: string
+  company: string,
+  password: string
+}
+
+interface metadata {
+  
 }
 
 @Component({
@@ -34,11 +50,14 @@ export class ImportPage implements OnInit {
   json: data;
   successMsg = 'Data successfully saved.';
   dataRef: AngularFirestoreCollection<data>;
-data: Observable<data[]>;
-id: any[];
+  data: Observable<data[]>;
+  id: any[];
+  metadata: any;
+  
 
   constructor(private afs: AngularFirestore,
-    private papa: Papa) { 
+    private papa: Papa,
+    auth: AngularFireAuth) { 
    
 
 
@@ -71,27 +90,42 @@ id: any[];
     console.log('Parsed: ', result);
     console.log('Parsed: ', result.data['1']);
 
-    this.dataRef = this.afs.collection<data>('csvjson');
+    this.dataRef = this.afs.collection<data>('studentcsv');
     let i;
     let c = 1;
     for(i = 0; i < c; i++){
-      let a = i
       try{
-    this.json = {
-      number: result.data[i].number,
-      displayName: result.data[a].displayName,
-      name: result.data[a].name,
-      email: result.data[a].email,
-      school_dept: result.data[a].school_dept,
-      group_code: result.data[a].group_code,
-      student_id: result.data[a].student_id,
-      role: result.data[a].role,
-      change: result.data[a].change,
-      gc: result.data[a].gc,
-      company: result.data[a].company
-    }
-    console.log(this.json)
-    this.dataRef.add(this.json)
+    
+      const number: string = result.data[i].number;
+      const displayName: string = result.data[i].displayName;
+      const name: string = result.data[i].name;
+      const email: string = result.data[i].email;
+      const school_dept: string = result.data[i].school_dept;
+      const group_code: string = result.data[i].group_code;
+      const student_id: string = result.data[i].student_id;
+      const role: string = result.data[i].role;
+      const change: boolean = result.data[i].change;
+      const gc: string = result.data[i].gc;
+      const company: string = result.data[i].company;
+      const password: string = result.data[i].password;
+    
+  
+    // console.log(this.json.displayName)
+    // console.log(this.json.password)
+    // this.dataRef.add(this.json)
+  
+    secondaryApp.auth().createUserWithEmailAndPassword(email, password).then((newUserCredential: firebase.auth.UserCredential)=> {
+      firebase
+        .firestore()
+        .doc(`/studentcsv/${newUserCredential.user.uid}`)
+        .set({number, displayName, name, email, school_dept, group_code, student_id, role, change, gc, company, password});
+        console.log("studentcsv " + newUserCredential.user.email + " created successfully!");
+        secondaryApp.auth().signOut();
+    }).catch(error => {
+      console.error(error);
+      throw new Error(error);
+    });
+
     c++
   }catch{
     console.log('no more data');
@@ -101,10 +135,10 @@ id: any[];
  
 
 }
-
-    // this.dataRef.add(this.json).then( _ => alert(this.successMsg));
     }
     });
     }}}
 
+
+    
 }
