@@ -13,6 +13,7 @@ var config = {
 };
 var secondaryApp = firebase.initializeApp(config, "Secondary");
 
+
 interface auth{
   album: string;
   year: string;
@@ -52,7 +53,7 @@ export class ImportPage implements OnInit {
   data: Observable<data[]>;
   id: any[];
   metadata: any;
-  user: Observable<any>;
+  
 
   constructor(private afs: AngularFirestore,
     private papa: Papa,
@@ -93,7 +94,6 @@ export class ImportPage implements OnInit {
     let i;
     let c = 1;
     for(i = 0; i < c; i++){
-      let a = i
       try{
     
       const number: string = result.data[i].number;

@@ -10,6 +10,14 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { FirebaseService } from '../firebase.service';
 
+var config = {
+    apiKey: "AIzaSyDFNM5AsLEAoYQhtnZ7XYRfMZWrvbgdZ0Q",
+    authDomain: "e-log-eab02.firebaseapp.com",
+    databaseURL: "https://e-log-eab02.firebaseio.com",
+  };
+var secondaryApp = firebase.initializeApp(config, "Secondary");
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -56,23 +64,40 @@ export class AuthService {
     )
   }
 
-  signupUser(firstName: string, lastName: string, email: string, password: string): Promise<any> {
-    return firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then((newUserCredential: firebase.auth.UserCredential) => {
-        firebase
-          .firestore()
-          .doc(`/userProfile/${newUserCredential.user.uid}`)
-          .set({ firstName, lastName, email, admin:true });
-      })
-      .catch(error => {
-        console.error(error);
-        throw new Error(error);
-      });
+  // signupUser(firstName: string, lastName: string, email: string, password: string): Promise<any> {
+  //   return firebase
+  //     .auth()
+  //     .createUserWithEmailAndPassword(email, password)
+  //     .then((newUserCredential: firebase.auth.UserCredential) => {
+  //       firebase
+  //         .firestore()
+  //         .doc(`/userProfile/${newUserCredential.user.uid}`)
+  //         .set({ firstName, lastName, email, admin:true });
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //       throw new Error(error);
+  //     });
   
-    }
+  //   }
 
+    signupuser(displayName: string, name: string, email: string, password: string, option: string, school_department: string ): Promise<any> {
+      return secondaryApp.auth().createUserWithEmailAndPassword(email, password).then((newUserCredential: firebase.auth.UserCredential) => {
+              firebase
+                .firestore()
+                .doc(`/users/${newUserCredential.user.uid}`)
+                .set({ displayName, name, email, school_dept : school_department, role: option, change: true,  });
+                console.log("User " + newUserCredential.user.email + " created successfully!");
+                secondaryApp.auth().signOut();
+            }).catch(error => {
+              console.error(error);
+              throw new Error(error);
+            });
+    
+      }
+
+   
+    
 
 
   
@@ -92,6 +117,10 @@ export class AuthService {
       }
     }
     return true;
+  }
+
+  userDetails(){
+    return firebase.auth().currentUser;
   }
 
   doLogout(){

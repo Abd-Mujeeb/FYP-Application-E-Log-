@@ -21,11 +21,7 @@ export class SignupPage implements OnInit {
     private router: Router
   ) {
     this.signupForm = this.formBuilder.group({
-      firstName: [
-        '',
-        Validators.compose([Validators.minLength(5), Validators.required]),
-      ],
-      lastName: [
+      name: [
         '',
         Validators.compose([Validators.minLength(5), Validators.required]),
       ],
@@ -37,6 +33,10 @@ export class SignupPage implements OnInit {
         '',
         Validators.compose([Validators.minLength(6), Validators.required]),
       ],
+      option: ['pbsupervisor',Validators.required,],
+      school_department: ['',Validators.required,],
+
+
     });
   }
 
@@ -48,16 +48,25 @@ export class SignupPage implements OnInit {
         'Need to complete the form, current value: ', signupForm.value
       );
     } else {
-      const firstName: string = signupForm.value.firstName;
-      const lastName: string = signupForm.value.lastName;
+      const displayName: string = signupForm.value.name;
+      const name: string = signupForm.value.name;
       const email: string = signupForm.value.email;
+      const school_department: string = signupForm.value.school_department;
       const password: string = signupForm.value.password;
+      const option: string = signupForm.value.option;
   
-      this.authService.signupUser( firstName, lastName, email, password ).then(
+      this.authService.signupuser( displayName, name, email, password, option, school_department ).then(
         () => {
-          this.loading.dismiss().then(() => {
-            this.router.navigateByUrl('home');
+          this.loading.dismiss().then(async () => {
+
+            const alert = await this.alertCtrl.create({
+              message: 'Account successfully created',
+              buttons: [{ text: 'Ok', role: 'ok' }],
+            });
+            this.signupForm.reset();
+            await alert.present();
           });
+
         },
         error => {
           this.loading.dismiss().then(async () => {

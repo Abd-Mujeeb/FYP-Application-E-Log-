@@ -5,7 +5,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { pipe } from 'rxjs';
 import * as firebase from 'firebase';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/user/auth.service';
 
 @Component({
   selector: 'app-info-pbsupervisor',
@@ -17,10 +18,13 @@ export class InfoPbsupervisorPage implements OnInit {
   public loadeduserProfile: any [];
   student: any;
 
+  name: string;
+
   public buttonClicked: boolean = false; //Whatever you want to initialise it as
   gc: any;
   studentId: any;
   user: any;
+  
  public onButtonClick() {
 
     this.buttonClicked = !this.buttonClicked;
@@ -30,11 +34,21 @@ export class InfoPbsupervisorPage implements OnInit {
   constructor(
     private pbsupervisorService: PbsupervisorService,
     private firestore: AngularFirestore,
+    private navCtrl: NavController,
     private router: Router,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {
+
+    if(this.authService.userDetails()){
+      this.name = this.authService.userDetails().displayName;
+    } else {
+      this.navCtrl.navigateBack('');
+    }
+
+
     this.pbsupervisorService.read_pbsupervisor().subscribe(data => {
  
       this.userProfile = data.map(e => {
