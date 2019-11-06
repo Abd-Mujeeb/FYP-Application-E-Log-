@@ -4,12 +4,13 @@ import { LoadingController, AlertController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.page.html',
-  styleUrls: ['./signup.page.scss'],
+  selector: 'app-register-gc',
+  templateUrl: './register-gc.page.html',
+  styleUrls: ['./register-gc.page.scss'],
 })
-export class SignupPage implements OnInit {
+export class RegisterGcPage implements OnInit {
   public signupForm: FormGroup;
   public loading: any;
   

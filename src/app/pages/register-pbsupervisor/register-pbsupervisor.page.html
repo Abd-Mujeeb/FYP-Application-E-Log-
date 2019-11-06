@@ -4,7 +4,7 @@
       <ion-back-button defaultHref="/login"></ion-back-button>
     </ion-buttons>
 
-    <ion-title>Register PB and GC</ion-title>
+    <ion-title>Register Politeknik Brunei Supervisor</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -31,58 +31,13 @@
 
         <ion-item >
           <ion-label position="stacked">School Department</ion-label>
-          <ion-select placeholder="Select One" interface="popover" formControlName="school_department" [(ngModel)]="show">
+          <ion-select placeholder="Select One" interface="popover" formControlName="school_department">
               <ion-select-option value='SICT'>School of ICT</ion-select-option>
               <ion-select-option value='SBS'>School of Business</ion-select-option>
               <ion-select-option value='SHS'>School of Health & Science</ion-select-option>
               <ion-select-option value='SSE'>School of Science & Engineering</ion-select-option>
             </ion-select>
         </ion-item>
-
-
-        <ion-item>
-          <ion-label position="stacked">Select Role</ion-label>
-          <ion-select formControlName="option">
-            <ion-select-option value='pbsupervisor'>PB Supervisor</ion-select-option>
-            <ion-select-option value='gc'>Group Cordinator</ion-select-option>
-          </ion-select>
-        </ion-item>
-
-        <ion-item *ngIf="show=='SICT'">
-          <ion-label position="stacked">Group Code</ion-label>
-          <ion-select formControlName="group_code">
-            <ion-select-option value='NWS06'>NWS06</ion-select-option>
-            <ion-select-option value='NWS07'>NWS07</ion-select-option>
-            <ion-select-option value='WBD'>WBD</ion-select-option>
-            <ion-select-option value='INS'>INS</ion-select-option>
-            <ion-select-option value='DME'>DME</ion-select-option>
-          </ion-select>
-        </ion-item>
-
-        <ion-item *ngIf="show=='SBS'">
-          <ion-label position="stacked">Group Code</ion-label>
-          <ion-select formControlName="group_code">
-            <ion-select-option value='MKT'>Marketing</ion-select-option>
-            <ion-select-option value='ACC'>Accounting</ion-select-option>
-            <ion-select-option value='GEN'>General</ion-select-option>
-          </ion-select>
-        </ion-item>
-
-        <ion-item *ngIf="show=='SHS'">
-          <ion-label position="stacked">Group Code</ion-label>
-          <ion-select formControlName="group_code">
-            <ion-select-option value='Nursing'>Nursing</ion-select-option>
-            <ion-select-option value='Paramedic'>Paramedic</ion-select-option>
-          </ion-select>
-        </ion-item>
-        <ion-item *ngIf="show=='SSE'">
-          <ion-label position="stacked">Group Code</ion-label>
-          <ion-select formControlName="group_code">
-            <ion-select-option value='Petroleum'>Petroleum</ion-select-option>
-            <ion-select-option value='Civil'>Civil</ion-select-option>
-          </ion-select>
-        </ion-item>
-        
 
 
     <ion-item>
@@ -101,6 +56,24 @@
       && signupForm.controls['email'].touched"
     >
       <ion-label>Please enter a valid email.</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Contact No.</ion-label>
+      <ion-input
+        formControlName="contact_no"
+        type="number"
+        placeholder="Your Contact Number"
+        [class.invalid]="!signupForm.controls['contact_no'].valid && signupForm.controls['contact_no'].touched"
+      >
+      </ion-input>
+    </ion-item>
+    <ion-item
+      class="error-message"
+      *ngIf="!signupForm.controls['contact_no'].valid
+      && signupForm.controls['contact_no'].touched"
+    >
+      <ion-label>Please enter a valid phone number.</ion-label>
     </ion-item>
 
     <ion-item>
@@ -126,7 +99,7 @@
       (click)="signupUser(signupForm)"
       [disabled]="!signupForm.valid"
     >
-      Create an Account
+      Create
     </ion-button>
   </form>
 
