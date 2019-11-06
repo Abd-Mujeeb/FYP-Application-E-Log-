@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ToastController, LoadingController } from '@ionic/angular';
 import * as firebase from 'firebase/app';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import * as moment from 'moment';
 
 declare var google;
 @Component({
@@ -18,6 +19,7 @@ export class AttendancePage implements OnInit {
 
   @ViewChild('map', {static:true}) mapElement: ElementRef;
 
+  currentUser: firebase.User
   geoLatitude: number;
   geoLongitude: number;
   map: any;
@@ -33,7 +35,9 @@ export class AttendancePage implements OnInit {
     public loadingCtrl: LoadingController,
     private formBuilder: FormBuilder,
 
-  ) { }
+  ) {
+    this.currentUser = firebase.auth().currentUser
+   }
 
   ngOnInit() {
     this.loadMap();
@@ -53,7 +57,15 @@ export class AttendancePage implements OnInit {
      });
    }
 
-   
+  // calculateAttendane() {
+  //   const totalDaysSchool = 21;
+  //   const absent = 1;
+  //   var totalOfAbsent = totalDaysSchool - absent
+  //   var percentageAttendance;
+  //   percentageAttendance = (totalOfAbsent / totalDaysSchool) * 100
+  //   console.log(percentageAttendance.toFixed(0))
+  // }  
+
   async onSubmit(value){
     const toast = await this.toastCtrl.create({
       message: 'Time In successfully',
@@ -80,6 +92,7 @@ export class AttendancePage implements OnInit {
         toast.present();
       }
     )
+   
   }
 
   loadMap() {

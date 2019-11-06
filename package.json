@@ -53,6 +53,7 @@
     "firebase-functions": "^3.2.0",
     "firebase-tools": "^7.3.0",
     "ionic2-calendar": "^0.5.7",
+    "moment": "^2.24.0",
     "ngx-papaparse": "^3.0.4",
     "node": "^12.9.1",
     "papaparse": "^5.1.0",
