@@ -115,15 +115,6 @@ export class AuthService {
           .firestore()
           .doc(`/userscsv/${newUserCredential.user.uid}`)
           .set({number, displayName, name, email, school_dept, group_code, student_id, role, change, gc, company, password});
-          this.loadingController.create({
-            message: newUserCredential.user.email + ", " + name + ' created successfully',
-            duration: 2000
-          }).then((res) => {
-            res.present();
-            res.onDidDismiss().then((dis) => {
-              console.log('Loading dismissed! after 2 Seconds');
-            });
-          });
           console.log("users " + newUserCredential.user.email + " created successfully!");
           secondaryApp.auth().signOut();
       }).catch(error => {

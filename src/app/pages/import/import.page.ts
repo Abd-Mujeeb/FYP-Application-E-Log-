@@ -24,9 +24,9 @@ export class ImportPage implements OnInit {
   constructor(private afs: AngularFirestore,
     private papa: Papa,
     private authService: AuthService,
-    private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
-    private studentService: StudentService
+    private studentService: StudentService,
+    public loadingController: LoadingController
     ) { 
 
   }
@@ -133,13 +133,19 @@ export class ImportPage implements OnInit {
   }
 
 
-    changeListener(files: FileList){
+
+    changeListener(files: FileList) {
     console.log(files);
     if(files && files.length > 0) {
     let file : File = files.item(0); 
     console.log(file.name);
     console.log(file.size);
     console.log(file.type);
+    var csv = file.type
+
+    if(!csv.includes('application/vnd.ms-excel')){
+      alert('Please select correct file format');
+    }else{
     let reader: FileReader = new FileReader();
     reader.readAsText(file);
     reader.onload = (e) => {
@@ -147,9 +153,8 @@ export class ImportPage implements OnInit {
     console.log(csv);
     this.papa.parse(csv,{
     header: true,
-    complete: (result) => {
+    complete: (result)=> {
     console.log('Parsed: ', result);
-    console.log('Parsed: ', result.data['1']);
     
     let i;
     let c = 1;
@@ -174,7 +179,7 @@ export class ImportPage implements OnInit {
     // console.log(this.json.password)
     // this.dataRef.add(this.json)
   
-    this.authService.csvstudent( number, displayName, name, email, school_dept, group_code, student_id, role, change, gc, company, password);
+    this.authService.csvstudent( number, displayName, name, email, school_dept, group_code, student_id, role, change, gc, company, password)
     // .then(
     //   () => {
     //     this.loading.dismiss().then(async () => {
@@ -197,7 +202,7 @@ export class ImportPage implements OnInit {
     //     });
     //   }
     // );
-    // this.loading = this.loadingCtrl.create();
+    // this.loading = this.loadingController.create();
     // this.loading.present();
 
     c++
@@ -211,8 +216,9 @@ export class ImportPage implements OnInit {
 }
     }
     });
-    }}}
+    }}}}
 
 
+    
     
 }
