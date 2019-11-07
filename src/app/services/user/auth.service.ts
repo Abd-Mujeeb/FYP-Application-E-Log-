@@ -9,6 +9,7 @@ import { from, Observable, of, BehaviorSubject } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { FirebaseService } from '../firebase.service';
+import { LoadingController } from '@ionic/angular';
 
 var config = {
     apiKey: "AIzaSyDFNM5AsLEAoYQhtnZ7XYRfMZWrvbgdZ0Q",
@@ -28,7 +29,8 @@ export class AuthService {
  
 
   constructor(private afAuth: AngularFireAuth,
-    private firebaseService: FirebaseService, private firestore: AngularFirestore, private router: Router) {
+    private firebaseService: FirebaseService, private firestore: AngularFirestore, private router: Router,
+    public loadingController: LoadingController) {
     this.user = this.afAuth.authState.pipe(
       switchMap(user => {
         if (user) {
@@ -111,12 +113,21 @@ export class AuthService {
       secondaryApp.auth().createUserWithEmailAndPassword(email, password).then((newUserCredential: firebase.auth.UserCredential)=> {
         firebase
           .firestore()
-          .doc(`/studentcsv/${newUserCredential.user.uid}`)
+          .doc(`/userscsv/${newUserCredential.user.uid}`)
           .set({number, displayName, name, email, school_dept, group_code, student_id, role, change, gc, company, password});
-          console.log("studentcsv " + newUserCredential.user.email + " created successfully!");
+          this.loadingController.create({
+            message: newUserCredential.user.email + ", " + name + ' created successfully',
+            duration: 2000
+          }).then((res) => {
+            res.present();
+            res.onDidDismiss().then((dis) => {
+              console.log('Loading dismissed! after 2 Seconds');
+            });
+          });
+          console.log("users " + newUserCredential.user.email + " created successfully!");
           secondaryApp.auth().signOut();
       }).catch(error => {
-        alert(email + ", " + name + " " + error);
+        // alert(email + ", " + name + " " + error);
         console.error(error);
         throw new Error(error);
       });

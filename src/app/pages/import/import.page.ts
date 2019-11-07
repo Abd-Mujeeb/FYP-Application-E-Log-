@@ -7,33 +7,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as admin from 'firebase-admin';
 import { AuthService } from 'src/app/services/user/auth.service';
 import { LoadingController, AlertController } from '@ionic/angular';
+import { StudentService } from 'src/app/services/user/student.service';
 
-
-
-interface auth{
-  album: string;
-  year: string;
-  US_peak_chart_post: string;
-}
-
-interface data{
-  number: number,
-  displayName: string,
-  name: string,
-  email: string,
-  school_dept: string,
-  group_code: string,
-  student_id: string,
-  role: string,
-  change: boolean,
-  gc: string,
-  company: string,
-  password: string
-}
-
-interface metadata {
-  
-}
 
 @Component({
   selector: 'app-import',
@@ -42,34 +17,120 @@ interface metadata {
 })
 export class ImportPage implements OnInit {
 
-  csv;
-  json: data;
-  successMsg = 'Data successfully saved.';
-  dataRef: AngularFirestoreCollection<data>;
-  data: Observable<data[]>;
-  id: any[];
-  metadata: any;
   public loading: any;
-  
+  public student: any[];
+  public loadedstudent: any [];
 
   constructor(private afs: AngularFirestore,
     private papa: Papa,
     private authService: AuthService,
     private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private studentService: StudentService
     ) { 
-   
-
 
   }
-
-  loadCSV(){
-
-  }
-
   ngOnInit() {
+    this.studentService.read_student().subscribe(data => {
+ 
+      this.student = data.map(e => {
+           return {
+          id: e.payload.doc.id,
+          isEdit: false,
+          name: e.payload.doc.data()['displayName'],
+          email: e.payload.doc.data()['email'],
+          school_dept: e.payload.doc.data()['school_dept'],
+          group_code: e.payload.doc.data()['group_code'],
+          student_id: e.payload.doc.data()['student_id'],
+          company: e.payload.doc.data()['company'],
+          gc: e.payload.doc.data()['gc'],
+          pbsupervisor: e.payload.doc.data()['pbsupervisor'],
+          contactno: e.payload.doc.data()['contactno'],
 
-}
+
+        };
+      })
+      console.log(this.student);
+   this.loadedstudent = this.student;
+  
+    });
+
+
+  }
+
+  initializeItems(): void {
+    this.student = this.loadedstudent;
+  }
+
+  filterList(evt){
+    this.initializeItems();
+    const searchTerm = evt.srcElement.value;
+
+    if (!searchTerm){
+      return;
+    }
+
+    this.student = this.student.filter(currentlist => {
+      if (currentlist.name, currentlist.email && searchTerm){
+        if (currentlist.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+        currentlist.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1){
+          return true;
+        }
+        return false;
+      }
+    });
+  }
+
+  EditRecord(record) {
+    record.isEdit = true;
+    record.Editname = record.name;
+    record.Editemail = record.email;
+    record.Editschool_dept = record.school_dept;
+    record.Editgroup_code = record.group_code;
+    record.Editstudent_id = record.student_id;
+    record.Editcompany = record.company;
+  }
+ 
+  UpdateRecord(recordRow) {
+    let record = {};
+    record['displayName'] = recordRow.Editname;
+    record['email'] = recordRow.Editemail;
+    record['school_dept'] = recordRow.Editschool_dept;
+    record['group_code'] = recordRow.Editgroup_code;
+    record['student_id'] = recordRow.Editstudent_id;
+    record['company'] = recordRow.Editcompany;
+    this.studentService.update_student(recordRow.id, record);
+    recordRow.isEdit = false;
+  }
+
+  RemoveRecord(rowID) {
+    this.studentService.delete_student(rowID);
+  }
+
+  async presentAlertConfirm(rowID) {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirm!',
+      message: 'Message <strong>Are you sure to remove user? </br>click "confirm" to permanantly delete user</strong>',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Confirm',
+          handler: () => {
+            console.log('Confirm');
+            this.studentService.delete_student(rowID);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 
 
     changeListener(files: FileList){
