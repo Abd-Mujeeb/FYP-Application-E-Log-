@@ -13,7 +13,63 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-searchbar showCancelButton (ionInput)="filterList($event)"> </ion-searchbar>
+
+
+    <div class="topleft">
+        <ion-searchbar showCancelButton (ionInput)="filterList($event)"> Find GC</ion-searchbar>
+      </div>
+    
+      <div class="topright">
+        <ion-button fill="solid" color="dark" routerLink="/register-gc">
+          Add new GC
+        </ion-button>
+      </div>
+      <br><br><br><br><br>
+    
+      <label>Filter by</label>
+      <div>
+          <!-- https://stackblitz.com/edit/angularfire-db-api-fbad9p -->
+        <h1>School Department: </h1>
+        <button type="radio">SICT</button>
+        <button  type="radio">SBS</button>
+        <button  type="radio">SSE</button>
+        <button  type="radio">SHS</button>
+        <button  type="radio">
+          <em>clear filter</em>
+        </button>
+      </div>
+      <br>
+      <table >
+          <tr class="headercolor">
+            <th>Fullname</th>
+            <th>Email</th>
+            <th>School Department</th>
+            <th>Group Code</th>
+            <th>Contact no.</th>
+            <th  class="editdeletebtn"></th>
+          </tr>
+          <tr *ngFor="let item of userProfile; let i = index">
+            <td>{{i+1}}. {{item.name}}</td>
+            <td>{{item.email}}</td>
+            <td>{{item.school_dept}}</td>
+            <td>{{item.group_code}}</td>
+            <td>{{item.contact_no}}</td>
+            <td  class="editdeletebtn">
+
+                <ion-button  shape="round" color="secondary" size="small" (click)="EditRecord(item)" [routerLink]="['/gc-details', item.id]">Edit
+                    <ion-icon size="small" slot="icon-only" name="create"></ion-icon>
+                  </ion-button>
+  
+                <ion-button shape="round" color="danger" size="small" (click)="presentAlertConfirm(item.id)">
+                    <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
+                  </ion-button>
+             
+            </td>
+          </tr>
+        
+        </table>
+  
+<!--   
   <ion-card *ngFor="let item of userProfile; let i = index">
     <span *ngIf="!item.isEdit; else elseBlock">
       <ion-card-header>
@@ -78,5 +134,5 @@
       </ion-card-content>
     </ng-template>
   </ion-card>
- 
+  -->
 </ion-content>

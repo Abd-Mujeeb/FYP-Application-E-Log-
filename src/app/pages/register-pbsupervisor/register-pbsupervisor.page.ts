@@ -5,14 +5,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.page.html',
-  styleUrls: ['./signup.page.scss'],
+  selector: 'app-register-pbsupervisor',
+  templateUrl: './register-pbsupervisor.page.html',
+  styleUrls: ['./register-pbsupervisor.page.scss'],
 })
-export class SignupPage implements OnInit {
+export class RegisterPbsupervisorPage implements OnInit {
+
   public signupForm: FormGroup;
   public loading: any;
   
+  schoolkeys: any;
 
   constructor(
     private authService: AuthService,
@@ -34,14 +36,30 @@ export class SignupPage implements OnInit {
         '',
         Validators.compose([Validators.minLength(6), Validators.required]),
       ],
-      option: ['pbsupervisor',Validators.required,],
-      school_department: ['',Validators.required,],
-      group_code: [''],
+      contact_no: [
+        '',
+        Validators.compose([Validators.minLength(5), Validators.required]),
+      ],
+
+
+      school_department: ['', Validators.required,],
+
+
 
     });
+
+
+    
+    this.schoolkeys = [
+      'SICT',
+      'SBS',
+      'SHS',
+      'SSE',
+    ]
+
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   async signupUser(signupForm: FormGroup): Promise<void> {
     if (!signupForm.valid) {
@@ -52,14 +70,14 @@ export class SignupPage implements OnInit {
       const displayName: string = signupForm.value.name;
       const name: string = signupForm.value.name;
       const email: string = signupForm.value.email;
+      const contact_no: number = signupForm.value.contact_no;
       const school_department: string = signupForm.value.school_department;
       const password: string = signupForm.value.password;
-      const option: string = signupForm.value.option;
-      const group_code: string = signupForm.value.group_code;
-   
-      
-  
-      this.authService.signupuser( displayName, name, email, password, option, school_department, group_code ).then(
+
+
+
+
+      this.authService.register_pbsupervisor(displayName, name, email, password, school_department, contact_no).then(
         () => {
           this.loading.dismiss().then(async () => {
 
@@ -88,3 +106,4 @@ export class SignupPage implements OnInit {
   }
 
 }
+

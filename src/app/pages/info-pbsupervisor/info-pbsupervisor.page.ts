@@ -58,6 +58,7 @@ export class InfoPbsupervisorPage implements OnInit {
           name: e.payload.doc.data()['displayName'],
           email: e.payload.doc.data()['email'],
           school_dept: e.payload.doc.data()['school_dept'],
+          contact_no: e.payload.doc.data()['contact_no'],
         };
       })
       console.log(this.userProfile);

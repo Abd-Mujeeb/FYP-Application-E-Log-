@@ -83,12 +83,12 @@ export class AuthService {
   
   //   }
 
-    signupuser(displayName: string, name: string, email: string, password: string, option: string, school_department: string ): Promise<any> {
+    signupuser(displayName: string, name: string, email: string, password: string, option: string, school_department: string, group_code: string ): Promise<any> {
       return secondaryApp.auth().createUserWithEmailAndPassword(email, password).then((newUserCredential: firebase.auth.UserCredential) => {
               firebase
                 .firestore()
                 .doc(`/users/${newUserCredential.user.uid}`)
-                .set({ displayName, name, email, school_dept : school_department, role: option, change: true,  });
+                .set({ displayName, name, email, school_dept : school_department, role: option, change: true, group_code });
                 console.log("User " + newUserCredential.user.email + " created successfully!");
                 secondaryApp.auth().signOut();
             }).catch(error => {
@@ -134,6 +134,35 @@ export class AuthService {
     }
 
    
+      register_gc(displayName: string, name: string, email: string, password: string,  school_department: string, contact_no: number, group_code: string ): Promise<any> {
+        return secondaryApp.auth().createUserWithEmailAndPassword(email, password).then((newUserCredential: firebase.auth.UserCredential) => {
+                firebase
+                  .firestore()
+                  .doc(`/users/${newUserCredential.user.uid}`)
+                  .set({ displayName, name, email, password, school_dept : school_department, change: true, contact_no, group_code, role: 'gc'});
+                  console.log("User " + newUserCredential.user.email + " created successfully!");
+                  secondaryApp.auth().signOut();
+              }).catch(error => {
+                console.error(error);
+                throw new Error(error);
+              });
+      
+        }
+
+      register_pbsupervisor(displayName: string, name: string, email: string, password: string, school_department: string, contact_no: number ): Promise<any> {
+        return secondaryApp.auth().createUserWithEmailAndPassword(email, password).then((newUserCredential: firebase.auth.UserCredential) => {
+                firebase
+                  .firestore()
+                  .doc(`/users/${newUserCredential.user.uid}`)
+                  .set({ displayName, name, email, school_dept : school_department, change: true, contact_no, role: 'pbsupervisor'});
+                  console.log("User " + newUserCredential.user.email + " created successfully!");
+                  secondaryApp.auth().signOut();
+              }).catch(error => {
+                console.error(error);
+                throw new Error(error);
+              });
+      
+        }
     
 
 
