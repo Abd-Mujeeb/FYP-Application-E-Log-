@@ -5,13 +5,9 @@ import * as firebase from 'firebase/app';
 import { Papa} from "ngx-papaparse";
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as admin from 'firebase-admin';
+import { AuthService } from 'src/app/services/user/auth.service';
+import { LoadingController, AlertController } from '@ionic/angular';
 
-var config = {
-  apiKey: "AIzaSyDFNM5AsLEAoYQhtnZ7XYRfMZWrvbgdZ0Q",
-  authDomain: "e-log-eab02.firebaseapp.com",
-  databaseURL: "https://e-log-eab02.firebaseio.com",
-};
-var secondaryApp = firebase.initializeApp(config, "Secondary");
 
 
 interface auth{
@@ -53,11 +49,15 @@ export class ImportPage implements OnInit {
   data: Observable<data[]>;
   id: any[];
   metadata: any;
+  public loading: any;
   
 
   constructor(private afs: AngularFirestore,
     private papa: Papa,
-    auth: AngularFireAuth) { 
+    private authService: AuthService,
+    private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController
+    ) { 
    
 
 
@@ -89,8 +89,7 @@ export class ImportPage implements OnInit {
     complete: (result) => {
     console.log('Parsed: ', result);
     console.log('Parsed: ', result.data['1']);
-
-    this.dataRef = this.afs.collection<data>('studentcsv');
+    
     let i;
     let c = 1;
     for(i = 0; i < c; i++){
@@ -114,23 +113,37 @@ export class ImportPage implements OnInit {
     // console.log(this.json.password)
     // this.dataRef.add(this.json)
   
-    secondaryApp.auth().createUserWithEmailAndPassword(email, password).then((newUserCredential: firebase.auth.UserCredential)=> {
-      firebase
-        .firestore()
-        .doc(`/studentcsv/${newUserCredential.user.uid}`)
-        .set({number, displayName, name, email, school_dept, group_code, student_id, role, change, gc, company, password});
-        console.log("studentcsv " + newUserCredential.user.email + " created successfully!");
-        secondaryApp.auth().signOut();
-    }).catch(error => {
-      console.error(error);
-      throw new Error(error);
-    });
+    this.authService.csvstudent( number, displayName, name, email, school_dept, group_code, student_id, role, change, gc, company, password);
+    // .then(
+    //   () => {
+    //     this.loading.dismiss().then(async () => {
+
+    //       const alert = await this.alertCtrl.create({
+    //         message: i + 'Account successfully created',
+    //       });
+         
+    //       await alert.present();
+    //     });
+
+    //   },
+    //   error => {
+    //     this.loading.dismiss().then(async () => {
+    //       const alert = await this.alertCtrl.create({
+    //         message: error.message,
+    //         buttons: [{ text: 'Ok', role: 'cancel' }],
+    //       });
+    //       await alert.present();
+    //     });
+    //   }
+    // );
+    // this.loading = this.loadingCtrl.create();
+    // this.loading.present();
 
     c++
   }catch{
     console.log('no more data');
     // alert(this.successMsg);
-    alert(i + " student details has succesfully saved");
+    alert("Total of Account : " + i);
   }
  
 

@@ -96,6 +96,32 @@ export class AuthService {
     
       }
 
+    csvstudent(number: string,
+     displayName: string,
+     name: string,
+     email: string,
+     school_dept: string,
+     group_code: string,
+     student_id: string,
+     role: string,
+     change: boolean,
+     gc: string,
+     company: string,
+     password: string){
+      secondaryApp.auth().createUserWithEmailAndPassword(email, password).then((newUserCredential: firebase.auth.UserCredential)=> {
+        firebase
+          .firestore()
+          .doc(`/studentcsv/${newUserCredential.user.uid}`)
+          .set({number, displayName, name, email, school_dept, group_code, student_id, role, change, gc, company, password});
+          console.log("studentcsv " + newUserCredential.user.email + " created successfully!");
+          secondaryApp.auth().signOut();
+      }).catch(error => {
+        alert(email + ", " + name + " " + error);
+        console.error(error);
+        throw new Error(error);
+      });
+    }
+
    
     
 
