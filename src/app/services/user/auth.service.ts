@@ -109,8 +109,9 @@ export class AuthService {
      change: boolean,
      gc: string,
      company: string,
-     password: string){
-      secondaryApp.auth().createUserWithEmailAndPassword(email, password).then((newUserCredential: firebase.auth.UserCredential)=> {
+     password: string): Promise<any> {
+      return secondaryApp.auth().createUserWithEmailAndPassword(email, password)
+      .then((newUserCredential: firebase.auth.UserCredential)=> {
         firebase
           .firestore()
           .doc(`/userscsv/${newUserCredential.user.uid}`)

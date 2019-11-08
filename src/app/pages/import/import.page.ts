@@ -8,6 +8,7 @@ import * as admin from 'firebase-admin';
 import { AuthService } from 'src/app/services/user/auth.service';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { StudentService } from 'src/app/services/user/student.service';
+import { async } from 'q';
 
 
 @Component({
@@ -142,7 +143,6 @@ export class ImportPage implements OnInit {
     console.log(file.size);
     console.log(file.type);
     var csv = file.type
-
     if(!csv.includes('application/vnd.ms-excel')){
       alert('Please select correct file format');
     }else{
@@ -153,12 +153,12 @@ export class ImportPage implements OnInit {
     console.log(csv);
     this.papa.parse(csv,{
     header: true,
-    complete: (result)=> {
+    complete: async (result) => {
     console.log('Parsed: ', result);
+    console.log('total', result.data);
     
     let i;
-    let c = 1;
-    for(i = 0; i < c; i++){
+    for(i = 0; i < result.data.length; i++){
       try{
     
       const number: string = result.data[i].number;
@@ -174,44 +174,28 @@ export class ImportPage implements OnInit {
       const company: string = result.data[i].company;
       const password: string = result.data[i].password;
     
-  
-    // console.log(this.json.displayName)
-    // console.log(this.json.password)
-    // this.dataRef.add(this.json)
-  
-    this.authService.csvstudent( number, displayName, name, email, school_dept, group_code, student_id, role, change, gc, company, password)
-    // .then(
-    //   () => {
-    //     this.loading.dismiss().then(async () => {
-
-    //       const alert = await this.alertCtrl.create({
-    //         message: i + 'Account successfully created',
-    //       });
-         
-    //       await alert.present();
-    //     });
-
-    //   },
-    //   error => {
-    //     this.loading.dismiss().then(async () => {
-    //       const alert = await this.alertCtrl.create({
-    //         message: error.message,
-    //         buttons: [{ text: 'Ok', role: 'cancel' }],
-    //       });
-    //       await alert.present();
-    //     });
-    //   }
-    // );
-    // this.loading = this.loadingController.create();
-    // this.loading.present();
-
-    c++
+ 
+    await this.authService.csvstudent( number, displayName, name, email, school_dept, group_code, student_id, role, change, gc, company, password);
   }catch{
     console.log('no more data');
-    // alert(this.successMsg);
-    alert("Total of Account : " + i);
+
   }
- 
+
+  await this.loadingController.create({
+    message: i + ' account(s) succesfully created',
+    duration: 10000
+  }).then((res) => {
+    res.present();
+
+    res.onDidDismiss().then((dis) => {
+      console.log('Loading dismissed! after 10 Seconds');
+     
+      
+    });
+    
+  });
+
+  // alert("Total of Account : " + i);
 
 }
     }
