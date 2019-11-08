@@ -113,6 +113,12 @@ export class StudentService {
     
   }
 
+  read_pbsupervisor_student() {
+    return this.firestore.collection('users',  ref => ref.where('role', '==', 'student').where('pbsupervisor', '==' , 'nosupervisor')).snapshotChanges();
+    
+  }
+
+
   student() {
     return this.firestore.collection('users',  ref => ref.where('displayName', '==', this.currentUser.displayName)).snapshotChanges();
     

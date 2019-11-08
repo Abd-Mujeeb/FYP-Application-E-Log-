@@ -110,7 +110,38 @@ export class PbsupervisorService {
     this.firestore.doc('users/' + record_id).delete();
   }
 
- 
+
+
+//see specific student
+//  read_student(jubs){
+
+//   console.log(jubs , 'ani step 4');
+//   return this.firestore.collection('users', ref => ref.where('uid', '==' , jubs)).snapshotChanges();
+// }
+
+read_student(jubs){
+
+  console.log(jubs , 'ani step 4');
+
+  
+  return this.firestore.collection('users', ref => ref.where(firebase.firestore.FieldPath.documentId(), '==' , jubs)).snapshotChanges();
+
+
+
+}
+
+
+
+selecting_student(recordID){
+  console.log(recordID, 'part 3')
+  this.firestore.collection('users').doc(recordID).update({
+    pbsupervisor: firebase.auth().currentUser.uid,
+    
+  })
+  console.log( 'selecting success');
+}
+
+
 
 
 

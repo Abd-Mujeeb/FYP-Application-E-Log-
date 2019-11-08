@@ -201,6 +201,7 @@ export class FirebaseService {
 
 
   updateAttendance(attendanceID, value){
+    console.log(attendanceID, value, 'hmmm')
     return new Promise<any>((resolve, reject) => {
       let currentUser = firebase.auth().currentUser;
       this.afs.collection('users').doc(currentUser.uid).collection('attendance').doc(attendanceID).update({
