@@ -108,7 +108,7 @@ export class StudentService {
   }
 
   read_student() {
-    return this.firestore.collection('users',  ref => ref.where('role', '==', 'student')).snapshotChanges();
+    return this.firestore.collection('userscsv',  ref => ref.where('role', '==', 'student')).snapshotChanges();
     
   }
 

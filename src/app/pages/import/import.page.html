@@ -6,11 +6,43 @@
 
 <ion-content>
 
-    <ion-item>
-        <ion-label id="csv" color="primary" stacked>csv import</ion-label>
-        <ion-input type="file" accept=".csv" (change)="changeListener($event.target.files)"></ion-input>
+    <ion-searchbar showCancelButton (ionInput)="filterList($event)"> </ion-searchbar>
+   
+    <span><ion-label id="csv">Import Student : </ion-label></span>
+  <span><ion-input type="file" accept=".csv" (change)="changeListener($event.target.files)"></ion-input></span>
+   
 
-      </ion-item>
+    <h1>Student Details</h1>
+    <table>
+      <tr>
+        <td class="header">No.</td>
+        <td class="header">Name</td>
+        <td class="header">Student ID</td>
+        <td class="header">School</td>
+        <td class="header">Group Code</td>
+        <td class="header">PB Supervisor</td>
+        <td class="header">Group Coordinator</td>
+        <td class="header">Intern Place</td>
+        <td class="header">Contact No.</td>
+        <td class="header">Email</td>
+        <td></td>
+        <td></td>
+      </tr>
+
+      <tr *ngFor="let item of student; let i = index">
+        <td class="info">{{i+1}}.</td>
+        <td class="info">{{item.name}}</td>
+        <td class="info">{{item.student_id}}</td>
+        <td class="info">{{item.school_dept}}</td>
+        <td class="info">{{item.group_code}}</td>
+        <td class="info">{{item.pbsupervisor}}</td>
+        <td class="info">{{item.gc}}</td>
+        <td class="info">{{item.company}}</td>
+        <td class="info">{{item.contactno}}</td>
+        <td class="info">{{item.email}}</td>
+
+      </tr>
+    </table>
 
 
 

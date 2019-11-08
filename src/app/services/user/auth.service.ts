@@ -9,6 +9,7 @@ import { from, Observable, of, BehaviorSubject } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { FirebaseService } from '../firebase.service';
+import { LoadingController } from '@ionic/angular';
 
 var config = {
     apiKey: "AIzaSyDFNM5AsLEAoYQhtnZ7XYRfMZWrvbgdZ0Q",
@@ -28,7 +29,8 @@ export class AuthService {
  
 
   constructor(private afAuth: AngularFireAuth,
-    private firebaseService: FirebaseService, private firestore: AngularFirestore, private router: Router) {
+    private firebaseService: FirebaseService, private firestore: AngularFirestore, private router: Router,
+    public loadingController: LoadingController) {
     this.user = this.afAuth.authState.pipe(
       switchMap(user => {
         if (user) {
@@ -96,6 +98,33 @@ export class AuthService {
     
       }
 
+    csvstudent(number: string,
+     displayName: string,
+     name: string,
+     email: string,
+     school_dept: string,
+     group_code: string,
+     student_id: string,
+     role: string,
+     change: boolean,
+     gc: string,
+     company: string,
+     password: string){
+      secondaryApp.auth().createUserWithEmailAndPassword(email, password).then((newUserCredential: firebase.auth.UserCredential)=> {
+        firebase
+          .firestore()
+          .doc(`/userscsv/${newUserCredential.user.uid}`)
+          .set({number, displayName, name, email, school_dept, group_code, student_id, role, change, gc, company, password});
+          console.log("users " + newUserCredential.user.email + " created successfully!");
+          secondaryApp.auth().signOut();
+      }).catch(error => {
+        // alert(email + ", " + name + " " + error);
+        console.error(error);
+        throw new Error(error);
+      });
+    }
+
+   
       register_gc(displayName: string, name: string, email: string, password: string,  school_department: string, contact_no: number, group_code: string ): Promise<any> {
         return secondaryApp.auth().createUserWithEmailAndPassword(email, password).then((newUserCredential: firebase.auth.UserCredential) => {
                 firebase
