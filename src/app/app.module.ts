@@ -38,6 +38,7 @@ import { ImageModalPageModule } from './pages/image-modal/image-modal.module';
 import { NgCalendarModule } from 'ionic2-calendar';
 
 import { PapaParseModule } from 'ngx-papaparse';
+import { EditpbsupervisorModalPageModule } from './pages/editpbsupervisor-modal/editpbsupervisor-modal.module';
 
 firebase.initializeApp(environment.firebase);
 @NgModule({
@@ -48,6 +49,7 @@ firebase.initializeApp(environment.firebase);
     IonicModule.forRoot(),
     AppRoutingModule,
     ImageModalPageModule,
+    EditpbsupervisorModalPageModule,
     FormsModule,
     PapaParseModule,
     ReactiveFormsModule,

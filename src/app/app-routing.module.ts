@@ -342,6 +342,7 @@ const routes: Routes = [
   { path: 'import', loadChildren: './pages/import/import.module#ImportPageModule' },
   { path: 'image-modal', loadChildren: './pages/image-modal/image-modal.module#ImageModalPageModule' },  { path: 'register-pbsupervisor', loadChildren: './pages/register-pbsupervisor/register-pbsupervisor.module#RegisterPbsupervisorPageModule' },
   { path: 'register-gc', loadChildren: './pages/register-gc/register-gc.module#RegisterGcPageModule' },
+  { path: 'editpbsupervisor-modal', loadChildren: './pages/editpbsupervisor-modal/editpbsupervisor-modal.module#EditpbsupervisorModalPageModule' },
 
 
 

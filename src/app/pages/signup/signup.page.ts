@@ -32,7 +32,7 @@ export class SignupPage implements OnInit {
       ],
       password: [
         '',
-        Validators.compose([Validators.minLength(6), Validators.required]),
+        Validators.compose([ Validators.required, Validators.pattern("(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}")]),
       ],
       option: ['pbsupervisor',Validators.required,],
       school_department: ['',Validators.required,],
