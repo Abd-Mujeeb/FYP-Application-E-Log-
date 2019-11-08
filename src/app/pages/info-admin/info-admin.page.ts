@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../services/user/profile.service';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { AdminService } from 'src/app/services/user/admin.service';
 import * as firebase from 'firebase/app';
+import { AuthService } from 'src/app/services/user/auth.service';
 
 @Component({
   selector: 'app-info-admin',
@@ -13,15 +14,24 @@ import * as firebase from 'firebase/app';
 export class InfoAdminPage implements OnInit {
   public userProfile: any;
   public loadeduserProfile: any [];
+  displayName: string;
 
   constructor(
     private alertCtrl: AlertController,
     private adminService: AdminService,
     private profileService: ProfileService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
+private navCtrl: NavController,
   ) { }
 
   ngOnInit() {
+    if(this.authService.userDetails()){
+      this.displayName = this.authService.userDetails().displayName;
+    } else {
+      this.navCtrl.navigateBack('');
+    }
+
      this.adminService.read_Admin().subscribe(data => {
  
       this.userProfile = data.map(e => {
@@ -30,6 +40,7 @@ export class InfoAdminPage implements OnInit {
           isEdit: false,
           displayName: e.payload.doc.data()['displayName'],
           email: e.payload.doc.data()['email'],
+          contact_no: e.payload.doc.data()['contact_no'],
         };
       })
       console.log(this.userProfile);
@@ -68,12 +79,15 @@ export class InfoAdminPage implements OnInit {
     record.isEdit = true;
     record.EditdisplayName = record.displayName;
     record.Editemail = record.email;
+    record.Editcontact_no = record.contact_no;
+    
   }
  
   UpdateRecord(recordRow) {
     let record = {};
     record['displayName'] = recordRow.EditdisplayName;
     record['email'] = recordRow.Editemail;
+    record['contact_no'] = recordRow.Editcontact_no;
     this.adminService.update_Admin(recordRow.id, record);
     recordRow.isEdit = false;
   }

@@ -32,16 +32,13 @@ export class EditpbsupervisorModalPage implements OnInit {
     record.isEdit = true;
     record.Editname = record.name;
     record.Editemail = record.email;
-    record.Editschool_dept = record.school_dept;
-    record.Editcontact_no = record.contact_no;
+ 
   }
 
   UpdateRecord(recordRow) {
     let record = {};
     record['name'] = this.name;
     record['email'] = this.email;
-    record['school_dept'] = this.school_dept;
-    record['contact_no'] = this.contact_no;
     this.pbsupervisorService.update_pbsupervisor(recordRow.id, record);
     recordRow.isEdit = false;
   }

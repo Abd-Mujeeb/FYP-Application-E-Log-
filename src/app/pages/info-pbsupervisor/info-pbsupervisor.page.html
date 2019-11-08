@@ -4,7 +4,7 @@
       <ion-back-button defaultHref="/home-admin"></ion-back-button>
     </ion-buttons>
     <ion-title>PB Supervisor Details</ion-title>
-    <ion-buttons slot="end">Log in as Admin: {{name}}
+    <ion-buttons slot="end">Log in as Admin: {{displayName}}
       <ion-button routerLink="/profile-admin">
         <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
       </ion-button>
@@ -48,7 +48,7 @@
     </tr>
     <tr *ngFor="let item of userProfile; let i = index">
       <ng-container *ngIf="!item.isEdit; else elseBlock">
-        <td>{{i+1}}. {{item.name}}</td>
+        <td>{{i+1}}. {{item.displayName}}</td>
         <td>{{item.email}}</td>
         <td>{{item.school_dept}}</td>
         <td>{{item.contact_no}}</td>
@@ -66,7 +66,7 @@
       </ng-container>
       <ng-template #elseBlock>
         <td>
-          <ion-input type="text" [(ngModel)]="item.Editname"></ion-input>
+          <ion-input type="text" [(ngModel)]="item.EditdisplayName"></ion-input>
         </td>
         <td>
           <ion-input type="text" [(ngModel)]="item.Editemail"></ion-input>

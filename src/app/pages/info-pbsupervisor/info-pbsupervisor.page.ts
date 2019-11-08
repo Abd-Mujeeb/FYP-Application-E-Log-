@@ -19,7 +19,7 @@ export class InfoPbsupervisorPage implements OnInit {
   public loadeduserProfile: any [];
   student: any;
 
-  name: string;
+  displayName: string;
   school_dept: string;
   contact_no: number;
   email: string;
@@ -48,7 +48,7 @@ export class InfoPbsupervisorPage implements OnInit {
   ngOnInit() {
 
     if(this.authService.userDetails()){
-      this.name = this.authService.userDetails().displayName;
+      this.displayName = this.authService.userDetails().displayName;
     } else {
       this.navCtrl.navigateBack('');
     }
@@ -60,7 +60,7 @@ export class InfoPbsupervisorPage implements OnInit {
            return {
           id: e.payload.doc.id,
           isEdit: false,
-          name: e.payload.doc.data()['displayName'],
+          displayName: e.payload.doc.data()['displayName'],
           email: e.payload.doc.data()['email'],
           school_dept: e.payload.doc.data()['school_dept'],
           contact_no: e.payload.doc.data()['contact_no'],
@@ -78,7 +78,7 @@ export class InfoPbsupervisorPage implements OnInit {
     this.modalController.create({
       component: EditpbsupervisorModalPage,
       componentProps: {
-        name: record.name,
+        displayName: record.displayName,
         email: record.email,
         school_dept: record.school_dept,
         contact_no: record.contact_no,
@@ -102,8 +102,8 @@ export class InfoPbsupervisorPage implements OnInit {
     }
 
     this.userProfile = this.userProfile.filter(currentlist => {
-      if (currentlist.name, currentlist.email && searchTerm){
-        if (currentlist.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+      if (currentlist.displayName, currentlist.email && searchTerm){
+        if (currentlist.displayName.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
         currentlist.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1){
           return true;
         }
@@ -116,14 +116,14 @@ export class InfoPbsupervisorPage implements OnInit {
 
   EditRecord(record) {
     record.isEdit = true;
-    record.Editname = record.name;
+    record.EditdisplayName = record.displayName;
     record.Editemail = record.email;
     record.Editschool_dept = record.school_dept;
   }
  
   UpdateRecord(recordRow) {
     let record = {};
-    record['name'] = recordRow.Editname;
+    record['displayName'] = recordRow.EditdisplayName;
     record['email'] = recordRow.Editemail;
     record['school_dept'] = recordRow.Editschool_dept;
     this.pbsupervisorService.update_pbsupervisor(recordRow.id, record);

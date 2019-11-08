@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as firebase from 'firebase/app';
 import { AdminService } from 'src/app/services/user/admin.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/user/auth.service';
 
 @Component({
   selector: 'app-home-admin',
@@ -13,13 +14,24 @@ export class HomeAdminPage implements OnInit {
   public change = false;
   public  changepwForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder,
+  name: string;
+
+  constructor(
+    private formBuilder: FormBuilder,
     private adminService: AdminService,
-    private alertCtrl: AlertController) { }
+    private alertCtrl: AlertController,
+    private authService: AuthService,
+    private navCtrl: NavController,) { }
 
   ngOnInit() {
 
-    
+    if(this.authService.userDetails()){
+      this.name = this.authService.userDetails().displayName;
+    } else {
+      this.navCtrl.navigateBack('');
+    }
+
+
     this.changepwForm = this.formBuilder.group({
       password: [
         '',

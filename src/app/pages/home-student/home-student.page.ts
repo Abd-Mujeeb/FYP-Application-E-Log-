@@ -28,7 +28,7 @@ export class HomeStudentPage implements OnInit {
   public changepwForm: FormGroup;
   splash = true;
   userProfile: firebase.firestore.DocumentData;
-
+  name: string;
 
   constructor(
     private localNotifications: LocalNotifications,
@@ -42,10 +42,20 @@ export class HomeStudentPage implements OnInit {
     private alertCtrl: AlertController,
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
-    private navCtrl: NavController, ) { }
+    private navCtrl: NavController,
+     ) { }
 
   ngOnInit() {
 
+
+    
+   if(this.authService.userDetails()){
+    this.name = this.authService.userDetails().displayName;
+  } else {
+    this.navCtrl.navigateBack('');
+  }
+
+  
     this.changepwForm = this.formBuilder.group({
       password: [
         '',
