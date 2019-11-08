@@ -5,8 +5,9 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { pipe } from 'rxjs';
 import * as firebase from 'firebase';
-import { AlertController, NavController } from '@ionic/angular';
+import { AlertController, NavController, ModalController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/user/auth.service';
+import { EditpbsupervisorModalPage } from '../editpbsupervisor-modal/editpbsupervisor-modal.page';
 
 @Component({
   selector: 'app-info-pbsupervisor',
@@ -19,6 +20,9 @@ export class InfoPbsupervisorPage implements OnInit {
   student: any;
 
   name: string;
+  school_dept: string;
+  contact_no: number;
+  email: string;
 
   public buttonClicked: boolean = false; //Whatever you want to initialise it as
   gc: any;
@@ -38,6 +42,7 @@ export class InfoPbsupervisorPage implements OnInit {
     private router: Router,
     private alertCtrl: AlertController,
     private authService: AuthService,
+    private modalController: ModalController,
   ) { }
 
   ngOnInit() {
@@ -65,6 +70,23 @@ export class InfoPbsupervisorPage implements OnInit {
       this.loadeduserProfile = this.userProfile;
   
     });
+  }
+
+
+  
+  openPreview(record){
+    this.modalController.create({
+      component: EditpbsupervisorModalPage,
+      componentProps: {
+        name: record.name,
+        email: record.email,
+        school_dept: record.school_dept,
+        contact_no: record.contact_no,
+
+
+      }
+    }).then(modal => modal.present());
+ 
   }
 
   initializeItems(): void {
