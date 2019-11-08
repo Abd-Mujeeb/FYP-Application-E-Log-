@@ -276,12 +276,7 @@ const routes: Routes = [
   } },
 
   {
-    path: 'student-task', loadChildren: './pages/student-task/student-task.module#StudentTaskPageModule',
-    canActivate: [AuthGuard],
-    data: {
-      role: 'admin'
-    }
-  },
+    path: 'student-task', loadChildren: './pages/student-task/student-task.module#StudentTaskPageModule',},
   { path: 'student-attendance', loadChildren: './pages/student-attendance/student-attendance.module#StudentAttendancePageModule' },
 
   {
@@ -340,9 +335,11 @@ const routes: Routes = [
   { path: 'changepw-gc', loadChildren: './pages/changepw-gc/changepw-gc.module#ChangepwGcPageModule' },
   { path: 'changepw-student', loadChildren: './pages/changepw-student/changepw-student.module#ChangepwStudentPageModule' },
   { path: 'import', loadChildren: './pages/import/import.module#ImportPageModule' },
-  { path: 'image-modal', loadChildren: './pages/image-modal/image-modal.module#ImageModalPageModule' },  { path: 'register-pbsupervisor', loadChildren: './pages/register-pbsupervisor/register-pbsupervisor.module#RegisterPbsupervisorPageModule' },
+  { path: 'image-modal', loadChildren: './pages/image-modal/image-modal.module#ImageModalPageModule' },
+  { path: 'register-pbsupervisor', loadChildren: './pages/register-pbsupervisor/register-pbsupervisor.module#RegisterPbsupervisorPageModule' },
   { path: 'register-gc', loadChildren: './pages/register-gc/register-gc.module#RegisterGcPageModule' },
   { path: 'editpbsupervisor-modal', loadChildren: './pages/editpbsupervisor-modal/editpbsupervisor-modal.module#EditpbsupervisorModalPageModule' },
+  { path: 'pb-studentlist', loadChildren: './pages/pb-studentlist/pb-studentlist.module#PbStudentlistPageModule' },
 
 
 
