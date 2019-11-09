@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoadingController, AlertController, NavController } from '@ionic/angular';
+import { LoadingController, AlertController, NavController, MenuController } from '@ionic/angular';
 import { StudentService } from 'src/app/services/user/student.service';
 import * as firebase from 'firebase/app';
 import { FirebaseService } from 'src/app/services/firebase.service';
@@ -43,6 +43,7 @@ export class HomeStudentPage implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
     private navCtrl: NavController,
+    public menu: MenuController,
      ) { }
 
   ngOnInit() {
@@ -211,4 +212,6 @@ async alert() {
         console.log(error);
       })
   }
+
+
 }

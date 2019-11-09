@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as firebase from 'firebase/app';
 import { AdminService } from 'src/app/services/user/admin.service';
-import { AlertController, NavController } from '@ionic/angular';
+import { AlertController, NavController, MenuController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/user/auth.service';
 
 @Component({
@@ -21,7 +21,9 @@ export class HomeAdminPage implements OnInit {
     private adminService: AdminService,
     private alertCtrl: AlertController,
     private authService: AuthService,
-    private navCtrl: NavController,) { }
+    private navCtrl: NavController,
+    public menu: MenuController,
+    ) { }
 
   ngOnInit() {
 
@@ -97,5 +99,21 @@ export class HomeAdminPage implements OnInit {
     await alert.present();
   }
 
+  ionViewDidEnter() {
+    this.menu.swipeEnable(false);
+    this.menu.enable(false);
+
+
+}
+
+ionViewWillLeave() {
+  // Don't forget to return the swipe to normal, otherwise 
+  // the rest of the pages won't be able to swipe to open menu
+this.menu.swipeEnable(true);
+this.menu.enable(true);
+
+  // If you have more than one side menu, use the id like below
+  // this.menu.swipeEnable(true, 'menu1');
+ }
 
 }

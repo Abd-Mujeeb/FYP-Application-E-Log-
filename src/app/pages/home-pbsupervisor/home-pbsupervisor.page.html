@@ -1,126 +1,148 @@
 <div id="overlay" *ngIf="change">
-  <form [formGroup]="changepwForm" id="form"> 
-<h2>First Time Sign In, Please change your password: </h2>
-      <ion-item>
-          <ion-label position="stacked">Current Password:</ion-label>
-          <ion-input
-            formControlName="password"
-            type="password"
-            placeholder="Your password"
-            [class.invalid]="!changepwForm.controls['password'].valid&& changepwForm.controls['password'].touched"
-          >
-          </ion-input>
-        </ion-item>
-        <ion-item
-          class="error-message"
-          *ngIf="!changepwForm.controls['password'].valid
-            && changepwForm.controls['password'].touched"
-        >
-          <ion-label>Your password needs more than 6 characters.</ion-label>
-        </ion-item>
+  <form [formGroup]="changepwForm" id="form">
+    <h2>First Time Sign In, Please change your password: </h2>
+    <ion-item>
+      <ion-label position="stacked">Current Password:</ion-label>
+      <ion-input formControlName="password" type="password" placeholder="Your password"
+        [class.invalid]="!changepwForm.controls['password'].valid&& changepwForm.controls['password'].touched">
+      </ion-input>
+    </ion-item>
+    <ion-item class="error-message" *ngIf="!changepwForm.controls['password'].valid
+            && changepwForm.controls['password'].touched">
+      <ion-label>Your password needs more than 6 characters.</ion-label>
+    </ion-item>
 
-        <ion-item>
-          <ion-label position="stacked">New Password:</ion-label>
-          <ion-input type="password"
-          formControlName="newpassword"
-              type="password"
-              placeholder="Your password"
-              [class.invalid]="!changepwForm.controls['newpassword'].valid&& changepwForm.controls['newpassword'].touched"></ion-input>
-        </ion-item>
+    <ion-item>
+      <ion-label position="stacked">New Password:</ion-label>
+      <ion-input type="password" formControlName="newpassword" type="password" placeholder="Your password"
+        [class.invalid]="!changepwForm.controls['newpassword'].valid&& changepwForm.controls['newpassword'].touched">
+      </ion-input>
+    </ion-item>
 
-        <ion-item
-            class="error-message"
-            *ngIf="!changepwForm.controls['newpassword'].valid
-              && changepwForm.controls['newpassword'].touched"
-          >
-            <ion-label>Your password needs more than 6 characters.</ion-label>
-          </ion-item>
-  
-          <ion-item>
-            <ion-label position="stacked">Confirm Password:</ion-label>
-            <ion-input type="password"
-            formControlName="confirmpw"
-                type="password"
-                placeholder="Your password"
-                [class.invalid]="!changepwForm.controls['confirmpw'].valid&& changepwForm.controls['confirmpw'].touched"></ion-input>
-          </ion-item>
-  
-          <ion-item
-              class="error-message"
-              *ngIf="!changepwForm.controls['confirmpw'].valid
-                && changepwForm.controls['confirmpw'].touched"
-            >
-              <ion-label>Your password needs more than 6 characters.</ion-label>
-            </ion-item>
-  
+    <ion-item class="error-message" *ngIf="!changepwForm.controls['newpassword'].valid
+              && changepwForm.controls['newpassword'].touched">
+      <ion-label>Your password needs more than 6 characters.</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Confirm Password:</ion-label>
+      <ion-input type="password" formControlName="confirmpw" type="password" placeholder="Your password"
+        [class.invalid]="!changepwForm.controls['confirmpw'].valid&& changepwForm.controls['confirmpw'].touched">
+      </ion-input>
+    </ion-item>
+
+    <ion-item class="error-message" *ngIf="!changepwForm.controls['confirmpw'].valid
+                && changepwForm.controls['confirmpw'].touched">
+      <ion-label>Your password needs more than 6 characters.</ion-label>
+    </ion-item>
+
     <ion-button expand="block" (click)="updatePassword()">Confirm</ion-button>
   </form>
 
 </div>
 
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>PB Supervisor Access</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button routerLink="/profile-pbsupervisor">
+        <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+
+</ion-header> -->
+
 <ion-header>
-    <ion-toolbar>
-        <ion-title>PB Supervisor Access</ion-title>
-    
-        <ion-buttons slot="end">
-          <ion-button routerLink="/profile-pbsupervisor">
-            <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    
-      </ion-toolbar>
+  <div class="topnav">
+    <a class="active" routerLink="/home-pbsupervisor">Home</a>
+    <a routerLink="/select-student">Select Student</a>
+    <a routerLink="/pbsupervisor-attendance">Attendance Report</a>
+    <a routerLink="/pb-studentlist">Student List</a>
+      <ion-button class="right" routerLink="/profile-pbsupervisor">
+      <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
+    </ion-button>
+  </div>
 </ion-header>
 
+
 <ion-content>
-  <ion-searchbar showCancelButton (ionInput)="filterList($event)"> </ion-searchbar>
-  <div class="center">
-  <ion-button  routerLink="/pbsupervisor-attendance">Atttendance Report</ion-button>
+  <div class="topleft">
+    <ion-searchbar showCancelButton (ionInput)="filterList($event)"> Find PB Supervisor</ion-searchbar>
+  </div>
+  <div class="topright">
+    <ion-button routerLink="/select-student">Select Student</ion-button>
   </div>
   <div class="center">
-    <ion-button  routerLink="/pb-studentlist">See Student list for this PB Supervisor</ion-button>
-    </div>
-    <div class="center">
-      <ion-button  routerLink="/select-student">Select Student</ion-button>
-      </div>
+    <ion-button routerLink="/pbsupervisor-attendance">Atttendance Report</ion-button>
+  </div>
+  <div class="center">
+    <ion-button routerLink="/pb-studentlist">See Student list for this PB Supervisor</ion-button>
+  </div>
 
 
-  <table border=1 width="800" height="350" cellspacing="0" cellpadding="10" align="center">
+  <h1 align="center"> IN THIS DASHBOARD PB <br><br>
+    You can select student that you want to supervised or see student under your supervised</h1>
+  <br>
+
+
+
+
+
+
+
+
+
+  <!-- <table border=1 width="800" height="350" cellspacing="0" cellpadding="10" align="center">
     <tr>
       <td colspan="6" align="center">Attendance</td>
     </tr>
-    <tr  class="tarang">
+    <tr class="tarang">
       <td>ID</td>
-      <td>Name</td> 
+      <td>Name</td>
       <td>Company</td>
       <td>Contact</td>
       <td>Email</td>
       <td>Attendance</td>
     </tr>
     <tr>
-        <td>ABC</td>
-        <td>DEF</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+      <td>ABC</td>
+      <td>DEF</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
     </tr>
     <tr>
-        <td>ABC</td>
-        <td>DEF</td>
-        <td></td>
-        <td></td> 
-        <td></td>
-        <td></td>
+      <td>ABC</td>
+      <td>DEF</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
     </tr>
     <tr>
-        <td>ABC</td>
-        <td>DEF</td> 
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+      <td>ABC</td>
+      <td>DEF</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
     </tr>
-  </table>
+  </table> -->
+
+
+
+
+
+
+
+
+
+
+
   <!-- <ion-button routerLink="/pbsupervisor-choose">Choose Student</ion-button> -->
   <!-- <ion-card *ngFor="let item of userProfile; let i = index">
     

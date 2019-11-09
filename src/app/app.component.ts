@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Platform, NavController } from '@ionic/angular';
+import { Platform, NavController, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
@@ -31,6 +31,8 @@ export class AppComponent implements OnInit {
     private theme: ThemeService,
     private navCtrl: NavController,
     private authService: AuthenticationService,
+    
+public menu: MenuController,
 
   ) {
     this.initializeApp();
@@ -92,4 +94,5 @@ export class AppComponent implements OnInit {
       console.log(error);
     })
   }
+
 }
