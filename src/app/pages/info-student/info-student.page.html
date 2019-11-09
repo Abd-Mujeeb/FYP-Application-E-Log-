@@ -1,55 +1,73 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-back-button defaultHref="/home-admin"></ion-back-button>
-          </ion-buttons>
-      <ion-title>Students Details</ion-title>
-      <ion-buttons slot="end">
-        <ion-button #ngif routerLink="/profile-admin">
-          <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content padding>
-      
-    <span class="search">Find Student: </span>
-    <span class="search"><ion-searchbar showCancelButton (ionInput)="filterList($event)"> </ion-searchbar></span>
-   <br>
-    <span><ion-label id="csv">Import Student : </ion-label></span>
-  <span><ion-input type="file" accept=".csv" (change)="changeListener($event.target.files)"></ion-input></span>
-   
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/home-admin"></ion-back-button>
+        </ion-buttons>
+    <ion-title>Students Details</ion-title>
+    <ion-buttons slot="end">
+      <ion-button #ngif routerLink="/profile-admin">
+        <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-    <h1>Student Details</h1>
-    <table>
-      <tr class="headercolor">
-        <th>No.</th>
-        <th>Name</th>
-        <th>Student ID</th>
-        <th>School</th>
-        <th>Group Code</th>
-        <th>PB Supervisor</th>
-        <th>Group Coordinator</th>
-        <th>Intern Place</th>
-        <th>Contact No.</th>
-        <th>Email</th>
-      </tr>
+<ion-content padding>
+    
+  <span class="search">Find Student: </span>
+  <span class="search"><ion-searchbar showCancelButton (ionInput)="filterList($event)"> </ion-searchbar></span>
+ <br>
+  <span><ion-label id="csv">Import Student : </ion-label></span>
+<span><ion-input type="file" accept=".csv" (change)="changeListener($event.target.files)"></ion-input></span>
+ 
 
-      <tr *ngFor="let item of student; let i = index">
-        <td class="info">{{i+1}}.</td>
-        <td class="info">{{item.name}}</td>
-        <td class="info">{{item.student_id}}</td>
-        <td class="info">{{item.school_dept}}</td>
-        <td class="info">{{item.group_code}}</td>
-        <td class="info">{{item.pbsupervisor}}</td>
-        <td class="info">{{item.gc}}</td>
-        <td class="info">{{item.company}}</td>
-        <td class="info">{{item.contactno}}</td>
-        <td class="info">{{item.email}}</td>
+  <h1>Student Details</h1>
+  <table>
+    <tr class="headercolor">
+      <th>No.</th>
+      <th>Name</th>
+      <th>Student ID</th>
+      <th class="dropdown">School 
 
-      </tr>
-    </table>
+      <button (click)="onButtonClick()" class="dropbtn"><ion-icon name="arrow-dropdown">
+      </ion-icon>
+    </button>
 
-  </ion-content>
+    <div *ngIf="buttonClicked" id="myDropdown" class="dropdown-content">
+      <a (click)="filterByschool_dept('SICT')">SICT</a>
+      <a (click)="filterByschool_dept('SBS')">SBS</a>
+      <a (click)="filterByschool_dept('SSE')">SSE</a>
+      <a (click)="filterByschool_dept('SHS')">SHS</a>
+      <a (click)="filterByschool_dept('All')" *ngIf="all">All</a>
+    </div>
+      </th>
+
+
+       
+      <th>Group Code</th>
+      <th>PB Supervisor</th>
+      <th>Group Coordinator</th>
+      <th>Intern Place</th>
+      <th>Contact No.</th>
+      <th>Email</th>
+    </tr>
+
+  <!-- <ng-container *ngIf="student$ | async; let student; else loading"> -->
+    <tr  *ngFor="let item of student; let i = index">
+      <td>{{i+1}}.</td>
+      <td>{{item.name}}</td>
+      <td>{{item.student_id}}</td>
+      <td>{{item.school_dept}}</td>
+      <td>{{item.group_code}}</td>
+      <td>{{item.pbsupervisor}}</td>
+      <td>{{item.gc}}</td>
+      <td>{{item.company}}</td>
+      <td>{{item.contactno}}</td>
+      <td>{{item.email}}</td>
+
+    </tr>
+  <!-- </ng-container> -->
+  </table>
+
+</ion-content>
 

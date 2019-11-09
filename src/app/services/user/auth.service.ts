@@ -105,8 +105,6 @@ export class AuthService {
      school_dept: string,
      group_code: string,
      student_id: string,
-     role: string,
-     change: boolean,
      gc: string,
      company: string,
      password: string): Promise<any> {
@@ -114,8 +112,8 @@ export class AuthService {
       .then((newUserCredential: firebase.auth.UserCredential)=> {
         firebase
           .firestore()
-          .doc(`/userscsv/${newUserCredential.user.uid}`)
-          .set({number, displayName, name, email, school_dept, group_code, student_id, role, change, gc, company, password});
+          .doc(`/student/${newUserCredential.user.uid}`)
+          .set({number, displayName, name, email, school_dept, group_code, student_id, gc, company, password, role:'student', change: true});
           console.log("users " + newUserCredential.user.email + " created successfully!");
           secondaryApp.auth().signOut();
       }).catch(error => {

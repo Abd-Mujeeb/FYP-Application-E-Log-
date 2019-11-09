@@ -2,19 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { StudentService } from 'src/app/services/user/student.service';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { AngularFirestore, AngularFirestoreCollection  } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
 import * as firebase from 'firebase/app';
 import { Papa} from "ngx-papaparse";
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from 'src/app/services/user/auth.service';
+import { switchMap } from 'rxjs/operators';
 
-// var config = {
-//   apiKey: "AIzaSyDFNM5AsLEAoYQhtnZ7XYRfMZWrvbgdZ0Q",
-//   authDomain: "e-log-eab02.firebaseapp.com",
-//   databaseURL: "https://e-log-eab02.firebaseio.com",
-// };
-// var secondaryApp = firebase.initializeApp(config, "Secondary");
-
+export interface Item {
+  displayName: string;
+  school_dept: string;
+}
 @Component({
   selector: 'app-info-student',
   templateUrl: './info-student.page.html',
@@ -26,6 +24,15 @@ export class InfoStudentPage implements OnInit {
   public student: any[];
   public loadedstudent: any [];
 
+  public all: boolean = false;
+
+  public buttonClicked: boolean = false; //Whatever you want to initialise it as
+
+    public onButtonClick() {
+
+        this.buttonClicked = !this.buttonClicked;
+    }
+
   constructor(private afs: AngularFirestore,
     private papa: Papa,
     private authService: AuthService,
@@ -35,13 +42,50 @@ export class InfoStudentPage implements OnInit {
     ) { 
 
   }
+
+   filterByschool_dept(school_dept: string|null) {
+    if(school_dept == 'All'){
+      this.all = false;
+      return this.ngOnInit();
+ }else{
+  this.afs.collection('users', ref => ref.where('role', '==', 'student').where('school_dept', '==', school_dept)).snapshotChanges().subscribe(data => {
+ 
+    school_dept = data['school_dept']
+    this.student = data.map(e => {
+         return {
+        id: e.payload.doc.id,
+        name: e.payload.doc.data()['displayName'],
+        email: e.payload.doc.data()['email'],
+        school_dept: e.payload.doc.data()['school_dept'],
+        group_code: e.payload.doc.data()['group_code'],
+        student_id: e.payload.doc.data()['student_id'],
+        company: e.payload.doc.data()['company'],
+        gc: e.payload.doc.data()['gc'],
+        pbsupervisor: e.payload.doc.data()['pbsupervisor'],
+        contactno: e.payload.doc.data()['contactno'],
+        role: e.payload.doc.data()['role'],
+  
+  
+      };
+    })
+    console.log(this.student);
+  this.loadedstudent = this.student;
+  this.all = true;
+  
+  });
+}
+
+
+  }
+
   ngOnInit() {
+
+
     this.studentService.read_student().subscribe(data => {
  
       this.student = data.map(e => {
            return {
           id: e.payload.doc.id,
-          isEdit: false,
           name: e.payload.doc.data()['displayName'],
           email: e.payload.doc.data()['email'],
           school_dept: e.payload.doc.data()['school_dept'],
@@ -51,6 +95,7 @@ export class InfoStudentPage implements OnInit {
           gc: e.payload.doc.data()['gc'],
           pbsupervisor: e.payload.doc.data()['pbsupervisor'],
           contactno: e.payload.doc.data()['contactno'],
+          role: e.payload.doc.data()['role'],
 
 
         };
@@ -159,7 +204,6 @@ export class InfoStudentPage implements OnInit {
     header: true,
     complete: async (result) => {
     console.log('Parsed: ', result);
-    console.log('total', result.data);
     
     let i;
     for(i = 0; i < result.data.length; i++){
@@ -172,14 +216,12 @@ export class InfoStudentPage implements OnInit {
       const school_dept: string = result.data[i].school_dept;
       const group_code: string = result.data[i].group_code;
       const student_id: string = result.data[i].student_id;
-      const role: string = result.data[i].role;
-      const change: boolean = result.data[i].change;
       const gc: string = result.data[i].gc;
       const company: string = result.data[i].company;
       const password: string = result.data[i].password;
     
  
-    await this.authService.csvstudent( number, displayName, name, email, school_dept, group_code, student_id, role, change, gc, company, password);
+    await this.authService.csvstudent( number, displayName, name, email, school_dept, group_code, student_id, gc, company, password);
   }catch{
     console.log('no more data');
 
@@ -207,6 +249,8 @@ export class InfoStudentPage implements OnInit {
     }}}}
 
 
+  
     
-    
+
+  
 }
