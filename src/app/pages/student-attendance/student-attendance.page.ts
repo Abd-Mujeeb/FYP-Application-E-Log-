@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentService } from 'src/app/services/user/student.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-student-attendance',
@@ -10,12 +11,24 @@ export class StudentAttendancePage implements OnInit {
   public attendancelist: any[];
   public loadeditems: any[];
 
+  record: any;
+  private sub: any;
+
+  
   constructor(  
     private studentService: StudentService,
+    private route: ActivatedRoute,
     ) { }
 
   ngOnInit() {
-    this.studentService.read_student_attendance().subscribe(data => {
+
+    this.sub = this.route.params.subscribe(params => {
+      this.record = params['id'];
+      console.log(this.record , 'ani step 2');
+    })
+    let studentUID = this.record;
+    console.log(studentUID , 'ani step 3');
+    this.studentService.read_student_attendance(studentUID).subscribe(data => {
 
       this.attendancelist = data.map(e => {
         return {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IsupervisorService } from 'src/app/services/user/isupervisor.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/user/auth.service';
 
 @Component({
   selector: 'app-info-isupervisor',
@@ -10,18 +11,33 @@ import { AlertController } from '@ionic/angular';
 export class InfoIsupervisorPage implements OnInit {
   userProfile: any;
   public loadeduserProfile: any [];
+  displayName: string;
 
-  constructor( private isupervisorService: IsupervisorService,
-    private alertCtrl: AlertController) { }
+  constructor( 
+    private isupervisorService: IsupervisorService,
+    private alertCtrl: AlertController,
+    private authService: AuthService,
+    private navCtrl: NavController,
+    ) { }
 
   ngOnInit() {
+
+    
+    if(this.authService.userDetails()){
+      this.displayName = this.authService.userDetails().displayName;
+    } else {
+      this.navCtrl.navigateBack('');
+    }
+
+
+
     this.isupervisorService.read_isupervisor().subscribe(data => {
  
       this.userProfile = data.map(e => {
            return {
           id: e.payload.doc.id,
           isEdit: false,
-          name: e.payload.doc.data()['displayName'],
+          displayName: e.payload.doc.data()['displayName'],
           email: e.payload.doc.data()['email'],
           company: e.payload.doc.data()['company'],
           position: e.payload.doc.data()['position'],
@@ -46,8 +62,8 @@ export class InfoIsupervisorPage implements OnInit {
     }
 
     this.userProfile = this.userProfile.filter(currentlist => {
-      if (currentlist.name, currentlist.email && searchTerm){
-        if (currentlist.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+      if (currentlist.displayName, currentlist.email && searchTerm){
+        if (currentlist.displayName.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
         currentlist.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1){
           return true;
         }
@@ -59,7 +75,7 @@ export class InfoIsupervisorPage implements OnInit {
 
   EditRecord(record) {
     record.isEdit = true;
-    record.Editname = record.name;
+    record.EditdisplayName = record.displayName;
     record.Editemail = record.email;
     record.Editcompany = record.company;
     record.Editposition = record.position;
@@ -67,7 +83,7 @@ export class InfoIsupervisorPage implements OnInit {
  
   UpdateRecord(recordRow) {
     let record = {};
-    record['name'] = recordRow.Editname;
+    record['displayName'] = recordRow.EditdisplayName;
     record['email'] = recordRow.Editemail;
     record['company'] = recordRow.Editcompany;
     record['position'] = recordRow.Editposition;

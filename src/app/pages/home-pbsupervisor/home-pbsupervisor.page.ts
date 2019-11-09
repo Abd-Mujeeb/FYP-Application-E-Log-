@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as firebase from 'firebase/app';
 import { PbsupervisorService } from 'src/app/services/user/pbsupervisor.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home-pbsupervisor',
@@ -15,9 +15,11 @@ export class HomePbsupervisorPage implements OnInit {
   public  changepwForm: FormGroup;
   userProfile: any;
   public loadeduserProfile: any [];
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
     private pbsupervisorService: PbsupervisorService,
-    private alertCtrl: AlertController) { }
+    private alertCtrl: AlertController,
+    public menu: MenuController) { }
 
   ngOnInit() {
 
@@ -135,6 +137,24 @@ filterList(evt){
       return false;
     }
   });
+}
+
+
+ionViewDidEnter() {
+  this.menu.swipeEnable(false);
+  this.menu.enable(false);
+
+
+}
+
+ionViewWillLeave() {
+// Don't forget to return the swipe to normal, otherwise 
+// the rest of the pages won't be able to swipe to open menu
+this.menu.swipeEnable(true);
+this.menu.enable(true);
+
+// If you have more than one side menu, use the id like below
+// this.menu.swipeEnable(true, 'menu1');
 }
 
 }

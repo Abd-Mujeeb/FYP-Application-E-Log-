@@ -1,0 +1,32 @@
+table {
+    font-family: arial, sans-serif;
+    width: 100%;
+    color: black;
+    background-color: white ;
+    
+  }
+
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+
+.headercolor{
+    background-color: grey;
+    color: white;
+      }
+
+ion-searchbar{
+    width: 100%;
+}
+
+span{
+ display: inline-block;
+}
+
+.search{
+    display: inline-block;
+    color: white; 
+}

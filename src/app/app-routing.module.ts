@@ -276,12 +276,7 @@ const routes: Routes = [
   } },
 
   {
-    path: 'student-task', loadChildren: './pages/student-task/student-task.module#StudentTaskPageModule',
-    canActivate: [AuthGuard],
-    data: {
-      role: 'admin'
-    }
-  },
+    path: 'student-task', loadChildren: './pages/student-task/student-task.module#StudentTaskPageModule',},
   { path: 'student-attendance', loadChildren: './pages/student-attendance/student-attendance.module#StudentAttendancePageModule' },
 
   {
@@ -341,6 +336,10 @@ const routes: Routes = [
   { path: 'register-pbsupervisor', loadChildren: './pages/register-pbsupervisor/register-pbsupervisor.module#RegisterPbsupervisorPageModule' },
   { path: 'register-gc', loadChildren: './pages/register-gc/register-gc.module#RegisterGcPageModule' },
   { path: 'editpbsupervisor-modal', loadChildren: './pages/editpbsupervisor-modal/editpbsupervisor-modal.module#EditpbsupervisorModalPageModule' },
+  { path: 'pb-studentlist', loadChildren: './pages/pb-studentlist/pb-studentlist.module#PbStudentlistPageModule' },
+  { path: 'select-student', loadChildren: './pages/select-student/select-student.module#SelectStudentPageModule' },
+  { path: 'selectstudent-modal', loadChildren: './pages/selectstudent-modal/selectstudent-modal.module#SelectstudentModalPageModule' },
+
 
 
 

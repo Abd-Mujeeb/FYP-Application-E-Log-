@@ -73,6 +73,8 @@ export class FirebaseService {
     return this.afs.collection('users').doc(currentUser.uid).collection('tasks').snapshotChanges();
   }
 
+  
+
   unsubscribeOnLogOut(){
     //remember to unsubscribe from the snapshotChanges
     this.snapshotChangesSubscription.unsubscribe();
@@ -199,6 +201,7 @@ export class FirebaseService {
 
 
   updateAttendance(attendanceID, value){
+    console.log(attendanceID, value, 'hmmm')
     return new Promise<any>((resolve, reject) => {
       let currentUser = firebase.auth().currentUser;
       this.afs.collection('users').doc(currentUser.uid).collection('attendance').doc(attendanceID).update({
