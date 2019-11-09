@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as firebase from 'firebase/app';
 import { PbsupervisorService } from 'src/app/services/user/pbsupervisor.service';
-import { AlertController, MenuController } from '@ionic/angular';
+import { AlertController, MenuController, NavController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/user/auth.service';
 
 @Component({
   selector: 'app-home-pbsupervisor',
@@ -15,13 +16,24 @@ export class HomePbsupervisorPage implements OnInit {
   public  changepwForm: FormGroup;
   userProfile: any;
   public loadeduserProfile: any [];
+  displayName: string;
+  
   constructor(
     private formBuilder: FormBuilder,
     private pbsupervisorService: PbsupervisorService,
     private alertCtrl: AlertController,
-    public menu: MenuController) { }
+    public menu: MenuController,
+    private navCtrl: NavController,
+    private authService: AuthService,
+    ) { }
 
   ngOnInit() {
+
+    if(this.authService.userDetails()){
+      this.displayName = this.authService.userDetails().displayName;
+    } else {
+      this.navCtrl.navigateBack('');
+    }
 
     
     this.changepwForm = this.formBuilder.group({
