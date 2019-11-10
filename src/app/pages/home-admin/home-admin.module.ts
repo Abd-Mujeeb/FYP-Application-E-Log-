@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
+import { ShowHidePasswordModule } from 'ngx-show-hide-password';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -20,6 +21,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
+    ShowHidePasswordModule,
     RouterModule.forChild(routes)
   ],
   declarations: [HomeAdminPage]

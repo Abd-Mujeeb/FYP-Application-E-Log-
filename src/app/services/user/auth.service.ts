@@ -112,12 +112,12 @@ export class AuthService {
       .then((newUserCredential: firebase.auth.UserCredential)=> {
         firebase
           .firestore()
-          .doc(`/student/${newUserCredential.user.uid}`)
+          .doc(`/users/${newUserCredential.user.uid}`)
           .set({number, displayName, name, email, school_dept, group_code, student_id, gc, company, password, role:'student', change: true, pbsupervisor: 'nosupervisor' });
           console.log("users " + newUserCredential.user.email + " created successfully!");
           secondaryApp.auth().signOut();
       }).catch(error => {
-        // alert(email + ", " + name + " " + error);
+        alert('The ' + email + ' ' + error);
         console.error(error);
         throw new Error(error);
       });

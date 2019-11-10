@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as firebase from 'firebase/app';
 import { AdminService } from 'src/app/services/user/admin.service';
-import { AlertController, NavController, MenuController } from '@ionic/angular';
+import { AlertController, NavController, MenuController, LoadingController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/user/auth.service';
 
 @Component({
@@ -13,8 +13,14 @@ import { AuthService } from 'src/app/services/user/auth.service';
 export class HomeAdminPage implements OnInit {
   public change = false;
   public  changepwForm: FormGroup;
-
+  public userProfile: any;
   name: string;
+  role: string;
+  public loading: any;
+  passwordType: string = 'password';
+  passwordShown: boolean = false;
+  password_Type: string = 'password';
+  password_Shown: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -23,8 +29,28 @@ export class HomeAdminPage implements OnInit {
     private authService: AuthService,
     private navCtrl: NavController,
     public menu: MenuController,
+    public loadingController: LoadingController
     ) { }
 
+    public togglePassword(){
+      if(this.passwordShown){
+        this.passwordShown = false;
+        this.passwordType = 'password';
+      }else{
+        this.passwordShown = true;
+        this.passwordType = 'text';
+      }
+    }
+
+    public toggle_Password(){
+      if(this.password_Shown){
+        this.password_Shown = false;
+        this.password_Type = 'password';
+      }else{
+        this.password_Shown = true;
+        this.password_Type = 'text';
+      }
+    }
   ngOnInit() {
 
     if(this.authService.userDetails()){
@@ -33,12 +59,16 @@ export class HomeAdminPage implements OnInit {
       this.navCtrl.navigateBack('');
     }
 
+    this.adminService
+    .getUserProfileAdmin()
+    .get()
+    .then( userProfileAdminSnapshot => {
+      this.userProfile = userProfileAdminSnapshot.data()['password'];
+      console.log(this.userProfile)
+    });
+
 
     this.changepwForm = this.formBuilder.group({
-      password: [
-        '',
-        Validators.compose([Validators.required, Validators.minLength(6)]),
-      ],
       newpassword: [
         '',
         Validators.compose([Validators.required, Validators.minLength(6)]),
@@ -57,20 +87,52 @@ export class HomeAdminPage implements OnInit {
           .get()
           .then(userProfileSnapshot => {
             this.change = userProfileSnapshot.data().change;
-
+            this.role = userProfileSnapshot.data().role;
           });
       }
     });
   }
 
   async updatePassword(): Promise<void> {
-    const oldPassword = this.changepwForm.value.password;
+    const oldPassword = this.userProfile;
     const newPassword = this.changepwForm.value.newpassword;
     const confirmpw = this.changepwForm.value.confirmpw;
 
     if(newPassword == confirmpw){
-      this.adminService.updatePassword(oldPassword, newPassword)
-      return this.ngOnInit();
+      try{
+    await this.adminService.updatePassword(oldPassword, confirmpw)
+
+  }catch{
+   console.log('catch')
+  }
+  await this.loadingController.create({
+    message: 'Please wait..',
+    duration: 3000,
+    spinner: 'bubbles'
+  }).then((res) => {
+    res.present();
+
+    res.onDidDismiss().then(async(dis) => {
+      console.log('Loading dismissed! after 3 Seconds');
+      const alert = await this.alertCtrl.create({
+        header: 'Notification',
+        message: 'Your Password has successfully changed',
+        buttons: [
+          {
+            text: 'Okay',
+            cssClass: 'secondary'
+          },
+        ]
+      });
+  
+      await alert.present();
+     
+      
+    });
+    
+  });
+
+  this.change = false;
     }else{
       return this.alert();
     }
