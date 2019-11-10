@@ -57,7 +57,10 @@ form {
     left: 0;
     z-index: 100000;
     width:100%;
-    background-color:rgb(255, 255, 255);
+    // background-color:rgb(255, 255, 255);
+    background: linear-gradient(25deg, rgb(255, 255, 255) 20%, rgb(54, 54, 54) 13.5%, rgb(201, 44, 44) 33.33%, rgba(0,0,0,1) 100%) !important;
+    ;
+    // backgroundcolor: #fff;
   }
 
   h2{
@@ -88,7 +91,7 @@ tr td:hover{
 
 .text{
   font-size: 15px;
-  color: black;
+  color: white;
   font-weight: bold;
 }
 
@@ -98,10 +101,14 @@ tr td:hover{
 
 h1{
   font-weight: bold;
+  color: white;
 }
 
 ion-icon:hover{
   cursor: pointer;
 }
 
+h3{
+  color: white;
+}
 
