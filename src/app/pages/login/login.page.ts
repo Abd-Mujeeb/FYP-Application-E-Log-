@@ -5,6 +5,11 @@ import { AuthService } from '../../services/user/auth.service';
 import { Router } from '@angular/router';
 import { FirstLoginPasswordPage } from '../../first-login-password/first-login-password.page';
 import * as firebase from 'firebase/app';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
+
+import { StudentService } from 'src/app/services/user/student.service';
 
 
 
@@ -18,7 +23,9 @@ export class LoginPage implements OnInit {
   public loginForm: FormGroup;
   public loading: HTMLIonLoadingElement;
   alertController: any;
- 
+  public notif = false;
+  userProfile: firebase.firestore.DocumentData;
+
   
   constructor(
     public loadingCtrl: LoadingController,
@@ -28,7 +35,11 @@ export class LoginPage implements OnInit {
     private authService: AuthService,
     private router: Router,
     private formBuilder: FormBuilder,
-    public menu: MenuController
+    public menu: MenuController,
+    public afs: AngularFirestore,
+    public afAuth: AngularFireAuth,
+    private localNotifications: LocalNotifications,
+    // private studentService: StudentService,
   ) {
   
    }
@@ -44,6 +55,8 @@ export class LoginPage implements OnInit {
         Validators.compose([Validators.required, Validators.minLength(6)]),
       ],
     });
+
+    
   }
 
 
@@ -69,10 +82,13 @@ export class LoginPage implements OnInit {
         } else if (role == 'gc') {
           this.router.navigateByUrl('/home-gc');
         } else if (role == 'student') {
+          
           this.router.navigateByUrl('/home-student');
         } else if (role == 'isupervisor') {
           this.router.navigateByUrl('/home-isupervisor');
         } 
+
+        
       },
         async error => {
           this.loading.dismiss().then(async () => {
