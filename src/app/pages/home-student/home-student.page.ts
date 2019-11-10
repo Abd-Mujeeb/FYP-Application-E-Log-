@@ -108,7 +108,24 @@ export class HomeStudentPage implements OnInit {
 
           });
       }
+
+      
     });
+
+    // firebase.auth().onAuthStateChanged(user => {
+    //   if (user) {
+    //     firebase
+    //       .firestore()
+    //       .doc(`/users/${user.uid}`)
+    //       .get()
+    //       .then(userProfileSnapshot => {
+    //         this.notif = userProfileSnapshot.data().notif;
+
+    //       });
+    //   }
+
+      
+    // });
 
 
   }
@@ -127,6 +144,22 @@ async updatePassword(): Promise<void> {
 
   
 }
+
+// testNotif(){
+
+//   let currentUser = firebase.auth().currentUser;
+
+//   var notif = this.afs.collection('users').doc(currentUser.uid).collection('tasks').snapshotChanges();
+//          if (!notif == true) {
+//           this.localNotifications.schedule([{
+//             id:1,
+//             title: `E-Log`,
+//             text: `You haven't upload any task for today`,
+//             trigger: { every: { hour: 8, minute: 0}, count: 1}
+//           }])
+//           return this.ngOnInit();
+//         }
+// }
 
 
 async alert() {
@@ -148,11 +181,6 @@ async alert() {
 
   await alert.present();
 }
-
-
-  
-
-
 
 
   // async getData(){

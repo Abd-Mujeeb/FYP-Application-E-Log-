@@ -61,35 +61,42 @@
     <a routerLink="/select-student">Select Student</a>
     <a routerLink="/pbsupervisor-attendance">Attendance Report</a>
     <a routerLink="/pb-studentlist">Student List</a>
-      <ion-button class="right" routerLink="/profile-pbsupervisor">
+    <button class="right" routerLink="/profile-pbsupervisor">
+      Log in as PB Supervisor: {{displayName}}
       <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
-    </ion-button>
+    </button>
   </div>
 </ion-header>
 
 
 <ion-content>
-  <div class="topleft">
+  <!-- <div class="topleft">
     <ion-searchbar showCancelButton (ionInput)="filterList($event)"> Find PB Supervisor</ion-searchbar>
-  </div>
-  <div class="topright">
-    <ion-button routerLink="/select-student">Select Student</ion-button>
-  </div>
-  <div class="center">
-    <ion-button routerLink="/pbsupervisor-attendance">Atttendance Report</ion-button>
-  </div>
-  <div class="center">
-    <ion-button routerLink="/pb-studentlist">See Student list for this PB Supervisor</ion-button>
-  </div>
+  </div> -->
 
 
+
+<br>
+<br>
+<br>
   <h1 align="center"> IN THIS DASHBOARD PB <br><br>
     You can select student that you want to supervised or see student under your supervised</h1>
   <br>
 
+  <br>
+  <br>
+  <br>
+<div align="center">
+  <button class="buttons" routerLink="/select-student">Select Student</button>
 
 
 
+  <button class="buttons" routerLink="/pb-studentlist">Student List</button>
+
+
+
+  <button class="buttons" routerLink="/pbsupervisor-attendance">Atttendance Report</button>
+</div>
 
 
 

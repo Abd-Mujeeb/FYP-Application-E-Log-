@@ -42,10 +42,15 @@ export class SelectstudentModalPage implements OnInit {
       this.studentlist= data.map(e => {
         return {
           id: e.payload.doc.id,
-          name: e.payload.doc.data()['name'],
+          name: e.payload.doc.data()['displayName'],
           email: e.payload.doc.data()['email'],
           school_dept: e.payload.doc.data()['school_dept'],
-          role: e.payload.doc.data()['role'],
+          group_code: e.payload.doc.data()['group_code'],
+          student_id: e.payload.doc.data()['student_id'],
+          company: e.payload.doc.data()['company'],
+          gc: e.payload.doc.data()['gc'],
+          pbsupervisor: e.payload.doc.data()['pbsupervisor'],
+          contact_no: e.payload.doc.data()['contact_no'],
         };
       })
       console.log(this.studentlist);
@@ -69,9 +74,13 @@ filterList(evt){
   }
 
   this.studentlist = this.studentlist.filter(currentlist => {
-    if (currentlist.name, currentlist.email && searchTerm){
+    if (currentlist.name, currentlist.email, currentlist.company, currentlist.school_dept,currentlist.pbsupervisor, currentlist.gc && searchTerm){
       if (currentlist.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
-      currentlist.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1){
+      currentlist.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+      currentlist.company.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+      currentlist.school_dept.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+      currentlist.pbsupervisor.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+      currentlist.gc.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1){
         return true;
       }
       return false;

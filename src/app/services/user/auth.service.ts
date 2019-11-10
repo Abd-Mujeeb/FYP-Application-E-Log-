@@ -12,10 +12,10 @@ import { FirebaseService } from '../firebase.service';
 import { LoadingController } from '@ionic/angular';
 
 var config = {
-    apiKey: "AIzaSyDFNM5AsLEAoYQhtnZ7XYRfMZWrvbgdZ0Q",
-    authDomain: "e-log-eab02.firebaseapp.com",
-    databaseURL: "https://e-log-eab02.firebaseio.com",
-  };
+  apiKey: "AIzaSyDFNM5AsLEAoYQhtnZ7XYRfMZWrvbgdZ0Q",
+  authDomain: "e-log-eab02.firebaseapp.com",
+  databaseURL: "https://e-log-eab02.firebaseio.com",
+};
 var secondaryApp = firebase.initializeApp(config, "Secondary");
 
 
@@ -23,10 +23,10 @@ var secondaryApp = firebase.initializeApp(config, "Secondary");
   providedIn: 'root'
 })
 export class AuthService {
-  
+
   user: Observable<any>;
   currentUser = new BehaviorSubject(null);
- 
+
 
   constructor(private afAuth: AngularFireAuth,
     private firebaseService: FirebaseService, private firestore: AngularFirestore, private router: Router,
@@ -47,7 +47,7 @@ export class AuthService {
         }
       })
     );
-   }
+  }
 
   loginUser(
     email: string,
@@ -80,93 +80,117 @@ export class AuthService {
   //       console.error(error);
   //       throw new Error(error);
   //     });
-  
+
   //   }
 
-    signupuser(displayName: string, name: string, email: string, password: string, option: string, school_department: string, group_code: string ): Promise<any> {
-      return secondaryApp.auth().createUserWithEmailAndPassword(email, password).then((newUserCredential: firebase.auth.UserCredential) => {
-              firebase
-                .firestore()
-                .doc(`/users/${newUserCredential.user.uid}`)
-                .set({ displayName, name, email, school_dept : school_department, role: option, change: true, group_code });
-                console.log("User " + newUserCredential.user.email + " created successfully!");
-                secondaryApp.auth().signOut();
-            }).catch(error => {
-              console.error(error);
-              throw new Error(error);
-            });
-    
-      }
+  signupuser(displayName: string, name: string, email: string, password: string, option: string, school_department: string, group_code: string): Promise<any> {
+    return secondaryApp.auth().createUserWithEmailAndPassword(email, password).then((newUserCredential: firebase.auth.UserCredential) => {
+      firebase
+        .firestore()
+        .doc(`/users/${newUserCredential.user.uid}`)
+        .set({ displayName, name, email, school_dept: school_department, role: option, change: true, group_code });
+      console.log("User " + newUserCredential.user.email + " created successfully!");
+      secondaryApp.auth().signOut();
+    }).catch(error => {
+      console.error(error);
+      throw new Error(error);
+    });
 
-    csvstudent(number: string,
-     displayName: string,
-     name: string,
-     email: string,
-     school_dept: string,
-     group_code: string,
-     student_id: string,
-     gc: string,
-     company: string,
-     password: string): Promise<any> {
-      return secondaryApp.auth().createUserWithEmailAndPassword(email, password)
-      .then((newUserCredential: firebase.auth.UserCredential)=> {
+  }
+
+  csvstudent(number: string,
+    displayName: string,
+    name: string,
+    email: string,
+    school_dept: string,
+    group_code: string,
+    student_id: string,
+    gc: string,
+    company: string,
+    password: string): Promise<any> {
+    return secondaryApp.auth().createUserWithEmailAndPassword(email, password)
+      .then((newUserCredential: firebase.auth.UserCredential) => {
         firebase
           .firestore()
-          .doc(`/users/${newUserCredential.user.uid}`)
-          .set({number, displayName, name, email, school_dept, group_code, student_id, gc, company, password, role:'student', change: true, pbsupervisor: 'nosupervisor' });
-          console.log("users " + newUserCredential.user.email + " created successfully!");
-          secondaryApp.auth().signOut();
+          .doc(`/student/${newUserCredential.user.uid}`)
+          .set({ number, displayName, name, email, school_dept, group_code, student_id, gc, company, password, role: 'student', change: true });
+        console.log("users " + newUserCredential.user.email + " created successfully!");
+        secondaryApp.auth().signOut();
       }).catch(error => {
         alert('The ' + email + ' ' + error);
         console.error(error);
         throw new Error(error);
       });
-    }
+  }
 
-   
-      register_gc(displayName: string, name: string, email: string, password: string,  school_department: string, contact_no: number, group_code: string ): Promise<any> {
-        return secondaryApp.auth().createUserWithEmailAndPassword(email, password).then((newUserCredential: firebase.auth.UserCredential) => {
-                firebase
-                  .firestore()
-                  .doc(`/users/${newUserCredential.user.uid}`)
-                  .set({ displayName, name, email, password, school_dept : school_department, change: true, contact_no, group_code, role: 'gc'});
-                  console.log("User " + newUserCredential.user.email + " created successfully!");
-                  secondaryApp.auth().signOut();
-              }).catch(error => {
-                console.error(error);
-                throw new Error(error);
-              });
+
+  register_gc(displayName: string, name: string, email: string, password: string, school_department: string, contact_no: number, group_code: string): Promise<any> {
+    return secondaryApp.auth().createUserWithEmailAndPassword(email, password).then((newUserCredential: firebase.auth.UserCredential) => {
+      firebase
+        .firestore()
+        .doc(`/users/${newUserCredential.user.uid}`)
+        .set({ displayName, name, email, password, school_dept: school_department, change: true, contact_no, group_code, role: 'gc' });
+      console.log("User " + newUserCredential.user.email + " created successfully!");
+      secondaryApp.auth().signOut();
+    }).catch(error => {
+      console.error(error);
+      throw new Error(error);
+    });
+
+  }
+
+  register_pbsupervisor(displayName: string, name: string, email: string, password: string, school_department: string, contact_no: number): Promise<any> {
+    return secondaryApp.auth().createUserWithEmailAndPassword(email, password).then((newUserCredential: firebase.auth.UserCredential) => {
+      firebase
+        .firestore()
+        .doc(`/users/${newUserCredential.user.uid}`)
+        .set({ displayName, password, name, email, school_dept: school_department, change: true, contact_no, role: 'pbsupervisor' });
+      let user = secondaryApp.auth().currentUser;
+      user.updateProfile({
+        displayName: displayName,
+      })
       
-        }
+      console.log("User " + newUserCredential.user.email + newUserCredential.user.displayName + " created successfully!");
+      secondaryApp.auth().signOut();
+    }).catch(error => {
+      console.error(error);
+      throw new Error(error);
+    });
 
-      register_pbsupervisor(displayName: string, name: string, email: string, password: string, school_department: string, contact_no: number ): Promise<any> {
-        return secondaryApp.auth().createUserWithEmailAndPassword(email, password).then((newUserCredential: firebase.auth.UserCredential) => {
-                firebase
-                  .firestore()
-                  .doc(`/users/${newUserCredential.user.uid}`)
-                  .set({ displayName, name, email, school_dept : school_department, change: true, contact_no, role: 'pbsupervisor'});
-                  console.log("User " + newUserCredential.user.email + " created successfully!");
-                  secondaryApp.auth().signOut();
-              }).catch(error => {
-                console.error(error);
-                throw new Error(error);
-              });
-      
-        }
-    
+  }
+
+  register_admin(displayName: string, name: string, email: string, password: string, contact_no: number): Promise<any> {
+    return secondaryApp.auth().createUserWithEmailAndPassword(email, password).then((newUserCredential: firebase.auth.UserCredential) => {
+      firebase
+        .firestore()
+        .doc(`/users/${newUserCredential.user.uid}`)
+        .set({ displayName, password, name, email, change: true, contact_no, role: 'admin' });
+      let user = secondaryApp.auth().currentUser;
+      user.updateProfile({
+        displayName: displayName,
+      })
+      console.log("User " + newUserCredential.user.email + newUserCredential.user.displayName + " created successfully!");
+      secondaryApp.auth().signOut();
+    }).catch(error => {
+      console.error(error);
+      throw new Error(error);
+    });
+
+  }
 
 
-  
-    resetPassword(email:string): Promise<void> {
-      return firebase.auth().sendPasswordResetEmail(email);
-    }
-  
 
-  logoutUser():Promise<void> {
+
+  resetPassword(email: string): Promise<void> {
+    return firebase.auth().sendPasswordResetEmail(email);
+  }
+
+
+  logoutUser(): Promise<void> {
     return firebase.auth().signOut();
   }
 
-    hasPermissions(permissions: string[]): boolean {
+  hasPermissions(permissions: string[]): boolean {
     for (const perm of permissions) {
       if (!this.currentUser.value || !this.currentUser.value.permissions.includes(perm)) {
         return false;
@@ -175,22 +199,22 @@ export class AuthService {
     return true;
   }
 
-  userDetails(){
+  userDetails() {
     return firebase.auth().currentUser;
   }
 
-  doLogout(){
+  doLogout() {
     return new Promise((resolve, reject) => {
       this.afAuth.auth.signOut()
-      .then(() => {
-        this.firebaseService.unsubscribeOnLogOut();
-        resolve();
-      }).catch((error) => {
-        console.log(error);
-        reject();
-      });
+        .then(() => {
+          this.firebaseService.unsubscribeOnLogOut();
+          resolve();
+        }).catch((error) => {
+          console.log(error);
+          reject();
+        });
     })
   }
 
-  
+
 }

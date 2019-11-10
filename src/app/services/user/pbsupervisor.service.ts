@@ -135,7 +135,8 @@ read_student(jubs){
 selecting_student(recordID){
   console.log(recordID, 'part 3')
   this.firestore.collection('users').doc(recordID).update({
-    pbsupervisor: firebase.auth().currentUser.uid,
+    pbsupervisor: firebase.auth().currentUser.displayName,
+    idpbsupervisor: firebase.auth().currentUser.uid,
     
   })
   console.log( 'selecting success');

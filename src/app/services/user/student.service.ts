@@ -114,7 +114,7 @@ export class StudentService {
   }
 
   read_pbsupervisor_student() {
-    return this.firestore.collection('users',  ref => ref.where('role', '==', 'student').where('pbsupervisor', '==' , 'nosupervisor')).snapshotChanges();
+    return this.firestore.collection('users',  ref => ref.where('role', '==', 'student').where('pbsupervisor', '==' , '')).snapshotChanges();
     
   }
 
