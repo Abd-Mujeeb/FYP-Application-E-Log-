@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoadingController, AlertController, NavController } from '@ionic/angular';
+import { LoadingController, AlertController, NavController, MenuController } from '@ionic/angular';
 import { StudentService } from 'src/app/services/user/student.service';
 import * as firebase from 'firebase/app';
 import { FirebaseService } from 'src/app/services/firebase.service';
@@ -28,8 +28,7 @@ export class HomeStudentPage implements OnInit {
   public changepwForm: FormGroup;
   splash = true;
   userProfile: firebase.firestore.DocumentData;
-  public notif = false;
-
+  name: string;
 
   constructor(
     private localNotifications: LocalNotifications,
@@ -44,10 +43,20 @@ export class HomeStudentPage implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
     private navCtrl: NavController,
-    public afs: AngularFirestore, ) { }
+    public menu: MenuController,
+     ) { }
 
   ngOnInit() {
 
+
+    
+   if(this.authService.userDetails()){
+    this.name = this.authService.userDetails().displayName;
+  } else {
+    this.navCtrl.navigateBack('');
+  }
+
+  
     this.changepwForm = this.formBuilder.group({
       password: [
         '',
@@ -231,4 +240,6 @@ async alert() {
         console.log(error);
       })
   }
+
+
 }

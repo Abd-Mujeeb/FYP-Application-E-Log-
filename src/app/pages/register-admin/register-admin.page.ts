@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/user/auth.service';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController, NavController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-register-pbsupervisor',
-  templateUrl: './register-pbsupervisor.page.html',
-  styleUrls: ['./register-pbsupervisor.page.scss'],
+  selector: 'app-register-admin',
+  templateUrl: './register-admin.page.html',
+  styleUrls: ['./register-admin.page.scss'],
 })
-export class RegisterPbsupervisorPage implements OnInit {
+export class RegisterAdminPage implements OnInit {
 
   public signupForm: FormGroup;
   public loading: any;
-  
+  displayName: string;
   schoolkeys: any;
 
   constructor(
@@ -21,8 +21,16 @@ export class RegisterPbsupervisorPage implements OnInit {
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private navCtrl: NavController,
   ) {
+
+    if(this.authService.userDetails()){
+      this.displayName = this.authService.userDetails().displayName;
+    } else {
+      this.navCtrl.navigateBack('');
+    }
+
     this.signupForm = this.formBuilder.group({
       name: [
         '',
@@ -40,23 +48,7 @@ export class RegisterPbsupervisorPage implements OnInit {
         '',
         Validators.compose([Validators.minLength(5), Validators.required]),
       ],
-
-
-      school_department: ['', Validators.required,],
-
-
-
     });
-
-
-    
-    this.schoolkeys = [
-      'SICT',
-      'SBS',
-      'SHS',
-      'SSE',
-    ]
-
   }
 
   ngOnInit() { }
@@ -71,13 +63,9 @@ export class RegisterPbsupervisorPage implements OnInit {
       const name: string = signupForm.value.name;
       const email: string = signupForm.value.email;
       const contact_no: number = signupForm.value.contact_no;
-      const school_department: string = signupForm.value.school_department;
       const password: string = signupForm.value.password;
 
-
-
-
-      this.authService.register_pbsupervisor(displayName, name, email, password, school_department, contact_no).then(
+      this.authService.register_admin(displayName, name, email, password, contact_no).then(
         () => {
           this.loading.dismiss().then(async () => {
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentService } from 'src/app/services/user/student.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-student-task',
@@ -11,13 +12,30 @@ export class StudentTaskPage implements OnInit {
   public tasklist : any[];
   public loadedstudenttasklist : any[];
 
+  record: any;
+  private sub: any;
+
+  
   constructor( 
     private studentService: StudentService,
+    private route: ActivatedRoute,
     ) { }
 
   ngOnInit() {  
-    this.studentService.read_student_task().subscribe(data => {
 
+    // this.sub = this.route.params.subscribe(params => {
+    //   this.record = params['record']; 
+    //   console.log(this.record , 'test 2');
+    // });
+
+    this.sub = this.route.params.subscribe(params => {
+      this.record = params['id'];
+      console.log(this.record , 'ani step 2');
+    })
+    let studentUID = this.record;
+    console.log(studentUID , 'ani step 3');
+    this.studentService.read_student_task(studentUID).subscribe(data => {
+      
       this.tasklist = data.map(e => {
         return {
           id: e.payload.doc.id,
@@ -64,5 +82,9 @@ export class StudentTaskPage implements OnInit {
       maxRatio: 3
     }
   };
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
   }
   

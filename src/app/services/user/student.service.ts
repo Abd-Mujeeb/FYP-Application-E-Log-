@@ -19,7 +19,8 @@ interface user {
 export class StudentService {
   
   private user: user;
-
+  studentSS: any;
+  hello: any;
   public users_student: firebase.firestore.DocumentReference;
   public currentUser: firebase.User;
   public loading: HTMLIonLoadingElement;
@@ -108,38 +109,20 @@ export class StudentService {
   }
 
   read_student() {
-    return this.firestore.collection('userscsv',  ref => ref.where('role', '==', 'student')).snapshotChanges();
+    return this.firestore.collection('users',  ref => ref.where('role', '==', 'student')).snapshotChanges();
     
   }
+
+  read_pbsupervisor_student() {
+    return this.firestore.collection('users',  ref => ref.where('role', '==', 'student').where('pbsupervisor', '==' , '')).snapshotChanges();
+    
+  }
+
 
   student() {
     return this.firestore.collection('users',  ref => ref.where('displayName', '==', this.currentUser.displayName)).snapshotChanges();
     
   }
-
- 
-
-  
-  read_student_nws6() {
-    return this.firestore.collection('users',  ref => ref.where('role', '==', 'student').where('group_code', '==', 'NWS06')).snapshotChanges();
-    
-  }
-
-  read_student_nws7() {
-    return this.firestore.collection('users',  ref => ref.where('role', '==', 'student').where('group_code', '==', 'NWS07')).snapshotChanges();
-    
-  }
-
-  read_student_wbd() {
-    return this.firestore.collection('users',  ref => ref.where('role', '==', 'student').where('group_code', '==', 'WBD')).snapshotChanges();
-    
-  }
-
-  read_student_dme() {
-    return this.firestore.collection('users',  ref => ref.where('role', '==', 'student').where('group_code', '==', 'DME')).snapshotChanges();
-    
-  }
-  
 
 
   show_student(){
@@ -178,13 +161,25 @@ delete_student(record_id) {
   this.firestore.doc('users/' + record_id).delete();
 }
 
-read_student_task(){
-  return this.firestore.collectionGroup('tasks').snapshotChanges();
+// read_student_task(record){
+//   return this.firestore.collectionGroup('tasks').snapshotChanges();
+// }
+
+read_student_task(jubs){
+
+  console.log(jubs , 'ani step 4');
+  return this.firestore.collection('users').doc(jubs).collection('tasks').snapshotChanges();
 }
 
-read_student_attendance(){
-  return this.firestore.collectionGroup('attendance').snapshotChanges();
+read_student_attendance(jubs){
+
+  console.log(jubs , 'ani step 4');
+  return this.firestore.collection('users').doc(jubs).collection('attendance').snapshotChanges();
 }
+
+// read_student_attendance(){
+//   return this.firestore.collectionGroup('attendance').snapshotChanges();
+// }
 
 read_gcstudent_attendance(){
   return this.firestore.collectionGroup('attendance').snapshotChanges();

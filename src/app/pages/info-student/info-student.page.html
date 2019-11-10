@@ -1,98 +1,73 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-back-button defaultHref="/home-admin"></ion-back-button>
-          </ion-buttons>
-      <ion-title>Students Details</ion-title>
-      <ion-buttons slot="end">
-        <ion-button #ngif routerLink="/profile-admin">
-          <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content>
-      <ion-searchbar showCancelButton (ionInput)="filterList($event)"> </ion-searchbar>
-    <ion-card *ngFor="let item of userProfile; let i = index">
-      <span *ngIf="!item.isEdit; else elseBlock">
-        <ion-card-header>
-          <ion-card-title>{{i+1}}. {{item.name}}</ion-card-title>
-          <ion-card-subtitle>Email: {{item.email}}</ion-card-subtitle>
-          <ion-card-subtitle>Phone No.: {{item.phone_number}}</ion-card-subtitle>
-          <ion-card-subtitle>School Department: {{item.school_dept}}</ion-card-subtitle>
-          <ion-card-subtitle>Group Code: {{item.group_code}}</ion-card-subtitle>
-          <ion-card-subtitle>Student ID: {{item.student_id}}</ion-card-subtitle>
-          <ion-card-subtitle>Company: {{item.company}}</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-   
-          <ion-button shape="round" color="secondary" size="small" (click)="EditRecord(item)">
-            <ion-icon size="small" slot="icon-only" name="create"></ion-icon>
-   
-          </ion-button>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/home-admin"></ion-back-button>
+        </ion-buttons>
+    <ion-title>Students Details</ion-title>
+    <ion-buttons slot="end">
+      <ion-button #ngif routerLink="/profile-admin">
+        <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-          <ion-button shape="round" color="danger" size="small" (click)="presentAlertConfirm(item.id)">
-            <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
-   
-          </ion-button>
-        </ion-card-content>
-      </span>
-      <ng-template #elseBlock>
-        <ion-card-header>
-          <ion-card-title>
-            <ion-grid>
-              <ion-row>
-                <ion-col>
-                  Edit
-                </ion-col>
-                <ion-col>
-                  <ion-button fill="clear" color="danger" size="small" (click)="item.isEdit = false">
-                    Cancel
-                  </ion-button>
-                </ion-col>
-                <ion-col>
-                  <ion-button fill="outline" color="success" size="small" (click)="UpdateRecord(item)">
-                    Update
-                  </ion-button>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-item>
-            <ion-label><strong>Name:</strong></ion-label>
-            <ion-input type="text" [(ngModel)]="item.Editname"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label><strong>Email:</strong></ion-label>
-            <ion-input type="text" [(ngModel)]="item.Editemail"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label><strong>Phone No.:</strong></ion-label>
-            <ion-input type="text" [(ngModel)]="item.Editnumber"></ion-input>
-          </ion-item>
-          <ion-item>
-              <ion-label><strong>School Department</strong></ion-label>
-              <ion-input type="text" [(ngModel)]="item.Editschool_dept"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-label><strong>Group Code</strong></ion-label>
-                <ion-input type="text" [(ngModel)]="item.Editgroup_code"></ion-input>
-              </ion-item>
-              <ion-item>
-                  <ion-label><strong>Student ID</strong></ion-label>
-                  <ion-input type="text" [(ngModel)]="item.Editstudent_id"></ion-input>
-                </ion-item>
+<ion-content padding>
+    
+  <span class="search">Find Student: </span>
+  <span class="search"><ion-searchbar showCancelButton (ionInput)="filterList($event)"> </ion-searchbar></span>
+ <br>
+  <span><ion-label id="csv">Import Student : </ion-label></span>
+<span><ion-input type="file" accept=".csv" (change)="changeListener($event.target.files)"></ion-input></span>
+ 
 
-                <ion-item>
-                  <ion-label><strong>company</strong></ion-label>
-                  <ion-input type="text" [(ngModel)]="item.Editcompany"></ion-input>
-                </ion-item>
-        </ion-card-content>
-      </ng-template>
+  <h1>Student Details</h1>
+  <table>
+    <tr class="headercolor">
+      <th>No.</th>
+      <th>Name</th>
+      <th>Student ID</th>
+      <th class="dropdown">School 
 
-    </ion-card>
-  </ion-content>
+      <button (click)="onButtonClick()" class="dropbtn"><ion-icon name="arrow-dropdown">
+      </ion-icon>
+    </button>
+
+    <div *ngIf="buttonClicked" id="myDropdown" class="dropdown-content">
+      <a (click)="filterByschool_dept('SICT')">SICT</a>
+      <a (click)="filterByschool_dept('SBS')">SBS</a>
+      <a (click)="filterByschool_dept('SSE')">SSE</a>
+      <a (click)="filterByschool_dept('SHS')">SHS</a>
+      <a (click)="filterByschool_dept('All')" *ngIf="all">All</a>
+    </div>
+      </th>
+
+
+       
+      <th>Group Code</th>
+      <th>PB Supervisor</th>
+      <th>Group Coordinator</th>
+      <th>Intern Place</th>
+      <th>Contact No.</th>
+      <th>Email</th>
+    </tr>
+
+  <!-- <ng-container *ngIf="student$ | async; let student; else loading"> -->
+    <tr  *ngFor="let item of student; let i = index">
+      <td>{{i+1}}.</td>
+      <td>{{item.name}}</td>
+      <td>{{item.student_id}}</td>
+      <td>{{item.school_dept}}</td>
+      <td>{{item.group_code}}</td>
+      <td>{{item.pbsupervisor}}</td>
+      <td>{{item.gc}}</td>
+      <td>{{item.company}}</td>
+      <td>{{item.contactno}}</td>
+      <td>{{item.email}}</td>
+
+    </tr>
+  <!-- </ng-container> -->
+  </table>
+
+</ion-content>
 

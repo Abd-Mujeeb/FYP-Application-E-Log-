@@ -66,6 +66,7 @@ export class AttendanceTimeoutPage implements OnInit {
       duration: 3000
     });
 
+    console.log(value, 'hi hello there');
     this.firebaseService.updateAttendance(this.item.id, value)
     .then(
       res => {

@@ -1,55 +1,107 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentService } from 'src/app/services/user/student.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { AngularFirestore, AngularFirestoreCollection  } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
 import * as firebase from 'firebase/app';
 import { Papa} from "ngx-papaparse";
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AuthService } from 'src/app/services/user/auth.service';
+import { switchMap } from 'rxjs/operators';
 
-// var config = {
-//   apiKey: "AIzaSyDFNM5AsLEAoYQhtnZ7XYRfMZWrvbgdZ0Q",
-//   authDomain: "e-log-eab02.firebaseapp.com",
-//   databaseURL: "https://e-log-eab02.firebaseio.com",
-// };
-// var secondaryApp = firebase.initializeApp(config, "Secondary");
-
+export interface Item {
+  displayName: string;
+  school_dept: string;
+}
 @Component({
   selector: 'app-info-student',
   templateUrl: './info-student.page.html',
   styleUrls: ['./info-student.page.scss'],
 })
 export class InfoStudentPage implements OnInit {
-  public userProfile: any[];
-  public loadeduserProfile: any [];
+ 
+  public loading: any;
+  public student: any[];
+  public loadedstudent: any [];
 
+  public all: boolean = false;
 
-  constructor(
-    private studentService: StudentService,
-    private alertCtrl: AlertController,
-    private afs: AngularFirestore,
+  public buttonClicked: boolean = false; //Whatever you want to initialise it as
+
+    public onButtonClick() {
+
+        this.buttonClicked = !this.buttonClicked;
+    }
+
+  constructor(private afs: AngularFirestore,
     private papa: Papa,
-    auth: AngularFireAuth
-  ) { }
+    private authService: AuthService,
+    private alertCtrl: AlertController,
+    private studentService: StudentService,
+    public loadingController: LoadingController
+    ) { 
+
+  }
+
+   filterByschool_dept(school_dept: string|null) {
+    if(school_dept == 'All'){
+      this.all = false;
+      return this.ngOnInit();
+ }else{
+  this.afs.collection('users', ref => ref.where('role', '==', 'student').where('school_dept', '==', school_dept)).snapshotChanges().subscribe(data => {
+ 
+    school_dept = data['school_dept']
+    this.student = data.map(e => {
+         return {
+        id: e.payload.doc.id,
+        name: e.payload.doc.data()['displayName'],
+        email: e.payload.doc.data()['email'],
+        school_dept: e.payload.doc.data()['school_dept'],
+        group_code: e.payload.doc.data()['group_code'],
+        student_id: e.payload.doc.data()['student_id'],
+        company: e.payload.doc.data()['company'],
+        gc: e.payload.doc.data()['gc'],
+        pbsupervisor: e.payload.doc.data()['pbsupervisor'],
+        contactno: e.payload.doc.data()['contactno'],
+        role: e.payload.doc.data()['role'],
+  
+  
+      };
+    })
+    console.log(this.student);
+  this.loadedstudent = this.student;
+  this.all = true;
+  
+  });
+}
+
+
+  }
 
   ngOnInit() {
-    this.studentService.read_student_nws6().subscribe(data => {
+
+
+    this.studentService.read_student().subscribe(data => {
  
-      this.userProfile = data.map(e => {
+      this.student = data.map(e => {
            return {
           id: e.payload.doc.id,
-          isEdit: false,
           name: e.payload.doc.data()['displayName'],
           email: e.payload.doc.data()['email'],
           school_dept: e.payload.doc.data()['school_dept'],
           group_code: e.payload.doc.data()['group_code'],
           student_id: e.payload.doc.data()['student_id'],
-          company: e.payload.doc.data()['company']
+          company: e.payload.doc.data()['company'],
+          gc: e.payload.doc.data()['gc'],
+          pbsupervisor: e.payload.doc.data()['pbsupervisor'],
+          contactno: e.payload.doc.data()['contactno'],
+          role: e.payload.doc.data()['role'],
+
 
         };
       })
-      console.log(this.userProfile);
-   this.loadeduserProfile = this.userProfile;
+      console.log(this.student);
+   this.loadedstudent = this.student;
   
     });
 
@@ -57,7 +109,7 @@ export class InfoStudentPage implements OnInit {
   }
 
   initializeItems(): void {
-    this.userProfile = this.loadeduserProfile;
+    this.student = this.loadedstudent;
   }
 
   filterList(evt){
@@ -68,7 +120,7 @@ export class InfoStudentPage implements OnInit {
       return;
     }
 
-    this.userProfile = this.userProfile.filter(currentlist => {
+    this.student = this.student.filter(currentlist => {
       if (currentlist.name, currentlist.email && searchTerm){
         if (currentlist.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
         currentlist.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1){
@@ -130,13 +182,19 @@ export class InfoStudentPage implements OnInit {
     await alert.present();
   }
 
-  changeListener(files: FileList){
+
+
+    changeListener(files: FileList) {
     console.log(files);
     if(files && files.length > 0) {
     let file : File = files.item(0); 
     console.log(file.name);
     console.log(file.size);
     console.log(file.type);
+    var csv = file.type
+    if(!csv.includes('application/vnd.ms-excel')){
+      alert('Please select correct file format');
+    }else{
     let reader: FileReader = new FileReader();
     reader.readAsText(file);
     reader.onload = (e) => {
@@ -144,14 +202,11 @@ export class InfoStudentPage implements OnInit {
     console.log(csv);
     this.papa.parse(csv,{
     header: true,
-    complete: (result) => {
+    complete: async (result) => {
     console.log('Parsed: ', result);
-    console.log('Parsed: ', result.data['1']);
-
+    
     let i;
-    let c = 1;
-    for(i = 0; i < c; i++){
-      let a = i
+    for(i = 0; i < result.data.length; i++){
       try{
     
       const number: string = result.data[i].number;
@@ -161,41 +216,41 @@ export class InfoStudentPage implements OnInit {
       const school_dept: string = result.data[i].school_dept;
       const group_code: string = result.data[i].group_code;
       const student_id: string = result.data[i].student_id;
-      const role: string = result.data[i].role;
-      const change: boolean = result.data[i].change;
       const gc: string = result.data[i].gc;
       const company: string = result.data[i].company;
       const password: string = result.data[i].password;
     
-  
-    // console.log(this.json.displayName)
-    // console.log(this.json.password)
-    // this.dataRef.add(this.json)
-  
-    // secondaryApp.auth().createUserWithEmailAndPassword(email, password).then((newUserCredential: firebase.auth.UserCredential)=> {
-    //   firebase
-    //     .firestore()
-    //     .doc(`/users/${newUserCredential.user.uid}`)
-    //     .set({number, displayName, name, email, school_dept, group_code, student_id, role, change, gc, company, password});
-    //     console.log("users " + newUserCredential.user.email + " created successfully!");
-    //     secondaryApp.auth().signOut();
-    // }).catch(error => {
-    //   console.error(error);
-    //   throw new Error(error);
-    // });
-
-    c++
+ 
+    await this.authService.csvstudent( number, displayName, name, email, school_dept, group_code, student_id, gc, company, password);
   }catch{
     console.log('no more data');
-    // alert(this.successMsg);
-    alert(i + " student details has succesfully saved");
+
   }
- 
+
+  await this.loadingController.create({
+    message: i + ' account(s) succesfully created',
+    duration: 10000
+  }).then((res) => {
+    res.present();
+
+    res.onDidDismiss().then((dis) => {
+      console.log('Loading dismissed! after 10 Seconds');
+     
+      
+    });
+    
+  });
+
+  // alert("Total of Account : " + i);
 
 }
     }
     });
-    }}}
+    }}}}
 
 
+  
+    
+
+  
 }
