@@ -54,19 +54,19 @@ export class HomeGcPage implements OnInit {
     });
 
 
-    this.studentService.read_student().subscribe(data => {
+    this.gcService.read_gcstudent().subscribe(data => {
  
       this.userProfile = data.map(e => {
-           return {
-          id: e.payload.doc.id,
-          isEdit: false,
-          name: e.payload.doc.data()['name'],
-          email: e.payload.doc.data()['email'],
-          school_dept: e.payload.doc.data()['school_dept'],
-          group_code: e.payload.doc.data()['group_code'],
-          student_id: e.payload.doc.data()['student_id']
+        return {
+       id: e.payload.doc.id,
+       isEdit: false,
+       name: e.payload.doc.data()['displayName'],
+       email: e.payload.doc.data()['email'],
+       school_dept: e.payload.doc.data()['school_dept'],
+       group_code: e.payload.doc.data()['group_code'],
+       student_id: e.payload.doc.data()['student_id']
 
-        };
+     };
       })
       console.log(this.userProfile);
    this.loadeduserProfile = this.userProfile;

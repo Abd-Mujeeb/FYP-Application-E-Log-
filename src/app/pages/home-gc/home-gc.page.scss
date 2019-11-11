@@ -63,11 +63,21 @@ h2{
   color: white;
 }
 
-table{
-  background-color: #b52218;
+table {
+  font-family: arial, sans-serif;
+  width: 100%;
+  color: black;
+  background-color: white ;
+  
 }
 
-tr, td {
-  color: black;
-  text-align: center;
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+} 
+
+.tarang {
+  background-color: gray;
 }

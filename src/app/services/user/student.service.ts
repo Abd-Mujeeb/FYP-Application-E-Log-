@@ -17,7 +17,7 @@ interface user {
   providedIn: 'root'
 })
 export class StudentService {
-  
+
   private user: user;
   studentSS: any;
   hello: any;
@@ -25,16 +25,25 @@ export class StudentService {
   public currentUser: firebase.User;
   public loading: HTMLIonLoadingElement;
   toast: any;
+  student_id: any;
+  public userInformation: any;
+  public deleteusers: any;
+  
   
   constructor(private firestore: AngularFirestore,
     private afAuth: AngularFireAuth,
     public loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
-    public toastController: ToastController) { 
-    firebase.auth().onAuthStateChanged(user => { if (user) 
-      { this.currentUser = user; this.users_student = firebase.firestore().doc(`/users/${user.uid}`);}}); 
-      this.currentUser = firebase.auth().currentUser; 
-      this.users_student = firebase.firestore().doc(`/users/${this.currentUser.uid}`);
+    public toastController: ToastController) {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) { this.currentUser = user; this.users_student = firebase.firestore().doc(`/users/${user.uid}`); }
+    });
+    this.currentUser = firebase.auth().currentUser;
+    this.users_student = firebase.firestore().doc(`/users/${this.currentUser.uid}`);
+
+
+
+
   }
 
 
@@ -44,7 +53,7 @@ export class StudentService {
 
 
 
-  
+
 
   updateName(displayName: string): Promise<any> {
     return this.users_student.update({ displayName })
@@ -59,7 +68,7 @@ export class StudentService {
       this.currentUser.email,
       password
     );
-  
+
     return this.currentUser
       .reauthenticateWithCredential(credential)
       .then(() => {
@@ -77,21 +86,21 @@ export class StudentService {
       this.currentUser.email,
       newPassword
     );
-  
+
     return this.currentUser
       .reauthenticateWithCredential(credential)
       .then(() => {
         this.currentUser.updatePassword(oldPassword).then(() => {
           console.log('Password Changed');
 
-          this.users_student.update({ change:false })
+          this.users_student.update({ change: false })
 
         });
       })
-      
+
       .catch(async error => {
         this.loading = await this.loadingCtrl.create();
-      await this.loading.present();
+        await this.loading.present();
         this.loading.dismiss().then(async () => {
           const alert = await this.alertCtrl.create({
             message: error.message,
@@ -100,92 +109,191 @@ export class StudentService {
           await alert.present();
         });
         console.error(error);
-       
+
       });
   }
 
-  update_student(recordID,record){
+  update_student(recordID, record) {
     this.firestore.doc('users/' + recordID).update(record);
   }
 
   read_student() {
-    return this.firestore.collection('users',  ref => ref.where('role', '==', 'student')).snapshotChanges();
-    
+    return this.firestore.collection('users', ref => ref.where('role', '==', 'student')).snapshotChanges();
+
   }
 
   read_pbsupervisor_student() {
-    return this.firestore.collection('users',  ref => ref.where('role', '==', 'student').where('pbsupervisor', '==' , '')).snapshotChanges();
-    
+    return this.firestore.collection('users', ref => ref.where('role', '==', 'student').where('pbsupervisor', '==', '')).snapshotChanges();
+
   }
 
 
   student() {
-    return this.firestore.collection('users',  ref => ref.where('displayName', '==', this.currentUser.displayName)).snapshotChanges();
-    
+    return this.firestore.collection('users', ref => ref.where('displayName', '==', this.currentUser.displayName)).snapshotChanges();
+
   }
 
 
-  show_student(){
-    return this.firestore.collection('users',  ref => ref.where('role', '==', 'student'));
+  show_student() {
+    return this.firestore.collection('users', ref => ref.where('role', '==', 'student'));
   }
-  
- 
 
-  
+
+
+
   //uploadtask
 
   setUser(user: user) {
     this.user = user
-}
+  }
 
   getUID() {
 
-    if(!this.user){
-        if(this.afAuth.auth.currentUser) {
-            const user = this.afAuth.auth.currentUser
-            this.setUser({
-                name,
-                email: user.email,
-                uid: user.uid
-            })
-            return user.uid
-        } else {
-            throw new Error("User not logged in")
-        }
+    if (!this.user) {
+      if (this.afAuth.auth.currentUser) {
+        const user = this.afAuth.auth.currentUser
+        this.setUser({
+          name,
+          email: user.email,
+          uid: user.uid
+        })
+        return user.uid
+      } else {
+        throw new Error("User not logged in")
+      }
     } else {
-        return this.user.uid
+      return this.user.uid
     }
-}
+  }
 
-delete_student(record_id) {
-  this.firestore.doc('users/' + record_id).delete();
-}
+  delete_student(record_id) {
+    
+    this.student_id = record_id.id;
+    this.deleteusers = firebase.firestore().doc(`users/${this.student_id}`)
 
-// read_student_task(record){
-//   return this.firestore.collectionGroup('tasks').snapshotChanges();
-// }
+    return this.loadingCtrl.create({
+      message: 'Deleting Data, Please Wait'
+    }).then((overlay) => {
+      this.loading = overlay;
+      this.loading.present().then(() => {
+        this.deletetasks().then(() => {
+          this.deleteattendance().then(() => {
+            this.deleteusers.delete().then(() => {
+              console.log(this.deleteusers, 'apakan ni?')
+              this.loading.dismiss();
+              console.log("Success Delete")
+            })
+          })
+        })
+      })
+    })
+  }
 
-read_student_task(jubs){
 
-  console.log(jubs , 'ani step 4');
-  return this.firestore.collection('users').doc(jubs).collection('tasks').snapshotChanges();
-}
 
-read_student_attendance(jubs){
+  deletetasks() {
+    const db = firebase.firestore();
+    var collectionPath = `users/${this.student_id}/tasks`
+    this.deleteCollection(db, collectionPath)
 
-  console.log(jubs , 'ani step 4');
-  return this.firestore.collection('users').doc(jubs).collection('attendance').snapshotChanges();
-}
+    return new Promise((resolve, reject) => {
+      this.throwAway(resolve, reject);
+    })
+  }
 
-// read_student_attendance(){
-//   return this.firestore.collectionGroup('attendance').snapshotChanges();
-// }
+  
 
-read_gcstudent_attendance(){
-  return this.firestore.collectionGroup('attendance').snapshotChanges();
-}
+  deleteattendance() {
+    const db = firebase.firestore()
+    var collectionPath = `/users/${this.student_id}/attendance`
+    this.deleteCollection(db, collectionPath)
+    return new Promise((resolve, reject) => {
+      this.throwAway(resolve, reject);
+    })
+  }
 
-// return this.firestore.collection('users').doc('').collection('tasks').snapshotChanges();
+  throwAway(resolve, reject) {
+    try {
+      resolve()
+      console.log("Resolve")
+    }
+    catch (reject) {
+      console.log("reject")
+    }
+  }
+  deletestudent(){
+   
+    this.userInformation =  this.firestore.doc('users/' + this.student_id).delete();
+    // this.userInformation = firebase.firestore().doc(`/users/${record_id}`);
+  }
+
+  deleteCollection(db, collectionPath) {
+
+    let collectionRef = db.collection(collectionPath);
+    let query = collectionRef
+
+    return new Promise((resolve, reject) => {
+      this.deleteQueryBatch(db, query, resolve, reject);
+    });
+  }
+
+  deleteQueryBatch(db, query, resolve, reject) {
+    query.get()
+      .then((snapshot) => {
+        // When there are no documents left, we are done
+        if (snapshot.size == 0) {
+          console.log("hai")
+          return 0;
+        }
+
+        // Delete documents in a batch
+        let batch = db.batch();
+        snapshot.docs.forEach((doc) => {
+          batch.delete(doc.ref);
+        });
+
+        return batch.commit().then(() => {
+          console.log("wew")
+          this.deleteQueryBatch(db, query, resolve, reject);
+          console.log("weew2")
+          return snapshot.size;
+        });
+      }).then((numDeleted) => {
+        if (numDeleted === 0) {
+          console.log("haha")
+          resolve();
+          return;
+        }
+
+      })
+      .catch(reject);
+  }
+
+  // read_student_task(record){
+  //   return this.firestore.collectionGroup('tasks').snapshotChanges();
+  // }
+
+  read_student_task(jubs) {
+
+    console.log(jubs, 'ani step 4');
+    return this.firestore.collection('users').doc(jubs).collection('tasks').snapshotChanges();
+  }
+
+  read_student_attendance(jubs) {
+
+    console.log(jubs, 'ani step 4');
+    return this.firestore.collection('users').doc(jubs).collection('attendance').snapshotChanges();
+  }
+
+  // read_student_attendance(){
+  //   return this.firestore.collectionGroup('attendance').snapshotChanges();
+  // }
+
+  read_gcstudent_attendance() {
+    return this.firestore.collectionGroup('attendance').snapshotChanges();
+  }
+
+  // return this.firestore.collection('users').doc('').collection('tasks').snapshotChanges();
 
 
 }
