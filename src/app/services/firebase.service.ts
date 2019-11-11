@@ -247,7 +247,7 @@ export class FirebaseService {
       c.width = aux.width;
       c.height = aux.height;
       ctx.drawImage(img, 0, 0);
-      var dataURL = c.toDataURL("image/jpg");
+      var dataURL = c.toDataURL("image/jpeg");
       callback(dataURL);
     };
     img.src = imageUri;

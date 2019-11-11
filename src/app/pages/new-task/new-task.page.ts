@@ -73,7 +73,7 @@ export class NewTaskPage implements OnInit {
     let data = {
       title: value.title,
       description: value.description,
-      image: [this.image],
+      image: this.image,
       pickdate: value.pickdate,
       name: currentUser.displayName,
       email: currentUser.email,
@@ -100,7 +100,7 @@ export class NewTaskPage implements OnInit {
       }
       else if(result == true){
         this.imagePicker.getPictures({
-           maximumImagesCount: 4,
+           maximumImagesCount: 1,
          
         }).then(
           (results) => {
