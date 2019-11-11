@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import * as firebase from 'firebase/app';
 import { AdminService } from 'src/app/services/user/admin.service';
 import { AlertController, NavController, MenuController, LoadingController } from '@ionic/angular';
@@ -22,6 +22,19 @@ export class HomeAdminPage implements OnInit {
   password_Type: string = 'password';
   password_Shown: boolean = false;
 
+  error_messages = {
+    'newpassword': [
+      { type: 'required', message: 'Password is required.' },
+      { type: 'pattern', message: 'Password need to have at least one of Lowercase, Uppercase, Numbers, and Special characters(!@#$%^&) with the minimum length of 8 characters' },
+      { type: 'maxlength', message: 'Password length not more than 30 characters' },
+    ],
+    'confirmpw': [
+      { type: 'required', message: 'Password is required.' },
+      { type: 'pattern', message: 'Password need to have at least one of Lowercase, Uppercase, Numbers, and Special characters(!@#$%^&) with the minimum length of 8 characters' },
+      { type: 'maxlength', message: 'Password length not more than 30 characters' },
+    ],
+  }
+
   constructor(
     private formBuilder: FormBuilder,
     private adminService: AdminService,
@@ -30,7 +43,8 @@ export class HomeAdminPage implements OnInit {
     private navCtrl: NavController,
     public menu: MenuController,
     public loadingController: LoadingController
-    ) { }
+    ) { 
+    }
 
     public togglePassword(){
       if(this.passwordShown){
@@ -51,6 +65,9 @@ export class HomeAdminPage implements OnInit {
         this.password_Type = 'text';
       }
     }
+
+
+
   ngOnInit() {
 
     if(this.authService.userDetails()){
@@ -71,12 +88,21 @@ export class HomeAdminPage implements OnInit {
     this.changepwForm = this.formBuilder.group({
       newpassword: [
         '',
-        Validators.compose([Validators.required, Validators.minLength(6)]),
+        Validators.compose([ 
+          Validators.required, 
+          Validators.pattern("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&]).{8,}"),
+          Validators.maxLength(30)]),
       ],
       confirmpw: [
         '',
-        Validators.compose([Validators.required, Validators.minLength(6)]),
+        Validators.compose([ 
+          Validators.required, 
+          Validators.pattern("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&]).{8,}"),
+          Validators.maxLength(30)]),
       ],
+    },
+    { 
+      validators: this.password.bind(this)
     });
 
     firebase.auth().onAuthStateChanged(user => {
@@ -93,12 +119,18 @@ export class HomeAdminPage implements OnInit {
     });
   }
 
+  password(formGroup: FormGroup) {
+    const { value: newpassword } = formGroup.get('newpassword');
+    const { value: confirmpw } = formGroup.get('confirmpw');
+    return newpassword === confirmpw ? null : { passwordNotMatch: true };
+  }
+
   async updatePassword(): Promise<void> {
     const oldPassword = this.userProfile;
     const newPassword = this.changepwForm.value.newpassword;
     const confirmpw = this.changepwForm.value.confirmpw;
 
-    if(newPassword == confirmpw){
+ if (newPassword == confirmpw){
       try{
     await this.adminService.updatePassword(oldPassword, confirmpw)
 
