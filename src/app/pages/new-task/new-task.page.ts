@@ -73,12 +73,13 @@ export class NewTaskPage implements OnInit {
     let data = {
       title: value.title,
       description: value.description,
-      image: this.image,
+      image: [this.image],
       pickdate: value.pickdate,
       name: currentUser.displayName,
       email: currentUser.email,
       created: firebase.firestore.FieldValue.serverTimestamp()
     }
+    console.log(data, this.image , 'image kali ni')
     this.firebaseService.createTask(data)
     .then(
       res => {
@@ -99,7 +100,7 @@ export class NewTaskPage implements OnInit {
       }
       else if(result == true){
         this.imagePicker.getPictures({
-           maximumImagesCount: 1,
+           maximumImagesCount: 4,
          
         }).then(
           (results) => {
@@ -130,6 +131,7 @@ export class NewTaskPage implements OnInit {
     this.firebaseService.uploadImage(image_src, randomId)
     .then(photoURL => {
       this.image = photoURL;
+      console.log(this.image, 'patutnya image in array')
       loading.dismiss();
       toast.present();
     }, err =>{
