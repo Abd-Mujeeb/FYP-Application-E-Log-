@@ -37,17 +37,18 @@ form {
     border-bottom: 1px solid #ff6153;
   }
   
-  .error-message {
-    min-height: 2.2rem;
-    ion-label {
-      margin: 2px 0;
-      font-size: 60%;
-      color: #ff6153;
-    }
-    .item-inner {
-      border-bottom: 0 !important;
-    }
-  }
+  // .error-message {
+  //   min-height: 2.2rem;
+  //   ion-label {
+  //     margin: 2px 0;
+  //     font-size: 60%;
+  //     color: #ff6153;
+  //   }
+  //   .item-inner {
+  //     border-bottom: 0 !important;
+  //   }
+  // }
+  
 
   #overlay {
     position: fixed;
@@ -112,3 +113,43 @@ h3{
   color: white;
 }
 
+p {
+  font-family: Lato;
+}
+.error-message {
+  color: red;
+  background-color: white;
+  line-height: 1.6;
+}
+input.ng-touched.ng-invalid {
+  border: 1px solid red;
+}
+
+.shake{
+  text-align: center;
+  width: 80%;
+  margin: auto;
+  margin-top: 10px;
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
