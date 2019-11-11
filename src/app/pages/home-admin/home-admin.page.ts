@@ -46,28 +46,6 @@ export class HomeAdminPage implements OnInit {
     ) { 
     }
 
-    public togglePassword(){
-      if(this.passwordShown){
-        this.passwordShown = false;
-        this.passwordType = 'password';
-      }else{
-        this.passwordShown = true;
-        this.passwordType = 'text';
-      }
-    }
-
-    public toggle_Password(){
-      if(this.password_Shown){
-        this.password_Shown = false;
-        this.password_Type = 'password';
-      }else{
-        this.password_Shown = true;
-        this.password_Type = 'text';
-      }
-    }
-
-
-
   ngOnInit() {
 
     if(this.authService.userDetails()){
@@ -119,6 +97,26 @@ export class HomeAdminPage implements OnInit {
     });
   }
 
+  public togglePassword(){
+    if(this.passwordShown){
+      this.passwordShown = false;
+      this.passwordType = 'password';
+    }else{
+      this.passwordShown = true;
+      this.passwordType = 'text';
+    }
+  }
+
+  public toggle_Password(){
+    if(this.password_Shown){
+      this.password_Shown = false;
+      this.password_Type = 'password';
+    }else{
+      this.password_Shown = true;
+      this.password_Type = 'text';
+    }
+  }
+  
   password(formGroup: FormGroup) {
     const { value: newpassword } = formGroup.get('newpassword');
     const { value: confirmpw } = formGroup.get('confirmpw');

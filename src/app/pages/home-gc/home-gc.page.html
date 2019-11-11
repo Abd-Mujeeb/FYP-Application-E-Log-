@@ -1,59 +1,56 @@
 <div id="overlay" *ngIf="change">
   <form [formGroup]="changepwForm" id="form"> 
-<h2>First Time Sign In, Please change your password: </h2>
-      <ion-item>
-          <ion-label position="stacked">Current Password:</ion-label>
-          <ion-input
-            formControlName="password"
-            type="password"
-            placeholder="Your password"
-            [class.invalid]="!changepwForm.controls['password'].valid&& changepwForm.controls['password'].touched"
-          >
-          </ion-input>
-        </ion-item>
-        <ion-item
-          class="error-message"
-          *ngIf="!changepwForm.controls['password'].valid
-            && changepwForm.controls['password'].touched"
-        >
-          <ion-label>Your password needs more than 6 characters.</ion-label>
-        </ion-item>
-
+<h3>Hello {{name}}, you are login as {{role}},</h3>
+<h1>Welcom to E-Log <img src="../../../assets/images/LOGO.png" alt="logo" width="36px" height="36px"></h1>
+  <p class="text">This is your first time sign in, please change your password, Thank you.</p>
+  <br>
         <ion-item>
           <ion-label position="stacked">New Password:</ion-label>
           <ion-input type="password"
           formControlName="newpassword"
-              type="password"
+          [type]="password_Type"
               placeholder="Your password"
+              clearOnEdit="false"
               [class.invalid]="!changepwForm.controls['newpassword'].valid&& changepwForm.controls['newpassword'].touched"></ion-input>
+              <ion-icon name="eye" [color]="password_Shown === true ? 'dark' : 'medium'" slot="end" (click)='toggle_Password()'></ion-icon>
         </ion-item>
-
-        <ion-item
-            class="error-message"
-            *ngIf="!changepwForm.controls['newpassword'].valid
-              && changepwForm.controls['newpassword'].touched"
-          >
-            <ion-label>Your password needs more than 6 characters.</ion-label>
-          </ion-item>
-  
+       
+          <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.newpassword">
+              <ion-item class="error-message" *ngIf="changepwForm.get('newpassword').hasError(error.type) && (changepwForm.get('newpassword').dirty || changepwForm.get('newpassword').touched)">
+                {{ error.message }}
+              </ion-item>
+            </ng-container>
+          </div>
+        
+          <br>
           <ion-item>
             <ion-label position="stacked">Confirm Password:</ion-label>
+            
             <ion-input type="password"
             formControlName="confirmpw"
-                type="password"
+                [type]="passwordType"
                 placeholder="Your password"
+                clearOnEdit="false"
                 [class.invalid]="!changepwForm.controls['confirmpw'].valid&& changepwForm.controls['confirmpw'].touched"></ion-input>
+            <ion-icon name="eye" [color]="passwordShown === true ? 'dark' : 'medium'" slot="end" (click)='togglePassword()'></ion-icon>
           </ion-item>
-  
-          <ion-item
-              class="error-message"
-              *ngIf="!changepwForm.controls['confirmpw'].valid
-                && changepwForm.controls['confirmpw'].touched"
-            >
-              <ion-label>Your password needs more than 6 characters.</ion-label>
-            </ion-item>
-  
-    <ion-button expand="block" (click)="updatePassword()">Confirm</ion-button>
+
+
+             <div class="error-messages">
+              <ng-container *ngFor="let error of error_messages.confirmpw">
+                <ion-item class="error-message" *ngIf="changepwForm.get('confirmpw').hasError(error.type) && (changepwForm.get('confirmpw').dirty || changepwForm.get('confirmpw').touched)">
+                  {{ error.message }}
+                </ion-item>
+              </ng-container>
+
+              <ion-item class="error-message shake" *ngIf="!changepwForm.get('confirmpw').errors && changepwForm.hasError('passwordNotMatch') && (changepwForm.get('confirmpw').dirty || changepwForm.get('confirmpw').touched)">
+                New Password and Confirm Password fields should match
+              </ion-item>
+
+            </div>
+  <br>
+    <ion-button class="change" expand="block" (click)="updatePassword()" [disabled]="!changepwForm.valid">Confirm</ion-button>
   </form>
 
 </div>
