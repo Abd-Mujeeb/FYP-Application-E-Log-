@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/services/user/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { LocalNotifications, ILocalNotificationActionType } from '@ionic-native/local-notifications/ngx';
+import { empty } from 'rxjs';
 // export interface Image {
 //   id: string;
 //   image: string;
@@ -29,6 +30,7 @@ export class HomeStudentPage implements OnInit {
   splash = true;
   userProfile: firebase.firestore.DocumentData;
   name: string;
+  notif: false;
 
   constructor(
     private localNotifications: LocalNotifications,
@@ -47,14 +49,26 @@ export class HomeStudentPage implements OnInit {
      ) { }
 
   ngOnInit() {
-
-
     
    if(this.authService.userDetails()){
     this.name = this.authService.userDetails().displayName;
   } else {
     this.navCtrl.navigateBack('');
   }
+
+  if (this.firebaseService.read_task() == null){
+    this.localNotifications.schedule([{
+      id:1,
+      title: `E-Log`,
+      text: `You haven't upload any task for today`,
+      trigger: { every: { hour: 8, minute: 0}, count: 1},
+    }])  
+    console.log('mau');
+
+  } else{
+
+  }
+
 
   
     this.changepwForm = this.formBuilder.group({
@@ -90,12 +104,24 @@ export class HomeStudentPage implements OnInit {
       this.loadeditems = this.itemslist;
     });
 
-    this.studentService
-      .getUserProfileStudent()
-      .get()
-      .then(userProfileStudentSnapshot => {
-        this.userProfile = userProfileStudentSnapshot.data();
-      });
+    // this.studentService
+    //   .getUserProfileStudent()
+    //   .get()
+    //   .then(userProfileStudentSnapshot => {
+    //     this.userProfile = userProfileStudentSnapshot.data();
+    //   });
+
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          firebase
+          .firestore()
+          .doc(`/users/${user.uid}`)
+          .get()
+          .then(userProfileSnapshot => {
+            this.notif = userProfileSnapshot.data().notif;
+          })
+        }
+      })
 
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
@@ -108,7 +134,6 @@ export class HomeStudentPage implements OnInit {
 
           });
       }
-
       
     });
 
@@ -145,21 +170,21 @@ async updatePassword(): Promise<void> {
   
 }
 
-// testNotif(){
+testNotif(){
 
-//   let currentUser = firebase.auth().currentUser;
+  if (!this.firebaseService.read_task() == true){
+    this.localNotifications.schedule([{
+      id:1,
+      title: `E-Log`,
+      text: `You haven't upload any task for today`,
+      trigger: { every: { hour: 8, minute: 0}, count: 1},
+    }])  
+    console.log('mau');
 
-//   var notif = this.afs.collection('users').doc(currentUser.uid).collection('tasks').snapshotChanges();
-//          if (!notif == true) {
-//           this.localNotifications.schedule([{
-//             id:1,
-//             title: `E-Log`,
-//             text: `You haven't upload any task for today`,
-//             trigger: { every: { hour: 8, minute: 0}, count: 1}
-//           }])
-//           return this.ngOnInit();
-//         }
-// }
+  } else{
+
+  }
+}
 
 
 async alert() {
