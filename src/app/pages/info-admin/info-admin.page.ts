@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../services/user/profile.service';
 import { Router } from '@angular/router';
-import { AlertController, NavController } from '@ionic/angular';
+import { AlertController, NavController, ModalController } from '@ionic/angular';
 import { AdminService } from 'src/app/services/user/admin.service';
 import * as firebase from 'firebase/app';
 import { AuthService } from 'src/app/services/user/auth.service';
+import { InfoAdminModalPage } from '../modal/info-admin-modal/info-admin-modal.page';
 
 @Component({
   selector: 'app-info-admin',
@@ -23,6 +24,7 @@ export class InfoAdminPage implements OnInit {
     private router: Router,
     private authService: AuthService,
 private navCtrl: NavController,
+private modalController: ModalController,
   ) { }
 
   ngOnInit() {
@@ -125,6 +127,16 @@ private navCtrl: NavController,
 
   
 
-
+  openPreview(record){
+    this.modalController.create({
+      component: InfoAdminModalPage,
+      componentProps: {
+        record: record.id,
+      }
+ 
+      
+    }).then(modal => modal.present());
+ 
+  }
 
 }

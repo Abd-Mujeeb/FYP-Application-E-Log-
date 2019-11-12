@@ -187,13 +187,6 @@ export class PbStudentlistModalPage implements OnInit {
    
     
   }
-
-
-  
-
-
-
-
   close() {
     this.modalController.dismiss();
   }

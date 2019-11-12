@@ -110,6 +110,44 @@ export class AdminService {
     return this.firestore.collection('users',  ref => ref.where('role', '==', 'admin')).snapshotChanges();
   }
 
+  read_specific_admin(nyummy){
+    console.log(nyummy, 'ani step 4');
+    return this.firestore.collection('users', ref => ref.where(firebase.firestore.FieldPath.documentId(), '==', nyummy)).snapshotChanges();
+
+
+  }
+
+  delete_specific_admin(Email: string, Password: string, record) {
+    console.log(record, 'what is record?');
+        const credential: firebase.auth.AuthCredential = firebase.auth.EmailAuthProvider.credential(
+          Email, Password
+        );
+        return this.currentUser
+          .reauthenticateWithCredential(credential)
+          .then(() => {
+            this.loadingCtrl.create({
+              message: 'Deselecting Student, Please Wait'
+            }).then((overlay) => {
+              this.loading = overlay;
+              this.loading.present().then(() => {
+                this.deleting_admin(record);
+                this.loading.dismiss();
+                console.log("Success Deselecting");
+    
+              })
+            })
+          })
+      }
+    
+    
+    
+      deleting_admin(recordID) {
+        console.log(recordID, 'part 3')
+        this.firestore.doc('users/' + recordID.id).delete();
+        console.log('deselecting success');
+      }
+    
+
   delete_admin(record_id) {
     this.firestore.doc('users/' + record_id).delete();
   }
