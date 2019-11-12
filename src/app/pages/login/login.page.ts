@@ -9,7 +9,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 
-import { StudentService } from 'src/app/services/user/student.service';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 
 
@@ -39,7 +39,8 @@ export class LoginPage implements OnInit {
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
     private localNotifications: LocalNotifications,
-    // private studentService: StudentService,
+    private firebaseService: FirebaseService,
+    
   ) {
   
    }
@@ -82,6 +83,18 @@ export class LoginPage implements OnInit {
         } else if (role == 'gc') {
           this.router.navigateByUrl('/home-gc');
         } else if (role == 'student') {
+          // if (!this.firebaseService.read_task() == true){
+          //   this.localNotifications.schedule([{
+          //     id:1,
+          //     title: `E-Log`,
+          //     text: `You haven't upload any task for today`,
+          //     trigger: { every: { hour: 20, minute: 0}, count: 1},
+          //   }])  
+          //   console.log('mau');
+        
+          // } else{
+        
+          // }
           
           this.router.navigateByUrl('/home-student');
         } else if (role == 'isupervisor') {
@@ -102,6 +115,8 @@ export class LoginPage implements OnInit {
       );
     }
   }
+
+  
 
   ionViewDidEnter() {
     this.menu.swipeEnable(false);

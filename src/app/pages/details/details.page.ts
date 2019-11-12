@@ -142,9 +142,8 @@ export class DetailsPage implements OnInit {
       }
       else if(result == true){
         this.imagePicker.getPictures({
-          height: 400,
-          width: 400,
-          maximumImagesCount: 5,
+          maximumImagesCount: 1,
+          quality: 100,
         }).then(
           (results) => {
             for (var i = 0; i < results.length; i++) {
