@@ -10,8 +10,6 @@ import { AlertController, ToastController, LoadingController } from '@ionic/angu
   providedIn: 'root'
 })
 export class PbsupervisorService {
-  public userInformation; 
-
   public userProfile: firebase.firestore.DocumentReference;
   public users_pbsupervisor: firebase.firestore.DocumentReference;
   public currentUser: firebase.User;
@@ -19,25 +17,24 @@ export class PbsupervisorService {
   public loading: HTMLIonLoadingElement;
   toast: any;
 
-  constructor(private firestore: AngularFirestore,
+  constructor(
+    private firestore: AngularFirestore,
     private alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
-    public toastController: ToastController) {
+    public toastController: ToastController
+    
+    ) {
+
+      
     firebase.auth().onAuthStateChanged(user => {
       if (user) { this.currentUser = user; this.users_pbsupervisor = firebase.firestore().doc(`/users/${user.uid}`); }
     });
+
+
     this.currentUser = firebase.auth().currentUser;
     this.users_pbsupervisor = firebase.firestore().doc(`/users/${this.currentUser.uid}`);
-    this.userInformation = firebase.firestore().doc(`/users/${this.currentUser.uid}`);
-
     
   }
-
-
-
-  getUserInformation(): firebase.firestore.DocumentReference {
-    return this.userInformation;
- }
 
 
   getUserProfilePbsupervisor(): firebase.firestore.DocumentReference {
@@ -165,7 +162,7 @@ export class PbsupervisorService {
 
 
   deselect_student(Email: string, Password: string, record) {
-
+console.log(record, 'what is record?');
     const credential: firebase.auth.AuthCredential = firebase.auth.EmailAuthProvider.credential(
       Email, Password
     );
@@ -190,7 +187,7 @@ export class PbsupervisorService {
 
   deselecting_student(recordID) {
     console.log(recordID, 'part 3')
-    this.firestore.collection('users').doc(recordID).update({
+    this.firestore.collection('users').doc(recordID.id).update({
       pbsupervisor: '',
 
     })

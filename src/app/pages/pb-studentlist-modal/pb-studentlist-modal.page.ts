@@ -9,7 +9,7 @@ import { PbsupervisorService } from 'src/app/services/user/pbsupervisor.service'
   styleUrls: ['./pb-studentlist-modal.page.scss'],
 })
 export class PbStudentlistModalPage implements OnInit {
-  private oldNameDatabase: any;
+  public userInformation: any;
   private oldPasswordDatabase: any;
   private oldEmailDatabase: any;
   item: any;
@@ -19,6 +19,7 @@ export class PbStudentlistModalPage implements OnInit {
   public studentlist: any[];
   public loadedstudentlist: any[];
   ngam: any;
+
   constructor(
     private navParams: NavParams,
     private route: ActivatedRoute,
@@ -27,9 +28,13 @@ export class PbStudentlistModalPage implements OnInit {
     private modalController: ModalController,
     public router: Router,
     public toastCtrl: ToastController,
+
+
   ) {
+
+
     this.pbsupervisorService
-    .getUserInformation()
+    .getUserProfilePbsupervisor()
     .get()
     .then(userInformationSnapshot => {
       this.oldPasswordDatabase = userInformationSnapshot.data().password;
@@ -37,7 +42,7 @@ export class PbStudentlistModalPage implements OnInit {
     })
 
     this.pbsupervisorService
-    .getUserInformation()
+    .getUserProfilePbsupervisor()
     .get()
     .then(userInformationSnapshot => {
       this.oldEmailDatabase = userInformationSnapshot.data().email;
@@ -61,6 +66,15 @@ export class PbStudentlistModalPage implements OnInit {
 
 
   ngOnInit() {
+
+    this.pbsupervisorService
+      .getUserProfilePbsupervisor()
+      .get()
+      .then(userInformationSnapshot => {
+        this.userInformation = userInformationSnapshot.data();
+        
+      })
+
     this.record = this.navParams.get('record');
     console.log(this.record, 'ani step 2');
     // this.sub = this.route.params.subscribe(params => {
@@ -115,7 +129,7 @@ export class PbStudentlistModalPage implements OnInit {
 
   async presentAlertConfirm(item){
     const alert = await this.alertCtrl.create({
-      subHeader: "Are You Sure To Delete Deselect This Student?",
+      subHeader: "Are You Sure To Deselect This Student?",
       inputs: [
         {
           type: 'text',
@@ -143,20 +157,25 @@ export class PbStudentlistModalPage implements OnInit {
               return false;
             } 
             else if((data.email != this.oldEmailDatabase) && (data.password != this.oldPasswordDatabase)) {
+              console.log(data.email, this.oldEmailDatabase, 'email and password');
               this.presentToast("Email and Password is not same")
               return false;
             }
             else if(data.email != this.oldEmailDatabase) {
+              console.log(data.email, this.oldEmailDatabase, 'email ');
               this.presentToast("Email is not same")
               return false;
             }
             else if(data.password != this.oldPasswordDatabase) {
+              console.log(data.password, this.oldPasswordDatabase, 'password');
               this.presentToast("Password is not same")
               return false;
             }
             else 
             {
+              console.log(item, 'what is item?')
                this.pbsupervisorService.deselect_student( data.email, data.password , item );
+               this.modalController.dismiss();
              
              
             }
