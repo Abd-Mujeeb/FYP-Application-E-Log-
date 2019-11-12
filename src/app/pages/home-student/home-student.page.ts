@@ -10,7 +10,10 @@ import { AuthService } from 'src/app/services/user/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { LocalNotifications, ILocalNotificationActionType } from '@ionic-native/local-notifications/ngx';
-import { empty } from 'rxjs';
+
+
+import { empty, interval } from 'rxjs';
+import { getLocaleTimeFormat, getLocaleDateTimeFormat } from '@angular/common';
 // export interface Image {
 //   id: string;
 //   image: string;
@@ -30,7 +33,9 @@ export class HomeStudentPage implements OnInit {
   splash = true;
   userProfile: firebase.firestore.DocumentData;
   displayName: string;
-  notif: false;
+  notify: false;
+  alarm: any;
+  currentUser: any; 
 
   constructor(
     private localNotifications: LocalNotifications,
@@ -56,21 +61,18 @@ export class HomeStudentPage implements OnInit {
     this.navCtrl.navigateBack('');
   }
 
-  if (this.firebaseService.read_task() == null){
-    this.localNotifications.schedule([{
-      id:1,
-      title: `E-Log`,
-      text: `You haven't upload any task for today`,
-      trigger: { every: { hour: 8, minute: 0}, count: 1},
-    }])  
-    console.log('mau');
+  interval(10000).subscribe((val) => {
+    new Date().getTime();
+    console.log(Date());
+  })
 
-  } else{
+  this.setUser();
 
-  }
+  // if (Date() == hour){
 
+  // }
 
-  
+   
     this.changepwForm = this.formBuilder.group({
       password: [
         '',
@@ -104,25 +106,6 @@ export class HomeStudentPage implements OnInit {
       this.loadeditems = this.itemslist;
     });
 
-    // this.studentService
-    //   .getUserProfileStudent()
-    //   .get()
-    //   .then(userProfileStudentSnapshot => {
-    //     this.userProfile = userProfileStudentSnapshot.data();
-    //   });
-
-      firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-          firebase
-          .firestore()
-          .doc(`/users/${user.uid}`)
-          .get()
-          .then(userProfileSnapshot => {
-            this.notif = userProfileSnapshot.data().notif;
-          })
-        }
-      })
-
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         firebase
@@ -137,23 +120,14 @@ export class HomeStudentPage implements OnInit {
       
     });
 
-    // firebase.auth().onAuthStateChanged(user => {
-    //   if (user) {
-    //     firebase
-    //       .firestore()
-    //       .doc(`/users/${user.uid}`)
-    //       .get()
-    //       .then(userProfileSnapshot => {
-    //         this.notif = userProfileSnapshot.data().notif;
-
-    //       });
-    //   }
-
-      
-    // });
-
-
   }
+
+  async setUser(){
+    await this.authservice.getUser();
+
+    this.currentUser = this.authservice.currentUser;  
+  }
+
 
 async updatePassword(): Promise<void> {
   const oldPassword = this.changepwForm.value.password;
@@ -170,20 +144,30 @@ async updatePassword(): Promise<void> {
   
 }
 
-testNotif(){
+testNotif(alarm){
 
-  if (!this.firebaseService.read_task() == true){
+  let time = this.alarm.alarmTime.split(':');
+  let alarmTime = new Date(alarm.startDate);
     this.localNotifications.schedule([{
-      id:1,
-      title: `E-Log`,
-      text: `You haven't upload any task for today`,
-      trigger: { every: { hour: 8, minute: 0}, count: 1},
-    }])  
-    console.log('mau');
+    id:1,
+    title: `E-Log`,
+    text: `You haven't upload any task for today`,
+    trigger: { every: { hour: 20, minute: 0}, count: 1},
+  }])  
+    console.log(this.localNotifications);
+    
+  // if (!this.firebaseService.read_task() == true){
+  //   this.localNotifications.schedule([{
+  //     id:1,
+  //     title: `E-Log`,
+  //     text: `You haven't upload any task for today`,
+  //     trigger: { every: { hour: 8, minute: 0}, count: 1},
+  //   }])  
+  //   console.log('mau');
 
-  } else{
+  // } else{
 
-  }
+  // }
 }
 
 

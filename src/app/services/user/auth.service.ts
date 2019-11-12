@@ -10,6 +10,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { FirebaseService } from '../firebase.service';
 import { LoadingController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 var config = {
   apiKey: "AIzaSyDFNM5AsLEAoYQhtnZ7XYRfMZWrvbgdZ0Q",
@@ -26,11 +27,12 @@ export class AuthService {
 
   user: Observable<any>;
   currentUser = new BehaviorSubject(null);
-
+  text: any;
 
   constructor(private afAuth: AngularFireAuth,
     private firebaseService: FirebaseService, private firestore: AngularFirestore, private router: Router,
-    public loadingController: LoadingController) {
+    public loadingController: LoadingController, 
+    private storage: Storage,) {
     this.user = this.afAuth.authState.pipe(
       switchMap(user => {
         if (user) {
@@ -49,6 +51,15 @@ export class AuthService {
     );
   }
 
+  async getUser(){
+    await this.storage.get("currentUser").then((user) =>
+    {
+      this.text = user;
+      console.log(user);
+    });
+  }
+  
+
   loginUser(
     email: string,
     password: string
@@ -65,6 +76,8 @@ export class AuthService {
       })
     )
   }
+
+  
 
   // signupUser(firstName: string, lastName: string, email: string, password: string): Promise<any> {
   //   return firebase
@@ -88,7 +101,7 @@ export class AuthService {
       firebase
         .firestore()
         .doc(`/users/${newUserCredential.user.uid}`)
-        .set({ displayName, name, email, school_dept: school_department, role: option, change: true, group_code });
+        .set({ displayName, name, email, school_dept: school_department, role: option, change: true, group_code, notify: false });
       console.log("User " + newUserCredential.user.email + " created successfully!");
       secondaryApp.auth().signOut();
     }).catch(error => {

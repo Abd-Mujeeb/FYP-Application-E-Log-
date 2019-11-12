@@ -41,6 +41,8 @@ import { PapaParseModule } from 'ngx-papaparse';
 import { EditpbsupervisorModalPageModule } from './pages/editpbsupervisor-modal/editpbsupervisor-modal.module';
 import { SelectstudentModalPageModule } from './pages/selectstudent-modal/selectstudent-modal.module';
 
+import { IonicStorageModule } from '@ionic/storage';
+
 firebase.initializeApp(environment.firebase);
 @NgModule({
   declarations: [AppComponent],
@@ -62,6 +64,7 @@ firebase.initializeApp(environment.firebase);
     AngularFireDatabaseModule,
     NgCalendarModule,
     HttpModule,
+    IonicStorageModule.forRoot(),
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }) 
   ],
 
