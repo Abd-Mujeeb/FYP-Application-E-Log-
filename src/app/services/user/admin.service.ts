@@ -83,16 +83,6 @@ export class AdminService {
       })
       
       .catch(async error => {
-      //   this.loading = await this.loadingCtrl.create();
-      // await this.loading.present();
-      //   this.loading.dismiss().then(async () => {
-      //     const alert = await this.alertCtrl.create({
-      //       message: error.message,
-      //       buttons: [{ text: 'Ok', role: 'cancel' }],
-      //     });
-      //     await alert.present();
-      //   });
-      //   console.error(error);
       alert(error);
        
       });

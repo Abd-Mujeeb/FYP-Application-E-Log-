@@ -46,7 +46,7 @@ export class RegisterAdminPage implements OnInit {
       ],
       contact_no: [
         '',
-        Validators.compose([Validators.minLength(5), Validators.required]),
+        Validators.compose([Validators.minLength(7), Validators.maxLength(7), Validators.required, Validators.pattern("(7|8|2)\d{6}")]),
       ],
     });
   }

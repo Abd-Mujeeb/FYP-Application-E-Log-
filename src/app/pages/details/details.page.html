@@ -12,11 +12,11 @@
     <ion-row no-padding>
       <ion-col size="6" offset="3">
         <ion-slides [options]="sliderOpts" #slider>
-          <ion-item *ngFor="let img of image">
-            
-              <img src="{{img}}" alt="this is the image" tappable (click)="openPreview(img)"/>
-            
-          </ion-item>
+          <ion-slide>
+            <div>
+              <img [src]="image" alt="this is the image" tappable (click)="openPreview(img)"/>
+            </div>
+          </ion-slide>
         </ion-slides>
       </ion-col>
     </ion-row>

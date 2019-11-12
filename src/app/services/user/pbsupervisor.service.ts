@@ -11,6 +11,7 @@ import { AlertController, ToastController, LoadingController } from '@ionic/angu
 })
 export class PbsupervisorService {
 
+  public userProfile: firebase.firestore.DocumentReference;
   public users_pbsupervisor: firebase.firestore.DocumentReference;
   public currentUser: firebase.User;
   public eventListRef: firebase.firestore.CollectionReference;
@@ -58,34 +59,27 @@ export class PbsupervisorService {
       });
   }
 
-  updatePassword(newPassword: string, oldPassword: string): Promise<any> {
+  updatePassword(oldPassword: string, confirmpw: string): Promise<any> {
     const credential: firebase.auth.AuthCredential = firebase.auth.EmailAuthProvider.credential(
       this.currentUser.email,
-      newPassword
+      oldPassword
     );
   
     return this.currentUser
       .reauthenticateWithCredential(credential)
       .then(() => {
-        this.currentUser.updatePassword(oldPassword).then(() => {
+        this.currentUser.updatePassword(confirmpw).then(() => {
           console.log('Password Changed');
-
-          this.users_pbsupervisor.update({ change:false })
+      
+          this.userProfile.update({ change:false, password:confirmpw })
+          // return this.showToast();
+          console.log('success')
 
         });
       })
       
       .catch(async error => {
-        this.loading = await this.loadingCtrl.create();
-      await this.loading.present();
-        this.loading.dismiss().then(async () => {
-          const alert = await this.alertCtrl.create({
-            message: error.message,
-            buttons: [{ text: 'Ok', role: 'cancel' }],
-          });
-          await alert.present();
-        });
-        console.error(error);
+      alert(error);
        
       });
   }
