@@ -23,6 +23,9 @@
     <tr class="headercolor">
       <th>Fullname</th>
       <th>Email</th>
+      <th>Student Id</th>
+      <th>Company</th>
+      <th>Group Code</th>
       <th>School Department</th>
       <th>Contact no.</th>
       <th class="editdeletebtn"></th>
@@ -37,15 +40,13 @@
         <td>{{item.school_dept}}</td>
         <td>{{item.contact_no}}</td>
         <td class="editdeletebtn">
-          <ion-button fill="outline" color="success" size="small" (click)="read_studenttask(item)">
-            View Student Task
-          </ion-button>
-          <ion-button fill="outline" color="success" size="small" (click)="read_studentattendance(item)">
-              View Student Attendance
-            </ion-button>
-
-   
+        <ion-button fill="outline" color="success" size="small" 
+          (click)="openPreview(item)">
+         More Details
+        </ion-button>
         </td>
+
+  
       </ng-container>
       <ng-template #elseBlock>
         <td>

@@ -40,6 +40,7 @@ import { NgCalendarModule } from 'ionic2-calendar';
 import { PapaParseModule } from 'ngx-papaparse';
 import { EditpbsupervisorModalPageModule } from './pages/editpbsupervisor-modal/editpbsupervisor-modal.module';
 import { SelectstudentModalPageModule } from './pages/selectstudent-modal/selectstudent-modal.module';
+import { PbStudentlistModalPageModule } from './pages/pb-studentlist-modal/pb-studentlist-modal.module';
 
 firebase.initializeApp(environment.firebase);
 @NgModule({
@@ -52,6 +53,7 @@ firebase.initializeApp(environment.firebase);
     ImageModalPageModule,
     EditpbsupervisorModalPageModule,
     SelectstudentModalPageModule,
+    PbStudentlistModalPageModule,
     FormsModule,
     PapaParseModule,
     ReactiveFormsModule,
