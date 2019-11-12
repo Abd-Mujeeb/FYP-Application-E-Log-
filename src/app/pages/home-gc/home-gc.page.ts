@@ -21,23 +21,6 @@ export class HomeGcPage implements OnInit {
   name: string;
   role: string;
   public loading: any;
-  passwordType: string = 'password';
-  passwordShown: boolean = false;
-  password_Type: string = 'password';
-  password_Shown: boolean = false;
-
-  error_messages = {
-    'newpassword': [
-      { type: 'required', message: 'Password is required.' },
-      { type: 'pattern', message: 'Password need to have at least one of Lowercase, Uppercase, Numbers, and Special characters(!@#$%^&) with the minimum length of 8 characters' },
-      { type: 'maxlength', message: 'Password length not more than 30 characters' },
-    ],
-    'confirmpw': [
-      { type: 'required', message: 'Password is required.' },
-      { type: 'pattern', message: 'Password need to have at least one of Lowercase, Uppercase, Numbers, and Special characters(!@#$%^&) with the minimum length of 8 characters' },
-      { type: 'maxlength', message: 'Password length not more than 30 characters' },
-    ],
-  }
 
 
   constructor(
@@ -68,25 +51,7 @@ export class HomeGcPage implements OnInit {
       this.navCtrl.navigateBack('');
     }
 
-    this.changepwForm = this.formBuilder.group({
-      newpassword: [
-        '',
-        Validators.compose([ 
-          Validators.required, 
-          Validators.pattern("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&]).{8,}"),
-          Validators.maxLength(30)]),
-      ],
-      confirmpw: [
-        '',
-        Validators.compose([ 
-          Validators.required, 
-          Validators.pattern("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&]).{8,}"),
-          Validators.maxLength(30)]),
-      ],
-    },
-    { 
-      validators: this.password.bind(this)
-    });
+
 
 
     this.gcService.read_gcstudent().subscribe(data => {
@@ -125,100 +90,6 @@ export class HomeGcPage implements OnInit {
 
   }
 
-  public togglePassword(){
-    if(this.passwordShown){
-      this.passwordShown = false;
-      this.passwordType = 'password';
-    }else{
-      this.passwordShown = true;
-      this.passwordType = 'text';
-    }
-  }
-
-  public toggle_Password(){
-    if(this.password_Shown){
-      this.password_Shown = false;
-      this.password_Type = 'password';
-    }else{
-      this.password_Shown = true;
-      this.password_Type = 'text';
-    }
-  }
-
-  password(formGroup: FormGroup) {
-    const { value: newpassword } = formGroup.get('newpassword');
-    const { value: confirmpw } = formGroup.get('confirmpw');
-    return newpassword === confirmpw ? null : { passwordNotMatch: true };
-  }
-
-
-  async updatePassword(): Promise<void> {
-    const oldPassword = this.pw;
-    const newPassword = this.changepwForm.value.newpassword;
-    const confirmpw = this.changepwForm.value.confirmpw;
-
- if (newPassword == confirmpw){
-      try{
-    await this.gcService.updatePassword(oldPassword, confirmpw)
-
-  }catch{
-   console.log('catch')
-  }
-  await this.loadingController.create({
-    message: 'Please wait..',
-    duration: 3000,
-    spinner: 'bubbles'
-  }).then((res) => {
-    res.present();
-
-    res.onDidDismiss().then(async(dis) => {
-      console.log('Loading dismissed! after 3 Seconds');
-      const alert = await this.alertCtrl.create({
-        header: 'Notification',
-        message: 'Your Password has successfully changed',
-        buttons: [
-          {
-            text: 'Okay',
-            cssClass: 'secondary'
-          },
-        ]
-      });
-  
-      await alert.present();
-     
-      
-    });
-    
-  });
-
-  this.change = false;
-    }else{
-      return this.alert();
-    }
-  
-    
-  }
-
-
-  async alert() {
-    const alert = await this.alertCtrl.create({
-      header: 'Error',
-      message: 'New password and confirm password does not match',
-      buttons: [
-        {
-          text: 'Okay',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('go back to change password');
-
-          }
-        },
-      ]
-    });
-
-    await alert.present();
-  }
 
   initializeItems(): void {
     this.userProfile = this.loadeduserProfile;

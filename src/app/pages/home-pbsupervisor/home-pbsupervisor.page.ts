@@ -36,20 +36,6 @@ export class HomePbsupervisorPage implements OnInit {
     }
 
     
-    this.changepwForm = this.formBuilder.group({
-      password: [
-        '',
-        Validators.compose([Validators.required, Validators.minLength(6)]),
-      ],
-      newpassword: [
-        '',
-        Validators.compose([Validators.required, Validators.minLength(6)]),
-      ],
-      confirmpw: [
-        '',
-        Validators.compose([Validators.required, Validators.minLength(6)]),
-      ],
-    });
 
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
@@ -90,43 +76,6 @@ export class HomePbsupervisorPage implements OnInit {
 
   }
 
-
-
-  async updatePassword(): Promise<void> {
-    const oldPassword = this.changepwForm.value.password;
-    const newPassword = this.changepwForm.value.newpassword;
-    const confirmpw = this.changepwForm.value.confirmpw;
-
-    if(newPassword == confirmpw){
-      this.pbsupervisorService.updatePassword(oldPassword, newPassword)
-      return this.ngOnInit();
-    }else{
-      return this.alert();
-    }
-  
-    
-  }
-
-
-  async alert() {
-    const alert = await this.alertCtrl.create({
-      header: 'Error',
-      message: 'New password and confirm password does not match',
-      buttons: [
-        {
-          text: 'Okay',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('go back to change password');
-
-          }
-        },
-      ]
-    });
-
-    await alert.present();
-  }
 
 initializeItems(): void {
   this.userProfile = this.loadeduserProfile;

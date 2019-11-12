@@ -126,7 +126,7 @@ export class StudentService {
         this.currentUser.updatePassword(confirmpw).then(() => {
           console.log('Password Changed');
       
-          this.userProfile.update({ change:false, password:confirmpw })
+          this.users_student.update({ change:false, password:confirmpw })
           // return this.showToast();
           console.log('success')
 
