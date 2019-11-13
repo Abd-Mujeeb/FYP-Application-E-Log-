@@ -41,6 +41,11 @@ export class AuthService {
             tap(data => {
               data['id'] = user.uid;
               this.currentUser.next(data);
+              this.storage.get(user.uid).then((data) =>
+              {
+                this.text = data;
+                console.log(data);
+              });
             })
           );
         } else {
