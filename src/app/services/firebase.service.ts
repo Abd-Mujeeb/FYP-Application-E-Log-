@@ -70,7 +70,7 @@ export class FirebaseService {
 
   read_task(){
     let currentUser = firebase.auth().currentUser;
-    return this.afs.collection('users').doc(currentUser.uid).collection('tasks').snapshotChanges();
+    return this.afs.collection('users').doc(currentUser.uid).collection('tasks' , ref => ref.orderBy('pickdate', 'desc')).snapshotChanges();
   }
 
   
@@ -196,7 +196,7 @@ export class FirebaseService {
 
   readAttendance(){
     let currentUser = firebase.auth().currentUser;
-    return this.afs.collection('users').doc(currentUser.uid).collection('attendance').snapshotChanges();
+    return this.afs.collection('users').doc(currentUser.uid).collection('attendance' , ref => ref.orderBy('timeinstamp', 'desc')).snapshotChanges();
   }
 
 
