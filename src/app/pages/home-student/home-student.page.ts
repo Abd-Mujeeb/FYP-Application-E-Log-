@@ -10,7 +10,10 @@ import { AuthService } from 'src/app/services/user/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { LocalNotifications, ILocalNotificationActionType } from '@ionic-native/local-notifications/ngx';
-import { empty } from 'rxjs';
+
+
+import { empty, interval } from 'rxjs';
+import { getLocaleTimeFormat, getLocaleDateTimeFormat } from '@angular/common';
 // export interface Image {
 //   id: string;
 //   image: string;
@@ -26,32 +29,13 @@ export class HomeStudentPage implements OnInit {
   public itemslist: any[];
   public loadeditems: any[];
   public change = false;
-  public userProfile: any;
-  public pw: any;
   public changepwForm: FormGroup;
   splash = true;
-  name: string;
-  public loading: any;
-  passwordType: string = 'password';
-  passwordShown: boolean = false;
-  password_Type: string = 'password';
-  password_Shown: boolean = false;
-
-  error_messages = {
-    'newpassword': [
-      { type: 'required', message: 'Password is required.' },
-      { type: 'pattern', message: 'Must contain at least one upercase, lowercase, number and speacial characters(!@#$%^&)' },
-      { type: 'maxlength', message: 'Password length not more than 30 characters' },
-    ],
-    'confirmpw': [
-      { type: 'required', message: 'Password is required.' },
-      { type: 'pattern', message: 'Must contain at least one upercase, lowercase, number and speacial characters(!@#$%^&)' },
-      { type: 'maxlength', message: 'Password length not more than 30 characters' },
-    ],
-  }
-
+  userProfile: firebase.firestore.DocumentData;
   displayName: string;
-  notif: false;
+  notify: false;
+  alarm: any;
+  currentUser: any; 
 
   constructor(
     private localNotifications: LocalNotifications,
@@ -61,7 +45,7 @@ export class HomeStudentPage implements OnInit {
     public authservice: AuthService,
     private route: ActivatedRoute,
     private firebaseService: FirebaseService,
-    public loadingController: LoadingController,
+    public loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
@@ -77,47 +61,32 @@ export class HomeStudentPage implements OnInit {
     this.navCtrl.navigateBack('');
   }
 
-  this.studentService
-  .getUserProfileStudent()
-  .get()
-  .then( userProfilestudentSnapshot => {
-    this.pw = userProfilestudentSnapshot.data()['password'];
-    console.log(this.pw)
-  });
-  if (this.firebaseService.read_task() == null){
-    this.localNotifications.schedule([{
-      id:1,
-      title: `E-Log`,
-      text: `You haven't upload any task for today`,
-      trigger: { every: { hour: 8, minute: 0}, count: 1},
-    }])  
-    console.log('mau');
+  interval(10000).subscribe((val) => {
+    new Date().getTime();
+    console.log(Date());
+  })
 
-  } else{
+  this.setUser();
 
-  }
+  // if (Date() == hour){
 
+  // }
 
-  
-  this.changepwForm = this.formBuilder.group({
-    newpassword: [
-      '',
-      Validators.compose([ 
-        Validators.required, 
-        Validators.pattern("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&]).{8,}"),
-        Validators.maxLength(30)]),
-    ],
-    confirmpw: [
-      '',
-      Validators.compose([ 
-        Validators.required, 
-        Validators.pattern("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&]).{8,}"),
-        Validators.maxLength(30)]),
-    ],
-  },
-  { 
-    validators: this.password.bind(this)
-  });
+   
+    this.changepwForm = this.formBuilder.group({
+      password: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(6)]),
+      ],
+      newpassword: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(6)]),
+      ],
+      confirmpw: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(6)]),
+      ],
+    });
 
 
     // if (this.route && this.route.data) {
@@ -137,25 +106,6 @@ export class HomeStudentPage implements OnInit {
       this.loadeditems = this.itemslist;
     });
 
-    // this.studentService
-    //   .getUserProfileStudent()
-    //   .get()
-    //   .then(userProfileStudentSnapshot => {
-    //     this.userProfile = userProfileStudentSnapshot.data();
-    //   });
-
-      firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-          firebase
-          .firestore()
-          .doc(`/users/${user.uid}`)
-          .get()
-          .then(userProfileSnapshot => {
-            this.notif = userProfileSnapshot.data().notif;
-          })
-        }
-      })
-
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         firebase
@@ -170,111 +120,54 @@ export class HomeStudentPage implements OnInit {
       
     });
 
-    // firebase.auth().onAuthStateChanged(user => {
-    //   if (user) {
-    //     firebase
-    //       .firestore()
-    //       .doc(`/users/${user.uid}`)
-    //       .get()
-    //       .then(userProfileSnapshot => {
-    //         this.notif = userProfileSnapshot.data().notif;
-
-    //       });
-    //   }
-
-      
-    // });
-
-
   }
 
-  public togglePassword(){
-    if(this.passwordShown){
-      this.passwordShown = false;
-      this.passwordType = 'password';
-    }else{
-      this.passwordShown = true;
-      this.passwordType = 'text';
-    }
+  async setUser(){
+    await this.authservice.getUser();
+
+    this.currentUser = this.authservice.currentUser;  
   }
 
-  public toggle_Password(){
-    if(this.password_Shown){
-      this.password_Shown = false;
-      this.password_Type = 'password';
-    }else{
-      this.password_Shown = true;
-      this.password_Type = 'text';
-    }
+
+async updatePassword(): Promise<void> {
+  const oldPassword = this.changepwForm.value.password;
+  const newPassword = this.changepwForm.value.newpassword;
+  const confirmpw = this.changepwForm.value.confirmpw;
+
+  if(newPassword == confirmpw){
+    this.studentService.updatePassword(oldPassword, newPassword)
+    return this.ngOnInit();
+  }else{
+    return this.alert();
   }
+
   
-  password(formGroup: FormGroup) {
-    const { value: newpassword } = formGroup.get('newpassword');
-    const { value: confirmpw } = formGroup.get('confirmpw');
-    return newpassword === confirmpw ? null : { passwordNotMatch: true };
-  }
+}
 
-  async updatePassword(): Promise<void> {
-    const oldPassword = this.pw;
-    const newPassword = this.changepwForm.value.newpassword;
-    const confirmpw = this.changepwForm.value.confirmpw;
+testNotif(alarm){
 
- if (newPassword == confirmpw){
-      try{
-    await this.studentService.updatePassword(oldPassword, confirmpw)
-
-  }catch{
-   console.log('catch')
-  }
-  await this.loadingController.create({
-    message: 'Please wait..',
-    duration: 3000,
-    spinner: 'bubbles'
-  }).then((res) => {
-    res.present();
-
-    res.onDidDismiss().then(async(dis) => {
-      console.log('Loading dismissed! after 3 Seconds');
-      const alert = await this.alertCtrl.create({
-        header: 'Notification',
-        message: 'Your Password has successfully changed',
-        buttons: [
-          {
-            text: 'Okay',
-            cssClass: 'secondary'
-          },
-        ]
-      });
-  
-      await alert.present();
-     
-      
-    });
-    
-  });
-
-  this.change = false;
-    }else{
-      return this.alert();
-    }
-  
-    
-  }
-
-testNotif(){
-
-  if (!this.firebaseService.read_task() == true){
+  let time = this.alarm.alarmTime.split(':');
+  let alarmTime = new Date(alarm.startDate);
     this.localNotifications.schedule([{
-      id:1,
-      title: `E-Log`,
-      text: `You haven't upload any task for today`,
-      trigger: { every: { hour: 8, minute: 0}, count: 1},
-    }])  
-    console.log('mau');
+    id:1,
+    title: `E-Log`,
+    text: `You haven't upload any task for today`,
+    trigger: { every: { hour: 20, minute: 0}, count: 1},
+  }])  
+    console.log(this.localNotifications);
+    
+  // if (!this.firebaseService.read_task() == true){
+  //   this.localNotifications.schedule([{
+  //     id:1,
+  //     title: `E-Log`,
+  //     text: `You haven't upload any task for today`,
+  //     trigger: { every: { hour: 8, minute: 0}, count: 1},
+  //   }])  
+  //   console.log('mau');
 
-  } else{
+  // } else{
 
-  }
+  // }
 }
 
 

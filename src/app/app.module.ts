@@ -40,6 +40,11 @@ import { NgCalendarModule } from 'ionic2-calendar';
 import { PapaParseModule } from 'ngx-papaparse';
 import { EditpbsupervisorModalPageModule } from './pages/editpbsupervisor-modal/editpbsupervisor-modal.module';
 import { SelectstudentModalPageModule } from './pages/selectstudent-modal/selectstudent-modal.module';
+import { PbStudentlistModalPageModule } from './pages/pb-studentlist-modal/pb-studentlist-modal.module';
+import { InfoAdminModalPageModule } from './pages/modal/info-admin-modal/info-admin-modal.module';
+
+import { IonicStorageModule } from '@ionic/storage';
+
 
 firebase.initializeApp(environment.firebase);
 @NgModule({
@@ -52,6 +57,8 @@ firebase.initializeApp(environment.firebase);
     ImageModalPageModule,
     EditpbsupervisorModalPageModule,
     SelectstudentModalPageModule,
+    PbStudentlistModalPageModule,
+    InfoAdminModalPageModule,
     FormsModule,
     PapaParseModule,
     ReactiveFormsModule,
@@ -62,6 +69,7 @@ firebase.initializeApp(environment.firebase);
     AngularFireDatabaseModule,
     NgCalendarModule,
     HttpModule,
+    IonicStorageModule.forRoot(),
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }) 
   ],
 

@@ -13,6 +13,8 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 
 
 
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -25,6 +27,7 @@ export class LoginPage implements OnInit {
   alertController: any;
   public notif = false;
   userProfile: firebase.firestore.DocumentData;
+  currentUser: any;  
 
   
   constructor(
@@ -41,8 +44,10 @@ export class LoginPage implements OnInit {
     private localNotifications: LocalNotifications,
     private firebaseService: FirebaseService,
     
+
   ) {
-  
+    
+    
    }
 
 
@@ -57,11 +62,17 @@ export class LoginPage implements OnInit {
       ],
     });
 
-    
+
+    this.setUser();
   }
 
+  async setUser(){
+    await this.authService.getUser();
 
+    this.currentUser = this.authService.currentUser;
+  }
 
+  
   async loginUser(loginForm: FormGroup): Promise<void> {
     if (!loginForm.valid) {
       console.log('Form is not valid yet, current value:', loginForm.value);
