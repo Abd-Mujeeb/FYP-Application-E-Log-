@@ -10,10 +10,8 @@ import { AuthService } from 'src/app/services/user/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { LocalNotifications, ILocalNotificationActionType } from '@ionic-native/local-notifications/ngx';
+import { from, Observable, of, BehaviorSubject, interval } from 'rxjs';
 
-
-import { empty, interval } from 'rxjs';
-import { getLocaleTimeFormat, getLocaleDateTimeFormat } from '@angular/common';
 // export interface Image {
 //   id: string;
 //   image: string;
