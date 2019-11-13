@@ -136,6 +136,13 @@ export class PbsupervisorService {
     return this.firestore.collection('users', ref => ref.where('role', '==', 'pbsupervisor')).snapshotChanges();
   }
 
+  read_specific_pbsupervisor(nyummy){
+    console.log(nyummy, 'ani step 4');
+    return this.firestore.collection('users', ref => ref.where(firebase.firestore.FieldPath.documentId(), '==', nyummy)).snapshotChanges();
+
+
+  }
+
   read_mystudent() {
     return this.firestore.collection('users', ref => ref.where('pbsupervisor', '==', this.currentUser.displayName)).snapshotChanges();
   }
@@ -148,6 +155,32 @@ export class PbsupervisorService {
     this.firestore.doc('users/' + record_id).delete();
   }
 
+  delete_specific_pbsupervisor(Email: string, Password: string, record) {
+    console.log(record, 'what is record?');
+        const credential: firebase.auth.AuthCredential = firebase.auth.EmailAuthProvider.credential(
+          Email, Password
+        );
+        return this.currentUser
+          .reauthenticateWithCredential(credential)
+          .then(() => {
+            this.loadingCtrl.create({
+              message: 'Deleting user, Please Wait'
+            }).then((overlay) => {
+              this.loading = overlay;
+              this.loading.present().then(() => {
+                this.deleting_pbsupervisor(record);
+                this.loading.dismiss();
+                console.log("Success Deleting");
+    
+              })
+            })
+          })
+      }
+      deleting_pbsupervisor(recordID) {
+        console.log(recordID, 'part 3')
+        this.firestore.doc('users/' + recordID.id).delete();
+        console.log('deleting success');
+      }
 
 
   //see specific student

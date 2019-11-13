@@ -164,13 +164,13 @@ export class AdminService {
           .reauthenticateWithCredential(credential)
           .then(() => {
             this.loadingCtrl.create({
-              message: 'Deselecting Student, Please Wait'
+              message: 'Deleting user, Please Wait'
             }).then((overlay) => {
               this.loading = overlay;
               this.loading.present().then(() => {
                 this.deleting_admin(record);
                 this.loading.dismiss();
-                console.log("Success Deselecting");
+                console.log("Success Deleting");
     
               })
             })
@@ -182,7 +182,7 @@ export class AdminService {
       deleting_admin(recordID) {
         console.log(recordID, 'part 3')
         this.firestore.doc('users/' + recordID.id).delete();
-        console.log('deselecting success');
+        console.log('deleting success');
       }
     
 

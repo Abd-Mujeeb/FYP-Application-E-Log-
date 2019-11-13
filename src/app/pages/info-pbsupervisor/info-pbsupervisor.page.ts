@@ -78,12 +78,7 @@ export class InfoPbsupervisorPage implements OnInit {
     this.modalController.create({
       component: EditpbsupervisorModalPage,
       componentProps: {
-        displayName: record.displayName,
-        email: record.email,
-        school_dept: record.school_dept,
-        contact_no: record.contact_no,
-
-
+        record: record.id,
       }
     }).then(modal => modal.present());
  
@@ -119,6 +114,7 @@ export class InfoPbsupervisorPage implements OnInit {
     record.EditdisplayName = record.displayName;
     record.Editemail = record.email;
     record.Editschool_dept = record.school_dept;
+    record.Editcontact_no = record.contact_no;
   }
  
   UpdateRecord(recordRow) {
@@ -126,6 +122,7 @@ export class InfoPbsupervisorPage implements OnInit {
     record['displayName'] = recordRow.EditdisplayName;
     record['email'] = recordRow.Editemail;
     record['school_dept'] = recordRow.Editschool_dept;
+    record['contact_no'] = recordRow.Editcontact_no;
     this.pbsupervisorService.update_pbsupervisor(recordRow.id, record);
     recordRow.isEdit = false;
   }
