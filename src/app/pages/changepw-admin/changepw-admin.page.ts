@@ -15,8 +15,6 @@ export class ChangepwAdminPage implements OnInit {
   public loading: HTMLIonLoadingElement;
   toast: any;
   public pw: any;
-  passwordType: string = 'password';
-  passwordShown: boolean = false;
   password_Type: string = 'password';
   password_Shown: boolean = false;
 
@@ -74,15 +72,6 @@ export class ChangepwAdminPage implements OnInit {
 
   }
 
-  public togglePassword(){
-    if(this.passwordShown){
-      this.passwordShown = false;
-      this.passwordType = 'password';
-    }else{
-      this.passwordShown = true;
-      this.passwordType = 'text';
-    }
-  }
 
   public toggle_Password(){
     if(this.password_Shown){
