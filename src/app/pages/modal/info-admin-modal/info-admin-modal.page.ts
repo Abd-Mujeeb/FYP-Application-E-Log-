@@ -87,7 +87,7 @@ export class InfoAdminModalPage implements OnInit {
 
 async presentAlertConfirm(item){
     const alert = await this.alertCtrl.create({
-      subHeader: "Are You Sure To Deselect This Student?",
+      subHeader: "Are you sure to delete this account?",
       inputs: [
         {
           type: 'text',
