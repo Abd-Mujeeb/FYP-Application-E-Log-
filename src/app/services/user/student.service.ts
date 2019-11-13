@@ -35,7 +35,8 @@ export class StudentService {
     private afAuth: AngularFireAuth,
     public loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
-    public toastController: ToastController) {
+    public toastController: ToastController,
+    public loadingController: LoadingController) {
     firebase.auth().onAuthStateChanged(user => {
       if (user) { this.currentUser = user; this.users_student = firebase.firestore().doc(`/users/${user.uid}`); }
     });
@@ -126,19 +127,54 @@ export class StudentService {
         this.currentUser.updatePassword(confirmpw).then(() => {
           console.log('Password Changed');
       
-          this.users_student.update({ change:false, password:confirmpw })
+          this.userProfile.update({password:confirmpw, change:false })
           // return this.showToast();
           console.log('success')
+
+      this.loadingController.create({
+            message: 'Please wait..',
+            duration: 3000,
+            spinner: 'bubbles'
+          }).then((res) => {
+            res.present();
+        
+            res.onDidDismiss().then(async(dis) => {
+              console.log('Loading dismissed! after 3 Seconds');
+              const alert = await this.alertCtrl.create({
+                header: 'Notification',
+                message: 'Your Password has successfully changed',
+                buttons: [
+                  {
+                    text: 'Okay',
+                    cssClass: 'secondary'
+                  },
+                ]
+              });
+          
+              await alert.present();
+             
+              
+            });
+            
+          });
 
         });
       })
       
       .catch(async error => {
-      alert(error);
+        this.loading = await this.loadingCtrl.create();
+              await this.loading.present();
+              this.loading.dismiss().then(async () => {
+                const alert = await this.alertCtrl.create({
+                  message: error.message,
+                  buttons: [{ text: 'Ok', role: 'cancel' }],
+                });
+                await alert.present();
+              });
+              console.error(error);
        
       });
   }
-
   update_student(recordID, record) {
     this.firestore.doc('users/' + recordID).update(record);
   }

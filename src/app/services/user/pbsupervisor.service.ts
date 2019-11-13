@@ -21,7 +21,8 @@ export class PbsupervisorService {
     private firestore: AngularFirestore,
     private alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
-    public toastController: ToastController
+    public toastController: ToastController,
+    public loadingController: LoadingController
     
     ) {
 
@@ -72,39 +73,61 @@ export class PbsupervisorService {
       this.currentUser.email,
       oldPassword
     );
-
+  
     return this.currentUser
       .reauthenticateWithCredential(credential)
       .then(() => {
         this.currentUser.updatePassword(confirmpw).then(() => {
           console.log('Password Changed');
-
-          this.users_pbsupervisor.update({ change: false })
       
-          this.userProfile.update({ change:false, password:confirmpw })
+          this.userProfile.update({password:confirmpw })
           // return this.showToast();
           console.log('success')
 
+      this.loadingController.create({
+            message: 'Please wait..',
+            duration: 3000,
+            spinner: 'bubbles'
+          }).then((res) => {
+            res.present();
+        
+            res.onDidDismiss().then(async(dis) => {
+              console.log('Loading dismissed! after 3 Seconds');
+              const alert = await this.alertCtrl.create({
+                header: 'Notification',
+                message: 'Your Password has successfully changed',
+                buttons: [
+                  {
+                    text: 'Okay',
+                    cssClass: 'secondary'
+                  },
+                ]
+              });
+          
+              await alert.present();
+             
+              
+            });
+            
+          });
+
         });
       })
-
+      
       .catch(async error => {
         this.loading = await this.loadingCtrl.create();
-        await this.loading.present();
-        this.loading.dismiss().then(async () => {
-          const alert = await this.alertCtrl.create({
-            message: error.message,
-            buttons: [{ text: 'Ok', role: 'cancel' }],
-          });
-          await alert.present();
-        });
-        console.error(error);
-
-      alert(error);
+              await this.loading.present();
+              this.loading.dismiss().then(async () => {
+                const alert = await this.alertCtrl.create({
+                  message: error.message,
+                  buttons: [{ text: 'Ok', role: 'cancel' }],
+                });
+                await alert.present();
+              });
+              console.error(error);
        
       });
   }
-
   update_pbsupervisor(recordID, record) {
     this.firestore.doc('users/' + recordID).update(record);
   }
