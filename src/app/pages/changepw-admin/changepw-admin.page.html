@@ -79,7 +79,7 @@
                    <span float-right>Show Password  <ion-checkbox  [color]="password_Shown === true ? 'danger' : 'light'" slot="end" (click)='toggle_Password()'></ion-checkbox></span>
                 <br>
                 <br>
-        <ion-button expand="block" (click)="updatePassword()">Confirm</ion-button>
+        <ion-button expand="block" (click)="updatePassword()" [disabled]="!changepwForm.valid">Confirm</ion-button>
       </form>
 
     </div>

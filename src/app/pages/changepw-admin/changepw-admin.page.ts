@@ -101,71 +101,16 @@ export class ChangepwAdminPage implements OnInit {
   }
 
   async updatePassword(): Promise<void> {
-    const oldPassword = this.changepwForm.value.password;;
-    const newPassword = this.changepwForm.value.newpassword;
+    const oldPassword = this.changepwForm.value.password;
     const confirmpw = this.changepwForm.value.confirmpw;
 
- if (newPassword == confirmpw){
-      try{
-    await this.adminService.updatePassword(oldPassword, confirmpw)
-
-  }catch{
-   console.log('catch')
-  }
-  await this.loadingController.create({
-    message: 'Please wait..',
-    duration: 3000,
-    spinner: 'bubbles'
-  }).then((res) => {
-    res.present();
-
-    res.onDidDismiss().then(async(dis) => {
-      console.log('Loading dismissed! after 3 Seconds');
-      const alert = await this.alertCtrl.create({
-        header: 'Notification',
-        message: 'Your Password has successfully changed',
-        buttons: [
-          {
-            text: 'Okay',
-            cssClass: 'secondary'
-          },
-        ]
-      });
+  await this.adminService.updatePassword(oldPassword, confirmpw)
+  await this.changepwForm.reset();
   
-      await alert.present();
-     
-      
-    });
-    
-  });
-
-    }else{
-      return this.alert();
-    }
   
-    
+  
   }
 
-
-  async alert() {
-    const alert = await this.alertCtrl.create({
-      header: 'Error',
-      message: 'New password and confirm password does not match',
-      buttons: [
-        {
-          text: 'Okay',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('go back to change password');
-
-          }
-        },
-      ]
-    });
-
-    await alert.present();
-  }
 
 
 }
