@@ -10,6 +10,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { Storage } from '@ionic/storage';
 
 
 
@@ -28,6 +29,7 @@ export class LoginPage implements OnInit {
   public notif = false;
   userProfile: firebase.firestore.DocumentData;
   currentUser: any;  
+  text: any;
 
   
   constructor(
@@ -43,6 +45,7 @@ export class LoginPage implements OnInit {
     public afAuth: AngularFireAuth,
     private localNotifications: LocalNotifications,
     private firebaseService: FirebaseService,
+    private storage: Storage,
     
 
   ) {
@@ -71,6 +74,20 @@ export class LoginPage implements OnInit {
 
     this.currentUser = this.authService.currentUser;
   }
+
+  async getUser(loginForm: FormGroup): Promise<void>{
+
+    const email = loginForm.value.email;
+    const password = loginForm.value.password;
+
+    await this.storage.get("test").then((data) =>
+    {
+      this.text = data;
+      console.log(data);
+    });
+  }
+
+  
 
   
   async loginUser(loginForm: FormGroup): Promise<void> {
