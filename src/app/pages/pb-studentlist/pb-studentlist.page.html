@@ -18,17 +18,20 @@
       </div>
     <br>
     <br>
-
-  <table>
+<div  *ngIf="userProfile">
+  <table *ngIf="userProfile.length > 0">
     <tr class="headercolor">
       <th>Fullname</th>
       <th>Email</th>
+      <th>Student Id</th>
+      <th>Company</th>
+      <th>Group Code</th>
       <th>School Department</th>
       <th>Contact no.</th>
       <th class="editdeletebtn"></th>
     </tr>
     <tr *ngFor="let item of userProfile; let i = index">
-      <ng-container *ngIf="!item.isEdit; else elseBlock">
+      
         <td>{{i+1}}. {{item.name}}</td>
         <td>{{item.email}}</td>
         <td>{{item.student_id}}</td>
@@ -37,44 +40,14 @@
         <td>{{item.school_dept}}</td>
         <td>{{item.contact_no}}</td>
         <td class="editdeletebtn">
-          <ion-button fill="outline" color="success" size="small" (click)="read_studenttask(item)">
-            View Student Task
-          </ion-button>
-          <ion-button fill="outline" color="success" size="small" (click)="read_studentattendance(item)">
-              View Student Attendance
-            </ion-button>
-
-   
+        <ion-button fill="outline" color="success" size="small" 
+          (click)="openPreview(item)">
+         More Details
+        </ion-button>
         </td>
-      </ng-container>
-      <ng-template #elseBlock>
-        <td>
-          <ion-input type="text" [(ngModel)]="item.Editname"></ion-input>
-        </td>
-        <td>
-          <ion-input type="text" [(ngModel)]="item.Editemail"></ion-input>
-        </td>
-        <td>
-          <ion-input type="text" [(ngModel)]="item.Editschool_dept"></ion-input>
-        </td>
-        <td>
-          <ion-input type="text" [(ngModel)]="item.contact_no"></ion-input>
-        </td>
-        <td>
-          <ion-button fill="clear" color="medium" size="small" color="danger" (click)="item.isEdit = false">
-            Cancel
-          </ion-button>
-          <ion-button fill="outline" color="success" size="small" (click)="UpdateRecord(item)">
-            Update
-          </ion-button>
-
-
-        </td>
-
-      </ng-template>
     </tr>
-
-
-
   </table>
+  <br>
+  <div *ngIf="userProfile.length == 0"  class="empty-list">You have not student under your supervised, Please select first. </div>
+</div>
 </ion-content>

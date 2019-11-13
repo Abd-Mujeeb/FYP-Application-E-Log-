@@ -1,39 +1,30 @@
 <ion-content fullscreen>
-  <h1>VIEW/EDIT PB SUPERVISOR</h1>
-
-  <ion-item class="close-fake" lines="none" text-center>
-    <ion-button (click)="close()" fill="clear" color="">
-      <ion-icon name="close" slot="start"></ion-icon>
-      Back
-    </ion-button>
-    <ion-button fill="outline" color="success" size="small" (click)="UpdateRecord(item)">
-      Update
-    </ion-button>
-    <ion-button shape="round" color="danger" size="small" (click)="presentAlertConfirm(item)">
-      <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
-    </ion-button>
-
-
-  </ion-item>
-
-
-  
-  <ion-card-content>
+  <h1 class="center">More Details</h1>
+  <ion-card-content *ngFor="let item of pbsupervisorlist">
     <ion-item>
-      <ion-label><strong>Name:</strong></ion-label>
-      <ion-input type="text" [(ngModel)]="name"></ion-input>
+      <ion-label><strong>Name: </strong>{{item.name}}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label><strong>Email:</strong></ion-label>
-      <ion-input type="text" [(ngModel)]="email"></ion-input>
+      <ion-label><strong>Email: </strong>{{item.email}}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label><strong>School Department</strong></ion-label>
-      <ion-input type="text" [(ngModel)]="school_dept"></ion-input>
+      <ion-label><strong>Contact No: </strong>{{item.contact_no}}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label><strong>Contact No</strong></ion-label>
-      <ion-input type="text" [(ngModel)]="contact_no"></ion-input>
+      <ion-label><strong>School Dept: </strong>{{item.school_dept}}</ion-label>
     </ion-item>
+
+    <ion-item class="close-fake" lines="none">
+      <ion-button (click)="close()" fill="clear" color="">
+        <ion-icon name="close" slot="start"></ion-icon>
+        Back
+      </ion-button>
+      <ion-button shape="round" color="danger" size="small" (click)="presentAlertConfirm(item)">
+        Remove User
+        <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+
+    </ion-item>
+
   </ion-card-content>
 </ion-content>

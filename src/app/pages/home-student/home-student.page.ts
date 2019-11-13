@@ -10,10 +10,8 @@ import { AuthService } from 'src/app/services/user/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { LocalNotifications, ILocalNotificationActionType } from '@ionic-native/local-notifications/ngx';
+import { from, Observable, of, BehaviorSubject, interval } from 'rxjs';
 
-
-import { empty, interval } from 'rxjs';
-import { getLocaleTimeFormat, getLocaleDateTimeFormat } from '@angular/common';
 // export interface Image {
 //   id: string;
 //   image: string;
@@ -36,6 +34,24 @@ export class HomeStudentPage implements OnInit {
   notify: false;
   alarm: any;
   currentUser: any; 
+  pw: string;
+  passwordType: string = 'password';
+  passwordShown: boolean = false;
+  password_Type: string = 'password';
+  password_Shown: boolean = false;
+
+  error_messages = {
+    'newpassword': [
+      { type: 'required', message: 'Minimum of 8 characters or more.' },
+      { type: 'pattern', message: 'Must contain at least one upercase, lowercase, number and speacial characters(!@#$%^&)' },
+      { type: 'maxlength', message: 'Password length not more than 30 characters' },
+    ],
+    'confirmpw': [
+      { type: 'required', message: 'Minimum of 8 characters or more.' },
+      { type: 'pattern', message: 'Must contain at least one upercase, lowercase, number and speacial characters(!@#$%^&)' },
+      { type: 'maxlength', message: 'Password length not more than 30 characters' },
+    ],
+  }
 
   constructor(
     private localNotifications: LocalNotifications,
@@ -54,6 +70,13 @@ export class HomeStudentPage implements OnInit {
      ) { }
 
   ngOnInit() {
+
+    this.studentService
+    .getUserProfileStudent()
+    .get()
+    .then( userProfileStudentSnapshot => {
+      this.pw = userProfileStudentSnapshot.data()['password'];
+    });
     
    if(this.authService.userDetails()){
     this.displayName = this.authService.userDetails().displayName;
@@ -73,20 +96,25 @@ export class HomeStudentPage implements OnInit {
   // }
 
    
-    this.changepwForm = this.formBuilder.group({
-      password: [
-        '',
-        Validators.compose([Validators.required, Validators.minLength(6)]),
-      ],
-      newpassword: [
-        '',
-        Validators.compose([Validators.required, Validators.minLength(6)]),
-      ],
-      confirmpw: [
-        '',
-        Validators.compose([Validators.required, Validators.minLength(6)]),
-      ],
-    });
+  this.changepwForm = this.formBuilder.group({
+    newpassword: [
+      '',
+      Validators.compose([ 
+        Validators.required, 
+        Validators.pattern("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&]).{8,}"),
+        Validators.maxLength(30)]),
+    ],
+    confirmpw: [
+      '',
+      Validators.compose([ 
+        Validators.required, 
+        Validators.pattern("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&]).{8,}"),
+        Validators.maxLength(30)]),
+    ],
+  },
+  { 
+    validators: this.password.bind(this)
+  });
 
 
     // if (this.route && this.route.data) {
@@ -114,12 +142,33 @@ export class HomeStudentPage implements OnInit {
           .get()
           .then(userProfileSnapshot => {
             this.change = userProfileSnapshot.data().change;
+            this.pw = userProfileSnapshot.data().password;
 
           });
       }
       
     });
 
+  }
+  
+  public toggle_Password(){
+    if(this.password_Shown){
+      this.password_Shown = false;
+      this.password_Type = 'password';
+    }else{
+      this.password_Shown = true;
+      this.password_Type = 'text';
+    }
+  }
+
+  public togglePassword(){
+    if(this.passwordShown){
+      this.passwordShown = false;
+      this.passwordType = 'password';
+    }else{
+      this.passwordShown = true;
+      this.passwordType = 'text';
+    }
   }
 
   async setUser(){
@@ -128,18 +177,20 @@ export class HomeStudentPage implements OnInit {
     this.currentUser = this.authservice.currentUser;  
   }
 
+  password(formGroup: FormGroup) {
+    const { value: newpassword } = formGroup.get('newpassword');
+    const { value: confirmpw } = formGroup.get('confirmpw');
+    return newpassword === confirmpw ? null : { passwordNotMatch: true };
+  }
 
 async updatePassword(): Promise<void> {
-  const oldPassword = this.changepwForm.value.password;
-  const newPassword = this.changepwForm.value.newpassword;
+  const oldPassword = this.pw;
   const confirmpw = this.changepwForm.value.confirmpw;
 
-  if(newPassword == confirmpw){
-    this.studentService.updatePassword(oldPassword, newPassword)
-    return this.ngOnInit();
-  }else{
-    return this.alert();
-  }
+
+    this.studentService.updatePassword(oldPassword, confirmpw);
+    this.change = false;
+  
 
   
 }

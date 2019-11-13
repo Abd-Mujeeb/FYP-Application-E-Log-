@@ -5,6 +5,7 @@ import { NavController, ModalController, AlertController } from '@ionic/angular'
 import { AuthService } from 'src/app/services/user/auth.service';
 import { Router } from '@angular/router';
 import { StudentTaskPage } from '../student-task/student-task.page';
+import { PbStudentlistModalPage } from '../pb-studentlist-modal/pb-studentlist-modal.page';
 
 @Component({
   selector: 'app-pb-studentlist',
@@ -75,22 +76,18 @@ export class PbStudentlistPage implements OnInit {
     });
   }
 
-
-  
-  // openPreview(record){
-  //   this.modalController.create({
-  //     component: EditpbsupervisorModalPage,
-  //     componentProps: {
-  //       name: record.name,
-  //       email: record.email,
-  //       school_dept: record.school_dept,
-  //       contact_no: record.contact_no,
-
-
-  //     }
-  //   }).then(modal => modal.present());
+  openPreview(record){
+    this.modalController.create({
+      component: PbStudentlistModalPage,
+      componentProps: {
+        record: record.id,
+      }
  
-  // }
+      
+    }).then(modal => modal.present());
+ 
+  }
+
   read_studenttask(record){
     let recordId = record ? record.id : null;
     this.router.navigate(['/student-task', { id: recordId}]);

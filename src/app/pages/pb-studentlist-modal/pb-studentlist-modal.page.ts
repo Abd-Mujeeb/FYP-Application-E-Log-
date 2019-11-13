@@ -1,71 +1,80 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, ModalController, AlertController, ToastController } from '@ionic/angular';
+import { NavParams, AlertController, ModalController, ToastController } from '@ionic/angular';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PbsupervisorService } from 'src/app/services/user/pbsupervisor.service';
 
 @Component({
-  selector: 'app-editpbsupervisor-modal',
-  templateUrl: './editpbsupervisor-modal.page.html',
-  styleUrls: ['./editpbsupervisor-modal.page.scss'],
+  selector: 'app-pb-studentlist-modal',
+  templateUrl: './pb-studentlist-modal.page.html',
+  styleUrls: ['./pb-studentlist-modal.page.scss'],
 })
-export class EditpbsupervisorModalPage implements OnInit {
-
-  record: any;
-  public pbsupervisorlist: any[];
-  public loadedpbsupervisorlist: any[];
+export class PbStudentlistModalPage implements OnInit {
+  public userInformation: any;
   private oldPasswordDatabase: any;
   private oldEmailDatabase: any;
-  public userInformation: any;
-
+  item: any;
+  id: any;
+  private sub: any;
+  record: any;
+  public studentlist: any[];
+  public loadedstudentlist: any[];
+  ngam: any;
 
   constructor(
     private navParams: NavParams,
+    private route: ActivatedRoute,
     private pbsupervisorService: PbsupervisorService,
     private alertCtrl: AlertController,
     private modalController: ModalController,
-    public toastCtrl: ToastController,) { 
-      
-      this.pbsupervisorService
-      .getUserProfilePbsupervisor()
-      .get()
-      .then(userInformationSnapshot => {
-        this.oldPasswordDatabase = userInformationSnapshot.data().password;
-        
-      })
-  
-      this.pbsupervisorService
-      .getUserProfilePbsupervisor()
-      .get()
-      .then(userInformationSnapshot => {
-        this.oldEmailDatabase = userInformationSnapshot.data().email;
-        
-      })    
+    public router: Router,
+    public toastCtrl: ToastController,
 
-    }
 
-    async presentToast(message: string) {
-      const toast = await this.toastCtrl.create({
-        message: message,
-        duration: 2000,
-      });
-      toast.present();
-    }
+  ) {
 
-  ngOnInit() {
-    
-    
+
     this.pbsupervisorService
     .getUserProfilePbsupervisor()
     .get()
     .then(userInformationSnapshot => {
-      this.userInformation = userInformationSnapshot.data();
+      this.oldPasswordDatabase = userInformationSnapshot.data().password;
       
     })
 
-    // this.name = this.navParams.get('name');
-    // this.email = this.navParams.get('email');
-    // this.school_dept = this.navParams.get('school_dept');
-    // this.contact_no = this.navParams.get('contact_no');
+    this.pbsupervisorService
+    .getUserProfilePbsupervisor()
+    .get()
+    .then(userInformationSnapshot => {
+      this.oldEmailDatabase = userInformationSnapshot.data().email;
+      
+    })    
+
+  
+
     
+
+
+   }
+
+  async presentToast(message: string) {
+    const toast = await this.toastCtrl.create({
+      message: message,
+      duration: 2000,
+    });
+    toast.present();
+  }
+
+
+  ngOnInit() {
+
+    this.pbsupervisorService
+      .getUserProfilePbsupervisor()
+      .get()
+      .then(userInformationSnapshot => {
+        this.userInformation = userInformationSnapshot.data();
+        
+      })
+
     this.record = this.navParams.get('record');
     console.log(this.record, 'ani step 2');
     // this.sub = this.route.params.subscribe(params => {
@@ -73,32 +82,54 @@ export class EditpbsupervisorModalPage implements OnInit {
     //   console.log(this.record , 'ani step 2');
     // })
 
-    let pbsupervisorUID = this.record;
-    console.log(pbsupervisorUID, 'ani step 3');
-    this.pbsupervisorService.read_specific_pbsupervisor(pbsupervisorUID).subscribe(data => {
+    let studentUID = this.record;
+    console.log(studentUID, 'ani step 3');
+    this.pbsupervisorService.read_student(studentUID).subscribe(data => {
 
-      this.pbsupervisorlist = data.map(e => {
+      this.studentlist = data.map(e => {
         return {
           id: e.payload.doc.id,
           name: e.payload.doc.data()['displayName'],
           email: e.payload.doc.data()['email'],
-          contact_no: e.payload.doc.data()['contact_no'],
           school_dept: e.payload.doc.data()['school_dept'],
+          group_code: e.payload.doc.data()['group_code'],
+          student_id: e.payload.doc.data()['student_id'],
+          company: e.payload.doc.data()['company'],
+          gc: e.payload.doc.data()['gc'],
+          pbsupervisor: e.payload.doc.data()['pbsupervisor'],
+          contact_no: e.payload.doc.data()['contact_no'],
         };
       })
-      console.log(this.pbsupervisorlist);
-      this.loadedpbsupervisorlist = this.pbsupervisorlist;
+      console.log(this.studentlist);
+      this.loadedstudentlist = this.studentlist;
 
     });
 
   }
 
 
+  initializeItems(): void {
+    this.studentlist = this.loadedstudentlist;
+  }
 
+  read_studenttask(record){
+    let recordId = record ? record.id : null;
+    this.router.navigate(['/student-task', { id: recordId}]);
+    console.log(recordId, 'ani step 1 (forward data ID)');
+    this.modalController.dismiss();
+  }
+
+  read_studentattendance(record){
+    let recordId = record ? record.id : null;
+    this.router.navigate(['/student-attendance', { id: recordId}]);
+    console.log(recordId, 'ani step 1 (forward data ID)');
+    this.modalController.dismiss();
+
+  }
 
   async presentAlertConfirm(item){
     const alert = await this.alertCtrl.create({
-      subHeader: "Are you sure to remove this account?",
+      subHeader: "Are You Sure To Deselect This Student?",
       inputs: [
         {
           type: 'text',
@@ -117,7 +148,7 @@ export class EditpbsupervisorModalPage implements OnInit {
           text: 'Cancel'
         },
         {
-          text: 'Remove',
+          text: 'Delete',
           handler: data => {
             if((data.email == "" ) && (data.password == "") 
             || (data.email == "") 
@@ -143,7 +174,7 @@ export class EditpbsupervisorModalPage implements OnInit {
             else 
             {
               console.log(item, 'what is item?')
-               this.pbsupervisorService.delete_specific_pbsupervisor( data.email, data.password , item );
+               this.pbsupervisorService.deselect_student( data.email, data.password , item );
                this.modalController.dismiss();
              
              
@@ -156,13 +187,8 @@ export class EditpbsupervisorModalPage implements OnInit {
    
     
   }
-
-  
- 
-
-
-  close(){
+  close() {
     this.modalController.dismiss();
   }
-
 }
+

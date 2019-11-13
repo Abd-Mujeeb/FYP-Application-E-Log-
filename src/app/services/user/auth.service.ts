@@ -41,7 +41,7 @@ export class AuthService {
             tap(data => {
               data['id'] = user.uid;
               this.currentUser.next(data);
-            })
+              })
           );
         } else {
           this.currentUser.next(null);
@@ -52,10 +52,10 @@ export class AuthService {
   }
 
   async getUser(){
-    await this.storage.get("currentUser").then((user) =>
+    await this.storage.get("test").then((data) =>
     {
-      this.text = user;
-      console.log(user);
+      this.text = data;
+      console.log(data);
     });
   }
   
