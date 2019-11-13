@@ -105,11 +105,6 @@ export class LoginPage implements OnInit {
         this.loading.dismiss();
         let role = user['role'];
         if (role == 'pbsupervisor') {
-          this.storage.get(email).then((data) =>
-    {
-      this.text = data;
-      console.log(data);
-    });
           this.router.navigateByUrl('/home-pbsupervisor');
         } else if (role == 'admin') {
           this.router.navigateByUrl('/home-admin');
