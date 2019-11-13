@@ -14,7 +14,6 @@ export class ChangepwAdminPage implements OnInit {
   public  changepwForm: FormGroup;
   public loading: HTMLIonLoadingElement;
   toast: any;
-  public pw: any;
   password_Type: string = 'password';
   password_Shown: boolean = false;
 

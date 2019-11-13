@@ -11,7 +11,6 @@ import { AlertController, ToastController } from '@ionic/angular';
 export class ChangepwGcPage implements OnInit {
 
   public  changepwForm: FormGroup;
-  public pw: any;
   password_Type: string = 'password';
   password_Shown: boolean = false;
 
