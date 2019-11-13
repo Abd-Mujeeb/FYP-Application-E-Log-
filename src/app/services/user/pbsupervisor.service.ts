@@ -80,7 +80,7 @@ export class PbsupervisorService {
         this.currentUser.updatePassword(confirmpw).then(() => {
           console.log('Password Changed');
       
-          this.userProfile.update({password:confirmpw })
+          this.users_pbsupervisor.update({password:confirmpw })
           // return this.showToast();
           console.log('success')
 

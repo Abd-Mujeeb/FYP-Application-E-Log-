@@ -1,11 +1,11 @@
 <div id="overlay" *ngIf="change">
   <form [formGroup]="changepwForm" id="form" padding> 
-<p class="header">Hello {{name}},</p>
+<p class="header">Hello {{displayName}},</p>
   <p class="text">This is your first time sign in, please change your password, Thank you.</p>
   <br>
         <ion-item>
           <ion-label position="stacked">New Password:</ion-label>
-          <ion-input type="password"
+          <ion-input 
           formControlName="newpassword"
           [type]="password_Type"
               placeholder="Your password"
