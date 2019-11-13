@@ -67,7 +67,7 @@ export class GcService {
         this.currentUser.updatePassword(confirmpw).then(() => {
           console.log('Password Changed');
       
-          this.userProfile.update({password:confirmpw })
+          this.users_gc.update({password:confirmpw })
           // return this.showToast();
           console.log('success')
 
