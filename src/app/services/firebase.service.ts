@@ -143,8 +143,8 @@ export class FirebaseService {
         console.log(this.is);
     
       });
-
-      this.afs.collection('users').doc(currentUser.uid).collection('attendance').add({
+        
+      this.afs.collection('users').doc(currentUser.uid).collection('attendance').doc('month').collection('present').add({
         address: value.address,
       // timeinpicker: value.timeinpicker,
       // timeoutpicker: value.timeoutpicker,
@@ -169,7 +169,7 @@ export class FirebaseService {
     return new Promise<any>((resolve, reject) => {
       this.afAuth.user.subscribe(currentUser => {
         if(currentUser){
-          this.snapshotChangesSubscription = this.afs.collection('users').doc(currentUser.uid).collection('attendance').snapshotChanges();
+          this.snapshotChangesSubscription = this.afs.collection('users').doc(currentUser.uid).collection('attendance').doc('month').collection('present').snapshotChanges();
           resolve(this.snapshotChangesSubscription);
         }
       })
@@ -180,7 +180,7 @@ export class FirebaseService {
     return new Promise<any>((resolve, reject) => {
       this.afAuth.user.subscribe(currentUser => {
         if(currentUser){
-          this.snapshotChangesSubscription = this.afs.doc<any>('users/' + currentUser.uid + '/attendance/' + AttendanceId).valueChanges()
+          this.snapshotChangesSubscription = this.afs.doc<any>('users/' + currentUser.uid + '/attendance/' + 'month/' + 'present/' + AttendanceId ).valueChanges()
           .subscribe(snapshots => {
             resolve(snapshots);
           }, err => {
@@ -196,7 +196,7 @@ export class FirebaseService {
 
   readAttendance(){
     let currentUser = firebase.auth().currentUser;
-    return this.afs.collection('users').doc(currentUser.uid).collection('attendance' , ref => ref.orderBy('timeinstamp', 'desc')).snapshotChanges();
+    return this.afs.collection('users').doc(currentUser.uid).collection('attendance').doc('month').collection('present').snapshotChanges();
   }
 
 
@@ -204,7 +204,7 @@ export class FirebaseService {
     console.log(attendanceID, value, 'hmmm')
     return new Promise<any>((resolve, reject) => {
       let currentUser = firebase.auth().currentUser;
-      this.afs.collection('users').doc(currentUser.uid).collection('attendance').doc(attendanceID).update({
+      this.afs.collection('users').doc(currentUser.uid).collection('attendance').doc('month').collection('present').doc(attendanceID).update({
         timeoutstamp: firebase.firestore.FieldValue.serverTimestamp(),
         timeoutaddress: value.address,
         timeoutLatitude: value.timeoutLatitude,
@@ -216,17 +216,30 @@ export class FirebaseService {
       )
     })
   }
+
+  updatePercentange(percentage) {
+    return new Promise<any>((resolve, reject) => {
+      let currentUser = firebase.auth().currentUser;
+      this.afs.collection('users').doc(currentUser.uid).update({
+        attendance: percentage
+      })
+      .then(
+        res => resolve(res),
+        err => reject(err)
+      )
+    })
+  }
   
   
   deleteattendance(attendance_id) {
     let currentUser = firebase.auth().currentUser;
-    this.afs.doc(`/users/${this.currentUser.uid}/attendance` + attendance_id).delete();
+    this.afs.doc(`/users/${this.currentUser.uid}/attendance` + '/month' + '/present' + attendance_id).delete();
   }
 
   deleteAttendance(attendanceKey){
     return new Promise<any>((resolve, reject) => {
       let currentUser = firebase.auth().currentUser;
-      this.afs.collection('users').doc(currentUser.uid).collection('attendance').doc(attendanceKey).delete()
+      this.afs.collection('users').doc(currentUser.uid).collection('attendance').doc('month').collection('present').doc(attendanceKey).delete()
       .then(
         res => resolve(res),
         err => reject(err)
@@ -235,11 +248,9 @@ export class FirebaseService {
   }
 
   //notification
-  checkValNotifikasi() {
+  checkValNotifikasi(){
     let currentUser = firebase.auth().currentUser;
-    return firebase.firestore().collection('users').doc(currentUser.uid).collection('tasks')
-    .where("notify", "==", "false");
-  
+    return firebase.firestore().collection('users').doc(currentUser.uid).collection('tasks').where("notify", "==", "false");
   }
   
 
