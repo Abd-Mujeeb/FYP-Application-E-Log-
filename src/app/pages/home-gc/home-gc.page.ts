@@ -5,6 +5,7 @@ import * as firebase from 'firebase/app';
 import { GcService } from 'src/app/services/user/gc.service';
 import { AlertController, NavController, MenuController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/user/auth.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-home-gc',
@@ -17,7 +18,9 @@ export class HomeGcPage implements OnInit {
   public loadeduserProfile: any [];
   public change = false;
   public  changepwForm: FormGroup;
+  public currentUser: firebase.User;
   name: string;
+
 
   constructor(
     private studentService: StudentService,
@@ -26,7 +29,8 @@ export class HomeGcPage implements OnInit {
     private alertCtrl: AlertController,
     private authService: AuthService,
     private navCtrl: NavController,
-    public menu: MenuController
+    public menu: MenuController,
+    public afs: AngularFirestore
 
 ){}
 
@@ -64,7 +68,8 @@ export class HomeGcPage implements OnInit {
        email: e.payload.doc.data()['email'],
        school_dept: e.payload.doc.data()['school_dept'],
        group_code: e.payload.doc.data()['group_code'],
-       student_id: e.payload.doc.data()['student_id']
+       student_id: e.payload.doc.data()['student_id'],
+       percentage: e.payload.doc.data()['attendance']
 
      };
       })
@@ -165,4 +170,5 @@ this.menu.enable(true);
   // this.menu.swipeEnable(true, 'menu1');
  }
 
+    
 }

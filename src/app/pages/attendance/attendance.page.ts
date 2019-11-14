@@ -25,7 +25,8 @@ export class AttendancePage implements OnInit {
   map: any;
   address:string;
   validations_form: FormGroup;
-  
+  numberOfPresent
+
   constructor(
     private geolocation: Geolocation,
     private nativeGeocoder: NativeGeocoder,
@@ -34,7 +35,7 @@ export class AttendancePage implements OnInit {
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
     private formBuilder: FormBuilder,
-
+     
   ) {
     this.currentUser = firebase.auth().currentUser
    }
@@ -83,6 +84,7 @@ export class AttendancePage implements OnInit {
 
       timeinstamp: firebase.firestore.FieldValue.serverTimestamp(),
    
+    
      
     }
     this.firebaseService.createAttendance(data)
@@ -92,7 +94,9 @@ export class AttendancePage implements OnInit {
         toast.present();
       }
     )
-   
+
+    this.calculateAttendance()
+      
   }
 
   loadMap() {
@@ -153,6 +157,29 @@ export class AttendancePage implements OnInit {
       });
 
   }
+
+  calculateAttendance() {
+    const totalDaysSchool = 7;
+    this.getDoc().then(() => {
+      var totalPresent = this.numberOfPresent
+      var attendance = (totalPresent / totalDaysSchool) * 100
+    var percentageAttendance = attendance.toFixed(0)
+    console.log(percentageAttendance + "%")
+    this.firebaseService.updatePercentange(percentageAttendance + "%")
+    })
+    
+  
+    
+  }  
+
+  async getDoc(){
+    let currentUser = firebase.auth().currentUser;
+    await firebase.firestore().collection(`users/${currentUser.uid}/attendance/month/present`).get().then(querySnapshot => {
+      this.numberOfPresent = querySnapshot.size    }) 
+      console.log(this.numberOfPresent)
+   }
+
+
 
 
 }
