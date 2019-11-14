@@ -13,15 +13,16 @@
   </ion-header>
 
   <ion-content padding>
+    <div class="detail">
       <ion-list>
         <ion-list-header> Personal Information </ion-list-header>
         <ion-item>
           <ion-label>
             <ion-grid>
               <ion-row>
-                <ion-col class="text-left" size="5"> Name: </ion-col>
+                <ion-col class="text-left" size="3"> Name: </ion-col>
                 <ion-col
-                  class="text-center"
+                class="text-left"
                   size="7"
                   *ngIf="userProfile?.name"
                 >
@@ -43,9 +44,9 @@
             <ion-label>
               <ion-grid>
                 <ion-row>
-                  <ion-col class="text-left" size="5"> School Department </ion-col>
+                  <ion-col class="text-left" size="3"> School Department </ion-col>
                   <ion-col
-                    class="text-center"
+                  class="text-left"
                     size="7"
                     *ngIf="userProfile?.school_dept"
                   >
@@ -61,8 +62,8 @@
           <ion-label>
             <ion-grid>
               <ion-row>
-                <ion-col class="text-left" size="5"> Email: </ion-col>
-                <ion-col class="text-center" size="7" *ngIf="userProfile?.email">
+                <ion-col class="text-left" size="3"> Email: </ion-col>
+                <ion-col class="text-left" size="7" *ngIf="userProfile?.email">
                   {{userProfile?.email}}
                 </ion-col>
                 <ion-col
@@ -77,9 +78,10 @@
           </ion-label>
         </ion-item>
         
-        <ion-button float-right routerLink="/changepw-pb">Change Password</ion-button>
+        <br>
+        <button float-left routerLink="/changepw-pb">Change Password</button>
     
         
       </ion-list>
-    
+    </div>
     </ion-content>
