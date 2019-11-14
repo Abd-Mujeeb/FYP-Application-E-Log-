@@ -39,6 +39,7 @@ export class HomeStudentPage implements OnInit {
   passwordShown: boolean = false;
   password_Type: string = 'password';
   password_Shown: boolean = false;
+  tst: string;
 
   error_messages = {
     'newpassword': [
@@ -194,28 +195,41 @@ async updatePassword(): Promise<void> {
 }
 
 async updateNotif(): Promise<void> {
-  this.studentService.updateNotif().then(()=>
-  { this.currentUser = firebase.firestore().collection('users').doc(this.currentUser.uid)})  ;
+await this.studentService.updateNotif().then(()=>
+  this.studentService
+    .getUserProfileStudent()
+    .get()
+    .then( userProfileStudentSnapshot => {
+      this.tst = userProfileStudentSnapshot.data()['notify'];
+    })); 
   // this.notify = false;
 }
 
 async notifCheck(){
-  return new Promise(resolve => {
-        this.firebaseService.checkValNotifikasi().get().then(notify => {
-          
-          if(!notify == true){
-            console.log("masuk")
-            this.testNotif();
-            resolve({
+
+  this.updateNotif().then(() => {
+    if (!this.tst == true){
+      console.log("masuk")
+      this.testNotif();
+    } else {
+      console.log("caik")
+    }
+  }) 
+  // return new Promise(resolve => {
+  //       this.firebaseService.checkValNotifikasi().get().then(notify => {
+  //         if(!notify == true){
+  //           console.log("masuk")
+  //           this.testNotif();
+  //           resolve({
               
-            });
-          } else {
-            console.log("meow")
+  //           });
+  //         } else {
+  //           console.log("meow")
   
-            resolve(null)
-          }
-        })
-      })
+  //           resolve(null)
+  //         }
+  //       })
+  //     })
 }
 
 
