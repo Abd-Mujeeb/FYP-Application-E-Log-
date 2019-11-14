@@ -31,7 +31,7 @@ export class HomeStudentPage implements OnInit {
   splash = true;
   userProfile: firebase.firestore.DocumentData;
   displayName: string;
-  notify: false;
+  public notify = false;
   alarm: any;
   currentUser: any; 
   pw: string;
@@ -39,6 +39,7 @@ export class HomeStudentPage implements OnInit {
   passwordShown: boolean = false;
   password_Type: string = 'password';
   password_Shown: boolean = false;
+  tst: string;
 
   error_messages = {
     'newpassword': [
@@ -89,12 +90,9 @@ export class HomeStudentPage implements OnInit {
   //   console.log(Date());
   // })
 
+  this.updateNotif();
   this.setUser();
   this.notifCheck();
-
-  // if (Date() == hour){
-
-  // }
 
    
   this.changepwForm = this.formBuilder.group({
@@ -144,7 +142,7 @@ export class HomeStudentPage implements OnInit {
           .then(userProfileSnapshot => {
             this.change = userProfileSnapshot.data().change;
             this.pw = userProfileSnapshot.data().password;
-
+            
           });
       }
       
@@ -196,23 +194,42 @@ async updatePassword(): Promise<void> {
   
 }
 
+async updateNotif(): Promise<void> {
+await this.studentService.updateNotif().then(()=>
+  this.studentService
+    .getUserProfileStudent()
+    .get()
+    .then( userProfileStudentSnapshot => {
+      this.tst = userProfileStudentSnapshot.data()['notify'];
+    })); 
+  // this.notify = false;
+}
+
 async notifCheck(){
-  return new Promise(resolve => {
-        this.firebaseService.checkValNotifikasi().get().then(snapshot => {
-          if(!snapshot == true){
-            console.log("masuk")
-            this.testNotif();
-            resolve({
+
+  this.updateNotif().then(() => {
+    if (!this.tst == true){
+      console.log("masuk")
+      this.testNotif();
+    } else {
+      console.log("caik")
+    }
+  }) 
+  // return new Promise(resolve => {
+  //       this.firebaseService.checkValNotifikasi().get().then(notify => {
+  //         if(!notify == true){
+  //           console.log("masuk")
+  //           this.testNotif();
+  //           resolve({
               
-            });
-          } else {
-            this.testNotif();
-            console.log("meow")
+  //           });
+  //         } else {
+  //           console.log("meow")
   
-            resolve(null)
-          }
-        })
-      })
+  //           resolve(null)
+  //         }
+  //       })
+  //     })
 }
 
 
