@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { LoadingController, AlertController, MenuController, ToastController } from '@ionic/angular';
+import { LoadingController, AlertController, MenuController, ToastController, NavController } from '@ionic/angular';
 import { AuthService } from '../../services/user/auth.service';
 import { Router } from '@angular/router';
 import { FirstLoginPasswordPage } from '../../first-login-password/first-login-password.page';
@@ -46,7 +46,7 @@ export class LoginPage implements OnInit {
     private localNotifications: LocalNotifications,
     private firebaseService: FirebaseService,
     private storage: Storage,
-    
+    public navCtrl: NavController,
 
   ) {
     
@@ -104,6 +104,7 @@ export class LoginPage implements OnInit {
       user => {
         this.loading.dismiss();
         let role = user['role'];
+        let change = user['change'];
         if (role == 'pbsupervisor') {
           this.router.navigateByUrl('/home-pbsupervisor');
         } else if (role == 'admin') {
@@ -111,6 +112,11 @@ export class LoginPage implements OnInit {
         } else if (role == 'gc') {
           this.router.navigateByUrl('/home-gc');
         } else if (role == 'student') {
+          console.log(change);
+          if(change == true){
+           this.router.navigateByUrl('/change');
+          }else if (change == false){
+          this.navCtrl.navigateRoot('/home-student');}
           // if (!this.firebaseService.read_task() == true){
           //   this.localNotifications.schedule([{
           //     id:1,
@@ -124,7 +130,7 @@ export class LoginPage implements OnInit {
         
           // }
           
-          this.router.navigateByUrl('/home-student');
+    
         } else if (role == 'isupervisor') {
           this.router.navigateByUrl('/home-isupervisor');
         } 
