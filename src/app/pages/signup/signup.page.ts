@@ -59,7 +59,7 @@ export class SignupPage implements OnInit {
    
       
   
-      this.authService.signupuser( displayName, name, email, password, option, school_department, group_code ).then(
+      this.authService.signupuser( displayName, name, email, password, option, school_department, group_code, ).then(
         () => {
           this.loading.dismiss().then(async () => {
 

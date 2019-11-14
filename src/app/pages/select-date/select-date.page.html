@@ -1,0 +1,28 @@
+<ion-content >
+
+
+<h1>Range Date</h1>
+    <ion-item>
+      <label>Start</label>
+        <ion-datetime displayFormat="DD/MM/YYYY h:mm A" [(ngModel)]="start"></ion-datetime>
+        
+      </ion-item>
+      
+      <ion-item>
+          <label>End</label>
+          <ion-datetime displayFormat="DD/MM/YYYY h:mm A"  [(ngModel)]="end"></ion-datetime>
+      </ion-item>
+
+<h1>Specific Date</h1>
+      <ion-item>
+          <label>Date</label>
+          <ion-datetime displayFormat="DD/MM/YYYY"  [(ngModel)]="specific"></ion-datetime>
+      </ion-item>
+
+
+<div *ngFor="let item of studentlist">
+    <h1>Student name {{item.name}}</h1>
+    <ion-button (click)="read_studenttask_range(item)">Date Range</ion-button>
+    <ion-button (click)="read_studenttask_specific(item)">Specific Date</ion-button>
+  </div>
+</ion-content>

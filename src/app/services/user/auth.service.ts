@@ -96,7 +96,7 @@ export class AuthService {
 
   //   }
 
-  signupuser(displayName: string, name: string, email: string, password: string, option: string, school_department: string, group_code: string): Promise<any> {
+  signupuser(displayName: string, name: string, email: string, password: string, option: string, school_department: string, group_code: string,): Promise<any> {
     return secondaryApp.auth().createUserWithEmailAndPassword(email, password).then((newUserCredential: firebase.auth.UserCredential) => {
       firebase
         .firestore()

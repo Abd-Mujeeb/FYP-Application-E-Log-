@@ -84,12 +84,13 @@ export class HomeStudentPage implements OnInit {
     this.navCtrl.navigateBack('');
   }
 
-  interval(10000).subscribe((val) => {
-    new Date().getTime();
-    console.log(Date());
-  })
+  // interval(10000).subscribe((val) => {
+  //   new Date().getTime();
+  //   console.log(Date());
+  // })
 
   this.setUser();
+  this.notifCheck();
 
   // if (Date() == hour){
 
@@ -195,17 +196,36 @@ async updatePassword(): Promise<void> {
   
 }
 
-testNotif(alarm){
+async notifCheck(){
+  return new Promise(resolve => {
+        this.firebaseService.checkValNotifikasi().get().then(snapshot => {
+          if(!snapshot == true){
+            console.log("masuk")
+            this.testNotif();
+            resolve({
+              
+            });
+          } else {
+            this.testNotif();
+            console.log("meow")
+  
+            resolve(null)
+          }
+        })
+      })
+}
 
-  let time = this.alarm.alarmTime.split(':');
-  let alarmTime = new Date(alarm.startDate);
+
+
+testNotif(){
+
     this.localNotifications.schedule([{
     id:1,
     title: `E-Log`,
     text: `You haven't upload any task for today`,
     trigger: { every: { hour: 20, minute: 0}, count: 1},
-  }])  
-    console.log(this.localNotifications);
+  }]);
+    console.log("cuba2 aja");
     
   // if (!this.firebaseService.read_task() == true){
   //   this.localNotifications.schedule([{
