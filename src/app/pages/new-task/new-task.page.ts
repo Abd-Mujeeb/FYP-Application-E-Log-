@@ -8,6 +8,8 @@ import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 import * as firebase from 'firebase';
 import { ImageModalPage } from '../image-modal/image-modal.page';
+import { HomeStudentPage } from '../home-student/home-student.page';
+
 @Component({
   selector: 'app-new-task',
   templateUrl: './new-task.page.html',
@@ -17,6 +19,7 @@ export class NewTaskPage implements OnInit {
 
   validations_form: FormGroup;
   image: any;
+  public snapShot = false;
 
   
   sliderOpts = {
@@ -36,12 +39,26 @@ export class NewTaskPage implements OnInit {
     private firebaseService: FirebaseService,
     private webview: WebView,
     private localNotifications: LocalNotifications,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private homeStudent: HomeStudentPage,
 
   ) { }
 
   ngOnInit() {
     this.resetFields();
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        firebase
+          .firestore()
+          .doc(`/users/${user.uid}`)
+          .get()
+          .then(userProfileSnapshot => {
+            this.snapShot = userProfileSnapshot.data().snapShot;
+          });
+      }
+      
+    });
   }
 
   resetFields(){
@@ -85,7 +102,7 @@ export class NewTaskPage implements OnInit {
       res => {
         this.router.navigate(["/home-student"]);
         toast.present();
-        this.tasknotification();
+        this.updateNotification();
       }
     )
   }
@@ -144,23 +161,28 @@ export class NewTaskPage implements OnInit {
   }
 
   
-  tasknotification(){
-    this.localNotifications.schedule([{
-      id: 1,
-      title: `E-log`,
-      text: `Your task successfully uploaded`,     
-    },{
-      id: 2,
-      title: `You haven't upload any task for today`,
-      text: `Please upload your Task. Do you want to upload now?`,
-      trigger:{ at: new Date(new Date().getTime() + 86400 * 1000),
-      },
-      actions: [
-        {id: 'yes', title: 'Yes'},
-        {id: 'no', title: 'No'}
-    ]
-    },
-  ]);
+ async updateNotification(){
+
+  this.snapShot = false;
+
+
+
+  //   this.localNotifications.schedule([{
+  //     id: 1,
+  //     title: `E-log`,
+  //     text: `Your task successfully uploaded`,     
+  //   },{
+  //     id: 2,
+  //     title: `You haven't upload any task for today`,
+  //     text: `Please upload your Task. Do you want to upload now?`,
+  //     trigger:{ at: new Date(new Date().getTime() + 86400 * 1000),
+  //     },
+  //     actions: [
+  //       {id: 'yes', title: 'Yes'},
+  //       {id: 'no', title: 'No'}
+  //   ]
+  //   },
+  // ]);
 
   }
 

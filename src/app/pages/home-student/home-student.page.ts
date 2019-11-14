@@ -31,7 +31,7 @@ export class HomeStudentPage implements OnInit {
   splash = true;
   userProfile: firebase.firestore.DocumentData;
   displayName: string;
-  notify: false;
+  public notify = false;
   alarm: any;
   currentUser: any; 
   pw: string;
@@ -89,12 +89,9 @@ export class HomeStudentPage implements OnInit {
   //   console.log(Date());
   // })
 
+  this.updateNotif();
   this.setUser();
   this.notifCheck();
-
-  // if (Date() == hour){
-
-  // }
 
    
   this.changepwForm = this.formBuilder.group({
@@ -144,7 +141,7 @@ export class HomeStudentPage implements OnInit {
           .then(userProfileSnapshot => {
             this.change = userProfileSnapshot.data().change;
             this.pw = userProfileSnapshot.data().password;
-
+            
           });
       }
       
@@ -196,17 +193,23 @@ async updatePassword(): Promise<void> {
   
 }
 
+async updateNotif(): Promise<void> {
+  this.studentService.updateNotif().then(()=>
+  { this.currentUser = firebase.firestore().collection('users').doc(this.currentUser.uid)})  ;
+  // this.notify = false;
+}
+
 async notifCheck(){
   return new Promise(resolve => {
-        this.firebaseService.checkValNotifikasi().get().then(snapshot => {
-          if(!snapshot == true){
+        this.firebaseService.checkValNotifikasi().get().then(notify => {
+          
+          if(!notify == true){
             console.log("masuk")
             this.testNotif();
             resolve({
               
             });
           } else {
-            this.testNotif();
             console.log("meow")
   
             resolve(null)

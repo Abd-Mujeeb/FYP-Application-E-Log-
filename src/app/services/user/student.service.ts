@@ -116,6 +116,12 @@ export class StudentService {
   //     });
   // }
 
+  async updateNotif(){
+   await this.users_student.update({notify: false});
+    console.log('jekking');
+    
+  }
+
   updatePassword(oldPassword: string, confirmpw: string): Promise<any> {
     const credential: firebase.auth.AuthCredential = firebase.auth.EmailAuthProvider.credential(
       this.currentUser.email,
