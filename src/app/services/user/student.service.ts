@@ -18,6 +18,7 @@ interface user {
 })
 export class StudentService {
 
+  public userProfile: firebase.firestore.DocumentReference;
   private user: user;
   studentSS: any;
   hello: any;
@@ -28,13 +29,15 @@ export class StudentService {
   student_id: any;
   public userInformation: any;
   public deleteusers: any;
-  
+  start;
+  end;
   
   constructor(private firestore: AngularFirestore,
     private afAuth: AngularFireAuth,
     public loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
-    public toastController: ToastController) {
+    public toastController: ToastController,
+    public loadingController: LoadingController) {
     firebase.auth().onAuthStateChanged(user => {
       if (user) { this.currentUser = user; this.users_student = firebase.firestore().doc(`/users/${user.uid}`); }
     });
@@ -81,38 +84,98 @@ export class StudentService {
       });
   }
 
-  updatePassword(newPassword: string, oldPassword: string): Promise<any> {
+  // updatePassword(newPassword: string, oldPassword: string): Promise<any> {
+  //   const credential: firebase.auth.AuthCredential = firebase.auth.EmailAuthProvider.credential(
+  //     this.currentUser.email,
+  //     newPassword
+  //   );
+
+  //   return this.currentUser
+  //     .reauthenticateWithCredential(credential)
+  //     .then(() => {
+  //       this.currentUser.updatePassword(oldPassword).then(() => {
+  //         console.log('Password Changed');
+
+  //         this.users_student.update({ change: false })
+
+  //       });
+  //     })
+
+  //     .catch(async error => {
+  //       this.loading = await this.loadingCtrl.create();
+  //       await this.loading.present();
+  //       this.loading.dismiss().then(async () => {
+  //         const alert = await this.alertCtrl.create({
+  //           message: error.message,
+  //           buttons: [{ text: 'Ok', role: 'cancel' }],
+  //         });
+  //         await alert.present();
+  //       });
+  //       console.error(error);
+
+  //     });
+  // }
+
+  updatePassword(oldPassword: string, confirmpw: string): Promise<any> {
     const credential: firebase.auth.AuthCredential = firebase.auth.EmailAuthProvider.credential(
       this.currentUser.email,
-      newPassword
+      oldPassword
     );
-
+  
     return this.currentUser
       .reauthenticateWithCredential(credential)
       .then(() => {
-        this.currentUser.updatePassword(oldPassword).then(() => {
+        this.currentUser.updatePassword(confirmpw).then(() => {
           console.log('Password Changed');
+      
+          this.users_student.update({password:confirmpw, change:false })
+          // return this.showToast();
+          console.log('success')
 
-          this.users_student.update({ change: false })
+      this.loadingController.create({
+            message: 'Please wait..',
+            duration: 3000,
+            spinner: 'bubbles'
+          }).then((res) => {
+            res.present();
+        
+            res.onDidDismiss().then(async(dis) => {
+              console.log('Loading dismissed! after 3 Seconds');
+              const alert = await this.alertCtrl.create({
+                header: 'Notification',
+                message: 'Your Password has successfully changed',
+                buttons: [
+                  {
+                    text: 'Okay',
+                    cssClass: 'secondary'
+                  },
+                ]
+              });
+          
+              await alert.present();
+             
+              
+            });
+            
+          });
 
         });
       })
-
+      
       .catch(async error => {
         this.loading = await this.loadingCtrl.create();
-        await this.loading.present();
-        this.loading.dismiss().then(async () => {
-          const alert = await this.alertCtrl.create({
-            message: error.message,
-            buttons: [{ text: 'Ok', role: 'cancel' }],
-          });
-          await alert.present();
-        });
-        console.error(error);
-
+              await this.loading.present();
+              this.loading.dismiss().then(async () => {
+                const alert = await this.alertCtrl.create({
+                  message: error.message,
+                  buttons: [{ text: 'Ok', role: 'cancel' }],
+                });
+                await alert.present();
+              });
+              console.error(error);
+       
       });
   }
-
   update_student(recordID, record) {
     this.firestore.doc('users/' + recordID).update(record);
   }
@@ -273,10 +336,16 @@ export class StudentService {
   //   return this.firestore.collectionGroup('tasks').snapshotChanges();
   // }
 
-  read_student_task(jubs) {
+  read_student_task(jubs, start, end) {
+    console.log(jubs, start, end, 'ani step 4');
+   return this.firestore.collection('users').doc(jubs).collection('tasks', ref => ref.where('pickdate', '>=', start).where('pickdate', '<=', end)).snapshotChanges();
+    // return this.firestore.collection('users').doc(jubs).collection('tasks', ref => ref.orderBy('pickdate', 'desc')).snapshotChanges();
+  }
 
-    console.log(jubs, 'ani step 4');
-    return this.firestore.collection('users').doc(jubs).collection('tasks').snapshotChanges();
+  read_student_task2(jubs, start) {
+    console.log(jubs, start, 'ani step 4');
+   return this.firestore.collection('users').doc(jubs).collection('tasks', ref => ref.where('pickdate', '==', start)).snapshotChanges();
+    // return this.firestore.collection('users').doc(jubs).collection('tasks', ref => ref.orderBy('pickdate', 'desc')).snapshotChanges();
   }
 
   read_student_attendance(jubs) {

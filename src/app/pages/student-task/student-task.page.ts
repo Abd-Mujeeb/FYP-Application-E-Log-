@@ -14,7 +14,8 @@ export class StudentTaskPage implements OnInit {
 
   record: any;
   private sub: any;
-
+  start: any;
+  end: any;
   
   constructor( 
     private studentService: StudentService,
@@ -30,11 +31,16 @@ export class StudentTaskPage implements OnInit {
 
     this.sub = this.route.params.subscribe(params => {
       this.record = params['id'];
+      this.start = params['start'];
+      this.end = params['end'];
+     
       console.log(this.record , 'ani step 2');
     })
     let studentUID = this.record;
-    console.log(studentUID , 'ani step 3');
-    this.studentService.read_student_task(studentUID).subscribe(data => {
+    let start = this.start;
+    let end = this.end;
+    console.log(studentUID , start, end, 'ani step 3');
+    this.studentService.read_student_task(studentUID, start, end).subscribe(data => {
       
       this.tasklist = data.map(e => {
         return {
@@ -68,9 +74,9 @@ export class StudentTaskPage implements OnInit {
     }
   
     this.tasklist = this.tasklist.filter(currentitems => {
-      if (currentitems.name, currentitems.email && searchTerm) {
-        if (currentitems.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
-        currentitems.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ){
+      if (currentitems.title, currentitems.description && searchTerm) {
+        if (currentitems.title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+        currentitems.description.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ){
           return true;
         }
         return false;
@@ -83,8 +89,11 @@ export class StudentTaskPage implements OnInit {
     }
   };
 
+
+  
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
+
   }
   

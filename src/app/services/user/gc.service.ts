@@ -11,6 +11,7 @@ import { AlertController, ToastController, LoadingController } from '@ionic/angu
 })
 export class GcService {
 
+  public userProfile: firebase.firestore.DocumentReference;
   public users_gc: firebase.firestore.DocumentReference;
   public currentUser: firebase.User;
   public loading: HTMLIonLoadingElement;
@@ -19,7 +20,8 @@ export class GcService {
   constructor(private firestore: AngularFirestore,
     private alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
-    public toastController: ToastController) { 
+    public toastController: ToastController,
+    public loadingController: LoadingController) { 
     firebase.auth().onAuthStateChanged(user => { if (user) 
       { this.currentUser = user; this.users_gc = firebase.firestore().doc(`/users/${user.uid}`);}}); 
       this.currentUser = firebase.auth().currentUser; 
@@ -53,34 +55,63 @@ export class GcService {
       });
   }
 
-  updatePassword(newPassword: string, oldPassword: string): Promise<any> {
+  updatePassword(oldPassword: string, confirmpw: string): Promise<any> {
     const credential: firebase.auth.AuthCredential = firebase.auth.EmailAuthProvider.credential(
       this.currentUser.email,
-      newPassword
+      oldPassword
     );
   
     return this.currentUser
       .reauthenticateWithCredential(credential)
       .then(() => {
-        this.currentUser.updatePassword(oldPassword).then(() => {
+        this.currentUser.updatePassword(confirmpw).then(() => {
           console.log('Password Changed');
+      
+          this.users_gc.update({password:confirmpw })
+          // return this.showToast();
+          console.log('success')
 
-          this.users_gc.update({ change:false })
+      this.loadingController.create({
+            message: 'Please wait..',
+            duration: 3000,
+            spinner: 'bubbles'
+          }).then((res) => {
+            res.present();
+        
+            res.onDidDismiss().then(async(dis) => {
+              console.log('Loading dismissed! after 3 Seconds');
+              const alert = await this.alertCtrl.create({
+                header: 'Notification',
+                message: 'Your Password has successfully changed',
+                buttons: [
+                  {
+                    text: 'Okay',
+                    cssClass: 'secondary'
+                  },
+                ]
+              });
+          
+              await alert.present();
+             
+              
+            });
+            
+          });
 
         });
       })
       
       .catch(async error => {
         this.loading = await this.loadingCtrl.create();
-      await this.loading.present();
-        this.loading.dismiss().then(async () => {
-          const alert = await this.alertCtrl.create({
-            message: error.message,
-            buttons: [{ text: 'Ok', role: 'cancel' }],
-          });
-          await alert.present();
-        });
-        console.error(error);
+              await this.loading.present();
+              this.loading.dismiss().then(async () => {
+                const alert = await this.alertCtrl.create({
+                  message: error.message,
+                  buttons: [{ text: 'Ok', role: 'cancel' }],
+                });
+                await alert.present();
+              });
+              console.error(error);
        
       });
   }

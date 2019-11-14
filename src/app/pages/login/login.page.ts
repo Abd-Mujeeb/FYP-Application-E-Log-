@@ -9,7 +9,10 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 
-import { StudentService } from 'src/app/services/user/student.service';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import { Storage } from '@ionic/storage';
+
+
 
 
 
@@ -25,6 +28,8 @@ export class LoginPage implements OnInit {
   alertController: any;
   public notif = false;
   userProfile: firebase.firestore.DocumentData;
+  currentUser: any;  
+  text: any;
 
   
   constructor(
@@ -39,9 +44,13 @@ export class LoginPage implements OnInit {
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
     private localNotifications: LocalNotifications,
-    // private studentService: StudentService,
+    private firebaseService: FirebaseService,
+    private storage: Storage,
+    
+
   ) {
-  
+    
+    
    }
 
 
@@ -56,11 +65,31 @@ export class LoginPage implements OnInit {
       ],
     });
 
-    
+
+    this.setUser();
   }
 
+  async setUser(){
+    await this.authService.getUser();
 
+    this.currentUser = this.authService.currentUser;
+  }
 
+  async getUser(loginForm: FormGroup): Promise<void>{
+
+    const email = loginForm.value.email;
+    const password = loginForm.value.password;
+
+    await this.storage.get("test").then((data) =>
+    {
+      this.text = data;
+      console.log(data);
+    });
+  }
+
+  
+
+  
   async loginUser(loginForm: FormGroup): Promise<void> {
     if (!loginForm.valid) {
       console.log('Form is not valid yet, current value:', loginForm.value);
@@ -82,6 +111,18 @@ export class LoginPage implements OnInit {
         } else if (role == 'gc') {
           this.router.navigateByUrl('/home-gc');
         } else if (role == 'student') {
+          // if (!this.firebaseService.read_task() == true){
+          //   this.localNotifications.schedule([{
+          //     id:1,
+          //     title: `E-Log`,
+          //     text: `You haven't upload any task for today`,
+          //     trigger: { every: { hour: 20, minute: 0}, count: 1},
+          //   }])  
+          //   console.log('mau');
+        
+          // } else{
+        
+          // }
           
           this.router.navigateByUrl('/home-student');
         } else if (role == 'isupervisor') {
@@ -102,6 +143,8 @@ export class LoginPage implements OnInit {
       );
     }
   }
+
+  
 
   ionViewDidEnter() {
     this.menu.swipeEnable(false);

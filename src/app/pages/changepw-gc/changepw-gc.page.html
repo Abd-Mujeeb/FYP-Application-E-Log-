@@ -7,60 +7,81 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <form [formGroup]="changepwForm" id="form"> 
-          <ion-item>
-              <ion-label position="stacked">Current Password:</ion-label>
-              <ion-input
-                formControlName="password"
-                type="password"
-                placeholder="Your password"
-                [class.invalid]="!changepwForm.controls['password'].valid&& changepwForm.controls['password'].touched"
-              >
-              </ion-input>
-            </ion-item>
-            <ion-item
-              class="error-message"
-              *ngIf="!changepwForm.controls['password'].valid
-                && changepwForm.controls['password'].touched"
-            >
-              <ion-label>Your password needs more than 6 characters.</ion-label>
-            </ion-item>
-  
-            <ion-item>
-              <ion-label position="stacked">New Password:</ion-label>
-              <ion-input type="password"
-              formControlName="newpassword"
-                  type="password"
-                  placeholder="Your password"
-                  [class.invalid]="!changepwForm.controls['newpassword'].valid&& changepwForm.controls['newpassword'].touched"></ion-input>
-            </ion-item>
+<ion-content padding>
+
+    <div class="out">
+    <form [formGroup]="changepwForm" id="form"> 
+      <h3>Please input your current, new and confirm password.</h3>
+      <ion-item>
+          <ion-label position="stacked">Current Password:</ion-label>
+          <ion-input type="password"
+          formControlName="password"
+          [type]="password_Type"
+              placeholder="Your password"
+              clearOnEdit="false"
+              [class.invalid]="!changepwForm.controls['password'].valid&& changepwForm.controls['password'].touched"></ion-input>
+        </ion-item>
+       
+          <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.password">
+              <ion-item class="error-message" *ngIf="changepwForm.get('password').hasError(error.type) && (changepwForm.get('password').dirty || changepwForm.get('password').touched)">
+                {{ error.message }}
+              </ion-item>
+            </ng-container>
+          </div>
     
-            <ion-item
-                class="error-message"
-                *ngIf="!changepwForm.controls['newpassword'].valid
-                  && changepwForm.controls['newpassword'].touched"
-              >
-                <ion-label>Your password needs more than 6 characters.</ion-label>
-              </ion-item>
-      
+              <br>
+  
               <ion-item>
-                <ion-label position="stacked">Confirm Password:</ion-label>
-                <ion-input type="password"
-                formControlName="confirmpw"
-                    type="password"
-                    placeholder="Your password"
-                    [class.invalid]="!changepwForm.controls['confirmpw'].valid&& changepwForm.controls['confirmpw'].touched"></ion-input>
-              </ion-item>
-      
-              <ion-item
-                  class="error-message"
-                  *ngIf="!changepwForm.controls['confirmpw'].valid
-                    && changepwForm.controls['confirmpw'].touched"
-                >
-                  <ion-label>Your password needs more than 6 characters.</ion-label>
+                  <ion-label position="stacked">New Password:</ion-label>
+                  <ion-input type="password"
+                  formControlName="newpassword"
+                  [type]="password_Type"
+                      placeholder="Your password"
+                      clearOnEdit="false"
+                      [class.invalid]="!changepwForm.controls['newpassword'].valid&& changepwForm.controls['newpassword'].touched"></ion-input>
                 </ion-item>
+               
+                  <div class="error-messages">
+                    <ng-container *ngFor="let error of error_messages.newpassword">
+                      <ion-item class="error-message" *ngIf="changepwForm.get('newpassword').hasError(error.type) && (changepwForm.get('newpassword').dirty || changepwForm.get('newpassword').touched)">
+                        {{ error.message }}
+                      </ion-item>
+                    </ng-container>
+                  </div>
+                
+                  <br>
+                  <ion-item>
+                    <ion-label position="stacked">Confirm Password:</ion-label>
+                    
+                    <ion-input type="password"
+                    formControlName="confirmpw"
+                        [type]="password_Type"
+                        placeholder="Your password"
+                        clearOnEdit="false"
+                        [class.invalid]="!changepwForm.controls['confirmpw'].valid&& changepwForm.controls['confirmpw'].touched"></ion-input>
       
-        <ion-button expand="block" (click)="updatePassword()">Confirm</ion-button>
-      </form>
-</ion-content>
+                  </ion-item>
+        
+        
+                     <div class="error-messages">
+                      <ng-container *ngFor="let error of error_messages.confirmpw">
+                        <ion-item class="error-message" *ngIf="changepwForm.get('confirmpw').hasError(error.type) && (changepwForm.get('confirmpw').dirty || changepwForm.get('confirmpw').touched)">
+                          {{ error.message }}
+                        </ion-item>
+                      </ng-container>
+        
+                      <ion-item class="error-message shake" *ngIf="!changepwForm.get('confirmpw').errors && changepwForm.hasError('passwordNotMatch') && (changepwForm.get('confirmpw').dirty || changepwForm.get('confirmpw').touched)">
+                        New Password and Confirm Password fields should match
+                      </ion-item>
+                     </div>
+  <br>
+                     <span float-right>Show Password  <ion-checkbox  [color]="password_Shown === true ? 'danger' : 'light'" slot="end" (click)='toggle_Password()'></ion-checkbox></span>
+                  <br>
+                  <br>
+          <ion-button expand="block" (click)="updatePassword()" [disabled]="!changepwForm.valid">Confirm</ion-button>
+        </form>
+  
+      </div>
+  </ion-content>
+  

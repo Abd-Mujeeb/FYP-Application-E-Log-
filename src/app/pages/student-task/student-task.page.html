@@ -14,7 +14,7 @@
 
 <ion-content>
 
-  <ion-searchbar animated showCancelButton (ionInput)="filterList($event)" placeholder="Search Student Name or Email">
+  <ion-searchbar animated showCancelButton (ionInput)="filterList($event)" placeholder="Search by Title or Description">
   </ion-searchbar>
 
 
@@ -34,9 +34,7 @@
 
 
           <ion-card-content>
-        
-            <p>{{i+1}}. Name: {{item.name}}</p>
-            <p>Email: {{item.email}}</p>
+      
             <p>Date: {{item.pickdate | date: 'dd MMMM yyyy.  h:mm a'}}</p>
             <p>Title: {{item.title}}</p>
             <p>Description: {{item.description}}</p>

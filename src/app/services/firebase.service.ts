@@ -70,7 +70,7 @@ export class FirebaseService {
 
   read_task(){
     let currentUser = firebase.auth().currentUser;
-    return this.afs.collection('users').doc(currentUser.uid).collection('tasks').snapshotChanges();
+    return this.afs.collection('users').doc(currentUser.uid).collection('tasks' , ref => ref.orderBy('pickdate', 'desc')).snapshotChanges();
   }
 
   
@@ -196,7 +196,7 @@ export class FirebaseService {
 
   readAttendance(){
     let currentUser = firebase.auth().currentUser;
-    return this.afs.collection('users').doc(currentUser.uid).collection('attendance').snapshotChanges();
+    return this.afs.collection('users').doc(currentUser.uid).collection('attendance' , ref => ref.orderBy('timeinstamp', 'desc')).snapshotChanges();
   }
 
 
@@ -233,6 +233,14 @@ export class FirebaseService {
       )
     })
   }
+
+  //notification
+  checkValNotifikasi() {
+    let currentUser = firebase.auth().currentUser;
+    return firebase.firestore().collection('users').doc(currentUser.uid).collection('tasks')
+    .where("notify", "==", "false");
+  
+  }
   
 
 
@@ -247,7 +255,7 @@ export class FirebaseService {
       c.width = aux.width;
       c.height = aux.height;
       ctx.drawImage(img, 0, 0);
-      var dataURL = c.toDataURL("image/jpg");
+      var dataURL = c.toDataURL("image/jpeg");
       callback(dataURL);
     };
     img.src = imageUri;
