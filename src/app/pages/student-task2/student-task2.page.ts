@@ -3,11 +3,12 @@ import { StudentService } from 'src/app/services/user/student.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-student-task',
-  templateUrl: './student-task.page.html',
-  styleUrls: ['./student-task.page.scss'],
+  selector: 'app-student-task2',
+  templateUrl: './student-task2.page.html',
+  styleUrls: ['./student-task2.page.scss'],
 })
-export class StudentTaskPage implements OnInit {
+export class StudentTask2Page implements OnInit {
+
 
   public tasklist : any[];
   public loadedstudenttasklist : any[];
@@ -32,15 +33,15 @@ export class StudentTaskPage implements OnInit {
     this.sub = this.route.params.subscribe(params => {
       this.record = params['id'];
       this.start = params['start'];
-      this.end = params['end'];
+     
      
       console.log(this.record , 'ani step 2');
     })
     let studentUID = this.record;
     let start = this.start;
-    let end = this.end;
-    console.log(studentUID , start, end, 'ani step 3');
-    this.studentService.read_student_task(studentUID, start, end).subscribe(data => {
+ 
+    console.log(studentUID , start,  'ani step 3');
+    this.studentService.read_student_task2(studentUID, start).subscribe(data => {
       
       this.tasklist = data.map(e => {
         return {

@@ -29,7 +29,8 @@ export class StudentService {
   student_id: any;
   public userInformation: any;
   public deleteusers: any;
-  
+  start;
+  end;
   
   constructor(private firestore: AngularFirestore,
     private afAuth: AngularFireAuth,
@@ -335,10 +336,16 @@ export class StudentService {
   //   return this.firestore.collectionGroup('tasks').snapshotChanges();
   // }
 
-  read_student_task(jubs) {
+  read_student_task(jubs, start, end) {
+    console.log(jubs, start, end, 'ani step 4');
+   return this.firestore.collection('users').doc(jubs).collection('tasks', ref => ref.where('pickdate', '>=', start).where('pickdate', '<=', end)).snapshotChanges();
+    // return this.firestore.collection('users').doc(jubs).collection('tasks', ref => ref.orderBy('pickdate', 'desc')).snapshotChanges();
+  }
 
-    console.log(jubs, 'ani step 4');
-    return this.firestore.collection('users').doc(jubs).collection('tasks').snapshotChanges();
+  read_student_task2(jubs, start) {
+    console.log(jubs, start, 'ani step 4');
+   return this.firestore.collection('users').doc(jubs).collection('tasks', ref => ref.where('pickdate', '==', start)).snapshotChanges();
+    // return this.firestore.collection('users').doc(jubs).collection('tasks', ref => ref.orderBy('pickdate', 'desc')).snapshotChanges();
   }
 
   read_student_attendance(jubs) {

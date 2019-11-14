@@ -112,9 +112,16 @@ export class PbStudentlistModalPage implements OnInit {
     this.studentlist = this.loadedstudentlist;
   }
 
+  // read_studenttask(record){
+  //   let recordId = record ? record.id : null;
+  //   this.router.navigate(['/student-task', { id: recordId}]);
+  //   console.log(recordId, 'ani step 1 (forward data ID)');
+  //   this.modalController.dismiss();
+  // }
+
   read_studenttask(record){
     let recordId = record ? record.id : null;
-    this.router.navigate(['/student-task', { id: recordId}]);
+    this.router.navigate(['/select-date', { id: recordId}]);
     console.log(recordId, 'ani step 1 (forward data ID)');
     this.modalController.dismiss();
   }
