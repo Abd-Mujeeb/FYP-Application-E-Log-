@@ -233,6 +233,14 @@ export class FirebaseService {
       )
     })
   }
+
+  //notification
+  checkValNotifikasi() {
+    let currentUser = firebase.auth().currentUser;
+    return firebase.firestore().collection('users').doc(currentUser.uid).collection('tasks')
+    .where("notify", "==", "false");
+  
+  }
   
 
 
