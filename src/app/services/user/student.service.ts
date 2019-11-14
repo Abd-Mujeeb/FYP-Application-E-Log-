@@ -5,6 +5,7 @@ import 'firebase/firestore';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AlertController, ToastController, LoadingController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 
 interface user {
@@ -37,7 +38,8 @@ export class StudentService {
     public loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     public toastController: ToastController,
-    public loadingController: LoadingController) {
+    public loadingController: LoadingController,
+    private router: Router,) {
     firebase.auth().onAuthStateChanged(user => {
       if (user) { this.currentUser = user; this.users_student = firebase.firestore().doc(`/users/${user.uid}`); }
     });
@@ -154,6 +156,70 @@ export class StudentService {
                   {
                     text: 'Okay',
                     cssClass: 'secondary'
+                  },
+                ]
+              });
+          
+              await alert.present();
+             
+              
+            });
+            
+          });
+
+        });
+      })
+      
+      .catch(async error => {
+        this.loading = await this.loadingCtrl.create();
+              await this.loading.present();
+              this.loading.dismiss().then(async () => {
+                const alert = await this.alertCtrl.create({
+                  message: error.message,
+                  buttons: [{ text: 'Ok', role: 'cancel' }],
+                });
+                await alert.present();
+              });
+              console.error(error);
+       
+      });
+  }
+
+  update_Password(oldPassword: string, confirmpw: string): Promise<any> {
+    const credential: firebase.auth.AuthCredential = firebase.auth.EmailAuthProvider.credential(
+      this.currentUser.email,
+      oldPassword
+    );
+  
+    return this.currentUser
+      .reauthenticateWithCredential(credential)
+      .then(() => {
+        this.currentUser.updatePassword(confirmpw).then(() => {
+          console.log('Password Changed');
+      
+          this.users_student.update({password:confirmpw, change:false })
+          // return this.showToast();
+          console.log('success')
+
+      this.loadingController.create({
+            message: 'Please wait..',
+            duration: 3000,
+            spinner: 'bubbles'
+          }).then((res) => {
+            res.present();
+        
+            res.onDidDismiss().then(async(dis) => {
+              console.log('Loading dismissed! after 3 Seconds');
+              const alert = await this.alertCtrl.create({
+                header: 'Notification',
+                message: 'Your Password has successfully changed',
+                buttons: [
+                  {
+                    text: 'Okay',
+                    cssClass: 'secondary',
+                    handler: () => {
+                      this.router.navigateByUrl('/home-student');
+                    }
                   },
                 ]
               });

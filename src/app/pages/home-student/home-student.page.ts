@@ -187,7 +187,7 @@ async updatePassword(): Promise<void> {
 
 
     this.studentService.updatePassword(oldPassword, confirmpw);
-    this.change = false;
+    this.change= false;
   
 
   
