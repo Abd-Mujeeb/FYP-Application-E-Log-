@@ -42,7 +42,10 @@
     </tr>
     <tr  *ngFor="let item of userProfile; let i = index">
       <td id="color">{{i+1}}.</td>
-      <td id="color">{{item.name}} <ion-button class="butang">View Attendance</ion-button></td>
+      <td id="color">{{item.name}}   <ion-button fill="outline" color="success" size="small" 
+        (click)="openPreview(item)">
+       More Details
+      </ion-button></td>
       <td id="color">{{item.email}}</td>
       <td id="color">{{item.phone_number}}</td>
       <td id="color">{{item.school_dept}}</td>
