@@ -4,7 +4,7 @@
           <ion-back-button defaultHref="/home-admin"></ion-back-button>
         </ion-buttons>
     <ion-title>Group Coordinator Details</ion-title>
-    <ion-buttons slot="end">
+    <ion-buttons slot="end"> Log in as Admin: {{displayName}}
       <ion-button routerLink="/profile-admin">
         <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
       </ion-button>
@@ -26,16 +26,16 @@
       </div>
       <br><br><br><br><br>
     
-      <label>Filter by</label>
+      <label>Filter by: </label>
       <div>
-          <!-- https://stackblitz.com/edit/angularfire-db-api-fbad9p -->
-        <h1>School Department: </h1>
-        <button type="radio">SICT</button>
-        <button  type="radio">SBS</button>
-        <button  type="radio">SSE</button>
-        <button  type="radio">SHS</button>
-        <button  type="radio">
-          <em>clear filter</em>
+        <!-- https://stackblitz.com/edit/angularfire-db-api-fbad9p -->
+        <p>School Department: </p>
+        <button class="btn" type="radio" (click)="filterByschool_dept('SICT')">SICT</button>
+        <button class="btn" type="radio" (click)="filterByschool_dept('SBS')">SBS</button>
+        <button class="btn" type="radio" (click)="filterByschool_dept('SSE')">SSE</button>
+        <button class="btn" type="radio" (click)="filterByschool_dept('SHS')">SHS</button>
+        <button class="btn" type="radio" (click)="filterByschool_dept('All')" *ngIf="all">
+          <em>All</em>
         </button>
       </div>
       <br>
