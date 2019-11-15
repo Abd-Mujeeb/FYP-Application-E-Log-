@@ -24,17 +24,17 @@ export class InfoPbsupervisorPage implements OnInit {
   contact_no: number;
   email: string;
 
-  public buttonClicked: boolean = false; //Whatever you want to initialise it as
   gc: any;
   studentId: any;
   user: any;
   public all: boolean = false;
-
+  public buttonClicked: boolean = false; //Whatever you want to initialise it as
+ 
  public onButtonClick() {
 
     this.buttonClicked = !this.buttonClicked;
-    this.firestore.collection('users/{userId}/student').valueChanges();
 }
+
 
   constructor(
     private pbsupervisorService: PbsupervisorService,
@@ -76,6 +76,53 @@ export class InfoPbsupervisorPage implements OnInit {
 
 
   }
+
+  filterByNameAscending() {
+
+  this.firestore.collection('users', ref => ref.where('role', '==', 'pbsupervisor').orderBy('displayName', 'asc')).snapshotChanges().subscribe(data => {
+    this.userProfile = data.map(e => {
+         return {
+          id: e.payload.doc.id,
+          isEdit: false,
+          displayName: e.payload.doc.data()['displayName'],
+          email: e.payload.doc.data()['email'],
+          school_dept: e.payload.doc.data()['school_dept'],
+          contact_no: e.payload.doc.data()['contact_no'],
+  
+  
+      };
+    })
+    console.log(this.userProfile);
+  this.loadeduserProfile = this.userProfile;
+  this.all = true;
+  
+  });
+}
+
+filterByNameDescending() {
+
+  this.firestore.collection('users', ref => ref.where('role', '==', 'pbsupervisor').orderBy('displayName', 'desc')).snapshotChanges().subscribe(data => {
+    this.userProfile = data.map(e => {
+         return {
+          id: e.payload.doc.id,
+          isEdit: false,
+          displayName: e.payload.doc.data()['displayName'],
+          email: e.payload.doc.data()['email'],
+          school_dept: e.payload.doc.data()['school_dept'],
+          contact_no: e.payload.doc.data()['contact_no'],
+  
+  
+      };
+    })
+    console.log(this.userProfile);
+  this.loadeduserProfile = this.userProfile;
+  this.all = true;
+  
+  });
+}
+
+
+  
 
   ngOnInit() {
 

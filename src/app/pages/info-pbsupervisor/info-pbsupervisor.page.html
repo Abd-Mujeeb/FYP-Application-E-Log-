@@ -38,10 +38,23 @@
       <em>All</em>
     </button>
   </div>
+  <div>
+    <button (click)="filterByNameAscending()">Name_ascending</button>
+    <button (click)="filterByNameDescending()">Name_descending</button>
+  </div>
   <br>
   <table>
     <tr class="headercolor">
-      <th>Fullname</th>
+      <th>Fullname
+        <button (click)="onButtonClick()" class="dropbtn"><ion-icon name="arrow-dropdown">
+        </ion-icon>
+      </button>
+  
+      <div *ngIf="buttonClicked" id="myDropdown" class="dropdown-content">
+        <a (click)="filterByNameAscending()">Ascending</a>
+        <a (click)="filterByNameDescending()">Descending</a>
+      </div>
+      </th>
       <th>Email</th>
       <th>School Department</th>
       <th>Contact no.</th>
