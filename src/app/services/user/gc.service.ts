@@ -182,6 +182,17 @@ export class GcService {
     return this.firestore.collectionGroup('attendance', ref => ref.where('gc', 'array-contains', { gc: this.currentUser.displayName })).snapshotChanges();
   }
 
+  read_student(jubs) {
+
+    console.log(jubs, 'ani step 4');
+
+
+    return this.firestore.collection('users', ref => ref.where(firebase.firestore.FieldPath.documentId(), '==', jubs)).snapshotChanges();
+
+
+
+  }
+
 
 
 }

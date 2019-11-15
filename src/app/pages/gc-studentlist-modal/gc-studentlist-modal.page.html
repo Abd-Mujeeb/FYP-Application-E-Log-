@@ -1,0 +1,47 @@
+<ion-content fullscreen>
+  <h1 class="center">More Details</h1>
+
+
+
+  <ion-card-content *ngFor="let item of studentlist">
+
+
+
+
+    <ion-item>
+      <ion-label><strong>Name: </strong>{{item.name}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><strong>Email: </strong>{{item.email}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><strong>School Department: </strong>{{item.school_dept}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><strong>Contact No: </strong>{{item.contact_no}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><strong>Group Code: </strong>{{item.group_code}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><strong>Student ID: </strong>{{item.student_id}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><strong>Company Name: </strong>{{item.company}}</ion-label>
+    </ion-item>
+
+    <ion-item class="close-fake" lines="none">
+      <ion-button (click)="close()" fill="clear" color="">
+        <ion-icon name="close" slot="start"></ion-icon>
+        Back
+      </ion-button>
+      <!-- <ion-button fill="outline" color="success" size="small" (click)="read_studenttask(item)">
+        View Task
+      </ion-button> -->
+      <ion-button fill="outline" color="success" size="small" (click)="read_studentattendance(item)">
+        View Attendance
+      </ion-button>
+    </ion-item>
+
+  </ion-card-content>
+</ion-content>
