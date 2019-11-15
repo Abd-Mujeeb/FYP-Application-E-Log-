@@ -8,7 +8,7 @@ import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 import * as firebase from 'firebase';
 import { ImageModalPage } from '../image-modal/image-modal.page';
-import { HomeStudentPage } from '../home-student/home-student.page';
+import { StudentService } from 'src/app/services/user/student.service';
 
 @Component({
   selector: 'app-new-task',
@@ -19,7 +19,8 @@ export class NewTaskPage implements OnInit {
 
   validations_form: FormGroup;
   image: any;
-  public snapShot = false;
+  public notify = true;
+  notifz: string;
 
   
   sliderOpts = {
@@ -40,7 +41,7 @@ export class NewTaskPage implements OnInit {
     private webview: WebView,
     private localNotifications: LocalNotifications,
     private modalController: ModalController,
-    private homeStudent: HomeStudentPage,
+    public studentService: StudentService,
 
   ) { }
 
@@ -54,7 +55,7 @@ export class NewTaskPage implements OnInit {
           .doc(`/users/${user.uid}`)
           .get()
           .then(userProfileSnapshot => {
-            this.snapShot = userProfileSnapshot.data().snapShot;
+            this.notify = userProfileSnapshot.data().notify;
           });
       }
       
@@ -162,8 +163,16 @@ export class NewTaskPage implements OnInit {
 
   
  async updateNotification(){
+  await this.studentService.createTrue().then(()=>
+  this.studentService
+    .getUserProfileStudent()
+    .get()
+    .then( userProfileStudentSnapshot => {
+      this.notifz = userProfileStudentSnapshot.data()['notify'];
+    })); 
+  //  this.notify= false;
+}
 
-  this.snapShot = false;
 
 
 
@@ -200,4 +209,5 @@ export class NewTaskPage implements OnInit {
   //   }]);
   // }
 
-}
+
+

@@ -212,7 +212,7 @@ async notifCheck(){
       console.log("masuk")
       this.testNotif();
     } else {
-      console.log("caik")
+      console.log("ngak mau")
     }
   }) 
   // return new Promise(resolve => {
@@ -242,7 +242,7 @@ testNotif(){
     text: `You haven't upload any task for today`,
     trigger: { every: { hour: 20, minute: 0}, count: 1},
   }]);
-    console.log("cuba2 aja");
+    console.log("notif mau");
     
   // if (!this.firebaseService.read_task() == true){
   //   this.localNotifications.schedule([{
