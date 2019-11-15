@@ -19,3 +19,42 @@ ion-list-header {
     padding: 10px;
     max-width: 50%;
   }
+
+  span{
+    display: inline-block;
+  }
+
+  // .pw{
+  //   margin-left: 20px;
+  //   border: 1px solid black;
+  //   border-radius: 25px;
+  //   width: 25%;
+  //   height: 30px;
+  //   font-size: 14px;
+  //   background-color: white;
+  // }
+
+  // .pw:hover{
+  //   background-color: grey;
+  //   color: white;
+  // }
+
+  // .pw:active{
+  //   background-color: rgb(163, 163, 163);
+  //   color: white;
+  //   font-weight: bold;
+  // }
+
+  .invalid {
+    border-bottom: 1px solid #ff6153;
+  }
+
+  .error-message {
+    color: red;
+    background-color: white;
+    // line-height: 1.6;
+    font-size: 11px;
+  }
+  input.ng-touched.ng-invalid {
+    border: 1px solid red;
+  }

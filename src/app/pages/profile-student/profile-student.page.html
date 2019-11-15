@@ -27,13 +27,13 @@
               >
                 {{userProfile?.displayName}}
               </ion-col>
-              <ion-col
+              <!-- <ion-col
                 size="7"
                 class="placeholder-profile text-center"
                 *ngIf="!userProfile?.displayName"
               >
                 <span> Tap here to edit. </span>
-              </ion-col>
+              </ion-col> -->
             </ion-row>
           </ion-grid>
         </ion-label>
@@ -89,6 +89,40 @@
                 </ion-grid>
               </ion-label>
             </ion-item>
+      
+            <ion-item>
+                <ion-label>
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col class="text-left" size="5"> PB Supervisor: </ion-col>
+                      <ion-col
+                        class="text-center"
+                        size="7"
+                        *ngIf="userProfile?.pbsupervisor"
+                      >
+                        {{userProfile?.pbsupervisor}}
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-label>
+              </ion-item>
+
+              <ion-item>
+                  <ion-label>
+                    <ion-grid>
+                      <ion-row>
+                        <ion-col class="text-left" size="5"> Intern Place: </ion-col>
+                        <ion-col
+                          class="text-center"
+                          size="7"
+                          *ngIf="userProfile?.company"
+                        >
+                          {{userProfile?.company}}
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                  </ion-label>
+                </ion-item>
 
       <ion-item>
         <ion-label>
@@ -98,20 +132,68 @@
               <ion-col class="text-center" size="7" *ngIf="userProfile?.email">
                 {{userProfile?.email}}
               </ion-col>
-              <ion-col
-                size="7"
-                class="placeholder-profile text-center"
-                *ngIf="!userProfile?.email"
-              >
-                <span> Tap here to edit. </span>
-              </ion-col>
             </ion-row>
           </ion-grid>
         </ion-label>
       </ion-item>
+
+      <ion-item *ngIf="!contact">
+          <ion-label>
+            <ion-grid>
+              <ion-row>
+                <ion-col class="text-left" size="5"> Contact No: </ion-col>
+                <ion-col class="text-center" size="7" *ngIf="userProfile?.contact_no">
+                  +673 {{userProfile?.contact_no}}
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-label>
+        </ion-item>
+
+        <ion-item *ngIf="contact">
+            <ion-label>
+              <ion-grid>
+                <ion-row>
+                  <ion-col class="text-left" size="5"> Contact No: </ion-col>
+                  <ion-col class="text-center" size="7" *ngIf="userProfile?.contact_no">
+                      
+                    <form [formGroup]="signupForm">
+                        
+                      <ion-item>
+                          <ion-input
+                            formControlName="contact_no"
+                            type="number"
+                            placeholder="Contact Number"
+                            [class.invalid]="!signupForm.controls['contact_no'].valid && signupForm.controls['contact_no'].touched"
+                            value={{userProfile?.contact_no}}
+                          >
+                          +673 &nbsp;
+                          </ion-input>
+                        </ion-item>
+                        <div class="error-messages">
+                            <ng-container *ngFor="let error of error_messages.contact_no">
+                              <ion-item class="error-message" *ngIf="signupForm.get('contact_no').hasError(error.type) && (signupForm.get('contact_no').dirty || signupForm.get('contact_no').touched)">
+                                {{ error.message }}
+                              </ion-item>
+                            </ng-container>
+                          </div>
+                        </form>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-label>
+
+         
+          </ion-item>
       <br>
-      <button float-left routerLink="/changepw-student">Change Password</button>
-      
+      <ion-button class="change" expand="block" (click)="update()" [disabled]="!signupForm.valid" *ngIf="contact">Update</ion-button>
+      <ion-button class="change" expand="block"*ngIf="contact" (click)="contactss()">Cancel</ion-button>
+      <br>
+      <ion-button *ngIf="!contact" expand="block" (click)="contacts()">edit</ion-button>
+      <br>
+      <ion-button class="pw" *ngIf="!contact" expand="block" routerLink="/changepw-student">Change Password</ion-button>
     </ion-list>
+
+
   
   </ion-content>
