@@ -11,6 +11,7 @@ import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native
 
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { Storage } from '@ionic/storage';
+import { async } from 'q';
 
 
 
@@ -102,9 +103,22 @@ export class LoginPage implements OnInit {
   
       this.authService.loginUser(email, password).subscribe(
       user => {
+        
         this.loading.dismiss();
+        if (user == undefined){
+        
+          this.loading.dismiss().then(async () => {
+            const alert = await this.alertCtrl.create({
+              message: 'There is no user record corresponding to this identifier. The user may have been deleted',
+              buttons: [{ text: 'Ok', role: 'cancel' }],
+            });
+            await alert.present();
+          });
+            
+        }
         let role = user['role'];
         let change = user['change'];
+      
         if (role == 'pbsupervisor') {
           this.router.navigateByUrl('/home-pbsupervisor');
         } else if (role == 'admin') {
@@ -133,6 +147,9 @@ export class LoginPage implements OnInit {
     
         } else if (role == 'isupervisor') {
           this.router.navigateByUrl('/home-isupervisor');
+        } else{
+
+          alert('user does not exist.');
         } 
 
         

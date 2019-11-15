@@ -27,13 +27,13 @@
           >
           </ion-input>
         </ion-item>
-        <ion-item
-        class="error-message"
-        *ngIf="!signupForm.controls['name'].valid
-        && signupForm.controls['name'].touched"
-      >
-        <ion-label>Your name at least more than 5 characters.</ion-label>
-        </ion-item>
+        <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.name">
+              <ion-item class="error-message" *ngIf="signupForm.get('name').hasError(error.type) && (signupForm.get('name').dirty || signupForm.get('name').touched)">
+                {{ error.message }}
+              </ion-item>
+            </ng-container>
+          </div>
 
     <ion-item>
       <ion-label position="stacked">Email</ion-label>
@@ -45,13 +45,13 @@
       >
       </ion-input>
     </ion-item>
-    <ion-item
-      class="error-message"
-      *ngIf="!signupForm.controls['email'].valid
-      && signupForm.controls['email'].touched"
-    >
-      <ion-label>Please enter a valid email.</ion-label>
-    </ion-item>
+    <div class="error-messages">
+        <ng-container *ngFor="let error of error_messages.email">
+          <ion-item class="error-message" *ngIf="signupForm.get('email').hasError(error.type) && (signupForm.get('email').dirty || signupForm.get('email').touched)">
+            {{ error.message }}
+          </ion-item>
+        </ng-container>
+      </div>
 
     <ion-item>
       <ion-label position="stacked">Contact No.</ion-label>
@@ -63,13 +63,13 @@
       >
       </ion-input>
     </ion-item>
-    <ion-item
-      class="error-message"
-      *ngIf="!signupForm.controls['contact_no'].valid
-      && signupForm.controls['contact_no'].touched"
-    >
-      <ion-label>Please enter a valid phone number.</ion-label>
-    </ion-item>
+    <div class="error-messages">
+        <ng-container *ngFor="let error of error_messages.contact_no">
+          <ion-item class="error-message" *ngIf="signupForm.get('contact_no').hasError(error.type) && (signupForm.get('contact_no').dirty || signupForm.get('contact_no').touched)">
+            {{ error.message }}
+          </ion-item>
+        </ng-container>
+      </div>
 
     <ion-item>
       <ion-label position="stacked">Password</ion-label>
@@ -81,13 +81,13 @@
       >
       </ion-input>
     </ion-item>
-    <ion-item
-      class="error-message"
-      *ngIf="!signupForm.controls['password'].valid  &&
-      signupForm.controls['password'].touched"
-    >
-      <ion-label>Your password needs more than 6 characters.</ion-label>
-    </ion-item>
+    <div class="error-messages">
+        <ng-container *ngFor="let error of error_messages.password">
+          <ion-item class="error-message" *ngIf="signupForm.get('password').hasError(error.type) && (signupForm.get('password').dirty || signupForm.get('password').touched)">
+            {{ error.message }}
+          </ion-item>
+        </ng-container>
+      </div>
 
     <ion-button
       expand="block"

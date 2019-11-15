@@ -32,7 +32,7 @@
         
         <ion-item >
             <ion-label position="stacked">School Department</ion-label>
-            <ion-select placeholder="Select One" interface="popover" formControlName="school_dept" >
+            <ion-select placeholder="Select One" interface="popover" formControlName="school_dept" [(ngModel)]="zone1.kind">
                 <ion-select-option *ngFor="let school of schoolkeys">{{school}}</ion-select-option>
               </ion-select>
           </ion-item>

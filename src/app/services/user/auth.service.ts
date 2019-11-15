@@ -67,10 +67,12 @@ export class AuthService {
     return from(this.afAuth.auth.signInWithEmailAndPassword(email, password)).pipe(
       switchMap(user => {
         if (user) {
+        
           return this.firestore.doc(`users/${user.user.uid}`).valueChanges().pipe(
             take(1)
           );
         } else {
+          console.log("heh")
           return of(null);
         }
       })

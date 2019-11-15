@@ -24,6 +24,10 @@ form {
   
   .error-message {
     min-height: 2.2rem;
+    color: red;
+    background-color: white;
+    // line-height: 1.6;
+    font-size: 12px;
     ion-label {
       margin: 2px 0;
       font-size: 60%;

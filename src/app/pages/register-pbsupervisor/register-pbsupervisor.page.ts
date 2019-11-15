@@ -16,6 +16,26 @@ export class RegisterPbsupervisorPage implements OnInit {
   displayName: string;
   schoolkeys: any;
 
+  error_messages = {
+    'contact_no': [
+      { type: 'required', message: 'This is required' },
+      { type: 'pattern', message: 'Invalid phone number' },
+    ],
+    'name': [
+      { type: 'required', message: 'This is required' },
+      { type: 'pattern', message: 'Invalid Name' },
+    ],
+    'email': [
+      { type: 'required', message: 'This is required' },
+      { type: 'pattern', message: 'Invalid Email' },
+    ],
+    'password': [
+      { type: 'required', message: 'Minimum of 8 characters or more.' },
+      { type: 'pattern', message: 'Must contain at least one upercase, lowercase, number and speacial characters(!@#$%^&)' },
+      { type: 'maxlength', message: 'Password length not more than 30 characters' },
+    ],
+  }
+  
   constructor(
     private authService: AuthService,
     private loadingCtrl: LoadingController,
@@ -35,11 +55,11 @@ export class RegisterPbsupervisorPage implements OnInit {
       ],
       password: [
         '',
-        Validators.compose([Validators.minLength(6), Validators.required]),
+        Validators.compose([Validators.pattern("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&]).{8,}"), Validators.required, Validators.maxLength(30)]),
       ],
       contact_no: [
         '',
-        Validators.compose([Validators.pattern("[78][0-9]{6}"), Validators.required]),
+        Validators.compose([Validators.pattern("[78][1-9]{6}"), Validators.required]),
       ],
 
 
