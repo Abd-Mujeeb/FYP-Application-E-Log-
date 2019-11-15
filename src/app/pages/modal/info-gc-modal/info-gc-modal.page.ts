@@ -145,7 +145,7 @@ export class InfoGcModalPage implements OnInit {
     console.log(this.item, 'ani step 3');
 
     this.editprofile_form = this.formBuilder.group({
-      displayName: new FormControl(this.item.displayName, Validators.required),
+      displayName: new FormControl(this.item.name, Validators.required),
       email: new FormControl(this.item.email, Validators.email),
       contact_no: new FormControl(this.item.contact_no, Validators.required),
       school_dept: new FormControl(this.item.school_dept, Validators.required),

@@ -143,7 +143,12 @@ export class AuthService {
         .firestore()
         .doc(`/users/${newUserCredential.user.uid}`)
         .set({ displayName, name, email, password, school_dept: school_department, change: true, contact_no, group_code, role: 'gc' });
-      console.log("User " + newUserCredential.user.email + " created successfully!");
+        let user = secondaryApp.auth().currentUser;
+        user.updateProfile({
+          displayName: displayName,
+        });
+        
+        console.log("User " + newUserCredential.user.email + newUserCredential.user.displayName + " created successfully!");
       secondaryApp.auth().signOut();
     }).catch(error => {
       console.error(error);
@@ -161,7 +166,7 @@ export class AuthService {
       let user = secondaryApp.auth().currentUser;
       user.updateProfile({
         displayName: displayName,
-      })
+      });
 
       console.log("User " + newUserCredential.user.email + newUserCredential.user.displayName + " created successfully!");
       secondaryApp.auth().signOut();
