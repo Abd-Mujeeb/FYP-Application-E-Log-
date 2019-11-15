@@ -6,6 +6,10 @@ ion-card{
     --background: white;
 }
 
+button{
+  margin: 4px;
+}
+
 .topleft {
     position: absolute;
     top: 8px;
@@ -48,4 +52,12 @@ background-color: grey;
   .btn{
     margin: 4px;
     
+  }
+
+  #fontcolor{
+    color: rgb(0, 0, 0);
+  }
+
+  #colorwhite{
+    color: white;
   }

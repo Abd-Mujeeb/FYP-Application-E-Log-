@@ -131,7 +131,7 @@ private modalController: ModalController,
     this.modalController.create({
       component: InfoAdminModalPage,
       componentProps: {
-        record: record.id,
+        record: record,
       }
  
       

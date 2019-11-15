@@ -12,10 +12,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
 
   <div class="topleft">
-    <ion-searchbar showCancelButton (ionInput)="filterList($event)"> Find PB Supervisor</ion-searchbar>
+    <ion-searchbar showCancelButton (ionInput)="filterList($event)"><label id="colorwhite"> Find PB Supervisor </label></ion-searchbar>
   </div>
 
   <div class="topright">
@@ -24,6 +24,7 @@
     </ion-button>
   </div>
   <br><br><br><br><br>
+
 
   <label>Filter by: </label>
   <div>
@@ -47,24 +48,22 @@
       <th class="editdeletebtn"></th>
     </tr>
     <tr *ngFor="let item of userProfile; let i = index">
-      <ng-container *ngIf="!item.isEdit; else elseBlock">
         <td>{{i+1}}. {{item.displayName}}</td>
         <td>{{item.email}}</td>
         <td>{{item.school_dept}}</td>
         <td>{{item.contact_no}}</td>
         <td class="editdeletebtn">
           <ion-button fill="outline" color="success" size="small" (click)="openPreview(item)">
-            View
+            More
           </ion-button>
-          <ion-button shape="round" color="secondary" size="small" (click)="EditRecord(item)">Edit
+          <!-- <ion-button shape="round" color="secondary" size="small" (click)="EditRecord(item)">Edit
             <ion-icon size="small" slot="icon-only" name="create"></ion-icon>
           </ion-button>
           <ion-button shape="round" color="danger" size="small" (click)="presentAlertConfirm(item.id)">
             <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
-          </ion-button>
+          </ion-button> -->
         </td>
-      </ng-container>
-      <ng-template #elseBlock>
+      <!-- <ng-template #elseBlock>
         <td>
           <ion-input type="text" [(ngModel)]="item.EditdisplayName"></ion-input>
         </td>
@@ -88,7 +87,7 @@
 
         </td>
 
-      </ng-template>
+      </ng-template> -->
     </tr>
   </table>
 </ion-content>
