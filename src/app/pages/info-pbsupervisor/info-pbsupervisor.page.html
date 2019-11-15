@@ -25,16 +25,16 @@
   </div>
   <br><br><br><br><br>
 
-  <label>Filter by</label>
+  <label>Filter by: </label>
   <div>
     <!-- https://stackblitz.com/edit/angularfire-db-api-fbad9p -->
     <p>School Department: </p>
-    <button type="radio">SICT</button>
-    <button type="radio">SBS</button>
-    <button type="radio">SSE</button>
-    <button type="radio">SHS</button>
-    <button type="radio">
-      <em>clear filter</em>
+    <button class="btn" type="radio" (click)="filterByschool_dept('SICT')">SICT</button>
+    <button class="btn" type="radio" (click)="filterByschool_dept('SBS')">SBS</button>
+    <button class="btn" type="radio" (click)="filterByschool_dept('SSE')">SSE</button>
+    <button class="btn" type="radio" (click)="filterByschool_dept('SHS')">SHS</button>
+    <button class="btn" type="radio" (click)="filterByschool_dept('All')" *ngIf="all">
+      <em>All</em>
     </button>
   </div>
   <br>

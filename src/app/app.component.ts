@@ -81,7 +81,7 @@ export class AppComponent implements OnInit {
     this.authService.logoutUser()
     .then(res => {
       console.log(res);
-      this.navCtrl.navigateBack('');
+      this.navCtrl.navigateBack('/login');
     })
     .catch(error => {
       console.log(error);
@@ -91,33 +91,55 @@ export class AppComponent implements OnInit {
 
   initializeApp() {
 
-    this.afAuth.auth.onAuthStateChanged(user => 
-      {
-        if (user) {
-          console.log("testing mau kh nda");
-          let userId = user.uid;
-          this.firestore.doc(`users/${user.uid}`).valueChanges().pipe(
-            take(1)
-          ).subscribe(userData => {
-            const role = userData['role'];
-            if (role == 'pbsupervisor') {
-              this.router.navigateByUrl('/home-pbsupervisor');
-            } else if (role == 'admin') {
-              this.router.navigateByUrl('/home-admin');
-            } else if (role == 'gc') {
-              this.router.navigateByUrl('/home-gc');
-            } else if (role == 'student') {
-              this.router.navigateByUrl('/home-student');
-            } else if (role == 'isupervisor') {
-              this.router.navigateByUrl('/home-isupervisor');
-          } 
-        })
-      } else {
-        console.log('no user, maksudnya last user logout lapas ia pakai the app');
-        return of(null);
-      }
+    // this.afAuth.auth.onAuthStateChanged(user => 
+    //   {
+    //     if (user) {
+    //       console.log("testing mau kh nda");
+    //       let userId = user.uid;
+    //       this.firestore.doc(`users/${user.uid}`).valueChanges().pipe(
+    //         take(1)
+    //       ).subscribe(userData => {
+    //         const role = userData['role'];
+    //         if (role == 'pbsupervisor') {
+    //           this.router.navigateByUrl('/home-pbsupervisor');
+    //         } else if (role == 'admin') {
+    //           this.router.navigateByUrl('/home-admin');
+    //         } else if (role == 'gc') {
+    //           this.router.navigateByUrl('/home-gc');
+    //         } else if (role == 'student') {
+    //           this.router.navigateByUrl('/home-student');
+    //         } 
+    //     })
+    //   } else {
+    //     console.log('no user, maksudnya last user logout lapas ia pakai the app');
+    //     return of(null);
+    //   }
 
-    });
+    // });
+
+
+    // this.afAuth.auth.onAuthStateChanged(user => 
+    //   {
+    //     if (user) {
+    //       console.log("testing mau kh nda");
+    //      user.uid;
+    //       this.firestore.doc(`users/${user.uid}`).valueChanges().pipe(
+    //         take(1)
+    //       ).subscribe(userData => {
+            
+    //           this.router.navigateByUrl('/home-student');
+              
+            
+    //     })
+    //   } else {
+    //     this.router.navigateByUrl('/login');
+    //     console.log('no user, maksudnya last user logout lapas ia pakai the app');
+    //     return of(null);
+    //   }
+
+    //   // this.router.navigateByUrl('/login');
+
+    // });
   
     // this.platform.ready().then(() => {
     //   this.statusBar.styleDefault();

@@ -19,3 +19,42 @@ ion-list-header {
     padding: 10px;
     max-width: 50%;
   }
+
+  
+  .pw {
+    width: 100px;
+    background-color: rgb(231, 189, 189);
+    cursor: pointer;
+  }
+
+  
+
+  .span{
+    color: black;
+  }
+
+  .detail{
+    width: 70%;
+    margin: auto;
+  }
+
+  button{
+    margin-left: 20px;
+    border: 1px solid black;
+    border-radius: 25px;
+    width: 25%;
+    height: 30px;
+    font-size: 14px;
+    background-color: white;
+  }
+
+  button:hover{
+    background-color: grey;
+    color: white;
+  }
+
+  button:active{
+    background-color: rgb(163, 163, 163);
+    color: white;
+    font-weight: bold;
+  }

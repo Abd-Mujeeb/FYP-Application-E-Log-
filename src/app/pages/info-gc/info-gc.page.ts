@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GcService } from 'src/app/services/user/gc.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AuthService } from 'src/app/services/user/auth.service';
 
 @Component({
   selector: 'app-info-gc',
@@ -8,15 +10,59 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./info-gc.page.scss'],
 })
 export class InfoGcPage implements OnInit {
+
   userProfile: any;
   public loadeduserProfile: any [];
-
+  public all: boolean = false;
+  displayName: string;
+  
   constructor(
     private gcService: GcService,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private firestore: AngularFirestore,
+    private authService: AuthService,
+    private navCtrl: NavController,
   ) { }
 
+  filterByschool_dept(school_dept: string|null) {
+    if(school_dept == 'All'){
+      this.all = false;
+      return this.ngOnInit();
+ }else{
+  this.firestore.collection('users', ref => ref.where('role', '==', 'gc').where('school_dept', '==', school_dept)).snapshotChanges().subscribe(data => {
+ 
+    school_dept = data['school_dept']
+    this.userProfile = data.map(e => {
+         return {
+          id: e.payload.doc.id,
+          isEdit: false,
+          name: e.payload.doc.data()['displayName'],
+          email: e.payload.doc.data()['email'],
+          school_dept: e.payload.doc.data()['school_dept'],
+          group_code: e.payload.doc.data()['group_code'],
+          contact_no: e.payload.doc.data()['contact_no'],
+  
+  
+      };
+    })
+    console.log(this.userProfile);
+  this.loadeduserProfile = this.userProfile;
+  this.all = true;
+  
+  });
+}
+
+
+  }
+
   ngOnInit() {
+
+    if(this.authService.userDetails()){
+      this.displayName = this.authService.userDetails().displayName;
+    } else {
+      this.navCtrl.navigateBack('');
+    }
+
     this.gcService.read_gc().subscribe(data => {
  
       this.userProfile = data.map(e => {

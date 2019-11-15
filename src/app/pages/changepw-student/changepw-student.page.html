@@ -9,9 +9,9 @@
 
 <ion-content padding>
 
-    <div class="out">
+
     <form [formGroup]="changepwForm" id="form"> 
-      <h3>Please input your current, new and confirm password.</h3>
+      <p class="please">Please input your current, new and confirm password.</p>
       <ion-item>
           <ion-label position="stacked">Current Password:</ion-label>
           <ion-input type="password"
@@ -76,11 +76,11 @@
                       </ion-item>
                      </div>
   <br>
-                     <span float-right>Show Password  <ion-checkbox  [color]="password_Shown === true ? 'danger' : 'light'" slot="end" (click)='toggle_Password()'></ion-checkbox></span>
+                     <span float-right class="please">Show Password  <ion-checkbox  [color]="password_Shown === true ? 'danger' : 'light'" slot="end" (click)='toggle_Password()'></ion-checkbox></span>
                   <br>
                   <br>
           <ion-button expand="block" (click)="updatePassword()" [disabled]="!changepwForm.valid">Confirm</ion-button>
         </form>
   
-      </div>
+    
   </ion-content>

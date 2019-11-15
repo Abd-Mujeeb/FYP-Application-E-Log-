@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentService } from 'src/app/services/user/student.service';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { AngularFirestore, AngularFirestoreCollection  } from '@angular/fire/firestore';
 import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
 import * as firebase from 'firebase/app';
@@ -19,7 +19,8 @@ export interface Item {
   styleUrls: ['./info-student.page.scss'],
 })
 export class InfoStudentPage implements OnInit {
- 
+
+  displayName: string;
   public loading: any;
   public student: any[];
   public loadedstudent: any [];
@@ -38,7 +39,8 @@ export class InfoStudentPage implements OnInit {
     private authService: AuthService,
     private alertCtrl: AlertController,
     private studentService: StudentService,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    private navCtrl: NavController,
     ) { 
 
   }
@@ -80,6 +82,12 @@ export class InfoStudentPage implements OnInit {
 
   ngOnInit() {
 
+    if(this.authService.userDetails()){
+      this.displayName = this.authService.userDetails().displayName;
+    } else {
+      this.navCtrl.navigateBack('');
+    }
+    
 
     this.studentService.read_student().subscribe(data => {
  

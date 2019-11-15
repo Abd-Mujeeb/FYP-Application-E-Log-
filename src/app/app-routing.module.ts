@@ -337,11 +337,12 @@ const routes: Routes = [
   { path: 'editpbsupervisor-modal', loadChildren: './pages/editpbsupervisor-modal/editpbsupervisor-modal.module#EditpbsupervisorModalPageModule' },
   { path: 'pb-studentlist', loadChildren: './pages/pb-studentlist/pb-studentlist.module#PbStudentlistPageModule' },
   { path: 'select-student', loadChildren: './pages/select-student/select-student.module#SelectStudentPageModule' },
-  { path: 'selectstudent-modal', loadChildren: './pages/selectstudent-modal/selectstudent-modal.module#SelectstudentModalPageModule' },  { path: 'register-admin', loadChildren: './pages/register-admin/register-admin.module#RegisterAdminPageModule' },
+  { path: 'selectstudent-modal', loadChildren: './pages/selectstudent-modal/selectstudent-modal.module#SelectstudentModalPageModule' },
+  { path: 'register-admin', loadChildren: './pages/register-admin/register-admin.module#RegisterAdminPageModule' },
   { path: 'pb-studentlist-modal', loadChildren: './pages/pb-studentlist-modal/pb-studentlist-modal.module#PbStudentlistModalPageModule' },
   { path: 'info-admin-modal', loadChildren: './pages/modal/info-admin-modal/info-admin-modal.module#InfoAdminModalPageModule' },
-  { path: 'select-date', loadChildren: './pages/select-date/select-date.module#SelectDatePageModule' },
-  { path: 'student-task2', loadChildren: './pages/student-task2/student-task2.module#StudentTask2PageModule' },
+  { path: 'change', loadChildren: './pages/change/change.module#ChangePageModule' },
+
 
 
 

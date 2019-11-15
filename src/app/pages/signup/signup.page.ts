@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/user/auth.service';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController, NavController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -12,14 +12,15 @@ import { Router } from '@angular/router';
 export class SignupPage implements OnInit {
   public signupForm: FormGroup;
   public loading: any;
-  
+  displayName: string;
 
   constructor(
     private authService: AuthService,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private navCtrl: NavController,
   ) {
     this.signupForm = this.formBuilder.group({
       name: [
@@ -41,7 +42,14 @@ export class SignupPage implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if(this.authService.userDetails()){
+      this.displayName = this.authService.userDetails().displayName;
+    } else {
+      this.navCtrl.navigateBack('');
+    }
+    
+  }
 
   async signupUser(signupForm: FormGroup): Promise<void> {
     if (!signupForm.valid) {
