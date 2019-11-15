@@ -110,7 +110,7 @@ export class InfoPbsupervisorPage implements OnInit {
     this.modalController.create({
       component: EditpbsupervisorModalPage,
       componentProps: {
-        record: record.id,
+        record: record,
       }
     }).then(modal => modal.present());
  

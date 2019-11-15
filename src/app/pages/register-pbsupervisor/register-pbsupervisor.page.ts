@@ -39,7 +39,7 @@ export class RegisterPbsupervisorPage implements OnInit {
       ],
       contact_no: [
         '',
-        Validators.compose([Validators.minLength(5), Validators.required]),
+        Validators.compose([Validators.minLength(7), Validators.required]),
       ],
 
 

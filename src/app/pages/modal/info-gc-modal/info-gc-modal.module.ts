@@ -5,12 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { InfoAdminModalPage } from './info-admin-modal.page';
+import { InfoGcModalPage } from './info-gc-modal.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: InfoAdminModalPage
+    component: InfoGcModalPage
   }
 ];
 
@@ -22,6 +22,6 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [InfoAdminModalPage]
+  declarations: [InfoGcModalPage]
 })
-export class InfoAdminModalPageModule {}
+export class InfoGcModalPageModule {}

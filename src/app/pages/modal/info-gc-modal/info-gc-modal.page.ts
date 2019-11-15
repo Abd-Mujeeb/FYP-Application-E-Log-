@@ -1,36 +1,48 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, ModalController, AlertController, ToastController } from '@ionic/angular';
-import { PbsupervisorService } from 'src/app/services/user/pbsupervisor.service';
-import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavParams, ToastController, AlertController, ModalController } from '@ionic/angular';
+import { AdminService } from 'src/app/services/user/admin.service';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { GcService } from 'src/app/services/user/gc.service';
 
 @Component({
-  selector: 'app-editpbsupervisor-modal',
-  templateUrl: './editpbsupervisor-modal.page.html',
-  styleUrls: ['./editpbsupervisor-modal.page.scss'],
+  selector: 'app-info-gc-modal',
+  templateUrl: './info-gc-modal.page.html',
+  styleUrls: ['./info-gc-modal.page.scss'],
 })
-export class EditpbsupervisorModalPage implements OnInit {
+export class InfoGcModalPage implements OnInit {
 
   record: any;
-  public pbsupervisorlist: any[];
-  public loadedpbsupervisorlist: any[];
+  item: any;
+  public adminlist: any[];
+  public loadedadminlist: any[];
   private oldPasswordDatabase: any;
   private oldEmailDatabase: any;
   public userInformation: any;
   public editprofile_form: FormGroup;
-  item: any;
+  private sub: any;
+
   schoolkeys: any;
+  sictkeys: any;
+  sbskeys: any;
+  shskeys: any;
+  ssekeys: any;
+
+  zone1: any;
+  zone2: any;
+  zone3: any;
+  zone4: any;
 
   constructor(
     private navParams: NavParams,
-    private pbsupervisorService: PbsupervisorService,
+    private GcService: GcService,
+    public toastCtrl: ToastController,
     private alertCtrl: AlertController,
     private modalController: ModalController,
-    public toastCtrl: ToastController,
     private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
     private router: Router,
-    ) 
-    { 
+    ) {
 
       this.editprofile_form = this.formBuilder.group({
         displayName: [
@@ -45,11 +57,12 @@ export class EditpbsupervisorModalPage implements OnInit {
           '',
           Validators.compose([Validators.required, Validators.minLength(7), Validators.pattern('[0-7]')]),
         ],
-    
-        school_department: ['', Validators.required,],
+
+        school_dept: ['',Validators.required,],
+        group_code: ['', Validators.required]
       });
+
       
-       
     this.schoolkeys = [
       'SICT',
       'SBS',
@@ -57,26 +70,65 @@ export class EditpbsupervisorModalPage implements OnInit {
       'SSE',
     ]
 
+    this.zone1 = {
+      kind: 'NWS06'
+    }
 
-      this.pbsupervisorService
-      .getUserProfilePbsupervisor()
+    this.sictkeys = [
+      'NWS06',
+      'NWS07',
+      'WBD',
+      'INS',
+      'DME',    
+    ]
+
+    this.zone2 = {
+      kind: 'MKT01'
+    }
+    this.sbskeys = [
+      'MKT01',
+      'ACC02',
+    ]
+
+    this.zone3 = {
+      kind: 'Nursing'
+    }
+
+    this.shskeys = [
+      'Nursing',
+      'Paramedic',
+    ]
+
+    this.zone4 = {
+      kind: 'Civil'
+    }
+    this.ssekeys = [
+      'Petroleum',
+      'Civil',
+    ]
+
+  
+
+
+      this.GcService
+      .getUserProfileGc()
       .get()
       .then(userInformationSnapshot => {
         this.oldPasswordDatabase = userInformationSnapshot.data().password;
         
       })
   
-      this.pbsupervisorService
-      .getUserProfilePbsupervisor()
+      this.GcService
+      .getUserProfileGc()
       .get()
       .then(userInformationSnapshot => {
         this.oldEmailDatabase = userInformationSnapshot.data().email;
         
       })    
+  
+     }
 
-    }
-
-    async presentToast(message: string) {
+     async presentToast(message: string) {
       const toast = await this.toastCtrl.create({
         message: message,
         duration: 2000,
@@ -85,6 +137,7 @@ export class EditpbsupervisorModalPage implements OnInit {
     }
 
   ngOnInit() {
+
     
     this.record = this.navParams.get('record');
     console.log(this.record, 'ani step 2');
@@ -92,58 +145,24 @@ export class EditpbsupervisorModalPage implements OnInit {
     console.log(this.item, 'ani step 3');
 
     this.editprofile_form = this.formBuilder.group({
-      displayName: new FormControl(this.item.displayName, Validators.required),
+      displayName: new FormControl(this.item.name, Validators.required),
       email: new FormControl(this.item.email, Validators.email),
       contact_no: new FormControl(this.item.contact_no, Validators.required),
       school_dept: new FormControl(this.item.school_dept, Validators.required),
-      
+      group_code: new FormControl(this.item.group_code, Validators.required),
       
     });
-    
-    this.pbsupervisorService
-    .getUserProfilePbsupervisor()
+
+
+    this.GcService
+    .getUserProfileGc()
     .get()
     .then(userInformationSnapshot => {
       this.userInformation = userInformationSnapshot.data();
       
     })
 
-   
-
-
-
-
-    // this.name = this.navParams.get('name');
-    // this.email = this.navParams.get('email');
-    // this.school_dept = this.navParams.get('school_dept');
-    // this.contact_no = this.navParams.get('contact_no');
-    
-    // this.record = this.navParams.get('record');
-    // console.log(this.record, 'ani step 2');
-
-    // let pbsupervisorUID = this.record;
-    // console.log(pbsupervisorUID, 'ani step 3');
-    // this.pbsupervisorService.read_specific_pbsupervisor(pbsupervisorUID).subscribe(data => {
-
-    //   this.pbsupervisorlist = data.map(e => {
-    //     return {
-    //       id: e.payload.doc.id,
-    //       name: e.payload.doc.data()['displayName'],
-    //       email: e.payload.doc.data()['email'],
-    //       contact_no: e.payload.doc.data()['contact_no'],
-    //       school_dept: e.payload.doc.data()['school_dept'],
-    //     };
-    //   })
-    //   console.log(this.pbsupervisorlist);
-    //   this.loadedpbsupervisorlist = this.pbsupervisorlist;
-
-    // });
-
-
-
-
   }
-
 
 
   async onSubmit(value){
@@ -152,19 +171,19 @@ export class EditpbsupervisorModalPage implements OnInit {
       duration: 3000
     });
 
-    this.pbsupervisorService.updateProfile(this.item.id, value)
+    this.GcService.updateProfile(this.item.id, value)
     .then(
       res => {
         this.modalController.dismiss();
-        this.router.navigate(["/info-pbsupervisor"]);
+        this.router.navigate(["/info-gc"]);
         toast.present();
       }
     )
   }
 
-  async presentAlertConfirm(item){
+async presentAlertConfirm(item){
     const alert = await this.alertCtrl.create({
-      subHeader: "Are you sure to remove this account?",
+      subHeader: "Are you sure to delete this account?",
       inputs: [
         {
           type: 'text',
@@ -183,7 +202,7 @@ export class EditpbsupervisorModalPage implements OnInit {
           text: 'Cancel'
         },
         {
-          text: 'Remove',
+          text: 'Delete',
           handler: data => {
             if((data.email == "" ) && (data.password == "") 
             || (data.email == "") 
@@ -209,7 +228,7 @@ export class EditpbsupervisorModalPage implements OnInit {
             else 
             {
               console.log(item, 'what is item?')
-               this.pbsupervisorService.delete_specific_pbsupervisor( data.email, data.password , item );
+               this.GcService.delete_specific_gc( data.email, data.password , item );
                this.modalController.dismiss();
              
              
@@ -222,13 +241,7 @@ export class EditpbsupervisorModalPage implements OnInit {
    
     
   }
-
-  
- 
-
-
-  close(){
+  close() {
     this.modalController.dismiss();
   }
-
 }

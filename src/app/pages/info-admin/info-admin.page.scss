@@ -26,7 +26,7 @@ ion-card{
 //   }
 
 td.editdeletebtn, th.editdeletebtn{
-    text-align: right;
+    text-align: center;
 }
 
   table {
@@ -46,3 +46,10 @@ background-color: grey;
     padding: 8px;
   }
   
+  #fontcolor{
+    color: rgb(0, 0, 0);
+  }
+
+  #colorwhite{
+    color: white;
+  }
