@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/services/user/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { PbStudentlistModalPage } from '../pb-studentlist-modal/pb-studentlist-modal.page';
 import { Router } from '@angular/router';
-
+import { GcStudentlistModalPage } from '../gc-studentlist-modal/gc-studentlist-modal.page';
 @Component({
   selector: 'app-home-gc',
   templateUrl: './home-gc.page.html',
@@ -142,7 +142,7 @@ this.menu.enable(true);
 
  openPreview(record){
   this.modalController.create({
-    component: PbStudentlistModalPage,
+    component: GcStudentlistModalPage,
     componentProps: {
       record: record.id,
     }

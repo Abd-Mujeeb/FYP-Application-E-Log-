@@ -64,6 +64,9 @@ export class StudentService {
     return this.users_student.update({ displayName })
   }
 
+  updatecontact(telno:string): Promise<any> {
+    return this.users_student.update({ contact_no:telno })
+  }
   // updateDOB(birthDate: string): Promise<any> {
   //   return this.userProfile.update({ birthDate });
   // }
@@ -423,7 +426,7 @@ export class StudentService {
   read_student_attendance(jubs) {
 
     console.log(jubs, 'ani step 4');
-    return this.firestore.collection('users').doc(jubs).collection('attendance').snapshotChanges();
+    return this.firestore.collection('users').doc(jubs).collection('attendance').doc('month').collection('present').snapshotChanges();
   }
 
   // read_student_attendance(){

@@ -45,6 +45,7 @@ import { InfoAdminModalPageModule } from './pages/modal/info-admin-modal/info-ad
 import { InfoGcModalPageModule } from './pages/modal/info-gc-modal/info-gc-modal.module';
 
 import { IonicStorageModule } from '@ionic/storage';
+import { GcStudentlistModalPageModule } from './pages/gc-studentlist-modal/gc-studentlist-modal.module';
 
 
 firebase.initializeApp(environment.firebase);
@@ -59,6 +60,7 @@ firebase.initializeApp(environment.firebase);
     EditpbsupervisorModalPageModule,
     SelectstudentModalPageModule,
     PbStudentlistModalPageModule,
+    GcStudentlistModalPageModule,
     InfoAdminModalPageModule,
     InfoGcModalPageModule,
     FormsModule,
