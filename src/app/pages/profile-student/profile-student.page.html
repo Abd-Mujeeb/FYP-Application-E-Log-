@@ -165,7 +165,7 @@
                             type="number"
                             placeholder="Contact Number"
                             [class.invalid]="!signupForm.controls['contact_no'].valid && signupForm.controls['contact_no'].touched"
-                            value={{userProfile?.contact_no}}
+                           [(ngModel)]="no"
                           >
                           +673 &nbsp;
                           </ion-input>
