@@ -50,7 +50,7 @@ export class RegisterGcPage implements OnInit {
       ],
       contact_no: [
         '',
-        Validators.compose([Validators.minLength(5), Validators.required]),
+        Validators.compose([ Validators.pattern("[78][0-9]{6}"), Validators.required]),
       ],
   
     

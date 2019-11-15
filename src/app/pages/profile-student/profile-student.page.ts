@@ -41,7 +41,7 @@ export class ProfileStudentPage implements OnInit {
         '',
         Validators.compose([ 
           Validators.required,
-          Validators.pattern("[78][0-9]{6}"),
+          Validators.pattern("[78][1-9]{6}"),
       ]),
 
     ],
