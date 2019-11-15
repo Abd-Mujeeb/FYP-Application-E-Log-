@@ -20,20 +20,13 @@
         <ion-label>
           <ion-grid>
             <ion-row>
-              <ion-col class="text-left" size="1"> Name: </ion-col>
+              <ion-col class="text-left" size="3"> Name: </ion-col>
               <ion-col
                 class="text-left"
                 size="7"
                 *ngIf="userProfile?.name"
               >
                 {{userProfile?.name}}
-              </ion-col>
-              <ion-col
-                size="7"
-                class="placeholder-profile text-center"
-                *ngIf="!userProfile?.name"
-              >
-                <span> Tap here to edit. </span>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -44,26 +37,70 @@
         <ion-label>
           <ion-grid>
             <ion-row>
-              <ion-col class="text-left" size="1"> Email: </ion-col>
+              <ion-col class="text-left" size="3"> Email: </ion-col>
               <ion-col class="text-left" size="7" *ngIf="userProfile?.email">
                 {{userProfile?.email}}
-              </ion-col>
-              <ion-col
-                size="7"
-                class="placeholder-profile text-center"
-                *ngIf="!userProfile?.email"
-              >
-                <span> Tap here to edit. </span>
               </ion-col>
             </ion-row>
           </ion-grid>
         </ion-label>
       </ion-item>
       
-      <br>
+      <ion-item *ngIf="!contact">
+          <ion-label>
+            <ion-grid>
+              <ion-row>
+                <ion-col class="text-left" size="3"> Contact No: </ion-col>
+                <ion-col class="text-left" size="7" *ngIf="userProfile?.contact_no">
+                  +673 {{userProfile?.contact_no}}
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-label>
+        </ion-item>
 
-      <button float-left routerLink="/changepw-admin">Change Password</button>
-  
+        <ion-item *ngIf="contact">
+            <ion-label>
+              <ion-grid>
+                <ion-row>
+                  <ion-col class="text-left" size="3"> Contact No: </ion-col>
+                  <ion-col class="text-left" size="7" *ngIf="userProfile?.contact_no">
+                      
+                    <form [formGroup]="signupForm">
+                        
+                      <ion-item>
+                          <ion-input
+                            formControlName="contact_no"
+                            type="number"
+                            placeholder="Contact Number"
+                            [class.invalid]="!signupForm.controls['contact_no'].valid && signupForm.controls['contact_no'].touched"
+                           [(ngModel)]="no"
+                          >
+                          +673 &nbsp;
+                          </ion-input>
+                        </ion-item>
+                        <div class="error-messages">
+                            <ng-container *ngFor="let error of error_messages.contact_no">
+                              <ion-item class="error-message" *ngIf="signupForm.get('contact_no').hasError(error.type) && (signupForm.get('contact_no').dirty || signupForm.get('contact_no').touched)">
+                                {{ error.message }}
+                              </ion-item>
+                            </ng-container>
+                          </div>
+                        </form>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-label>
+
+         
+          </ion-item>
+      <br>
+      <ion-button class="change" float-left expand="block" color="tertiary" (click)="update()" [disabled]="!signupForm.valid" *ngIf="contact">Update</ion-button>
+      <ion-button class="change" float-left expand="block" color="danger" *ngIf="contact" (click)="contactss()">Cancel</ion-button>
+      <br>
+      <ion-button class="edit" color="success" *ngIf="!contact" float-left expand="block" (click)="contacts()">Edit</ion-button>
+      <ion-button class="pw" float-right *ngIf="!contact" expand="block" routerLink="/changepw-admin">Change Password</ion-button>
+
       
     </ion-list>
   </div>

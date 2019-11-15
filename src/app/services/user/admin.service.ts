@@ -44,6 +44,10 @@ export class AdminService {
     return this.userProfile.update({ displayName })
   }
 
+  updatecontact(telno:string): Promise<any> {
+    return this.userProfile.update({ contact_no:telno })
+  }
+
   // updateDOB(birthDate: string): Promise<any> {
   //   return this.userProfile.update({ birthDate });
   // }
