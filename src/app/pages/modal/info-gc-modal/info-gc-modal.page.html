@@ -37,7 +37,7 @@
               </ion-select>
           </ion-item>
       
-        <!-- <ion-item *ngIf="show=='SICT'">
+        <ion-item *ngIf="show=='SICT'">
           <ion-label position="stacked">Group Code</ion-label>
           <ion-select formControlName="group_code" [(ngModel)]="zone1.kind">
             <ion-select-option *ngFor="let group of sictkeys">{{group}}</ion-select-option>
@@ -62,7 +62,7 @@
           <ion-select formControlName="group_code" [(ngModel)]="zone4.kind">
               <ion-select-option *ngFor="let group of ssekeys">{{group}}</ion-select-option>
           </ion-select>
-        </ion-item> -->
+        </ion-item>
   
         <span class="centerbtn">
           <ion-button size="small" color="primary" (click)="close()" [routerLink]="['/info-admin']">
