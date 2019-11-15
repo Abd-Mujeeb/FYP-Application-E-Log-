@@ -42,6 +42,7 @@ import { EditpbsupervisorModalPageModule } from './pages/editpbsupervisor-modal/
 import { SelectstudentModalPageModule } from './pages/selectstudent-modal/selectstudent-modal.module';
 import { PbStudentlistModalPageModule } from './pages/pb-studentlist-modal/pb-studentlist-modal.module';
 import { InfoAdminModalPageModule } from './pages/modal/info-admin-modal/info-admin-modal.module';
+import { InfoGcModalPageModule } from './pages/modal/info-gc-modal/info-gc-modal.module';
 
 import { IonicStorageModule } from '@ionic/storage';
 
@@ -59,6 +60,7 @@ firebase.initializeApp(environment.firebase);
     SelectstudentModalPageModule,
     PbStudentlistModalPageModule,
     InfoAdminModalPageModule,
+    InfoGcModalPageModule,
     FormsModule,
     PapaParseModule,
     ReactiveFormsModule,

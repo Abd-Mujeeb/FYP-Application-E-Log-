@@ -4,7 +4,7 @@
           <ion-back-button defaultHref="/home-admin"></ion-back-button>
         </ion-buttons>
     <ion-title>Group Coordinator Details</ion-title>
-    <ion-buttons slot="end">
+    <ion-buttons slot="end"> Log in as Admin: {{displayName}}
       <ion-button routerLink="/profile-admin">
         <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
       </ion-button>
@@ -16,7 +16,7 @@
 
 
     <div class="topleft">
-        <ion-searchbar showCancelButton (ionInput)="filterList($event)"> Find GC</ion-searchbar>
+        <ion-searchbar  showCancelButton (ionInput)="filterList($event)"> <label id="colorwhite">Find GC </label></ion-searchbar>
       </div>
     
       <div class="topright">
@@ -26,16 +26,16 @@
       </div>
       <br><br><br><br><br>
     
-      <label>Filter by</label>
+      <label>Filter by: </label>
       <div>
-          <!-- https://stackblitz.com/edit/angularfire-db-api-fbad9p -->
-        <h1>School Department: </h1>
-        <button type="radio">SICT</button>
-        <button  type="radio">SBS</button>
-        <button  type="radio">SSE</button>
-        <button  type="radio">SHS</button>
-        <button  type="radio">
-          <em>clear filter</em>
+        <!-- https://stackblitz.com/edit/angularfire-db-api-fbad9p -->
+        <p>School Department: </p>
+        <button class="btn" type="radio" (click)="filterByschool_dept('SICT')">SICT</button>
+        <button class="btn" type="radio" (click)="filterByschool_dept('SBS')">SBS</button>
+        <button class="btn" type="radio" (click)="filterByschool_dept('SSE')">SSE</button>
+        <button class="btn" type="radio" (click)="filterByschool_dept('SHS')">SHS</button>
+        <button class="btn" type="radio" (click)="filterByschool_dept('All')" *ngIf="all">
+          <em>All</em>
         </button>
       </div>
       <br>
@@ -55,6 +55,11 @@
             <td>{{item.group_code}}</td>
             <td>{{item.contact_no}}</td>
             <td  class="editdeletebtn">
+              
+                <ion-button fill="outline" color="success" size="small" 
+                (click)="openPreview(item)">
+               More Details
+              </ion-button>
 
                 <ion-button  shape="round" color="secondary" size="small" (click)="EditRecord(item)" [routerLink]="['/gc-details', item.id]">Edit
                     <ion-icon size="small" slot="icon-only" name="create"></ion-icon>

@@ -24,16 +24,17 @@ export class InfoPbsupervisorPage implements OnInit {
   contact_no: number;
   email: string;
 
-  public buttonClicked: boolean = false; //Whatever you want to initialise it as
   gc: any;
   studentId: any;
   user: any;
-  
+  public all: boolean = false;
+  public buttonClicked: boolean = false; //Whatever you want to initialise it as
+ 
  public onButtonClick() {
 
     this.buttonClicked = !this.buttonClicked;
-    this.firestore.collection('users/{userId}/student').valueChanges();
 }
+
 
   constructor(
     private pbsupervisorService: PbsupervisorService,
@@ -43,7 +44,85 @@ export class InfoPbsupervisorPage implements OnInit {
     private alertCtrl: AlertController,
     private authService: AuthService,
     private modalController: ModalController,
-  ) { }
+  ) {}
+
+   
+   filterByschool_dept(school_dept: string|null) {
+    if(school_dept == 'All'){
+      this.all = false;
+      return this.ngOnInit();
+ }else{
+  this.firestore.collection('users', ref => ref.where('role', '==', 'pbsupervisor').where('school_dept', '==', school_dept)).snapshotChanges().subscribe(data => {
+ 
+    school_dept = data['school_dept']
+    this.userProfile = data.map(e => {
+         return {
+          id: e.payload.doc.id,
+          isEdit: false,
+          displayName: e.payload.doc.data()['displayName'],
+          email: e.payload.doc.data()['email'],
+          school_dept: e.payload.doc.data()['school_dept'],
+          contact_no: e.payload.doc.data()['contact_no'],
+  
+  
+      };
+    })
+    console.log(this.userProfile);
+  this.loadeduserProfile = this.userProfile;
+  this.all = true;
+  
+  });
+}
+
+
+  }
+
+  filterByNameAscending() {
+
+  this.firestore.collection('users', ref => ref.where('role', '==', 'pbsupervisor').orderBy('displayName', 'asc')).snapshotChanges().subscribe(data => {
+    this.userProfile = data.map(e => {
+         return {
+          id: e.payload.doc.id,
+          isEdit: false,
+          displayName: e.payload.doc.data()['displayName'],
+          email: e.payload.doc.data()['email'],
+          school_dept: e.payload.doc.data()['school_dept'],
+          contact_no: e.payload.doc.data()['contact_no'],
+  
+  
+      };
+    })
+    console.log(this.userProfile);
+  this.loadeduserProfile = this.userProfile;
+  this.all = true;
+  
+  });
+}
+
+filterByNameDescending() {
+
+  this.firestore.collection('users', ref => ref.where('role', '==', 'pbsupervisor').orderBy('displayName', 'desc')).snapshotChanges().subscribe(data => {
+    this.userProfile = data.map(e => {
+         return {
+          id: e.payload.doc.id,
+          isEdit: false,
+          displayName: e.payload.doc.data()['displayName'],
+          email: e.payload.doc.data()['email'],
+          school_dept: e.payload.doc.data()['school_dept'],
+          contact_no: e.payload.doc.data()['contact_no'],
+  
+  
+      };
+    })
+    console.log(this.userProfile);
+  this.loadeduserProfile = this.userProfile;
+  this.all = true;
+  
+  });
+}
+
+
+  
 
   ngOnInit() {
 
@@ -78,7 +157,7 @@ export class InfoPbsupervisorPage implements OnInit {
     this.modalController.create({
       component: EditpbsupervisorModalPage,
       componentProps: {
-        record: record.id,
+        record: record,
       }
     }).then(modal => modal.present());
  

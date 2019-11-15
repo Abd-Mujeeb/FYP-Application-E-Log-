@@ -4,7 +4,7 @@
           <ion-back-button defaultHref="/home-admin"></ion-back-button>
         </ion-buttons>
     <ion-title>Students Details</ion-title>
-    <ion-buttons slot="end">
+    <ion-buttons slot="end"> Log in as Admin: {{displayName}}
       <ion-button #ngif routerLink="/profile-admin">
         <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
       </ion-button>
@@ -64,7 +64,7 @@
       <td>{{item.company}}</td>
       <td>{{item.contactno}}</td>
       <td>{{item.email}}</td>
-      <td><ion-button  (click)="presentAlertConfirm(item)"></ion-button>Delete Button</td>
+      <td><ion-button  color="danger" (click)="presentAlertConfirm(item)"></ion-button>Delete Button</td>
       
     </tr>
   <!-- </ng-container> -->

@@ -342,6 +342,10 @@ const routes: Routes = [
   { path: 'pb-studentlist-modal', loadChildren: './pages/pb-studentlist-modal/pb-studentlist-modal.module#PbStudentlistModalPageModule' },
   { path: 'info-admin-modal', loadChildren: './pages/modal/info-admin-modal/info-admin-modal.module#InfoAdminModalPageModule' },
   { path: 'change', loadChildren: './pages/change/change.module#ChangePageModule' },
+  { path: 'gc-studentlist-modal', loadChildren: './gc-studentlist-modal/gc-studentlist-modal.module#GcStudentlistModalPageModule' },
+  { path: 'change', loadChildren: './pages/change/change.module#ChangePageModule' },
+  { path: 'info-gc-modal', loadChildren: './pages/modal/info-gc-modal/info-gc-modal.module#InfoGcModalPageModule' },
+
 
 
 

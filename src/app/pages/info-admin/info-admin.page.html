@@ -15,7 +15,7 @@
 <ion-content padding>
  
   <div class="topleft">
-    <ion-searchbar showCancelButton (ionInput)="filterList($event)"> Find Admin</ion-searchbar>
+    <ion-searchbar id="fontcolor" showCancelButton (ionInput)="filterList($event)"> <label id="colorwhite">Find Admin </label> </ion-searchbar>
   </div>
 
   <div class="topright">
@@ -44,12 +44,12 @@
           (click)="openPreview(item)">
          More Details
         </ion-button>
-          <ion-button shape="round" color="secondary" size="small" (click)="EditRecord(item)">Edit
+          <!-- <ion-button shape="round" color="secondary" size="small" (click)="EditRecord(item)">Edit
             <ion-icon size="small" slot="icon-only" name="create"></ion-icon>
           </ion-button>
           <ion-button shape="round" color="danger" size="small" (click)="presentAlertConfirm(item.id)">
             <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
-          </ion-button>
+          </ion-button> -->
         </td>
       </ng-container>
       <ng-template #elseBlock>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/user/auth.service';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController, NavController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -13,7 +13,7 @@ export class RegisterPbsupervisorPage implements OnInit {
 
   public signupForm: FormGroup;
   public loading: any;
-  
+  displayName: string;
   schoolkeys: any;
 
   constructor(
@@ -21,7 +21,8 @@ export class RegisterPbsupervisorPage implements OnInit {
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private navCtrl: NavController,
   ) {
     this.signupForm = this.formBuilder.group({
       name: [
@@ -38,7 +39,7 @@ export class RegisterPbsupervisorPage implements OnInit {
       ],
       contact_no: [
         '',
-        Validators.compose([Validators.minLength(5), Validators.required]),
+        Validators.compose([Validators.minLength(7), Validators.required]),
       ],
 
 
@@ -59,7 +60,13 @@ export class RegisterPbsupervisorPage implements OnInit {
 
   }
 
-  ngOnInit() { }
+  ngOnInit() {     
+    if(this.authService.userDetails()){
+    this.displayName = this.authService.userDetails().displayName;
+  } else {
+    this.navCtrl.navigateBack('');
+  }
+}
 
   async signupUser(signupForm: FormGroup): Promise<void> {
     if (!signupForm.valid) {

@@ -5,6 +5,7 @@ import 'firebase/firestore';
 import { AuthService } from './auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AlertController, LoadingController, ToastController } from '@ionic/angular';
+import { reject } from 'q';
 
 
 @Injectable({
@@ -16,7 +17,7 @@ export class AdminService {
   public currentUser: firebase.User;
     public loading: HTMLIonLoadingElement;
     toast: any;
-
+    private snapshotChangesSubscription: any;
   
   
   constructor(private authService: AuthService,
@@ -144,6 +145,21 @@ export class AdminService {
     this.firestore.doc('users/' + recordID).update(record);
   }
 
+  updateProfile(profileID, value){
+    console.log(profileID, value, 'hello there');
+    return new Promise<any>((resolve, reject) => {
+      this.firestore.collection('users').doc(profileID).update({
+        displayName: value.displayName,
+        email: value.email,
+        contact_no: value.contact_no,
+      })
+      .then(
+        res => resolve(res),
+        err => reject(err)
+      )
+    })
+  }
+
   read_Admin() {
     return this.firestore.collection('users',  ref => ref.where('role', '==', 'admin')).snapshotChanges();
   }
@@ -154,6 +170,10 @@ export class AdminService {
 
 
   }
+
+
+
+
 
   delete_specific_admin(Email: string, Password: string, record) {
     console.log(record, 'what is record?');

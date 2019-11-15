@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams, ToastController, AlertController, ModalController } from '@ionic/angular';
 import { AdminService } from 'src/app/services/user/admin.service';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-info-admin-modal',
@@ -10,11 +12,14 @@ import { AdminService } from 'src/app/services/user/admin.service';
 export class InfoAdminModalPage implements OnInit {
   
   record: any;
+  item: any;
   public adminlist: any[];
   public loadedadminlist: any[];
   private oldPasswordDatabase: any;
   private oldEmailDatabase: any;
   public userInformation: any;
+  public editprofile_form: FormGroup;
+  private sub: any;
 
   constructor(
     private navParams: NavParams,
@@ -22,7 +27,25 @@ export class InfoAdminModalPage implements OnInit {
     public toastCtrl: ToastController,
     private alertCtrl: AlertController,
     private modalController: ModalController,
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
     ) {
+
+      this.editprofile_form = this.formBuilder.group({
+        displayName: [
+          '',
+          Validators.compose([Validators.required, Validators.minLength(5)]),
+        ],
+        email: [
+          '',
+          Validators.compose([Validators.required, Validators.email]),
+        ],
+        contact_no: [
+          '',
+          Validators.compose([Validators.required, Validators.minLength(7), Validators.pattern('[0-7]')]),
+        ],
+      });
 
       this.adminService
       .getUserProfileAdmin()
@@ -52,6 +75,20 @@ export class InfoAdminModalPage implements OnInit {
 
   ngOnInit() {
 
+    
+    this.record = this.navParams.get('record');
+    console.log(this.record, 'ani step 2');
+    this.item = this.record;
+    console.log(this.item, 'ani step 3');
+
+    this.editprofile_form = this.formBuilder.group({
+      displayName: new FormControl(this.item.displayName, Validators.required),
+      email: new FormControl(this.item.email, Validators.email),
+      contact_no: new FormControl(this.item.contact_no, Validators.required),
+      
+    });
+
+
     this.adminService
     .getUserProfileAdmin()
     .get()
@@ -60,29 +97,23 @@ export class InfoAdminModalPage implements OnInit {
       
     })
 
-    this.record = this.navParams.get('record');
-    console.log(this.record, 'ani step 2');
-    // this.sub = this.route.params.subscribe(params => {
-    //   this.record = params['id'];
-    //   console.log(this.record , 'ani step 2');
-    // })
+  }
 
-    let adminUID = this.record;
-    console.log(adminUID, 'ani step 3');
-    this.adminService.read_specific_admin(adminUID).subscribe(data => {
 
-      this.adminlist = data.map(e => {
-        return {
-          id: e.payload.doc.id,
-          name: e.payload.doc.data()['displayName'],
-          email: e.payload.doc.data()['email'],
-          contact_no: e.payload.doc.data()['contact_no'],
-        };
-      })
-      console.log(this.adminlist);
-      this.loadedadminlist = this.adminlist;
-
+  async onSubmit(value){
+    const toast = await this.toastCtrl.create({
+      message: 'Update successfully',
+      duration: 3000
     });
+
+    this.adminService.updateProfile(this.item.id, value)
+    .then(
+      res => {
+        this.modalController.dismiss();
+        this.router.navigate(["/info-admin"]);
+        toast.present();
+      }
+    )
   }
 
 async presentAlertConfirm(item){

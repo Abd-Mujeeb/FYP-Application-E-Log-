@@ -132,6 +132,22 @@ export class PbsupervisorService {
     this.firestore.doc('users/' + recordID).update(record);
   }
 
+  updateProfile(profileID, value){
+    console.log(profileID, value, 'hello there');
+    return new Promise<any>((resolve, reject) => {
+      this.firestore.collection('users').doc(profileID).update({
+        displayName: value.displayName,
+        email: value.email,
+        contact_no: value.contact_no,
+        school_dept: value.school_dept,
+      })
+      .then(
+        res => resolve(res),
+        err => reject(err)
+      )
+    })
+  }
+
   read_pbsupervisor() {
     return this.firestore.collection('users', ref => ref.where('role', '==', 'pbsupervisor')).snapshotChanges();
   }

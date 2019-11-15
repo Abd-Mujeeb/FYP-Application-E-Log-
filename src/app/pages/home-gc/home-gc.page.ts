@@ -3,9 +3,11 @@ import { StudentService } from 'src/app/services/user/student.service';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as firebase from 'firebase/app';
 import { GcService } from 'src/app/services/user/gc.service';
-import { AlertController, NavController, MenuController, LoadingController } from '@ionic/angular';
+import { AlertController, NavController, MenuController, LoadingController, ModalController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/user/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { PbStudentlistModalPage } from '../pb-studentlist-modal/pb-studentlist-modal.page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-gc',
@@ -35,7 +37,9 @@ export class HomeGcPage implements OnInit {
     private navCtrl: NavController,
     public menu: MenuController,
     public afs: AngularFirestore,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    private modalController: ModalController,
+    private router: Router
 
 ){}
 
@@ -135,6 +139,25 @@ this.menu.enable(true);
   // If you have more than one side menu, use the id like below
   // this.menu.swipeEnable(true, 'menu1');
  }
+
+ openPreview(record){
+  this.modalController.create({
+    component: PbStudentlistModalPage,
+    componentProps: {
+      record: record.id,
+    }
+
+    
+  }).then(modal => modal.present());
+
+}
+
+read_studentattendance(record){
+  let recordId = record ? record.id : null;
+  this.router.navigate(['/student-attendance', { id: recordId}]);
+  console.log(recordId, 'ani step 1 (forward data ID)');
+
+}
 
     
 }
