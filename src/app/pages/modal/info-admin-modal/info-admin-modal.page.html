@@ -6,7 +6,7 @@
     <form [formGroup]="editprofile_form" (ngSubmit)="onSubmit(editprofile_form.value)">
       <ion-item>
         <ion-label position="stacked">Name</ion-label>
-        <ion-input formControlName="displayName" type="text" placeholder="Your name address" [class.invalid]="!editprofile_form.controls['displayName'].valid &&
+        <ion-input formControlName="displayName" type="text" placeholder="Your name " [class.invalid]="!editprofile_form.controls['displayName'].valid &&
               editprofile_form.controls['displayName'].touched">
         </ion-input>
       </ion-item>
@@ -24,7 +24,7 @@
 
       <ion-item>
         <ion-label position="stacked">Contact No. </ion-label>
-        <ion-input formControlName="contact_no" type="text" placeholder="Your name address" [class.invalid]="!editprofile_form.controls['contact_no'].valid &&
+        <ion-input formControlName="contact_no" type="contact_no" placeholder="Your contact no." [class.invalid]="!editprofile_form.controls['contact_no'].valid &&
                 editprofile_form.controls['contact_no'].touched">
         </ion-input>
       </ion-item>

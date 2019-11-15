@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { GcService } from 'src/app/services/user/gc.service';
-import { AlertController, NavController } from '@ionic/angular';
+import { AlertController, NavController, ModalController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from 'src/app/services/user/auth.service';
+import { InfoGcModalPage } from '../modal/info-gc-modal/info-gc-modal.page';
 
 @Component({
   selector: 'app-info-gc',
@@ -22,6 +23,7 @@ export class InfoGcPage implements OnInit {
     private firestore: AngularFirestore,
     private authService: AuthService,
     private navCtrl: NavController,
+    private modalController: ModalController,
   ) { }
 
   filterByschool_dept(school_dept: string|null) {
@@ -96,8 +98,8 @@ export class InfoGcPage implements OnInit {
     }
 
     this.userProfile = this.userProfile.filter(currentlist => {
-      if (currentlist.displayName, currentlist.email && searchTerm){
-        if (currentlist.displayName.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+      if (currentlist.name, currentlist.email && searchTerm){
+        if (currentlist.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
         currentlist.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1){
           return true;
         }
@@ -152,6 +154,18 @@ export class InfoGcPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  openPreview(record){
+    this.modalController.create({
+      component: InfoGcModalPage,
+      componentProps: {
+        record: record,
+      }
+ 
+      
+    }).then(modal => modal.present());
+ 
   }
 
 }

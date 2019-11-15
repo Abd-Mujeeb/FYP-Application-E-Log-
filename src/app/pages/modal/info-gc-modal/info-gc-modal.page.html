@@ -1,0 +1,110 @@
+<ion-content fullscreen>
+    <div class="center">
+     
+     
+      <h1 >GC Details</h1>
+      <form [formGroup]="editprofile_form" (ngSubmit)="onSubmit(editprofile_form.value)">
+        <ion-item>
+          <ion-label position="stacked">Name</ion-label>
+          <ion-input formControlName="displayName" type="text" placeholder="Your name" [class.invalid]="!editprofile_form.controls['displayName'].valid &&
+                editprofile_form.controls['displayName'].touched">
+          </ion-input>
+        </ion-item>
+  
+        <ion-item>
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input formControlName="email" type="email" placeholder="Your email address" [class.invalid]="!editprofile_form.controls['email'].valid &&
+            editprofile_form.controls['email'].touched">
+          </ion-input>
+        </ion-item>
+        <ion-item class="error-message" *ngIf="!editprofile_form.controls['email'].valid &&
+          editprofile_form.controls['email'].touched">
+          <ion-label>Please enter a valid email.</ion-label>
+        </ion-item>
+  
+        <ion-item>
+          <ion-label position="stacked">Contact No. </ion-label>
+          <ion-input formControlName="contact_no" type="contact_no" placeholder="Your contact no" [class.invalid]="!editprofile_form.controls['contact_no'].valid &&
+                  editprofile_form.controls['contact_no'].touched">
+          </ion-input>
+        </ion-item>
+
+        
+        <ion-item >
+            <ion-label position="stacked">School Department</ion-label>
+            <ion-select placeholder="Select One" interface="popover" formControlName="school_dept" [(ngModel)]="show">
+                <ion-select-option *ngFor="let school of schoolkeys">{{school}}</ion-select-option>
+              </ion-select>
+          </ion-item>
+      
+        <ion-item *ngIf="show=='SICT'">
+          <ion-label position="stacked">Group Code</ion-label>
+          <ion-select formControlName="group_code" [(ngModel)]="zone1.kind">
+            <ion-select-option *ngFor="let group of sictkeys">{{group}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      
+        <ion-item *ngIf="show=='SBS'">
+          <ion-label position="stacked">Group Code</ion-label>
+          <ion-select formControlName="group_code" [(ngModel)]="zone2.kind">
+              <ion-select-option *ngFor="let group of sbskeys">{{group}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      
+        <ion-item *ngIf="show=='SHS'">
+          <ion-label position="stacked">Group Code</ion-label>
+          <ion-select formControlName="group_code" [(ngModel)]="zone3.kind">
+              <ion-select-option *ngFor="let group of shskeys">{{group}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item *ngIf="show=='SSE'">
+          <ion-label position="stacked">Group Code</ion-label>
+          <ion-select formControlName="group_code" [(ngModel)]="zone4.kind">
+              <ion-select-option *ngFor="let group of ssekeys">{{group}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+  
+        <span class="centerbtn">
+          <ion-button size="small" color="primary" (click)="close()" [routerLink]="['/info-admin']">
+            <ion-icon name="close" slot="start"></ion-icon>Cancel
+          </ion-button>
+          <ion-button size="small" type="submit" [disabled]="!editprofile_form.valid">
+            <ion-icon name="create"></ion-icon>Update
+          </ion-button>
+  
+  
+          <ion-button color="danger" size="small" (click)="presentAlertConfirm(item)">
+            Remove Admin
+            <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+        </span>
+      </form>
+  
+  
+      <!-- <ion-card-content *ngFor="let item of adminlist">
+      <ion-item>
+        <ion-label><strong>Name: </strong>{{item.name}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label><strong>Email: </strong>{{item.email}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label><strong>Contact No: </strong>{{item.contact_no}}</ion-label>
+      </ion-item>
+  
+      <ion-item class="close-fake" lines="none">
+        <ion-button (click)="close()" fill="clear" color="">
+          <ion-icon name="close" slot="start"></ion-icon>
+          Back
+        </ion-button>
+        <ion-button shape="round" color="danger" size="small" (click)="presentAlertConfirm(item)">
+          Remove Admin
+          <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+  
+      </ion-item>
+  
+    </ion-card-content> -->
+  
+    </div>
+  </ion-content>

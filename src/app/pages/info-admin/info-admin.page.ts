@@ -14,7 +14,7 @@ import { InfoAdminModalPage } from '../modal/info-admin-modal/info-admin-modal.p
 })
 export class InfoAdminPage implements OnInit {
   public userProfile: any;
-  public loadeduserProfile: any [];
+  public loadeduserProfile: any[];
   displayName: string;
 
   constructor(
@@ -23,21 +23,21 @@ export class InfoAdminPage implements OnInit {
     private profileService: ProfileService,
     private router: Router,
     private authService: AuthService,
-private navCtrl: NavController,
-private modalController: ModalController,
+    private navCtrl: NavController,
+    private modalController: ModalController,
   ) { }
 
   ngOnInit() {
-    if(this.authService.userDetails()){
+    if (this.authService.userDetails()) {
       this.displayName = this.authService.userDetails().displayName;
     } else {
       this.navCtrl.navigateBack('');
     }
 
-     this.adminService.read_Admin().subscribe(data => {
- 
+    this.adminService.read_Admin().subscribe(data => {
+
       this.userProfile = data.map(e => {
-           return {
+        return {
           id: e.payload.doc.id,
           isEdit: false,
           displayName: e.payload.doc.data()['displayName'],
@@ -47,27 +47,27 @@ private modalController: ModalController,
       })
       console.log(this.userProfile);
       this.loadeduserProfile = this.userProfile;
- 
+
     });
-    
+
   }
 
   initializeItems(): void {
     this.userProfile = this.loadeduserProfile;
   }
 
-  filterList(evt){
+  filterList(evt) {
     this.initializeItems();
     const searchTerm = evt.srcElement.value;
 
-    if (!searchTerm){
+    if (!searchTerm) {
       return;
     }
 
     this.userProfile = this.userProfile.filter(currentlist => {
-      if (currentlist.displayName, currentlist.email && searchTerm){
+      if (currentlist.displayName, currentlist.email && searchTerm) {
         if (currentlist.displayName.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
-        currentlist.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1){
+          currentlist.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
           return true;
         }
         return false;
@@ -82,9 +82,9 @@ private modalController: ModalController,
     record.EditdisplayName = record.displayName;
     record.Editemail = record.email;
     record.Editcontact_no = record.contact_no;
-    
+
   }
- 
+
   UpdateRecord(recordRow) {
     let record = {};
     record['displayName'] = recordRow.EditdisplayName;
@@ -125,18 +125,18 @@ private modalController: ModalController,
   }
 
 
-  
 
-  openPreview(record){
+
+  openPreview(record) {
     this.modalController.create({
       component: InfoAdminModalPage,
       componentProps: {
         record: record,
       }
- 
-      
+
+
     }).then(modal => modal.present());
- 
+
   }
 
 }
