@@ -8,6 +8,8 @@ import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native
 import { FirebaseService } from 'src/app/services/firebase.service';
 import * as firebase from 'firebase';
 import { ImageModalPage } from '../image-modal/image-modal.page';
+
+import { StudentService } from 'src/app/services/user/student.service';
 @Component({
   selector: 'app-details',
   templateUrl: './details.page.html',
@@ -19,6 +21,7 @@ export class DetailsPage implements OnInit {
   image: any;
   item: any;
   load: boolean = false;
+  notifyz: string;
   
   sliderOpts = {
     zoom: false,
@@ -38,7 +41,8 @@ export class DetailsPage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private localNotifications: LocalNotifications,
-    private modalController: ModalController
+    private modalController: ModalController,
+    public studentService: StudentService,
   ) { }
 
   ngOnInit() {
@@ -99,6 +103,10 @@ export class DetailsPage implements OnInit {
   }
 
   async delete() {
+
+     
+
+
  
     const alertdeleted = await this.alertCtrl.create({
       header: '',
@@ -118,6 +126,15 @@ export class DetailsPage implements OnInit {
         {
           text: 'Yes',
           handler: () => {
+        this.studentService.notifFalse().then(()=>
+        
+          this.studentService
+          .getUserProfileStudent()
+          .get()
+          .then( userProfileStudentSnapshot => {
+        this.notifyz = userProfileStudentSnapshot.data()['notify'];
+        }));
+
             this.firebaseService.deleteTask(this.item.id)
             .then(
               res => {

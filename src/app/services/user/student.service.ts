@@ -127,6 +127,16 @@ export class StudentService {
     
   }
 
+  async notifFalse(){
+    await this.users_student.update({notify: false});
+    console.log('false dah');
+  }
+
+  async createTrue(){
+    await this.users_student.update({notify:true});
+    console.log('mau true');
+  }
+
   updatePassword(oldPassword: string, confirmpw: string): Promise<any> {
     const credential: firebase.auth.AuthCredential = firebase.auth.EmailAuthProvider.credential(
       this.currentUser.email,
