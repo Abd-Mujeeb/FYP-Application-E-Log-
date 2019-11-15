@@ -21,6 +21,26 @@ export class EditpbsupervisorModalPage implements OnInit {
   item: any;
   schoolkeys: any;
 
+
+  error_messages = {
+    'contact_no': [
+      { type: 'required', message: 'This is required' },
+      { type: 'pattern', message: 'Invalid phone number' },
+    ],
+    'displayName': [
+      { type: 'required', message: 'This is required' },
+      { type: 'pattern', message: 'Invalid Name' },
+    ],
+    'email': [
+      { type: 'required', message: 'This is required' },
+      { type: 'pattern', message: 'Invalid Email' },
+    ],
+    'school_dept': [
+      { type: 'required', message: 'This is required' },
+      { type: 'pattern', message: 'Invalid Input' },
+    ],
+  }
+
   constructor(
     private navParams: NavParams,
     private pbsupervisorService: PbsupervisorService,
@@ -32,31 +52,25 @@ export class EditpbsupervisorModalPage implements OnInit {
     ) 
     { 
 
-      this.editprofile_form = this.formBuilder.group({
-        displayName: [
-          '',
-          Validators.compose([Validators.required, Validators.minLength(5)]),
-        ],
-        email: [
-          '',
-          Validators.compose([Validators.required, Validators.email]),
-        ],
-        contact_no: [
-          '',
-          Validators.compose([Validators.required, Validators.minLength(7), Validators.pattern('[0-7]')]),
-        ],
+      // this.editprofile_form = this.formBuilder.group({
+      //   displayName: [
+      //     '',
+      //     Validators.compose([Validators.required, Validators.minLength(5)]),
+      //   ],
+      //   email: [
+      //     '',
+      //     Validators.compose([Validators.required, Validators.email]),
+      //   ],
+      //   contact_no: [
+      //     '',
+      //     Validators.compose([Validators.required, Validators.pattern("[78][1-9]{6}")]),
+      //   ],
     
-        school_department: ['', Validators.required,],
-      });
+      //   school_department: ['', Validators.required,],
+      // });
       
        
-    this.schoolkeys = [
-      'SICT',
-      'SBS',
-      'SHS',
-      'SSE',
-    ]
-
+ 
 
       this.pbsupervisorService
       .getUserProfilePbsupervisor()
@@ -92,13 +106,29 @@ export class EditpbsupervisorModalPage implements OnInit {
     console.log(this.item, 'ani step 3');
 
     this.editprofile_form = this.formBuilder.group({
-      displayName: new FormControl(this.item.displayName, Validators.required),
-      email: new FormControl(this.item.email, Validators.email),
-      contact_no: new FormControl(this.item.contact_no, Validators.required),
-      school_dept: new FormControl(this.item.school_dept, Validators.required),
-      
-      
+      displayName: [
+        this.item.displayName,
+        Validators.compose([Validators.required, Validators.minLength(5)]),
+      ],
+      email: [
+        this.item.email,
+        Validators.compose([Validators.required, Validators.email]),
+      ],
+      contact_no: [
+        this.item.contact_no,
+        Validators.compose([Validators.required, Validators.pattern("[78][1-9]{6}")]),
+      ],
+  
+      school_dept: [this.item.school_dept, Validators.required,],
     });
+
+    this.schoolkeys = [
+      'SICT',
+      'SBS',
+      'SHS',
+      'SSE',
+    ]
+
     
     this.pbsupervisorService
     .getUserProfilePbsupervisor()

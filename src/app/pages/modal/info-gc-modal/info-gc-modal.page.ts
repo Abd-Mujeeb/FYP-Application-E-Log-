@@ -55,7 +55,7 @@ export class InfoGcModalPage implements OnInit {
         ],
         contact_no: [
           '',
-          Validators.compose([Validators.required, Validators.minLength(7), Validators.pattern('[0-7]')]),
+          Validators.compose([Validators.required,  Validators.pattern("[78][0-9]{6}")]),
         ],
 
         school_dept: ['',Validators.required,],

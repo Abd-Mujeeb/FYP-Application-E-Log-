@@ -50,7 +50,7 @@ export class RegisterAdminPage implements OnInit {
       // ],
       contact_no: [
         '',
-        Validators.compose([Validators.minLength(7), Validators.required]),
+        Validators.compose([Validators.pattern("[78][0-9]{6}"), Validators.required]),
       ],
     });
   }
