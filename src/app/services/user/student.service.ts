@@ -64,6 +64,9 @@ export class StudentService {
     return this.users_student.update({ displayName })
   }
 
+  updatecontact(telno:string): Promise<any> {
+    return this.users_student.update({ contact_no:telno })
+  }
   // updateDOB(birthDate: string): Promise<any> {
   //   return this.userProfile.update({ birthDate });
   // }

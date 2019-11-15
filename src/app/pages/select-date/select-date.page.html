@@ -1,28 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>PB Select Date</ion-title>
+    <ion-buttons slot="end">Log in as PB Supervisor: {{name}}
+      <ion-button routerLink="/profile-pbsupervisor">
+        <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content >
 
-
-<h1>Range Date</h1>
+<div class="center">
+<h1 center>Select Date:</h1>
     <ion-item>
-      <label>Start</label>
+      <label>From</label>
         <ion-datetime displayFormat="DD/MM/YYYY h:mm A" [(ngModel)]="start"></ion-datetime>
         
+        
       </ion-item>
+      <input type="date" [(ngModel)]="start" name="start">
       
       <ion-item>
-          <label>End</label>
+          <label>Until</label>
           <ion-datetime displayFormat="DD/MM/YYYY h:mm A"  [(ngModel)]="end"></ion-datetime>
+         
       </ion-item>
+      <input type="date" [(ngModel)]="end" name="end">
 
-<h1>Specific Date</h1>
+<!-- <h1>Specific Date</h1>
       <ion-item>
           <label>Date</label>
           <ion-datetime displayFormat="DD/MM/YYYY"  [(ngModel)]="specific"></ion-datetime>
-      </ion-item>
+      </ion-item> -->
 
 
 <div *ngFor="let item of studentlist">
-    <h1>Student name {{item.name}}</h1>
-    <ion-button (click)="read_studenttask_range(item)">Date Range</ion-button>
-    <ion-button (click)="read_studenttask_specific(item)">Specific Date</ion-button>
+    <!-- <h1>Student Name : {{item.name}}</h1> -->
+    <ion-button (click)="read_studenttask_range(item)">Ok</ion-button>
+    <!-- <ion-button (click)="read_studenttask_specific(item)">Specific Date</ion-button> -->
   </div>
+
+</div>
 </ion-content>
