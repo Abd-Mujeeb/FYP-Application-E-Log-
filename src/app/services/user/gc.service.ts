@@ -37,6 +37,10 @@ export class GcService {
     return this.users_gc.update({ name })
   }
 
+  updatecontact(telno:string): Promise<any> {
+    return this.users_gc.update({ contact_no:telno })
+  }
+
 
   updateEmail(newEmail: string, password: string): Promise<any> {
     const credential: firebase.auth.AuthCredential = firebase.auth.EmailAuthProvider.credential(

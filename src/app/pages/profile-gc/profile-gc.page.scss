@@ -21,13 +21,6 @@ ion-list-header {
   }
 
   
-  .pw {
-    width: 100px;
-    background-color: rgb(231, 189, 189);
-    cursor: pointer;
-  }
-
-  
 
   .span{
     color: black;
@@ -38,23 +31,61 @@ ion-list-header {
     margin: auto;
   }
 
-  button{
-    margin-left: 20px;
-    border: 1px solid black;
-    border-radius: 25px;
-    width: 25%;
-    height: 30px;
+  // button{
+  //   margin-left: 20px;
+  //   border: 1px solid black;
+  //   border-radius: 25px;
+  //   width: 25%;
+  //   height: 30px;
+  //   font-size: 14px;
+  //   background-color: white;
+  // }
+
+  // button:hover{
+  //   background-color: grey;
+  //   color: white;
+  // }
+
+  // button:active{
+  //   background-color: rgb(163, 163, 163);
+  //   color: white;
+  //   font-weight: bold;
+  // }
+
+  .pw{
+    margin-top: 10px;
+    margin-right: 12px;
+    // width: 25%;
+    // height: 30px;
     font-size: 14px;
+  }
+
+  // button:hover{
+  //   background-color: grey;
+  //   color: white;
+  // }
+
+  // button:active{
+  //   background-color: rgb(163, 163, 163);
+  //   color: white;
+  //   font-weight: bold;
+  // }
+
+  .invalid {
+    border-bottom: 1px solid #ff6153;
+  }
+
+  .error-message {
+    color: red;
     background-color: white;
+    // line-height: 1.6;
+    font-size: 11px;
+  }
+  input.ng-touched.ng-invalid {
+    border: 1px solid red;
   }
 
-  button:hover{
-    background-color: grey;
-    color: white;
-  }
-
-  button:active{
-    background-color: rgb(163, 163, 163);
-    color: white;
-    font-weight: bold;
+  .edit{
+    margin-left: 12px;
+    margin-bottom: 5px;
   }
