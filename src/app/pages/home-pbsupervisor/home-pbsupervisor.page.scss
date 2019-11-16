@@ -1,3 +1,12 @@
+ion-button{
+  color: beige;
+  width: 400px;
+}
+
+ion-grid{
+  margin-top: 50px;
+}
+
 form {
   margin-bottom: 32px;
   button {
@@ -131,5 +140,9 @@ tr, td {
   font-size: 16px;
   margin: 4px 2px;
   margin: 15px;
+  cursor: pointer;
+}
+
+ion-icon:hover{
   cursor: pointer;
 }
