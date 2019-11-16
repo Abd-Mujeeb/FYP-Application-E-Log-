@@ -1,65 +1,63 @@
 <ion-header>
-    <ion-toolbar>
-
-        <ion-buttons slot="start">
-            <ion-back-button defaultHref="/home-admin"></ion-back-button>
-          </ion-buttons>
-        <ion-title>Select Student</ion-title>
-    
-        <ion-buttons slot="end">
-          <ion-button routerLink="/profile-pbsupervisor">
-            <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    
-      </ion-toolbar>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home-admin"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Select Student</ion-title>
+    <ion-buttons slot="end"> Log in as PB Supervisor: {{displayName}} 
+      <ion-button routerLink="/profile-pbsupervisor">
+        <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 <ion-content>
 
 
-  <span  class="marginleft" class="search">Find Student: </span>
-  <span class="marginleft" class="search"><ion-searchbar showCancelButton (ionInput)="filterList($event)"> </ion-searchbar></span>
- <br>
+  <span class="marginleft" class="search">Find Student: </span>
+  <span class="marginleft" class="search">
+    <ion-searchbar showCancelButton (ionInput)="filterList($event)"> </ion-searchbar>
+  </span>
+  <br>
 
 
 
   <h1 class="marginleft">List of student that not yet have supervisor:</h1>
   <br>
-  <div *ngIf="student" >
-  
-  <table *ngIf="student.length > 0">
-    <tr class="headercolor">
-      <th>No.</th>
-      <th>Name</th>
-      <th>Intern Place</th>
-      <th>Student ID</th>
-      <th>School</th>
-    
-      <th>Select</th>
-    </tr>
+  <div *ngIf="student">
 
-    <tr *ngFor="let item of student; let i = index">
-      <td class="info">{{i+1}}.</td>
-      <td class="info">{{item.name}}</td>
-      <td class="info">{{item.company}}</td>
-      <td class="info">{{item.student_id}}</td>
-      <td class="info">{{item.school_dept}}</td>
-    
-      
-      <td class="info">
-        <ion-button fill="outline" color="success" size="small" 
-        (click)="openPreview(item)">
-        Select this student
-      </ion-button>
-    </td>
+    <table *ngIf="student.length > 0">
+      <tr class="headercolor">
+        <th>No.</th>
+        <th>Name</th>
+        <th>Intern Place</th>
+        <th>Student ID</th>
+        <th>School</th>
 
-  
-    </tr>
-  </table>
-  <br>
-  <div *ngIf="student.length == 0"  class="empty-list"> THERE IS NO STUDENT AVAILABLE TO SELECT</div>
+        <th>Select</th>
+      </tr>
 
-</div>
+      <tr *ngFor="let item of student; let i = index">
+        <td class="info">{{i+1}}.</td>
+        <td class="info">{{item.name}}</td>
+        <td class="info">{{item.company}}</td>
+        <td class="info">{{item.student_id}}</td>
+        <td class="info">{{item.school_dept}}</td>
+
+
+        <td class="info">
+          <ion-button fill="outline" color="success" size="small" (click)="openPreview(item)">
+            Select this student
+          </ion-button>
+        </td>
+
+
+      </tr>
+    </table>
+    <br>
+    <div *ngIf="student.length == 0" class="empty-list"> THERE IS NO STUDENT AVAILABLE TO SELECT</div>
+
+  </div>
 
   <br>
 
