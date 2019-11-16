@@ -191,10 +191,15 @@ export class AdminService {
               message: 'Deleting user, Please Wait'
             }).then((overlay) => {
               this.loading = overlay;
-              this.loading.present().then(() => {
+              this.loading.present().then(async () => {
                 this.deleting_admin(record);
                 this.loading.dismiss();
                 console.log("Success Deleting");
+                const alert = await this.alertCtrl.create({
+                  message: 'Successfully remove account',
+                  buttons: [{ text: 'Ok', role: 'cancel' }],
+                })
+                await alert.present();
     
               })
             })
