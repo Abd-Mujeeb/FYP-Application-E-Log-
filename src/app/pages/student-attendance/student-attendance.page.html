@@ -27,11 +27,9 @@
     
     
               <ion-card-content>
-            
-                <p> {{i+1}}. Name: {{item.name}}</p>
-                <p>Email: {{item.email}}</p>
+                <h1>Date: {{item.timeinstamp.toDate() | date: 'dd MMMM yyyy'}}</h1>
                 <p>Address: {{item.address}}</p>
-                <p>Date: {{item.timeinstamp.toDate() | date: 'dd MMMM yyyy'}}</p>
+                <p> {{i+1}}. Date: {{item.timeinstamp.toDate() | date: 'dd MMMM yyyy'}}</p>
                 <p>Time-In: {{item.timeinstamp.toDate() | date: 'h:mm a'}} , (coordinates: Latitude {{item.geoLatitude}}, Longitude {{item.geoLongitude}})</p>
                 <p>Date: {{item.timeoutstamp?.toDate() | date: 'dd MMMM yyyy'}}</p>
                 <p>Time-Out: {{item.timeoutstamp?.toDate() | date: 'h:mm a'}} , (coordinates: Latitude {{item.timeoutLatitude}}, Longitude {{item.timeoutLongitude}})</p>
