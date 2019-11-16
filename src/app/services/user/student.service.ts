@@ -436,7 +436,7 @@ export class StudentService {
   read_student_attendance(jubs) {
 
     console.log(jubs, 'ani step 4');
-    return this.firestore.collection('users').doc(jubs).collection('attendance').doc('month').collection('present').snapshotChanges();
+    return this.firestore.collection('users').doc(jubs).collection('attendance').doc('month').collection('present', ref => ref.orderBy('timeinstamp', 'desc')).snapshotChanges();
   }
 
   // read_student_attendance(){
