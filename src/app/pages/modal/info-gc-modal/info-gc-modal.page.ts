@@ -33,6 +33,8 @@ export class InfoGcModalPage implements OnInit {
   zone3: any;
   zone4: any;
 
+
+  
   constructor(
     private navParams: NavParams,
     private GcService: GcService,
@@ -44,25 +46,76 @@ export class InfoGcModalPage implements OnInit {
     private router: Router,
     ) {
 
-      this.editprofile_form = this.formBuilder.group({
-        displayName: [
-          '',
-          Validators.compose([Validators.required, Validators.minLength(5)]),
-        ],
-        email: [
-          '',
-          Validators.compose([Validators.required, Validators.email]),
-        ],
-        contact_no: [
-          '',
-          Validators.compose([Validators.required,  Validators.pattern("[78][0-9]{6}")]),
-        ],
+      // this.editprofile_form = this.formBuilder.group({
+      //   displayName: [
+      //     '',
+      //     Validators.compose([Validators.required, Validators.minLength(5)]),
+      //   ],
+      //   email: [
+      //     '',
+      //     Validators.compose([Validators.required, Validators.email]),
+      //   ],
+      //   contact_no: [
+      //     '',
+      //     Validators.compose([Validators.required,  Validators.pattern("[78][0-9]{6}")]),
+      //   ],
 
-        school_dept: ['',Validators.required,],
-        group_code: ['', Validators.required]
+      //   school_dept: ['',Validators.required,],
+      //   group_code: ['', Validators.required]
+      // });
+
+      this.GcService
+      .getUserProfileGc()
+      .get()
+      .then(userInformationSnapshot => {
+        this.oldPasswordDatabase = userInformationSnapshot.data().password;
+        
+      })
+  
+      this.GcService
+      .getUserProfileGc()
+      .get()
+      .then(userInformationSnapshot => {
+        this.oldEmailDatabase = userInformationSnapshot.data().email;
+        
+      })    
+  
+     }
+
+     async presentToast(message: string) {
+      const toast = await this.toastCtrl.create({
+        message: message,
+        duration: 2000,
       });
+      toast.present();
+    }
 
-      
+  ngOnInit() {
+
+    
+    this.record = this.navParams.get('record');
+    console.log(this.record, 'ani step 2');
+    this.item = this.record;
+    console.log(this.item, 'ani step 3');
+
+    this.editprofile_form = this.formBuilder.group({
+      displayName: [
+        this.item.displayName,
+        Validators.compose([Validators.required, Validators.minLength(5)]),
+      ],
+      email: [
+        this.item.email,
+        Validators.compose([Validators.required, Validators.email]),
+      ],
+      contact_no: [
+        this.item.contact_no,
+        Validators.compose([Validators.required,  Validators.pattern("[78][1-9]{6}")]),
+      ],
+
+      school_dept: [this.item.school_dept,Validators.required,],
+      group_code: [this.item.group_code, Validators.required]
+    });
+
     this.schoolkeys = [
       'SICT',
       'SBS',
@@ -106,53 +159,6 @@ export class InfoGcModalPage implements OnInit {
       'Petroleum',
       'Civil',
     ]
-
-  
-
-
-      this.GcService
-      .getUserProfileGc()
-      .get()
-      .then(userInformationSnapshot => {
-        this.oldPasswordDatabase = userInformationSnapshot.data().password;
-        
-      })
-  
-      this.GcService
-      .getUserProfileGc()
-      .get()
-      .then(userInformationSnapshot => {
-        this.oldEmailDatabase = userInformationSnapshot.data().email;
-        
-      })    
-  
-     }
-
-     async presentToast(message: string) {
-      const toast = await this.toastCtrl.create({
-        message: message,
-        duration: 2000,
-      });
-      toast.present();
-    }
-
-  ngOnInit() {
-
-    
-    this.record = this.navParams.get('record');
-    console.log(this.record, 'ani step 2');
-    this.item = this.record;
-    console.log(this.item, 'ani step 3');
-
-    this.editprofile_form = this.formBuilder.group({
-      displayName: new FormControl(this.item.name, Validators.required),
-      email: new FormControl(this.item.email, Validators.email),
-      contact_no: new FormControl(this.item.contact_no, Validators.required),
-      school_dept: new FormControl(this.item.school_dept, Validators.required),
-      group_code: new FormControl(this.item.group_code, Validators.required),
-      
-    });
-
 
     this.GcService
     .getUserProfileGc()
