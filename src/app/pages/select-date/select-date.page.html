@@ -15,32 +15,34 @@
 <ion-content >
 
 <div class="center">
-<h1 center>Select Date:</h1>
-    <ion-item>
-      <label>From</label>
+<h1 center>Select Date Range:</h1>
+    <ion-item shape="circle">
+      <label>From : </label>
         <ion-datetime displayFormat="DD/MM/YYYY h:mm A" [(ngModel)]="start"></ion-datetime>
         
         
       </ion-item>
-      <input type="date" [(ngModel)]="start" name="start">
+      <!-- <input type="date" [(ngModel)]="start" name="start"> -->
       
       <ion-item>
-          <label>Until</label>
+          <label>To : </label>
           <ion-datetime displayFormat="DD/MM/YYYY h:mm A"  [(ngModel)]="end"></ion-datetime>
          
       </ion-item>
-      <input type="date" [(ngModel)]="end" name="end">
+      <!-- <input type="date" [(ngModel)]="end" name="end"> -->
 
 <!-- <h1>Specific Date</h1>
       <ion-item>
           <label>Date</label>
           <ion-datetime displayFormat="DD/MM/YYYY"  [(ngModel)]="specific"></ion-datetime>
       </ion-item> -->
-
+<br>
+<br>
+<br>
 
 <div *ngFor="let item of studentlist">
     <!-- <h1>Student Name : {{item.name}}</h1> -->
-    <ion-button (click)="read_studenttask_range(item)">Ok</ion-button>
+    <ion-button color="medium" class="nyummy"  (click)="read_studenttask_range(item)"> OK </ion-button>
     <!-- <ion-button (click)="read_studenttask_specific(item)">Specific Date</ion-button> -->
   </div>
 

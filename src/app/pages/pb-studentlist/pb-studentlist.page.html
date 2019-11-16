@@ -13,8 +13,8 @@
   </ion-header>
 
 <ion-content>
-    <div class="topleft">
-        <ion-searchbar showCancelButton (ionInput)="filterList($event)"> Find PB Supervisor</ion-searchbar>
+    <div class="search">
+        <ion-searchbar showCancelButton (ionInput)="filterList($event)"> Find Student </ion-searchbar>
       </div>
     <br>
     <br>
@@ -23,10 +23,7 @@
     <tr class="headercolor">
       <th>Fullname</th>
       <th>Email</th>
-      <th>Student Id</th>
       <th>Company</th>
-      <th>Group Code</th>
-      <th>School Department</th>
       <th>Contact no.</th>
       <th class="editdeletebtn"></th>
     </tr>
@@ -34,20 +31,17 @@
       
         <td>{{i+1}}. {{item.name}}</td>
         <td>{{item.email}}</td>
-        <td>{{item.student_id}}</td>
         <td>{{item.company}}</td>
-        <td>{{item.group_code}}</td>
-        <td>{{item.school_dept}}</td>
         <td>{{item.contact_no}}</td>
         <td class="editdeletebtn">
         <ion-button fill="outline" color="success" size="small" 
           (click)="openPreview(item)">
-         More Details
+         See More
         </ion-button>
         </td>
     </tr>
   </table>
   <br>
-  <div *ngIf="userProfile.length == 0"  class="empty-list">You have not student under your supervised, Please select first. </div>
+  <div *ngIf="userProfile.length == 0"  class="empty-list">There are no student under your supervised, Please select first. </div>
 </div>
 </ion-content>

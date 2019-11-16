@@ -95,7 +95,6 @@ export class PbStudentlistModalPage implements OnInit {
           group_code: e.payload.doc.data()['group_code'],
           student_id: e.payload.doc.data()['student_id'],
           company: e.payload.doc.data()['company'],
-          gc: e.payload.doc.data()['gc'],
           pbsupervisor: e.payload.doc.data()['pbsupervisor'],
           contact_no: e.payload.doc.data()['contact_no'],
         };
@@ -136,58 +135,22 @@ export class PbStudentlistModalPage implements OnInit {
 
   async presentAlertConfirm(item){
     const alert = await this.alertCtrl.create({
-      subHeader: "Are You Sure To Deselect This Student?",
-      inputs: [
-        {
-          type: 'text',
-          name: 'email',
-          placeholder: 'Enter your email'
-        },
-        {
-          type: 'password',
-          name: 'password',
-          placeholder: 'Enter your password'
-        }
-      ],
+      subHeader: "Are you sure to deselect this student?",
       buttons:
       [
         {
-          text: 'Cancel'
+          text: 'No'
         },
         {
-          text: 'Delete',
+          text: 'Yes',
           handler: data => {
-            if((data.email == "" ) && (data.password == "") 
-            || (data.email == "") 
-            || (data.password == "")) {
-              this.presentToast("Enter Both To Confirm The Deletion")
-              return false;
-            } 
-            else if((data.email != this.oldEmailDatabase) && (data.password != this.oldPasswordDatabase)) {
-              console.log(data.email, this.oldEmailDatabase, 'email and password');
-              this.presentToast("Email and Password is not same")
-              return false;
-            }
-            else if(data.email != this.oldEmailDatabase) {
-              console.log(data.email, this.oldEmailDatabase, 'email ');
-              this.presentToast("Email is not same")
-              return false;
-            }
-            else if(data.password != this.oldPasswordDatabase) {
-              console.log(data.password, this.oldPasswordDatabase, 'password');
-              this.presentToast("Password is not same")
-              return false;
-            }
-            else 
-            {
-              console.log(item, 'what is item?')
-               this.pbsupervisorService.deselect_student( data.email, data.password , item );
+               this.pbsupervisorService.deselect_student( item );
                this.modalController.dismiss();
              
              
             }
           }
-        }
+        
       ]
     })
     await alert.present()
