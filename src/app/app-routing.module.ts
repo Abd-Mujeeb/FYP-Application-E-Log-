@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './services/user/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'splash', pathMatch: 'full' },
   // { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   // { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
   // { path: 'notification', loadChildren: './notification/notification.module#NotificationPageModule' },
@@ -345,6 +345,8 @@ const routes: Routes = [
   { path: 'gc-studentlist-modal', loadChildren: './pages/gc-studentlist-modal/gc-studentlist-modal.module#GcStudentlistModalPageModule' },
   { path: 'change', loadChildren: './pages/change/change.module#ChangePageModule' },
   { path: 'info-gc-modal', loadChildren: './pages/modal/info-gc-modal/info-gc-modal.module#InfoGcModalPageModule' },
+  { path: 'splash', loadChildren: './pages/splash/splash.module#SplashPageModule' },
+
 
 
 
