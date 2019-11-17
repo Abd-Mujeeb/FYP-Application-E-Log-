@@ -107,43 +107,7 @@ export class FirebaseService {
   //Attendance
   createAttendance(value){
     return new Promise<any>((resolve, reject) => {
-      let currentUser = firebase.auth().currentUser;
-      this.afs.collection('users',  ref => ref.where('displayName', '==', currentUser.displayName)).snapshotChanges()
-      .subscribe(data => {
- 
-        this.sgc = data.map(e => {
-             return {
-            gc: e.payload.doc.data()['gc'],
-          };
-        })
-        console.log(this.sgc);
-    
-      });
-
-      this.afs.collection('users',  ref => ref.where('displayName', '==', currentUser.displayName)).snapshotChanges()
-      .subscribe(data => {
- 
-        this.pbs = data.map(e => {
-             return {
-            pbsupervisor: e.payload.doc.data()['pbsupervisor'],
-          };
-        })
-        console.log(this.pbs);
-    
-      });
-      
-      this.afs.collection('users',  ref => ref.where('displayName', '==', currentUser.displayName)).snapshotChanges()
-      .subscribe(data => {
- 
-        this.is = data.map(e => {
-             return {
-            isupervisor: e.payload.doc.data()['isupervisor'],
-          };
-        })
-        console.log(this.is);
-    
-      });
-        
+      let currentUser = firebase.auth().currentUser;        
       this.afs.collection('users').doc(currentUser.uid).collection('attendance').doc('month').collection('present').add({
         address: value.address,
       // timeinpicker: value.timeinpicker,
@@ -153,9 +117,6 @@ export class FirebaseService {
       timeinstamp: value.timeinstamp,
       name: currentUser.displayName,
       email: currentUser.email,
-      gc: this.sgc,
-      is: this.is,
-      pbs: this.pbs,
       })
       .then(
         res => resolve(res),
