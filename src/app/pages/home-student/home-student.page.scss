@@ -16,10 +16,7 @@
     margin-top: 10%;
   }
   
-  p {
-    font-size: 0.8em;
-    color: #d2d2d2;
-  }
+
   
   ion-label {
     margin-left: 5px;
@@ -54,9 +51,9 @@
     // backgroundcolor: #fff;
   }
 
-  h2{
-    color: white;
-  }
+  // h2{
+  //   color: white;
+  // }
 
 table {
   border: 1px solid black;
@@ -89,10 +86,7 @@ tr td:hover{
   width: 120px;
 }
 
-h1{
-  font-weight: bold;
-  color: white;
-}
+
 
 ion-icon:hover{
   cursor: pointer;
@@ -102,9 +96,7 @@ h3{
   color: white;
 }
 
-p {
-  font-family: Lato;
-}
+
 .error-message {
   color: red;
   background-color: white;
@@ -144,10 +136,24 @@ input.ng-touched.ng-invalid {
   }
 }
 
-h1{
-  color: black;
+p {
+  font-family: Lato;
 }
 
-p{
-  color: black;
-}
+// p {
+//   font-size: 0.8em;
+//   color: #d2d2d2;
+// }
+
+// h1{
+//   font-weight: bold;
+//   color: white;
+// }
+
+// h1{
+//   color: black;
+// }
+
+// p{
+//   color: black;
+// }

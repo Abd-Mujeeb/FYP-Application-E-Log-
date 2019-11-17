@@ -4,7 +4,7 @@
       <ion-back-button defaultHref="/home-pbsupervisor"></ion-back-button>
     </ion-buttons>
     <ion-title>Student Attendance</ion-title>
-    <ion-buttons slot="end">
+    <ion-buttons slot="end"> Log in as PB Supervisor: {{displayName}}
       <ion-button routerLink="/profile-pbsupervisor">
         <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
       </ion-button>
@@ -17,9 +17,30 @@
   </ion-searchbar> -->
 
 
+  <table>
+    <tr class="headercolor">
+      <th>Date</th>
+      <th>Time In</th>
+      <th>Time Out</th>
+      <th>Time In Address & Coordinates</th>
+      <th>Time Out Address & Coordinates</th>
+    </tr>
+
+    <tr *ngFor="let item of attendancelist; let i = index">
+      <td>{{item.timeinstamp.toDate() | date: 'dd MMMM yyyy'}}</td>
+      <td>{{item.timeinstamp.toDate() | date: 'h:mm a'}}</td>
+      <td>{{item.timeoutstamp?.toDate() | date: 'h:mm a'}}</td>
+      <td>{{item.address}}<br>(coordinates: Latitude {{item.geoLatitude}},
+        Longitude {{item.geoLongitude}})</td>
+      <td>{{item.timeoutaddress}}<br>(coordinates: Latitude
+        {{item.timeoutLatitude}}, Longitude {{item.timeoutLongitude}})</td>
+    </tr>
+
+  </table>
 
 
-  <ion-card *ngFor="let item of attendancelist; let i = index">
+
+  <!-- <ion-card *ngFor="let item of attendancelist; let i = index">
     <ion-grid>
       <ion-row>
 
@@ -29,10 +50,10 @@
         <ion-card-content>
           <h1> Date: {{item.timeinstamp.toDate() | date: 'dd MMMM yyyy'}}</h1>
           <p>Address: {{item.address}}</p>
-          <p> Date: {{item.timeinstamp.toDate() | date: 'dd MMMM yyyy'}}</p>
           <p>Time-In: {{item.timeinstamp.toDate() | date: 'h:mm a'}} , (coordinates: Latitude {{item.geoLatitude}},
             Longitude {{item.geoLongitude}})</p>
           <p>Date: {{item.timeoutstamp?.toDate() | date: 'dd MMMM yyyy'}}</p>
+          <p>Address: {{item.timeoutaddress}}</p>
           <p>Time-Out: {{item.timeoutstamp?.toDate() | date: 'h:mm a'}} , (coordinates: Latitude
             {{item.timeoutLatitude}}, Longitude {{item.timeoutLongitude}})</p>
 
@@ -40,5 +61,5 @@
       </ion-row>
     </ion-grid>
 
-  </ion-card>
+  </ion-card> -->
 </ion-content>
