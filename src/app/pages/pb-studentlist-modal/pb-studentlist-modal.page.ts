@@ -97,6 +97,8 @@ export class PbStudentlistModalPage implements OnInit {
           company: e.payload.doc.data()['company'],
           pbsupervisor: e.payload.doc.data()['pbsupervisor'],
           contact_no: e.payload.doc.data()['contact_no'],
+          percentage: e.payload.doc.data()['attendance'],
+          status: e.payload.doc.data()['status']
         };
       })
       console.log(this.studentlist);
@@ -127,7 +129,7 @@ export class PbStudentlistModalPage implements OnInit {
 
   read_studentattendance(record){
     let recordId = record ? record.id : null;
-    this.router.navigate(['/student-attendance', { id: recordId}]);
+    this.router.navigate(['/student-attendance-pbsupervisor', { id: recordId}]);
     console.log(recordId, 'ani step 1 (forward data ID)');
     this.modalController.dismiss();
 

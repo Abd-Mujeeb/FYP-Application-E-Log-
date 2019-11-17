@@ -25,6 +25,7 @@
       <th>Email</th>
       <th>Company</th>
       <th>Contact no.</th>
+      <th>Attendance</th>
       <th class="editdeletebtn"></th>
     </tr>
     <tr *ngFor="let item of userProfile; let i = index">
@@ -33,6 +34,7 @@
         <td>{{item.email}}</td>
         <td>{{item.company}}</td>
         <td>{{item.contact_no}}</td>
+        <td class="{{item.status}}">{{item.percentage}} %</td>
         <td class="editdeletebtn">
         <ion-button fill="outline" color="success" size="small" 
           (click)="openPreview(item)">

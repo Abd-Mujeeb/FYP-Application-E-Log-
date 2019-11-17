@@ -66,6 +66,8 @@ export class PbStudentlistPage implements OnInit {
           school_dept: e.payload.doc.data()['school_dept'],
           contact_no: e.payload.doc.data()['contact_no'],
           student_id: e.payload.doc.data()['student_id'],
+          percentage: e.payload.doc.data()['attendance'],
+          status: e.payload.doc.data()['status']
           
 
         };

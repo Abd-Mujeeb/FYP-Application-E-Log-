@@ -448,7 +448,7 @@ export class StudentService {
 
   read_student_task(jubs, start, end) {
     console.log(jubs, start, end, 'ani step 4');
-    return this.firestore.collection('users').doc(jubs).collection('tasks', ref => ref.where('pickdate', '>=', start).where('pickdate', '<=', end)).snapshotChanges();
+    return this.firestore.collection('users').doc(jubs).collection('tasks', ref => ref.where('pickdate', '>=', start).where('pickdate', '<=', end).orderBy('pickdate', 'desc')).snapshotChanges();
     // return this.firestore.collection('users').doc(jubs).collection('tasks', ref => ref.orderBy('pickdate', 'desc')).snapshotChanges();
   }
 

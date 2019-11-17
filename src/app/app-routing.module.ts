@@ -346,7 +346,8 @@ const routes: Routes = [
   { path: 'change', loadChildren: './pages/change/change.module#ChangePageModule' },
   { path: 'info-gc-modal', loadChildren: './pages/modal/info-gc-modal/info-gc-modal.module#InfoGcModalPageModule' },
   { path: 'splash', loadChildren: './pages/splash/splash.module#SplashPageModule' },
-  { path: 'select-date', loadChildren: './pages/select-date/select-date.module#SelectDatePageModule' },
+  { path: 'select-date', loadChildren: './pages/select-date/select-date.module#SelectDatePageModule' },  { path: 'student-attendance-pbsupervisor', loadChildren: './pages/student-attendance-pbsupervisor/student-attendance-pbsupervisor.module#StudentAttendancePbsupervisorPageModule' },
+
 
 
 
