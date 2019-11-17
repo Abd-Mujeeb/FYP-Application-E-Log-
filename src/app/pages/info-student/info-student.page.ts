@@ -129,9 +129,14 @@ export class InfoStudentPage implements OnInit {
     }
 
     this.student = this.student.filter(currentlist => {
-      if (currentlist.name, currentlist.email && searchTerm){
+      if (currentlist.name, currentlist.email, currentlist.school_dept, currentlist.group_code, currentlist.student_id, currentlist.company, currentlist.pbsupervisor && searchTerm){
         if (currentlist.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
-        currentlist.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1){
+        currentlist.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+        currentlist.school_dept.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+        currentlist.group_code.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+        currentlist.student_id.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+        currentlist.company.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+        currentlist.pbsupervisor.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1){
           return true;
         }
         return false;

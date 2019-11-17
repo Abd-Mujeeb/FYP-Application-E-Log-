@@ -32,14 +32,14 @@ export class StudentService {
   public deleteusers: any;
   start;
   end;
-  
+
   constructor(private firestore: AngularFirestore,
     private afAuth: AngularFireAuth,
     public loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     public toastController: ToastController,
     public loadingController: LoadingController,
-    private router: Router,) {
+    private router: Router, ) {
     firebase.auth().onAuthStateChanged(user => {
       if (user) { this.currentUser = user; this.users_student = firebase.firestore().doc(`/users/${user.uid}`); }
     });
@@ -64,8 +64,8 @@ export class StudentService {
     return this.users_student.update({ displayName })
   }
 
-  updatecontact(telno:string): Promise<any> {
-    return this.users_student.update({ contact_no:telno })
+  updatecontact(telno: string): Promise<any> {
+    return this.users_student.update({ contact_no: telno })
   }
   // updateDOB(birthDate: string): Promise<any> {
   //   return this.userProfile.update({ birthDate });
@@ -121,19 +121,19 @@ export class StudentService {
   //     });
   // }
 
-  async updateNotif(){
-   await this.users_student.update({notify: false});
+  async updateNotif() {
+    await this.users_student.update({ notify: false });
     console.log('jekking');
-    
+
   }
 
-  async notifFalse(){
-    await this.users_student.update({notify: false});
+  async notifFalse() {
+    await this.users_student.update({ notify: false });
     console.log('false dah');
   }
 
-  async createTrue(){
-    await this.users_student.update({notify:true});
+  async createTrue() {
+    await this.users_student.update({ notify: true });
     console.log('mau true');
   }
 
@@ -142,25 +142,25 @@ export class StudentService {
       this.currentUser.email,
       oldPassword
     );
-  
+
     return this.currentUser
       .reauthenticateWithCredential(credential)
       .then(() => {
         this.currentUser.updatePassword(confirmpw).then(() => {
           console.log('Password Changed');
-      
-          this.users_student.update({password:confirmpw, change:false })
+
+          this.users_student.update({ password: confirmpw, change: false })
           // return this.showToast();
           console.log('success')
 
-      this.loadingController.create({
+          this.loadingController.create({
             message: 'Please wait..',
             duration: 3000,
             spinner: 'bubbles'
           }).then((res) => {
             res.present();
-        
-            res.onDidDismiss().then(async(dis) => {
+
+            res.onDidDismiss().then(async (dis) => {
               console.log('Loading dismissed! after 3 Seconds');
               const alert = await this.alertCtrl.create({
                 header: 'Notification',
@@ -172,29 +172,29 @@ export class StudentService {
                   },
                 ]
               });
-          
+
               await alert.present();
-             
-              
+
+
             });
-            
+
           });
 
         });
       })
-      
+
       .catch(async error => {
         this.loading = await this.loadingCtrl.create();
-              await this.loading.present();
-              this.loading.dismiss().then(async () => {
-                const alert = await this.alertCtrl.create({
-                  message: error.message,
-                  buttons: [{ text: 'Ok', role: 'cancel' }],
-                });
-                await alert.present();
-              });
-              console.error(error);
-       
+        await this.loading.present();
+        this.loading.dismiss().then(async () => {
+          const alert = await this.alertCtrl.create({
+            message: error.message,
+            buttons: [{ text: 'Ok', role: 'cancel' }],
+          });
+          await alert.present();
+        });
+        console.error(error);
+
       });
   }
 
@@ -203,25 +203,25 @@ export class StudentService {
       this.currentUser.email,
       oldPassword
     );
-  
+
     return this.currentUser
       .reauthenticateWithCredential(credential)
       .then(() => {
         this.currentUser.updatePassword(confirmpw).then(() => {
           console.log('Password Changed');
-      
-          this.users_student.update({password:confirmpw, change:false })
+
+          this.users_student.update({ password: confirmpw, change: false })
           // return this.showToast();
           console.log('success')
 
-      this.loadingController.create({
+          this.loadingController.create({
             message: 'Please wait..',
             duration: 3000,
             spinner: 'bubbles'
           }).then((res) => {
             res.present();
-        
-            res.onDidDismiss().then(async(dis) => {
+
+            res.onDidDismiss().then(async (dis) => {
               console.log('Loading dismissed! after 3 Seconds');
               const alert = await this.alertCtrl.create({
                 header: 'Notification',
@@ -236,29 +236,29 @@ export class StudentService {
                   },
                 ]
               });
-          
+
               await alert.present();
-             
-              
+
+
             });
-            
+
           });
 
         });
       })
-      
+
       .catch(async error => {
         this.loading = await this.loadingCtrl.create();
-              await this.loading.present();
-              this.loading.dismiss().then(async () => {
-                const alert = await this.alertCtrl.create({
-                  message: error.message,
-                  buttons: [{ text: 'Ok', role: 'cancel' }],
-                });
-                await alert.present();
-              });
-              console.error(error);
-       
+        await this.loading.present();
+        this.loading.dismiss().then(async () => {
+          const alert = await this.alertCtrl.create({
+            message: error.message,
+            buttons: [{ text: 'Ok', role: 'cancel' }],
+          });
+          await alert.present();
+        });
+        console.error(error);
+
       });
   }
   update_student(recordID, record) {
@@ -315,7 +315,7 @@ export class StudentService {
   }
 
   delete_student(record_id) {
-    
+
     this.student_id = record_id.id;
     this.deleteusers = firebase.firestore().doc(`users/${this.student_id}`)
 
@@ -326,10 +326,12 @@ export class StudentService {
       this.loading.present().then(() => {
         this.deletetasks().then(() => {
           this.deleteattendance().then(() => {
-            this.deleteusers.delete().then(() => {
-              console.log(this.deleteusers, 'apakan ni?')
-              this.loading.dismiss();
-              console.log("Success Delete")
+            this.deleteattendancepresent().then(() => {
+              this.deleteusers.delete().then(() => {
+                console.log(this.deleteusers, 'apakan ni?')
+                this.loading.dismiss();
+                console.log("Success Delete")
+              })
             })
           })
         })
@@ -349,7 +351,7 @@ export class StudentService {
     })
   }
 
-  
+
 
   deleteattendance() {
     const db = firebase.firestore()
@@ -369,9 +371,32 @@ export class StudentService {
       console.log("reject")
     }
   }
-  deletestudent(){
-   
-    this.userInformation =  this.firestore.doc('users/' + this.student_id).delete();
+
+  deleteattendancepresent() {
+    const db = firebase.firestore()
+    var collectionPath = `/users/${this.student_id}/attendance/${'months'}/present`
+    this.deleteCollection(db, collectionPath)
+    return new Promise((resolve, reject) => {
+      this.throwAwayPresent(resolve, reject);
+    })
+  }
+
+  throwAwayPresent(resolve, reject) {
+    try {
+      resolve()
+      console.log("Resolve")
+    }
+    catch (reject) {
+      console.log("reject")
+    }
+  }
+
+
+
+
+  deletestudent() {
+
+    this.userInformation = this.firestore.doc('users/' + this.student_id).delete();
     // this.userInformation = firebase.firestore().doc(`/users/${record_id}`);
   }
 
@@ -423,13 +448,13 @@ export class StudentService {
 
   read_student_task(jubs, start, end) {
     console.log(jubs, start, end, 'ani step 4');
-   return this.firestore.collection('users').doc(jubs).collection('tasks', ref => ref.where('pickdate', '>=', start).where('pickdate', '<=', end)).snapshotChanges();
+    return this.firestore.collection('users').doc(jubs).collection('tasks', ref => ref.where('pickdate', '>=', start).where('pickdate', '<=', end)).snapshotChanges();
     // return this.firestore.collection('users').doc(jubs).collection('tasks', ref => ref.orderBy('pickdate', 'desc')).snapshotChanges();
   }
 
   read_student_task2(jubs, start) {
     console.log(jubs, start, 'ani step 4');
-   return this.firestore.collection('users').doc(jubs).collection('tasks', ref => ref.where('pickdate', '==', start)).snapshotChanges();
+    return this.firestore.collection('users').doc(jubs).collection('tasks', ref => ref.where('pickdate', '==', start)).snapshotChanges();
     // return this.firestore.collection('users').doc(jubs).collection('tasks', ref => ref.orderBy('pickdate', 'desc')).snapshotChanges();
   }
 
