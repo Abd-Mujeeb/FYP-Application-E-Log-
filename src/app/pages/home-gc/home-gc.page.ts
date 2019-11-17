@@ -9,6 +9,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { PbStudentlistModalPage } from '../pb-studentlist-modal/pb-studentlist-modal.page';
 import { Router } from '@angular/router';
 import { GcStudentlistModalPage } from '../gc-studentlist-modal/gc-studentlist-modal.page';
+import { async } from 'q';
 @Component({
   selector: 'app-home-gc',
   templateUrl: './home-gc.page.html',
@@ -25,7 +26,10 @@ export class HomeGcPage implements OnInit {
   name: string;
   role: string;
   public loading: any;
-
+  id: any[];
+  fail:boolean = false;
+  pass:boolean = false;
+  
 
 
   constructor(
@@ -61,7 +65,6 @@ export class HomeGcPage implements OnInit {
 
 
 
-
     this.gcService.read_gcstudent().subscribe(data => {
  
       this.userProfile = data.map(e => {
@@ -73,11 +76,13 @@ export class HomeGcPage implements OnInit {
        school_dept: e.payload.doc.data()['school_dept'],
        group_code: e.payload.doc.data()['group_code'],
        student_id: e.payload.doc.data()['student_id'],
-       percentage: e.payload.doc.data()['attendance']
+       percentage: e.payload.doc.data()['attendance'],
+       status: e.payload.doc.data()['status']
 
      };
       })
       console.log(this.userProfile);
+      // console.log(this.userProfile[].percentage)
    this.loadeduserProfile = this.userProfile;
   
     });
@@ -96,6 +101,9 @@ export class HomeGcPage implements OnInit {
       }
     });
 
+    
+
+    
 
   }
 

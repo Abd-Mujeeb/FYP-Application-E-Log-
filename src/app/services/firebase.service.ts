@@ -217,11 +217,16 @@ export class FirebaseService {
     })
   }
 
-  updatePercentange(percentage) {
+  updatePercentange(percentage: number) {
     return new Promise<any>((resolve, reject) => {
       let currentUser = firebase.auth().currentUser;
+      if(percentage <= 85){
+        status='fail'
+      }else{
+        status='pass'
+      }
       this.afs.collection('users').doc(currentUser.uid).update({
-        attendance: percentage
+        attendance: percentage, status
       })
       .then(
         res => resolve(res),

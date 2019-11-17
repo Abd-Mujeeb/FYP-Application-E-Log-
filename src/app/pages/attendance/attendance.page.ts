@@ -25,7 +25,7 @@ export class AttendancePage implements OnInit {
   map: any;
   address:string;
   validations_form: FormGroup;
-  numberOfPresent
+  numberOfPresent: number
 
   constructor(
     private geolocation: Geolocation,
@@ -163,9 +163,9 @@ export class AttendancePage implements OnInit {
     this.getDoc().then(() => {
       var totalPresent = this.numberOfPresent
       var attendance = (totalPresent / totalDaysSchool) * 100
-    var percentageAttendance = attendance.toFixed(0)
+    var percentageAttendance = attendance
     console.log(percentageAttendance + "%")
-    this.firebaseService.updatePercentange(percentageAttendance + "%")
+    this.firebaseService.updatePercentange(percentageAttendance)
     })
     
   

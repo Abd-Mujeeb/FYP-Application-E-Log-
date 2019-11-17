@@ -41,17 +41,19 @@
       <th>Attendance</th>
     </tr>
     <tr  *ngFor="let item of userProfile; let i = index">
-      <td id="color">{{i+1}}.</td>
-      <td id="color">{{item.name}}   <ion-button fill="outline" color="success" size="small" 
+      <td>{{i+1}}.</td>
+      <td>{{item.name}}   <ion-button fill="outline" color="success" size="small" 
         (click)="openPreview(item)">
        More Details
       </ion-button></td>
-      <td id="color">{{item.email}}</td>
-      <td id="color">{{item.phone_number}}</td>
-      <td id="color">{{item.school_dept}}</td>
-      <td id="color">{{item.group_code}}</td>
-      <td id="color">{{item.student_id}}</td>
-      <td id="color">{{item.percentage}}</td>
+      <td >{{item.email}}</td>
+      <td>{{item.phone_number}}</td>
+      <td>{{item.school_dept}}</td>
+      <td>{{item.group_code}}</td>
+      <td>{{item.student_id}}</td>
+      <td class="{{item.status}}">{{item.percentage}} %</td>
+     
+      
     </tr>
   </table>
 
