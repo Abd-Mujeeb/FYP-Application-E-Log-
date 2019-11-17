@@ -159,7 +159,7 @@ export class AttendancePage implements OnInit {
   }
 
   calculateAttendance() {
-    const totalDaysSchool = 7;
+    const totalDaysSchool = 15;
     this.getDoc().then(() => {
       var totalPresent = this.numberOfPresent
       var attendance = (totalPresent / totalDaysSchool) * 100

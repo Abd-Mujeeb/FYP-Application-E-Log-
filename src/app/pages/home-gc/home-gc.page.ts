@@ -84,6 +84,12 @@ export class HomeGcPage implements OnInit {
       console.log(this.userProfile);
       // console.log(this.userProfile[].percentage)
    this.loadeduserProfile = this.userProfile;
+
+   let i;
+   for(i=0; i < this.userProfile.length; i++){
+      this.userProfile[i].percentage.toFixed(0);
+      console.log( this.userProfile[i].percentage)
+   }
   
     });
 
