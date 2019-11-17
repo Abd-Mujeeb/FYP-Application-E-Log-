@@ -249,25 +249,21 @@ async presentAlertConfirm(item){
             || (data.email == "") 
             || (data.password == "")) {
               (await alertenterboth).present();
-              this.presentToast("Enter Both To Confirm The Deletion")
               return false;
             } 
             else if((data.email != this.oldEmailDatabase) && (data.password != this.oldPasswordDatabase)) {
               console.log(data.email, this.oldEmailDatabase, 'email and password');
               (await alertemailpasswordnotsame).present();
-              this.presentToast("Email and Password is not same")
               return false;
             }
             else if(data.email != this.oldEmailDatabase) {
               console.log(data.email, this.oldEmailDatabase, 'email ');
               (await alertemail).present();
-              this.presentToast("Email is not same")
               return false;
             }
             else if(data.password != this.oldPasswordDatabase) {
               console.log(data.password, this.oldPasswordDatabase, 'password');
               (await alertpassword).present();
-              this.presentToast("Password is not same")
               return false;
             }
             else 
