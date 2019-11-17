@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentService } from 'src/app/services/user/student.service';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, NavController } from '@ionic/angular';
 import { SelectstudentModalPage } from '../selectstudent-modal/selectstudent-modal.page';
+import { AuthService } from 'src/app/services/user/auth.service';
 
 @Component({
   selector: 'app-select-student',
@@ -13,15 +14,25 @@ export class SelectStudentPage implements OnInit {
   public loading: any;
   public student: any[];
   public loadedstudent: any [];
-
+  displayName: string;
+  
   constructor(
     private studentService: StudentService,
     public loadingController: LoadingController,
     private modalController: ModalController,
+    private navCtrl: NavController,
+    private authService: AuthService,
 
   ) { }
 
   ngOnInit() {
+
+    if(this.authService.userDetails()){
+      this.displayName = this.authService.userDetails().displayName;
+    } else {
+      this.navCtrl.navigateBack('');
+    }
+
     this.studentService.read_pbsupervisor_student().subscribe(data => {
  
       this.student = data.map(e => {

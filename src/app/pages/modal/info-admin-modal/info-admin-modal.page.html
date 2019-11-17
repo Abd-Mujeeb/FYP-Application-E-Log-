@@ -1,8 +1,6 @@
 <ion-content fullscreen>
   <div class="center">
-   
-   
-    <h1 >Admin Details</h1>
+    <h1>Admin Details</h1>
     <form [formGroup]="editprofile_form" (ngSubmit)="onSubmit(editprofile_form.value)">
       <ion-item>
         <ion-label position="stacked">Name</ion-label>
@@ -11,16 +9,30 @@
         </ion-input>
       </ion-item>
 
+      <div class="error-messages">
+        <ng-container *ngFor="let error of error_messages.displayName">
+          <ion-item class="error-message"
+            *ngIf="editprofile_form.get('displayName').hasError(error.type) && (editprofile_form.get('displayName').dirty || editprofile_form.get('displayName').touched)">
+            {{ error.message }}
+          </ion-item>
+        </ng-container>
+      </div>
+
       <ion-item>
         <ion-label position="stacked">Email</ion-label>
         <ion-input formControlName="email" type="email" placeholder="Your email address" [class.invalid]="!editprofile_form.controls['email'].valid &&
           editprofile_form.controls['email'].touched">
         </ion-input>
       </ion-item>
-      <ion-item class="error-message" *ngIf="!editprofile_form.controls['email'].valid &&
-        editprofile_form.controls['email'].touched">
-        <ion-label>Please enter a valid email.</ion-label>
-      </ion-item>
+
+      <div class="error-messages">
+        <ng-container *ngFor="let error of error_messages.email">
+          <ion-item class="error-message"
+            *ngIf="editprofile_form.get('email').hasError(error.type) && (editprofile_form.get('email').dirty || editprofile_form.get('email').touched)">
+            {{ error.message }}
+          </ion-item>
+        </ng-container>
+      </div>
 
       <ion-item>
         <ion-label position="stacked">Contact No. </ion-label>
@@ -29,6 +41,14 @@
         </ion-input>
       </ion-item>
 
+      <div class="error-messages">
+          <ng-container *ngFor="let error of error_messages.contact_no">
+            <ion-item class="error-message" *ngIf="editprofile_form.get('contact_no').hasError(error.type) && (editprofile_form.get('contact_no').dirty || editprofile_form.get('contact_no').touched)">
+              {{ error.message }}
+            </ion-item>
+          </ng-container>
+        </div>
+        
       <span class="centerbtn">
         <ion-button size="small" color="primary" (click)="close()" [routerLink]="['/info-admin']">
           <ion-icon name="close" slot="start"></ion-icon>Cancel

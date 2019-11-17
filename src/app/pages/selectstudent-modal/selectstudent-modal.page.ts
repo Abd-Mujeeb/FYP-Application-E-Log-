@@ -15,7 +15,7 @@ export class SelectstudentModalPage implements OnInit {
   private sub: any;
   record: any;
   public studentlist: any[];
-  public loadedstudentlist : any[];
+  public loadedstudentlist: any[];
   ngam: any;
   constructor(
     private navParams: NavParams,
@@ -29,17 +29,17 @@ export class SelectstudentModalPage implements OnInit {
 
   ngOnInit() {
     this.record = this.navParams.get('record');
-    console.log(this.record , 'ani step 2');
+    console.log(this.record, 'ani step 2');
     // this.sub = this.route.params.subscribe(params => {
     //   this.record = params['id'];
     //   console.log(this.record , 'ani step 2');
     // })
 
- let studentUID = this.record;
-    console.log(studentUID , 'ani step 3');
+    let studentUID = this.record;
+    console.log(studentUID, 'ani step 3');
     this.pbsupervisorService.read_student(studentUID).subscribe(data => {
-      
-      this.studentlist= data.map(e => {
+
+      this.studentlist = data.map(e => {
         return {
           id: e.payload.doc.id,
           name: e.payload.doc.data()['displayName'],
@@ -48,68 +48,73 @@ export class SelectstudentModalPage implements OnInit {
           group_code: e.payload.doc.data()['group_code'],
           student_id: e.payload.doc.data()['student_id'],
           company: e.payload.doc.data()['company'],
-          gc: e.payload.doc.data()['gc'],
           pbsupervisor: e.payload.doc.data()['pbsupervisor'],
           contact_no: e.payload.doc.data()['contact_no'],
         };
       })
       console.log(this.studentlist);
-      this.loadedstudentlist= this.studentlist;
-      
+      this.loadedstudentlist = this.studentlist;
+
     });
 
-}
-
-
-initializeItems(): void {
-  this.studentlist = this.loadedstudentlist;
-}
-
-filterList(evt){
-  this.initializeItems();
-  const searchTerm = evt.srcElement.value;
-
-  if (!searchTerm){
-    return;
   }
 
-  this.studentlist = this.studentlist.filter(currentlist => {
-    if (currentlist.name, currentlist.email, currentlist.company, currentlist.school_dept,currentlist.pbsupervisor, currentlist.gc && searchTerm){
-      if (currentlist.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
-      currentlist.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
-      currentlist.company.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
-      currentlist.school_dept.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
-      currentlist.pbsupervisor.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
-      currentlist.gc.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1){
-        return true;
-      }
-      return false;
+
+  initializeItems(): void {
+    this.studentlist = this.loadedstudentlist;
+  }
+
+  filterList(evt) {
+    this.initializeItems();
+    const searchTerm = evt.srcElement.value;
+
+    if (!searchTerm) {
+      return;
     }
-  });
-}
 
-  async select_this_student(record){
-  const toast = await this.toastCtrl.create({
-    message: 'Student Selected Successfully',
-    duration: 3000
-  });
- 
-  
-  console.log( record, 'testing 1' );
-  this.pbsupervisorService.selecting_student(record);
- this.router.navigate(["/select-student"]);
- this.modalController.dismiss();
- toast.present();
- 
- 
- 
-  console.log(record,  'testing 2');
+    this.studentlist = this.studentlist.filter(currentlist => {
+      if (currentlist.name, currentlist.email, currentlist.company, currentlist.school_dept, currentlist.pbsupervisor, currentlist.gc && searchTerm) {
+        if (currentlist.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+          currentlist.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+          currentlist.company.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+          currentlist.school_dept.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+          currentlist.pbsupervisor.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+          currentlist.gc.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
+          return true;
+        }
+        return false;
+      }
+    });
+  }
 
-  
-}
+  async select_this_student(record) {
+
+    const alert = await this.alertCtrl.create({
+      subHeader: "Are you sure to select this student?",
+      buttons:
+        [
+          {
+            text: 'No'
+          },
+          {
+            text: 'Yes',
+            handler: data => {
+              console.log(record, 'testing 1');
+              this.pbsupervisorService.selecting_student(record);
+              console.log(record, 'testing 2');
+              this.router.navigate(["/select-student"]);
+              this.modalController.dismiss();
+            }
+          }
+
+        ]
+    })
+    await alert.present();
+
+  }
 
 
-close(){
-  this.modalController.dismiss();
-}
+  close() {
+    this.modalController.dismiss();
+  }
 }

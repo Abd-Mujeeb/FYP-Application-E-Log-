@@ -1,11 +1,11 @@
 <ion-content fullscreen>
-  <h1 class="center">More Details</h1>
+ 
 
 
 
   <ion-card-content *ngFor="let item of studentlist">
 
-
+    <h1 class="center">Student Details</h1>
 
 
     <ion-item>
@@ -28,9 +28,6 @@
     </ion-item>
     <ion-item>
       <ion-label><strong>Company Name: </strong>{{item.company}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label><strong>GC: </strong>{{item.gc}}</ion-label>
     </ion-item>
 
     <ion-item class="close-fake" lines="none">

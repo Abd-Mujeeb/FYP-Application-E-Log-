@@ -5,6 +5,7 @@ import 'firebase/firestore';
 import { AuthService } from './auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AlertController, ToastController, LoadingController } from '@ionic/angular';
+import { async } from 'q';
 
 @Injectable({
   providedIn: 'root'
@@ -224,39 +225,53 @@ export class PbsupervisorService {
 
 
   selecting_student(recordID) {
-    console.log(recordID, 'part 3')
-    this.firestore.collection('users').doc(recordID).update({
-      pbsupervisor: firebase.auth().currentUser.displayName,
-      idpbsupervisor: firebase.auth().currentUser.uid,
+    console.log(recordID, 'part 3');
+    return this.loadingCtrl.create({
+      message: 'Selecting this student, Please wait'
+    }).then((overlay) => {
 
+      this.loading = overlay;
+      this.loading.present().then(async () => {
+        this.firestore.collection('users').doc(recordID).update({
+          pbsupervisor: firebase.auth().currentUser.displayName,
+          idpbsupervisor: firebase.auth().currentUser.uid,
+        })
+        this.loading.dismiss();
+        console.log('selecting success');
+        const alert = await this.alertCtrl.create({
+          message: 'Successfully selecting the student',
+          buttons: [{ text: 'Ok', role: 'cancel' }],
+        })
+        await alert.present();
+      })
     })
-    console.log('selecting success');
+    
+    
   }
 
 
 
 
 
-  deselect_student(Email: string, Password: string, record) {
+async deselect_student( record) {
+
 console.log(record, 'what is record?');
-    const credential: firebase.auth.AuthCredential = firebase.auth.EmailAuthProvider.credential(
-      Email, Password
-    );
-    return this.currentUser
-      .reauthenticateWithCredential(credential)
-      .then(() => {
-        this.loadingCtrl.create({
+
+    return this.loadingCtrl.create({
           message: 'Deselecting Student, Please Wait'
         }).then((overlay) => {
           this.loading = overlay;
-          this.loading.present().then(() => {
+          this.loading.present().then(async () => {
             this.deselecting_student(record);
             this.loading.dismiss();
             console.log("Success Deselecting");
-
+            const alert = await this.alertCtrl.create({
+              message: 'Successfully deselect the student',
+              buttons: [{ text: 'Ok', role: 'cancel' }],
+            })
+            await alert.present();
           })
         })
-      })
   }
 
 
