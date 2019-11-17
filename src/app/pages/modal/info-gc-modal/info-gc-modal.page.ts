@@ -185,17 +185,22 @@ export class InfoGcModalPage implements OnInit {
 
 
   async onSubmit(value){
-    const toast = await this.toastCtrl.create({
+    // const toast = await this.toastCtrl.create({
+    //   message: 'Update successfully',
+    //   duration: 3000
+    // });
+    const alertupdate = this.alertCtrl.create({
       message: 'Update successfully',
-      duration: 3000
+      buttons: [{ text: 'Ok', role: 'cancel' }],
     });
 
     this.GcService.updateProfile(this.item.id, value)
     .then(
-      res => {
+      async res => {
         this.modalController.dismiss();
         this.router.navigate(["/info-gc"]);
-        toast.present();
+        (await alertupdate).present();
+        // toast.present();
       }
     )
   }

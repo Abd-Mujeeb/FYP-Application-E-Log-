@@ -133,6 +133,7 @@ export class GcService {
         email: value.email,
         contact_no: value.contact_no,
         school_dept: value.school_dept,
+        group_code: value.group_code,
       })
         .then(
           res => resolve(res),
