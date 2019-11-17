@@ -70,7 +70,7 @@ export class RegisterGcPage implements OnInit {
       ],
       password: [
         '',
-        Validators.compose([Validators.pattern("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&]).{8,}"), Validators.required, Validators.maxLength(30)]),
+        Validators.compose([Validators.pattern("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&.]).{8,}"), Validators.required, Validators.maxLength(30)]),
       ],
       contact_no: [
         '',

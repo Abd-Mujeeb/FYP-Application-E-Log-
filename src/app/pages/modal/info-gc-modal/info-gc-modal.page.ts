@@ -33,7 +33,20 @@ export class InfoGcModalPage implements OnInit {
   zone3: any;
   zone4: any;
 
-
+  error_messages = {
+    'contact_no': [
+      { type: 'required', message: 'This is required' },
+      { type: 'pattern', message: 'Invalid phone number' },
+    ],
+    'displayName': [
+      { type: 'required', message: 'This is required , name must be minimum of 5 characters.' },
+      { type: 'pattern', message: 'Invalid Name' },
+    ],
+    'email': [
+      { type: 'required', message: 'This is required' },
+      { type: 'pattern', message: 'Invalid Email' },
+    ],
+  }
   
   constructor(
     private navParams: NavParams,
