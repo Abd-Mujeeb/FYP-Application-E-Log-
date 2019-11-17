@@ -222,9 +222,12 @@ export class FirebaseService {
       let currentUser = firebase.auth().currentUser;
       if(percentage <= 85){
         status='fail'
+        percentage.toFixed(0);
       }else{
         status='pass'
+        percentage.toFixed(0);
       }
+      percentage.toFixed(0);
       this.afs.collection('users').doc(currentUser.uid).update({
         attendance: percentage, status
       })
