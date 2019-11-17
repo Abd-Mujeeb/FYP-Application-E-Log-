@@ -201,6 +201,28 @@ export class InfoGcModalPage implements OnInit {
   }
 
 async presentAlertConfirm(item){
+
+  const alertenterboth = this.alertCtrl.create({
+    message: 'Enter both email and password to confirm the deletion',
+    buttons: [{ text: 'Ok', role: 'cancel' }],
+  });
+
+  const alertemailpasswordnotsame = this.alertCtrl.create({
+    message: 'Email and Password is incorrect',
+    buttons: [{ text: 'Ok', role: 'cancel' }],
+  });
+
+   const alertemail = this.alertCtrl.create({
+    message: 'Email is incorrect',
+    buttons: [{ text: 'Ok', role: 'cancel' }],
+  });
+
+  
+  const alertpassword = this.alertCtrl.create({
+    message: 'Password is incorrect',
+    buttons: [{ text: 'Ok', role: 'cancel' }],
+  });
+
     const alert = await this.alertCtrl.create({
       subHeader: "Are you sure to delete this account?",
       inputs: [
@@ -222,25 +244,29 @@ async presentAlertConfirm(item){
         },
         {
           text: 'Delete',
-          handler: data => {
+          handler: async data => {
             if((data.email == "" ) && (data.password == "") 
             || (data.email == "") 
             || (data.password == "")) {
+              (await alertenterboth).present();
               this.presentToast("Enter Both To Confirm The Deletion")
               return false;
             } 
             else if((data.email != this.oldEmailDatabase) && (data.password != this.oldPasswordDatabase)) {
               console.log(data.email, this.oldEmailDatabase, 'email and password');
+              (await alertemailpasswordnotsame).present();
               this.presentToast("Email and Password is not same")
               return false;
             }
             else if(data.email != this.oldEmailDatabase) {
               console.log(data.email, this.oldEmailDatabase, 'email ');
+              (await alertemail).present();
               this.presentToast("Email is not same")
               return false;
             }
             else if(data.password != this.oldPasswordDatabase) {
               console.log(data.password, this.oldPasswordDatabase, 'password');
+              (await alertpassword).present();
               this.presentToast("Password is not same")
               return false;
             }
