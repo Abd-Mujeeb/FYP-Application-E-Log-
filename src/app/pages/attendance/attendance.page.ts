@@ -166,6 +166,7 @@ export class AttendancePage implements OnInit {
     var percentageAttendance = attendance
     console.log(percentageAttendance + "%")
     this.firebaseService.updatePercentange(percentageAttendance)
+    percentageAttendance.toFixed(0);
     })
     
   
