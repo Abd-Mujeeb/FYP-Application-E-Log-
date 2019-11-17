@@ -15,48 +15,26 @@
 
 <ion-content>
 
-  <!-- <ion-grid>
-    <ion-row>
-      <ion-col text-center>
-        <ion-button fill="solid" color="dark" routerLink="/attendance-gcstudent">
-          Student Attendances
-        </ion-button>
-        <ion-button fill="solid" color="dark" routerLink="/info-gcstudent">
-          Student Details
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid> -->
+  
+<br>
+<br>
+<br>
+  <h1 align="center"> IN THIS DASHBOARD <br><br>
+    You can see your student list and their attendances record</h1>
+  <br>
 
-  <h1>Student's Details</h1>
-  <table>
-    <tr  class="tarang">
-      <th>No.</th>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Phone No.</th>
-      <th>School Department</th>
-      <th>Group Code</th>
-      <th>Student ID</th>
-      <th>Attendance</th>
-    </tr>
-    <tr  *ngFor="let item of userProfile; let i = index">
-      <td>{{i+1}}.</td>
-      <td>{{item.name}}   <ion-button fill="outline" color="success" size="small" 
-        (click)="openPreview(item)">
-       More Details
-      </ion-button></td>
-      <td >{{item.email}}</td>
-      <td>{{item.phone_number}}</td>
-      <td>{{item.school_dept}}</td>
-      <td>{{item.group_code}}</td>
-      <td>{{item.student_id}}</td>
-      <td class="{{item.status}}">{{item.percentage}} %</td>
-     
-      
-    </tr>
-  </table>
+  <br>
+  <br>
+  <br>
+<div align="center">
 
-  <!-- <ion-button (click)='getDoc()'>Calculate Attendance</ion-button> -->
+
+  <button class="buttons" *ngFor="let item of groupcoordinator" (click)="showstudent(item)">
+    Show Student
+  </button>
+
+  <!-- <button class="buttons" routerLink="/pbsupervisor-attendance">Atttendance Report</button> -->
+</div>
+
 
 </ion-content>
