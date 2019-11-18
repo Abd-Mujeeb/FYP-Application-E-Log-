@@ -27,7 +27,7 @@
     </ion-row>
   </ion-grid> -->
   <div class="topleft">
-    <ion-searchbar  showCancelButton (ionInput)="filterList($event)"> <label id="colorwhite">Find Student: </label></ion-searchbar>
+    <ion-searchbar  showCancelButton (ionInput)="filterList($event)" placeholder="search by name, email, groupcode, school, id"> <label id="colorwhite">Find Student: </label></ion-searchbar>
   </div>
   <br>
   <br>
@@ -38,6 +38,7 @@
   <p id="sizess">Filter by: </p>
   <div>
     <button class="btn" type="radio" *ngFor="let item of groupcoordinator" (click)="filterByresult('pass' , item)">Pass</button>
+    <button class="btn" type="radio" *ngFor="let item of groupcoordinator" (click)="filterByresult('almost' , item)">Almost</button>
     <button class="btn" type="radio" *ngFor="let item of groupcoordinator" (click)="filterByresult('fail' , item)">Fail</button>
     <button class="btn" type="radio" (click)="filterByresult('All')" *ngIf="all">
       <em>All</em>
