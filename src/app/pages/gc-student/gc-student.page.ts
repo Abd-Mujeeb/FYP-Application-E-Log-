@@ -59,7 +59,7 @@ export class GcStudentPage implements OnInit {
       this.all = false;
       return this.ngOnInit();
  }else{
-   let currentUser = firebase.auth().currentUser;
+ 
   this.firestore.collection('users', ref => ref.where('group_code', '==', record.group_code).where('status', '==', status)).snapshotChanges().subscribe(data => {
  
     status = data['status']
@@ -177,9 +177,12 @@ export class GcStudentPage implements OnInit {
     }
 
     this.userProfile = this.userProfile.filter(currentlist => {
-      if (currentlist.name, currentlist.email && searchTerm) {
+      if (currentlist.name, currentlist.email, currentlist.school_dept, currentlist.group_code, currentlist.student_id && searchTerm) {
         if (currentlist.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
-          currentlist.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
+          currentlist.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+          currentlist.school_dept.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+          currentlist.group_code.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+          currentlist.student_id.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
           return true;
         }
         return false;
