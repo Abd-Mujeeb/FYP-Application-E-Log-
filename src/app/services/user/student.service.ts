@@ -121,11 +121,11 @@ export class StudentService {
   //     });
   // }
 
-  async updateNotif() {
-    await this.users_student.update({ notify: false });
-    console.log('jekking');
+  // async updateNotif() {
+  //   await this.users_student.update({ notify: false });
+  //   console.log('jekking');
 
-  }
+  // }
 
   async notifFalse() {
     await this.users_student.update({ notify: false });
