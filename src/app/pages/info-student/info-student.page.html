@@ -16,7 +16,7 @@
     
   <span class="search">Find Student: </span>
   <span class="search"><ion-searchbar showCancelButton (ionInput)="filterList($event)"
-    placeholder="Search by Name or PB Supervisor"> </ion-searchbar></span>
+    placeholder="Search by Name, Email, PB Supervisor"> </ion-searchbar></span>
  <br>
   <span><ion-label id="csv">Import Student : </ion-label></span>
 <span><ion-input type="file" accept=".csv" (change)="changeListener($event.target.files)"></ion-input></span>
@@ -61,9 +61,8 @@
       <td>{{item.school_dept}}</td>
       <td>{{item.group_code}}</td>
       <td>{{item.pbsupervisor}}</td>
-      <td>{{item.gc}}</td>
       <td>{{item.company}}</td>
-      <td>{{item.contactno}}</td>
+      <td>{{item.contact_no}}</td>
       <td>{{item.email}}</td>
       <td><ion-button  color="danger" (click)="presentAlertConfirm(item)"> Delete </ion-button></td>
       
