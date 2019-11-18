@@ -28,6 +28,19 @@ button{
 //       margin: 4px;
 //   }
 
+.bolder{
+  font-weight: bold;
+}
+
+span{
+  display: inline-block;
+ }
+ 
+ .search{
+     display: inline-block;
+     color: white; 
+ }
+ 
 td.editdeletebtn, th.editdeletebtn{
     text-align: right;
 }

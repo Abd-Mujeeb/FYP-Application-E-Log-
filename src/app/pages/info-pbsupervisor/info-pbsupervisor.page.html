@@ -14,9 +14,11 @@
 
 <ion-content padding>
 
-  <div class="topleft">
-    <ion-searchbar showCancelButton (ionInput)="filterList($event)"><label id="colorwhite"> Find PB Supervisor </label>
-    </ion-searchbar>
+
+      <span class="search">Find PB Supervisor: </span>
+  <span class="search"><ion-searchbar showCancelButton (ionInput)="filterList($event)"> </ion-searchbar></span>
+  <br>
+  <div>
     <div class="dropdown" style="float:left;">
       <button class="dropbtn">
         <ion-icon ios="ios-options" md="md-options"></ion-icon> Filter
@@ -49,11 +51,11 @@
   </div>
 
   <div class="topright">
-    <ion-button fill="solid" color="dark" routerLink="/register-pbsupervisor">
+    <ion-button class="bolder" fill="solid" color="light" routerLink="/register-pbsupervisor">
       Add
     </ion-button>
   </div>
-  <br><br><br><br><br>
+  <br><br>
 
   <br>
   <!-- https://stackblitz.com/edit/angularfire-db-api-fbad9p -->
