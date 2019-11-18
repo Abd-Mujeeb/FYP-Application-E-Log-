@@ -216,7 +216,7 @@ export class StudentService {
 
           this.loadingController.create({
             message: 'Please wait..',
-            duration: 3000,
+            duration: 2000,
             spinner: 'bubbles'
           }).then((res) => {
             res.present();

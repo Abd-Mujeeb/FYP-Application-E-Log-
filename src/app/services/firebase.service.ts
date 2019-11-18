@@ -181,8 +181,11 @@ export class FirebaseService {
   updatePercentange(percentage: number) {
     return new Promise<any>((resolve, reject) => {
       let currentUser = firebase.auth().currentUser;
-      if(percentage <= 85){
+      if(percentage <= 84){
         status='fail'
+        percentage.toFixed(0);
+      }else if(percentage >= 85 && percentage <= 87){
+        status='almost'
         percentage.toFixed(0);
       }else{
         status='pass'
