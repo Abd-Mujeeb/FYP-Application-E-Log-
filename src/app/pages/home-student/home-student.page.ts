@@ -91,7 +91,7 @@ export class HomeStudentPage implements OnInit {
   // })
 
   this.updateNotif();
-  this.setUser();
+  // this.setUser();
   this.notifCheck();
 
    
@@ -170,11 +170,11 @@ export class HomeStudentPage implements OnInit {
     }
   }
 
-  async setUser(){
-    await this.authservice.getUser();
+  // async setUser(){
+  //   await this.authservice.getUser();
 
-    this.currentUser = this.authservice.currentUser;  
-  }
+  //   this.currentUser = this.authservice.currentUser;  
+  // }
 
   password(formGroup: FormGroup) {
     const { value: newpassword } = formGroup.get('newpassword');
@@ -195,13 +195,13 @@ async updatePassword(): Promise<void> {
 }
 
 async updateNotif(): Promise<void> {
-await this.studentService.updateNotif().then(()=>
+// await this.studentService.updateNotif().then(()=>
   this.studentService
     .getUserProfileStudent()
     .get()
     .then( userProfileStudentSnapshot => {
       this.tst = userProfileStudentSnapshot.data()['notify'];
-    })); 
+    }); 
   // this.notify = false;
 }
 
