@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './services/user/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'splash', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   // { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   // { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
   // { path: 'notification', loadChildren: './notification/notification.module#NotificationPageModule' },
@@ -347,7 +347,8 @@ const routes: Routes = [
   { path: 'info-gc-modal', loadChildren: './pages/modal/info-gc-modal/info-gc-modal.module#InfoGcModalPageModule' },
   { path: 'splash', loadChildren: './pages/splash/splash.module#SplashPageModule' },
   { path: 'select-date', loadChildren: './pages/select-date/select-date.module#SelectDatePageModule' },
-  { path: 'student-attendance-pbsupervisor', loadChildren: './pages/student-attendance-pbsupervisor/student-attendance-pbsupervisor.module#StudentAttendancePbsupervisorPageModule' },  { path: 'gc-student', loadChildren: './pages/gc-student/gc-student.module#GcStudentPageModule' },
+  { path: 'student-attendance-pbsupervisor', loadChildren: './pages/student-attendance-pbsupervisor/student-attendance-pbsupervisor.module#StudentAttendancePbsupervisorPageModule' },
+  { path: 'gc-student', loadChildren: './pages/gc-student/gc-student.module#GcStudentPageModule' },
 
 
 

@@ -5,10 +5,13 @@
              </ion-button>
       <ion-title>Profile Page</ion-title>
       <ion-buttons slot="end">
-        <ion-button (click)="logOut()">
-          <ion-icon slot="icon-only" name="log-out" color="danger"></ion-icon>
+        <div>
+        <ion-button (click)="logOut()" id="some-div"  title="Log Out">
+          <ion-icon slot="icon-only" name="log-out" color="danger" ></ion-icon>
+          
         </ion-button>
-      </ion-buttons>
+      </div>
+       </ion-buttons>
     </ion-toolbar>
   </ion-header>
 
