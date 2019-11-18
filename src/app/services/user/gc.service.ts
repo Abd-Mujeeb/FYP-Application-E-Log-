@@ -187,7 +187,7 @@ export class GcService {
   read_gcstudent(record) {
     let gcode = record;
     console.log(gcode, 'what is gcode?')
-    return this.firestore.collection('users', ref => ref.where('group_code', '==', gcode).where('role', '==', 'student')).snapshotChanges();
+    return this.firestore.collection('users', ref => ref.where('group_code', '==', gcode).where('role', '==', 'student').orderBy('attendance', 'asc')).snapshotChanges();
 
   }
 

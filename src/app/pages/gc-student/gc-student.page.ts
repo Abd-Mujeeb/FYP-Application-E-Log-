@@ -99,13 +99,6 @@ export class GcStudentPage implements OnInit {
       console.log(this.groupcoordinator);
     });
 
-    this.gcService
-      .getUserProfileGc()
-      .get()
-      .then(userProfileAdminSnapshot => {
-        this.pw = userProfileAdminSnapshot.data()['password'];
-        console.log(this.pw)
-      });
 
     if (this.authService.userDetails()) {
       this.name = this.authService.userDetails().displayName;
@@ -141,7 +134,7 @@ export class GcStudentPage implements OnInit {
   
       let i;
       for (i = 0; i < this.userProfile.length; i++) {
-        this.userProfile[i].percentage.toFixed(0);
+        this.userProfile[i].percentage.toFixed(2);
         console.log(this.userProfile[i].percentage)
       }
   
