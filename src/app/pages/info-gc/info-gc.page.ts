@@ -98,8 +98,8 @@ export class InfoGcPage implements OnInit {
     }
 
     this.userProfile = this.userProfile.filter(currentlist => {
-      if (currentlist.name, currentlist.email && searchTerm){
-        if (currentlist.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+      if (currentlist.displayName, currentlist.email && searchTerm){
+        if (currentlist.displayName.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
         currentlist.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1){
           return true;
         }
