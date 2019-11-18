@@ -3,7 +3,7 @@
     <ion-title>Admin Dashboard</ion-title>
 
     <ion-buttons slot="end"> Log in as Admin: {{name}}
-      <ion-button routerLink="/profile-admin">
+      <ion-button routerLink="/profile-admin" title="Profile">
         <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
     </ion-button>
   </ion-buttons>
@@ -11,9 +11,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
 
-    <ion-grid>
+    <!-- <ion-grid>
         <ion-row>
           <ion-col text-center>
               <ion-button fill="solid" color="dark"  routerLink="/info-admin">
@@ -27,7 +27,7 @@
                 Pb Supervisor Details
               </ion-button>
           </ion-col>
-        </ion-row>
+        </ion-row> -->
         <!-- <ion-row>
             <ion-col text-center>
                 <ion-button fill="solid" color="dark"  routerLink="/info-isupervisor"> 
@@ -35,7 +35,7 @@
                 </ion-button>
             </ion-col>
           </ion-row> -->
-          <ion-row>
+          <!-- <ion-row>
               <ion-col text-center>
                   <ion-button fill="solid" color="dark"  routerLink="/info-gc">
                     Group Coordinator Details
@@ -59,20 +59,36 @@
 
         
       </ion-grid>
-  
+   -->
     
-<!-- <table padding>
-     <tr>
-       <td routerLink="/info-pbsupervisor">PB Supervisor</td>
-       <td routerLink="/info-gc">Group Coordinator</td>
-     </tr>
+   <ion-grid class="center" padding>
+     <ion-row>
+       <ion-col class="button pb" routerLink="/info-pbsupervisor">
+        <p class="text" padding>Pb Supervisor</p>
+      </ion-col>
+       <ion-col class="button gc" routerLink="/info-gc">
+        <p class="text" padding>Group Coordinator</p></ion-col>
+        <ion-col class="block" routerLink="/info-student">
+          <p class="text" padding>Student</p> </ion-col>
+     </ion-row>
+   </ion-grid>
 
-     <tr>
-       <td colspan="2" routerLink="/info-student">Student</td>
-     </tr>
 
-    </table> -->
-    
+<!-- 
+  <div class="center"padding>
+    <div class="box">
+  <div class="button pb" routerLink="/info-pbsupervisor"> 
+        <p class="text">Pb Supervisor</p>
+  </div>
+  <div class="button gc" routerLink="/info-gc">
+    <p class="text">Group Coordinator</p></div>
+  </div>
+
+  <div class="block" routerLink="/info-student">Student</div>
+     
+
+</div>
+     -->
 
     
   

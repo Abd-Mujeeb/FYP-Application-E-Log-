@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/home-gc"></ion-back-button>
+        </ion-buttons>
+    <ion-title>Group Coordinator Student Details</ion-title>
+    <ion-buttons slot="end"> Log in as GC: {{name}}
+      <ion-button routerLink="/profile-gc">
+        <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <!-- <ion-grid>
+    <ion-row>
+      <ion-col text-center>
+        <ion-button fill="solid" color="dark" routerLink="/attendance-gcstudent">
+          Student Attendances
+        </ion-button>
+        <ion-button fill="solid" color="dark" routerLink="/info-gcstudent">
+          Student Details
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+  <div class="topleft">
+    <ion-searchbar  showCancelButton (ionInput)="filterList($event)" placeholder="search by name, email, groupcode, school, id"> <label id="colorwhite">Find Student: </label></ion-searchbar>
+  </div>
+  <br>
+  <br>
+
+  <!-- <h1>Student's Details</h1> -->
+<br>
+<br>
+  <p id="sizess">Filter by: </p>
+  <div>
+    <button class="btn" type="radio" *ngFor="let item of groupcoordinator" (click)="filterByresult('pass' , item)">Pass</button>
+    <button class="btn" type="radio" *ngFor="let item of groupcoordinator" (click)="filterByresult('almost' , item)">Almost</button>
+    <button class="btn" type="radio" *ngFor="let item of groupcoordinator" (click)="filterByresult('fail' , item)">Fail</button>
+    <button class="btn" type="radio" (click)="filterByresult('All')" *ngIf="all">
+      <em>All</em>
+    </button>
+  </div>
+ 
+<br>
+
+  <table>
+    <tr  class="tarang">
+      <th>No.</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone No.</th>
+      <th>School Department</th>
+      <th>Group Code</th>
+      <th>Student ID</th>
+      <th>Attendance</th>
+    </tr>
+    <tr  *ngFor="let item of userProfile; let i = index">
+      <td>{{i+1}}.</td>
+      <td>{{item.name}} <br>   <ion-button fill="outline" color="success" size="small" 
+        (click)="openPreview(item)">
+       More Details
+      </ion-button></td>
+      <td >{{item.email}}</td>
+      <td>{{item.phone_number}}</td>
+      <td>{{item.school_dept}}</td>
+      <td>{{item.group_code}}</td>
+      <td>{{item.student_id}}</td>
+      <td class="{{item.status}}">{{item.percentage}} %</td>
+     
+      
+    </tr>
+  </table>
+
+  <!-- <ion-button (click)='getDoc()'>Calculate Attendance</ion-button> -->
+
+</ion-content>

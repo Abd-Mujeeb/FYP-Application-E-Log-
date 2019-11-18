@@ -4,7 +4,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import { AuthService } from './auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AlertController, ToastController, LoadingController } from '@ionic/angular';
+import { AlertController, ToastController, LoadingController, AngularDelegate } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,7 @@ export class GcService {
   public currentUser: firebase.User;
   public loading: HTMLIonLoadingElement;
   toast: any;
+  public groupcode: any;
 
   constructor(private firestore: AngularFirestore,
     private alertCtrl: AlertController,
@@ -174,12 +175,19 @@ export class GcService {
     return this.firestore.collection('users', ref => ref.where('role', '==', 'gc')).snapshotChanges();
   }
 
+  read_currentgc() {
+    let currentUser = firebase.auth().currentUser;
+    return this.firestore.collection('users', ref => ref.where(firebase.firestore.FieldPath.documentId(), '==', currentUser.uid)).snapshotChanges();
+  }
+
   delete_gc(record_id) {
     this.firestore.doc('users/' + record_id).delete();
   }
 
-  read_gcstudent() {
-    return this.firestore.collection('users', ref => ref.where('gc', '==', this.currentUser.displayName)).snapshotChanges();
+  read_gcstudent(record) {
+    let gcode = record;
+    console.log(gcode, 'what is gcode?')
+    return this.firestore.collection('users', ref => ref.where('group_code', '==', gcode).where('role', '==', 'student').orderBy('attendance', 'asc')).snapshotChanges();
 
   }
 

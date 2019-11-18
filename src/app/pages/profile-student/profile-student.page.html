@@ -5,10 +5,13 @@
              </ion-button>
       <ion-title>Profile Page</ion-title>
       <ion-buttons slot="end">
-        <ion-button (click)="logOut()">
-          <ion-icon slot="icon-only" name="log-out" color="danger"></ion-icon>
+        <div>
+        <ion-button (click)="logOut()" id="some-div"  title="Log Out">
+          <ion-icon slot="icon-only" name="log-out" color="danger" ></ion-icon>
+          
         </ion-button>
-      </ion-buttons>
+      </div>
+       </ion-buttons>
     </ion-toolbar>
   </ion-header>
 
@@ -162,7 +165,7 @@
                       <ion-item>
                           <ion-input
                             formControlName="contact_no"
-                            type="number"
+                            type="tel"
                             placeholder="Contact Number"
                             [class.invalid]="!signupForm.controls['contact_no'].valid && signupForm.controls['contact_no'].touched"
                            [(ngModel)]="no"

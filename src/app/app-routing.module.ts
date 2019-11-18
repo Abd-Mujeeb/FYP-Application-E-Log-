@@ -348,6 +348,8 @@ const routes: Routes = [
   { path: 'splash', loadChildren: './pages/splash/splash.module#SplashPageModule' },
   { path: 'select-date', loadChildren: './pages/select-date/select-date.module#SelectDatePageModule' },
   { path: 'student-attendance-pbsupervisor', loadChildren: './pages/student-attendance-pbsupervisor/student-attendance-pbsupervisor.module#StudentAttendancePbsupervisorPageModule' },
+  { path: 'gc-student', loadChildren: './pages/gc-student/gc-student.module#GcStudentPageModule' },
+
 
 
 

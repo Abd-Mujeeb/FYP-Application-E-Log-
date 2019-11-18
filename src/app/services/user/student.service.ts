@@ -216,7 +216,7 @@ export class StudentService {
 
           this.loadingController.create({
             message: 'Please wait..',
-            duration: 3000,
+            duration: 2000,
             spinner: 'bubbles'
           }).then((res) => {
             res.present();
@@ -271,7 +271,7 @@ export class StudentService {
   }
 
   read_pbsupervisor_student() {
-    return this.firestore.collection('users', ref => ref.where('role', '==', 'student').where('pbsupervisor', '==', '')).snapshotChanges();
+    return this.firestore.collection('users', ref => ref.where('role', '==', 'student').where('pbsupervisor', '==', 'NA')).snapshotChanges();
 
   }
 
@@ -316,6 +316,11 @@ export class StudentService {
 
   delete_student(record_id) {
 
+    const alertsuccessdelete = this.alertCtrl.create({
+      message: 'Successfully Deleted Student',
+      buttons: [{ text: 'Ok', role: 'cancel' }],
+    })
+
     this.student_id = record_id.id;
     this.deleteusers = firebase.firestore().doc(`users/${this.student_id}`)
 
@@ -327,10 +332,11 @@ export class StudentService {
         this.deletetasks().then(() => {
           this.deleteattendance().then(() => {
             this.deleteattendancepresent().then(() => {
-              this.deleteusers.delete().then(() => {
+              this.deleteusers.delete().then(async () => {
                 console.log(this.deleteusers, 'apakan ni?')
                 this.loading.dismiss();
-                console.log("Success Delete")
+                console.log("Success Delete");
+                (await alertsuccessdelete).present();
               })
             })
           })
@@ -374,7 +380,7 @@ export class StudentService {
 
   deleteattendancepresent() {
     const db = firebase.firestore()
-    var collectionPath = `/users/${this.student_id}/attendance/${'months'}/present`
+    var collectionPath = `/users/${this.student_id}/attendance/${'month'}/present`
     this.deleteCollection(db, collectionPath)
     return new Promise((resolve, reject) => {
       this.throwAwayPresent(resolve, reject);

@@ -15,7 +15,8 @@
 <ion-content padding>
     
   <span class="search">Find Student: </span>
-  <span class="search"><ion-searchbar showCancelButton (ionInput)="filterList($event)"> </ion-searchbar></span>
+  <span class="search"><ion-searchbar showCancelButton (ionInput)="filterList($event)"
+    placeholder="Search by Name or PB Supervisor"> </ion-searchbar></span>
  <br>
   <span><ion-label id="csv">Import Student : </ion-label></span>
 <span><ion-input type="file" accept=".csv" (change)="changeListener($event.target.files)"></ion-input></span>

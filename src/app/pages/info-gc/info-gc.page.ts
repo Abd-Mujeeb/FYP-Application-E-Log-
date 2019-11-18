@@ -26,6 +26,52 @@ export class InfoGcPage implements OnInit {
     private modalController: ModalController,
   ) { }
 
+  filterByNameAscending() {
+
+    this.firestore.collection('users', ref => ref.where('role', '==', 'gc').orderBy('displayName', 'asc')).snapshotChanges().subscribe(data => {
+      this.userProfile = data.map(e => {
+           return {
+            id: e.payload.doc.id,
+            isEdit: false,
+            displayName: e.payload.doc.data()['displayName'],
+            email: e.payload.doc.data()['email'],
+            school_dept: e.payload.doc.data()['school_dept'],
+            group_code: e.payload.doc.data()['group_code'],
+            contact_no: e.payload.doc.data()['contact_no'],
+    
+    
+        };
+      })
+      console.log(this.userProfile);
+    this.loadeduserProfile = this.userProfile;
+    this.all = true;
+    
+    });
+  }
+
+  filterByNameDescending() {
+
+    this.firestore.collection('users', ref => ref.where('role', '==', 'gc').orderBy('displayName', 'desc')).snapshotChanges().subscribe(data => {
+      this.userProfile = data.map(e => {
+           return {
+            id: e.payload.doc.id,
+            isEdit: false,
+            displayName: e.payload.doc.data()['displayName'],
+            email: e.payload.doc.data()['email'],
+            school_dept: e.payload.doc.data()['school_dept'],
+            group_code: e.payload.doc.data()['group_code'],
+            contact_no: e.payload.doc.data()['contact_no'],
+    
+    
+        };
+      })
+      console.log(this.userProfile);
+    this.loadeduserProfile = this.userProfile;
+    this.all = true;
+    
+    });
+  }
+
   filterByschool_dept(school_dept: string|null) {
     if(school_dept == 'All'){
       this.all = false;
@@ -98,8 +144,8 @@ export class InfoGcPage implements OnInit {
     }
 
     this.userProfile = this.userProfile.filter(currentlist => {
-      if (currentlist.name, currentlist.email && searchTerm){
-        if (currentlist.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+      if (currentlist.displayName, currentlist.email && searchTerm){
+        if (currentlist.displayName.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
         currentlist.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1){
           return true;
         }

@@ -35,6 +35,14 @@
     height: auto;
     animation: animation 3100ms linear infinite both;
     animation-delay: 1s;
+
+  }
+
+  .center{
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
   }
 
   @keyframes pulse {
@@ -135,5 +143,8 @@
     89.32% { -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -49.997, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -49.997, 0, 0, 1); }
     100% { -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -50, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -50, 0, 0, 1); } 
   }
+
+
+
   
   
