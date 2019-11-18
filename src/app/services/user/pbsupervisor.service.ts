@@ -157,6 +157,11 @@ export class PbsupervisorService {
     return this.firestore.collection('users', ref => ref.where('role', '==', 'pbsupervisor')).snapshotChanges();
   }
 
+  read_currentpbsupervisor(){
+    let currentUser = firebase.auth().currentUser;
+    return this.firestore.collection('users', ref => ref.where(firebase.firestore.FieldPath.documentId(), '==', currentUser.uid)).snapshotChanges();
+  }
+
   read_specific_pbsupervisor(nyummy){
     console.log(nyummy, 'ani step 4');
     return this.firestore.collection('users', ref => ref.where(firebase.firestore.FieldPath.documentId(), '==', nyummy)).snapshotChanges();
@@ -279,7 +284,7 @@ console.log(record, 'what is record?');
   deselecting_student(recordID) {
     console.log(recordID, 'part 3')
     this.firestore.collection('users').doc(recordID.id).update({
-      pbsupervisor: '',
+      pbsupervisor: 'NA',
 
     })
     console.log('deselecting success');

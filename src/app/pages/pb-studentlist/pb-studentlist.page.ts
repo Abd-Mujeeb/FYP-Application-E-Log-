@@ -6,7 +6,7 @@ import { AuthService } from 'src/app/services/user/auth.service';
 import { Router } from '@angular/router';
 import { StudentTaskPage } from '../student-task/student-task.page';
 import { PbStudentlistModalPage } from '../pb-studentlist-modal/pb-studentlist-modal.page';
-
+import * as firebase from 'firebase/app';
 @Component({
   selector: 'app-pb-studentlist',
   templateUrl: './pb-studentlist.page.html',
@@ -22,12 +22,13 @@ export class PbStudentlistPage implements OnInit {
   school_dept: string;
   contact_no: number;
   email: string;
-
+  public all: boolean = false;
   public buttonClicked: boolean = false; //Whatever you want to initialise it as
   gc: any;
   studentId: any;
   user: any;
-  
+  pbsupervisor: any [];
+
  public onButtonClick() {
 
     this.buttonClicked = !this.buttonClicked;
@@ -43,6 +44,42 @@ export class PbStudentlistPage implements OnInit {
     private authService: AuthService,
     private modalController: ModalController,
   ) { }
+
+  filterByresult(status: string|null ) {
+    console.log(status, 'whats is this?')
+    if(status == 'All'){
+      this.all = false;
+      return this.ngOnInit();
+ }else{
+ let currentUser = firebase.auth().currentUser;
+  this.firestore.collection('users', ref => ref.where('pbsupervisor', '==', currentUser.displayName).where('status', '==', status)).snapshotChanges().subscribe(data => {
+ 
+    status = data['status']
+    this.userProfile = data.map(e => {
+      return {
+        id: e.payload.doc.id,
+        isEdit: false,
+        name: e.payload.doc.data()['displayName'],
+        email: e.payload.doc.data()['email'],
+        company: e.payload.doc.data()['company'],
+        group_code: e.payload.doc.data()['group_code'],
+        school_dept: e.payload.doc.data()['school_dept'],
+        contact_no: e.payload.doc.data()['contact_no'],
+        student_id: e.payload.doc.data()['student_id'],
+        percentage: e.payload.doc.data()['attendance'],
+        status: e.payload.doc.data()['status']
+  
+  
+      };
+    })
+    console.log(this.userProfile);
+  this.loadeduserProfile = this.userProfile;
+  this.all = true;
+  
+  });
+ }
+}
+
 
   ngOnInit() {
 

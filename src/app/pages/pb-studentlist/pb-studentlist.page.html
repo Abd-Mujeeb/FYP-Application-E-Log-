@@ -14,9 +14,21 @@
 
 <ion-content>
     <div class="search">
-        <ion-searchbar showCancelButton (ionInput)="filterList($event)"> Find Student </ion-searchbar>
+        <ion-searchbar showCancelButton (ionInput)="filterList($event)" placeholder="search by name and email"> Find Student </ion-searchbar>
       </div>
     <br>
+    <br>
+  <p id="sizess">Filter by: </p>
+  <div>
+    <button class="btn" type="radio" (click)="filterByresult('pass' , item)">Pass</button>
+    <button class="btn" type="radio" (click)="filterByresult('almost' , item)">Almost</button>
+    <button class="btn" type="radio" (click)="filterByresult('fail' , item)">Fail</button>
+    <button class="btn" type="radio" (click)="filterByresult('All')" *ngIf="all">
+      <em>All</em>
+    </button>
+  </div>
+ 
+<br>
     <br>
 <div  *ngIf="userProfile">
   <table *ngIf="userProfile.length > 0">
@@ -44,6 +56,6 @@
     </tr>
   </table>
   <br>
-  <div *ngIf="userProfile.length == 0"  class="empty-list">There are no student under your supervised, Please select first. </div>
+  <div *ngIf="userProfile.length == 0"  class="empty-list">There are no student under your supervised or there are no student pass, fail or almost fail. </div>
 </div>
 </ion-content>

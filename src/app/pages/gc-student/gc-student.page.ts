@@ -59,7 +59,7 @@ export class GcStudentPage implements OnInit {
       this.all = false;
       return this.ngOnInit();
  }else{
-   let currentUser = firebase.auth().currentUser;
+ 
   this.firestore.collection('users', ref => ref.where('group_code', '==', record.group_code).where('status', '==', status)).snapshotChanges().subscribe(data => {
  
     status = data['status']
