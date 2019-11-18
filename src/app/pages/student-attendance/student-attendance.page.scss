@@ -5,3 +5,29 @@ ion-card-subtitle{
 ion-card{
     --background: white;
 }
+
+
+table {
+    font-family: arial, sans-serif;
+    width: 100%;
+    color: black;
+    background-color: white ;
+    
+  }
+  .headercolor{
+background-color: grey;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  #fontcolor{
+    color: rgb(0, 0, 0);
+  }
+
+  #colorwhite{
+    color: white;
+  }

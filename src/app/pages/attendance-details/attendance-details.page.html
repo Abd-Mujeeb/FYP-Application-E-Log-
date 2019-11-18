@@ -8,7 +8,7 @@
         <ion-icon slot="icon-only" name="add"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>attendance-details</ion-title>
+    <ion-title>Attendance Details</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -45,16 +45,16 @@
               </ion-card-subtitle> -->
               
               <!-- time in -->
-              <ion-card-title>{{  item.timeinstamp?.toDate() | date: 'MMM dd, yyyy' }}</ion-card-title>
+              <ion-card-title>{{  item.timeinstamp?.toDate() | date: 'dd MMMM yyyy' }}</ion-card-title>
               <ion-card-subtitle>Time in: {{  item.timeinstamp?.toDate() | date: 'h:mm a' }}</ion-card-subtitle>
-              <ion-card-subtitle>Address: {{  item.address  }}</ion-card-subtitle>
-              <ion-card-subtitle>(coordinates: {{item.geoLatitude}},{{item.geoLongitude}})</ion-card-subtitle>
+              <!-- <ion-card-subtitle>Address: {{  item.address  }}</ion-card-subtitle>
+              <ion-card-subtitle>(coordinates: {{item.geoLatitude}},{{item.geoLongitude}})</ion-card-subtitle> -->
 
               <!-- time out -->
-              <ion-card-subtitle>{{  item.timeoutstamp?.toDate() | date: 'MMM dd, yyyy' }}</ion-card-subtitle>
-              <ion-card-subtitle >Time out: {{  item.timeoutstamp?.toDate() | date: 'h:mm a' }}</ion-card-subtitle>
-              <ion-card-subtitle>Address: {{  item.timeoutaddress }}</ion-card-subtitle>
-              <ion-card-subtitle>(coordinates: {{item.timeoutLatitude}},{{item.timeoutLongitude}})</ion-card-subtitle>
+              <!-- <ion-card-subtitle>Date time out: {{  item.timeoutstamp?.toDate() | date: 'dd MMMM yyyy' }}</ion-card-subtitle> -->
+              <ion-card-subtitle>Time out: {{  item.timeoutstamp?.toDate() | date: 'h:mm a' }}</ion-card-subtitle>
+              <!-- <ion-card-subtitle>Address: {{  item.timeoutaddress }}</ion-card-subtitle>
+              <ion-card-subtitle>(coordinates: {{item.timeoutLatitude}},{{item.timeoutLongitude}})</ion-card-subtitle> -->
             </ion-label>
             <ion-button fill="clear" slot="end"> Time Out </ion-button>
 

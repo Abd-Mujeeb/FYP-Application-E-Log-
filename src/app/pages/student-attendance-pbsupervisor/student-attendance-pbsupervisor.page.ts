@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentService } from 'src/app/services/user/student.service';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/services/user/auth.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-student-attendance-pbsupervisor',
@@ -13,14 +15,22 @@ export class StudentAttendancePbsupervisorPage implements OnInit {
 
   record: any;
   private sub: any;
-
+  displayName: string;
   
   constructor(  
     private studentService: StudentService,
     private route: ActivatedRoute,
+    private authService: AuthService,
+    private navCtrl: NavController,
     ) { }
 
   ngOnInit() {
+
+    if(this.authService.userDetails()){
+      this.displayName = this.authService.userDetails().displayName;
+    } else {
+      this.navCtrl.navigateBack('');
+    }
 
     this.sub = this.route.params.subscribe(params => {
       this.record = params['id'];
@@ -40,6 +50,7 @@ export class StudentAttendancePbsupervisorPage implements OnInit {
           timeoutstamp: e.payload.doc.data()['timeoutstamp'],
           geoLatitude: e.payload.doc.data()['geoLatitude'],
           geoLongitude: e.payload.doc.data()['geoLongitude'],
+          timeoutaddress: e.payload.doc.data()['timeoutaddress'],
           timeoutLatitude: e.payload.doc.data()['timeoutLatitude'],
           timeoutLongitude: e.payload.doc.data()['timeoutLongitude'],
          
