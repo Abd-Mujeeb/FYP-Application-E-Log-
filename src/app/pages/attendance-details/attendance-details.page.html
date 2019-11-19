@@ -15,7 +15,7 @@
 <ion-content>
 
 
-  <ion-searchbar showCancelButton (ionInput)="filterList($event)" placeholder="Search address">
+  <ion-searchbar showCancelButton (ionInput)="filterList($event)" placeholder="Search Address">
   </ion-searchbar>
 
   <!-- <ion-card *ngFor="let item of attendancelist" [routerLink]="['/attendance-view', item.id]">
@@ -46,9 +46,9 @@
               
               <!-- time in -->
               <ion-card-title>{{  item.timeinstamp?.toDate() | date: 'dd MMMM yyyy' }}</ion-card-title>
+              <ion-card-subtitle>Address: {{  item.address  }}</ion-card-subtitle>
               <ion-card-subtitle>Time in: {{  item.timeinstamp?.toDate() | date: 'h:mm a' }}</ion-card-subtitle>
-              <!-- <ion-card-subtitle>Address: {{  item.address  }}</ion-card-subtitle>
-              <ion-card-subtitle>(coordinates: {{item.geoLatitude}},{{item.geoLongitude}})</ion-card-subtitle> -->
+              <!-- <ion-card-subtitle>(coordinates: {{item.geoLatitude}},{{item.geoLongitude}})</ion-card-subtitle> -->
 
               <!-- time out -->
               <!-- <ion-card-subtitle>Date time out: {{  item.timeoutstamp?.toDate() | date: 'dd MMMM yyyy' }}</ion-card-subtitle> -->
