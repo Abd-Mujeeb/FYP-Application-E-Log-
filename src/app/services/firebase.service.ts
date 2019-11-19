@@ -157,7 +157,7 @@ export class FirebaseService {
 
   readAttendance(){
     let currentUser = firebase.auth().currentUser;
-    return this.afs.collection('users').doc(currentUser.uid).collection('attendance').doc('month').collection('present').snapshotChanges();
+    return this.afs.collection('users').doc(currentUser.uid).collection('attendance').doc('month').collection('present', ref => ref.orderBy('timeinstamp' , 'desc')).snapshotChanges();
   }
 
 
