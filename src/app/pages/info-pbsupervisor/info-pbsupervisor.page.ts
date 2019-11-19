@@ -176,9 +176,11 @@ filterByNameDescending() {
     }
 
     this.userProfile = this.userProfile.filter(currentlist => {
-      if (currentlist.displayName, currentlist.email && searchTerm){
+      if (currentlist.displayName, currentlist.email, currentlist.school_dept, currentlist.contact_no && searchTerm){
         if (currentlist.displayName.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
-        currentlist.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1){
+        currentlist.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+        currentlist.school_dept.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+        currentlist.contact_no.toString().indexOf(searchTerm.toString()) > -1){
           return true;
         }
         return false;

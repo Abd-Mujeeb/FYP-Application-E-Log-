@@ -100,12 +100,9 @@ export class InfoStudentPage implements OnInit {
           group_code: e.payload.doc.data()['group_code'],
           student_id: e.payload.doc.data()['student_id'],
           company: e.payload.doc.data()['company'],
-          gc: e.payload.doc.data()['gc'],
           pbsupervisor: e.payload.doc.data()['pbsupervisor'],
-          contactno: e.payload.doc.data()['contactno'],
-          role: e.payload.doc.data()['role'],
-
-
+          contact_no: e.payload.doc.data()['contact_no'],
+          
         };
       })
       console.log(this.student);
@@ -129,14 +126,15 @@ export class InfoStudentPage implements OnInit {
     }
 
     this.student = this.student.filter(currentlist => {
-      if (currentlist.name, currentlist.email, currentlist.school_dept, currentlist.group_code, currentlist.student_id, currentlist.company, currentlist.pbsupervisor && searchTerm){
+      if (currentlist.name, currentlist.email, currentlist.school_dept, currentlist.group_code, currentlist.student_id, currentlist.company, currentlist.pbsupervisor, currentlist.contact_no && searchTerm){
         if (currentlist.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
         currentlist.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
         currentlist.school_dept.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
         currentlist.group_code.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
         currentlist.student_id.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
         currentlist.company.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
-        currentlist.pbsupervisor.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1){
+        currentlist.pbsupervisor.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+        currentlist.contact_no.toString().indexOf(searchTerm.toString()) > -1){
           return true;
         }
         return false;
