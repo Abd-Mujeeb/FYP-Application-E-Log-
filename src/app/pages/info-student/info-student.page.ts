@@ -221,18 +221,18 @@ export class InfoStudentPage implements OnInit {
       try{
     
       const number: string = result.data[i].number;
-      const displayName: string = result.data[i].displayName;
       const name: string = result.data[i].name;
       const email: string = result.data[i].email;
       const school_dept: string = result.data[i].school_dept;
       const group_code: string = result.data[i].group_code;
       const student_id: string = result.data[i].student_id;
-      const gc: string = result.data[i].gc;
+      const contact_no: string = result.data[i].contact_no;
       const company: string = result.data[i].company;
       const password: string = result.data[i].password;
+     
     
  
-    await this.authService.csvstudent( number, displayName, name, email, school_dept, group_code, student_id, gc, company, password);
+    await this.authService.csvstudent( number, name, email, school_dept, group_code, student_id, company, contact_no, password);
   }catch{
     console.log('no more data');
 

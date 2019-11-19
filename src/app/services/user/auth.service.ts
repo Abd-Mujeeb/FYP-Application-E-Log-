@@ -114,21 +114,20 @@ export class AuthService {
   }
 
   csvstudent(number: string,
-    displayName: string,
     name: string,
     email: string,
     school_dept: string,
     group_code: string,
     student_id: string,
-    gc: string,
     company: string,
+    contact_no: string,
     password: string): Promise<any> {
     return secondaryApp.auth().createUserWithEmailAndPassword(email, password)
       .then((newUserCredential: firebase.auth.UserCredential) => {
         firebase
           .firestore()
           .doc(`/users/${newUserCredential.user.uid}`)
-          .set({ number, displayName, name, email, school_dept, group_code, student_id, gc, company, password, role: 'student', change: true, pbsupervisor: 'N/A', notify: false });
+          .set({ number, displayName: name, name, email, school_dept, group_code, student_id, company, contact_no, password, role: 'student', change: true, pbsupervisor: 'N/A', notify: true });
         console.log("users " + newUserCredential.user.email + " created successfully!");
         secondaryApp.auth().signOut();
       }).catch(error => {
