@@ -284,7 +284,7 @@ console.log(record, 'what is record?');
   deselecting_student(recordID) {
     console.log(recordID, 'part 3')
     this.firestore.collection('users').doc(recordID.id).update({
-      pbsupervisor: 'NA',
+      pbsupervisor: 'N/A',
 
     })
     console.log('deselecting success');
